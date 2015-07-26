@@ -11,9 +11,12 @@ Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](http
 <img src="inst/termco_logo/r_termco.png" width="200" alt="qdapRegex Logo">
 
 **termco** is A small suite of functions used to count terms and
-substrings in strings. The package wrapsthe **data.table** and
-**stringi** package to creat fast data frame counts of regular
-expression terms and substrings.
+substrings in strings. The package wraps the
+[**data.table**](https://cran.r-project.org/web/packages/data.table/index.html)
+and
+[**stringi**](https://cran.r-project.org/web/packages/stringi/index.html)
+packages to creat fast data frame counts of regular expression terms and
+substrings.
 
 
 Table of Contents
