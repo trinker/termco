@@ -15,8 +15,8 @@ substrings in strings. The package wraps the
 [**data.table**](https://cran.r-project.org/web/packages/data.table/index.html)
 and
 [**stringi**](https://cran.r-project.org/web/packages/stringi/index.html)
-packages to creat fast data frame counts of regular expression terms and
-substrings.
+packages to create fast data frame counts of regular expression terms
+and substrings.
 
 
 Table of Contents
@@ -57,6 +57,13 @@ The following examples demonstrate some of the functionality of
 **termco**.
 
     library(termco); library(qdapRegex)
+
+    ## 
+    ## Attaching package: 'termco'
+    ## 
+    ## The following object is masked from 'package:qdap':
+    ## 
+    ##     weight
 
     data(pres_debates2012)
 
