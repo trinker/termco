@@ -1,6 +1,6 @@
 #' Regular Expression Counts of Terms and Substrings
 #'
-#' A small suite of functions use to count terms and substrings in strings.
+#' A small suite of functions used to count terms and substrings in strings.
 #' @docType package
 #' @name termco
 #' @aliases termco package-termco

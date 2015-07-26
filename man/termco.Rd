@@ -7,6 +7,6 @@
 \alias{termco-package}
 \title{Regular Expression Counts of Terms and Substrings}
 \description{
-A small suite of functions use to count terms and substrings in strings.
+A small suite of functions used to count terms and substrings in strings.
 }
 
