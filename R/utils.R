@@ -3,7 +3,10 @@ validate_term_count <- function(x){
     nms2 <- unlist(list(attributes(x)[["term.vars"]], "n.words"))
     nms <- unlist(list(attributes(x)[["group.vars"]], nms2))
     check <- all(nms %in% colnames(x)) && all(sapply(x[, nms2], is.numeric))
-    if (!check) {
+    check2 <- all(sapply(c("group.vars", "term.vars", "weight", "pretty"), function(y){
+        !is.null(attributes(x)[[y]])
+    }))
+    if (!check | !check2) {
         stop("Does not appear to be a `term_count` object.\n",
             "  Has the object or column names been altered?"
         )
@@ -42,9 +45,9 @@ countfun <- function(x, y, ignore.case = TRUE){
 }
 
 
-comb <- function(a, b, digits) {
+comb <- function(a, b, digits, zero.replace = "0") {
     x <- sprintf("%s(%s%%)", a, digit_format(100 * (a/b), digits))
-    x[a == 0] <- "0"
+    x[a == 0] <- zero.replace
     x
 }
 
@@ -61,4 +64,9 @@ digit_format <- function (x, digits = getOption("digit_digits")) {
     out <- gsub("^0(?=\\.)|(?<=-)0", "", x, perl = TRUE)
     out[out == "NA"] <- NA
     out
+}
+
+is.count <- function(x, ...){
+    validate_term_count(x)
+    attributes(x)[["weight"]] == "count"
 }

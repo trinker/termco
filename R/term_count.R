@@ -13,6 +13,7 @@
 #' @return Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
 #' grouping variable.
 #' @keywords term substring
+#' @rdname term_count
 #' @importFrom data.table := .SD
 #' @export
 #' @examples
@@ -28,6 +29,12 @@
 #' (markers <- with(pres_debates2012,
 #'     term_count(dialogue, list(person, time), discoure_markers)
 #' ))
+#'
+#' print(markers, pretty = FALSE)
+#' print(markers, zero.replace = "_")
+#'
+#' # permanently remove pretty printing
+#' (markers2 <- count(markers))
 term_count <- function(text.var, grouping.var = NULL, term.list, ignore.case = TRUE){
 
     if(is.null(grouping.var)) {
@@ -72,6 +79,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list, ignore.case = T
     attributes(out)[["group.vars"]] <- G
     attributes(out)[["term.vars"]] <- nms
     attributes(out)[["weight"]] <- "count"
+    attributes(out)[["pretty"]] <- TRUE
     out
 
 }
@@ -85,22 +93,44 @@ term_count <- function(text.var, grouping.var = NULL, term.list, ignore.case = T
 #' @param weight The weight type.  Currently the following are available:
 #' \code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
 #' additional information.
+#' @param zero.replace The value to replace zero count elements with; defaults
+#' to \code{"0"}.
+#' @param pretty logical.  If \code{TRUE} the counts print in a pretty fashion,
+#' combining count and weighted information into a single display.
+#' \code{pretty} printing can be permanantly removed with
+#' \code{\link[termco]{count}}.
 #' @param \ldots ignored
 #' @method print term_count
 #' @export
-print.term_count <- function(x, digits = 2, weight = "percent", ...) {
+print.term_count <- function(x, digits = 2, weight = "percent",
+    zero.replace = "0", pretty = TRUE, ...) {
 
     validate_term_count(x)
     termcols <- attributes(x)[["term.vars"]]
 
-    fun2 <- function(y) comb(y, x[["n.words"]], digits)
+    if (is.count(x) & pretty & attributes(x)[["pretty"]]) {
+        fun2 <- function(y) comb(y, x[["n.words"]], digits = digits,
+            zero.replace = zero.replace)
 
-    dat <- dplyr::select_(x, .dots = termcols)
-
-    x[termcols] <- dplyr::mutate_each_(dat, dplyr::funs(fun2), termcols)
+        dat <- dplyr::select_(x, .dots = termcols)
+        x[termcols] <- dplyr::mutate_each_(dat, dplyr::funs(fun2), termcols)
+    }
 
     class(x) <- class(x)[!class(x) %in% "term_count"]
     print(x)
 }
 
-
+#' Remove Pretty Printing from \code{term_count} Object
+#'
+#' Forces a \code{term_count} object to print as count integers rather than a
+#' pretty integer weighted combination
+#'
+#' @param x A \code{term_count} object.
+#' @param \ldots ignored
+#' @rdname term_count
+#' @export
+count <- function(x, ...){
+    validate_term_count(x)
+    attributes(x)[["pretty"]] <- FALSE
+    x
+}
