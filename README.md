@@ -6,7 +6,6 @@ termco
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-
 <a href="https://img.shields.io/badge/Version-0.0.1-orange.svg"><img src="https://img.shields.io/badge/Version-0.0.1-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/termco_logo/r_termco.png" width="320" alt="qdapRegex Logo">
