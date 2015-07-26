@@ -12,6 +12,12 @@
 #' sensitive and if \code{TRUE}, case is ignored during matching.
 #' @return Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
 #' grouping variable.
+#' @note Note that while a \code{\link[termco]{term_count}} object prints as a
+#' combination of integer counts and weighted (default percent of terms) in
+#' parenthesis the underlying object is actually a \code{\link[dplyr]{tbl_df}}
+#' of integer term/substring counts.  The user can alter a
+#' \code{\link[termco]{term_count}} object to print as integer permanently using
+#' the \code{\link[termco]{as.count}} function.
 #' @keywords term substring
 #' @rdname term_count
 #' @importFrom data.table := .SD
@@ -34,7 +40,19 @@
 #' print(markers, zero.replace = "_")
 #'
 #' # permanently remove pretty printing
-#' (markers2 <- count(markers))
+#' (markers2 <- as.count(markers))
+#'
+#' # manipulating the output in a dplyr chain
+#' library(dplyr)
+#'
+#' pres_debates2012 %>%
+#'     with(., term_count(dialogue, list(person, time), discoure_markers)) %>%
+#'     as.count()  # removes pretty print method (not necessary to manipulate)
+#'
+#' pres_debates2012 %>%
+#'     with(., term_count(dialogue, list(person, time), discoure_markers)) %>%
+#'     mutate(totals = response_cries + back_channels + summons + justification) %>%
+#'     arrange(-totals)
 term_count <- function(text.var, grouping.var = NULL, term.list, ignore.case = TRUE){
 
     if(is.null(grouping.var)) {
@@ -129,7 +147,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 #' @param \ldots ignored
 #' @rdname term_count
 #' @export
-count <- function(x, ...){
+as.count <- function(x, ...){
     validate_term_count(x)
     attributes(x)[["pretty"]] <- FALSE
     x
