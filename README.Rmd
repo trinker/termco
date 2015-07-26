@@ -19,7 +19,7 @@ verbadge <- sprintf('<a href="https://img.shields.io/badge/Version-%s-orange.svg
 
 `r verbadge`
 
-<img src="inst/qdapRegex_logo/r_termco.png" width="320" alt="qdapRegex Logo">  
+<img src="inst/termco_logo/r_termco.png" width="320" alt="qdapRegex Logo">  
 
 **termco** is...
 

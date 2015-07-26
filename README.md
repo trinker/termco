@@ -9,7 +9,7 @@ Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](http
 
 <a href="https://img.shields.io/badge/Version-0.0.1-orange.svg"><img src="https://img.shields.io/badge/Version-0.0.1-orange.svg" alt="Version"/></a>
 </p>
-<img src="inst/qdapRegex_logo/r_termco.png" width="320" alt="qdapRegex Logo">
+<img src="inst/termco_logo/r_termco.png" width="320" alt="qdapRegex Logo">
 
 **termco** is...
 
