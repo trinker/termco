@@ -197,9 +197,6 @@ plot.term_count <- function(x, labels = FALSE, group = NULL, low ="white",
     vars <- colnames(y)[!colnames(y) %in% c("group.vars", "n.words")]
     dat <- tidyr::gather_(y, "terms", "values", vars)
 
-    weightname <- weight
-    substring(weightname, 1, 1) <- toupper(substring(weightname, 1, 1))
-
     out <- ggplot2::ggplot(dat, ggplot2::aes_string(y = "group.vars", x = "terms", fill = "values")) +
         ggplot2::theme_bw() +
         ggplot2::theme(
@@ -213,7 +210,7 @@ plot.term_count <- function(x, labels = FALSE, group = NULL, low ="white",
         ggplot2::xlab("Terms Categories") +
         ggplot2::ylab("Groups") +
         ggplot2::geom_tile(color = grid) +
-        ggplot2::scale_fill_gradient(high = high, low = low, name = weightname,
+        ggplot2::scale_fill_gradient(high = high, low = low, name = "Percent",
             labels = scales::percent)
 
     if (isTRUE(labels)){
