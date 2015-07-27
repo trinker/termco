@@ -12,7 +12,19 @@ regex <- "(^Version:\\s+)(\\d+\\.\\d+\\.\\d+)"
 loc <- grep(regex, desc)
 ver <- gsub(regex, "\\2", desc[loc])
 verbadge <- sprintf('<a href="https://img.shields.io/badge/Version-%s-orange.svg"><img src="https://img.shields.io/badge/Version-%s-orange.svg" alt="Version"/></a></p>', ver, ver)
+p_load(dplyr, termco, knitr)
 ````
+
+
+```{r, echo=FALSE}
+knit_hooks$set(htmlcap = function(before, options, envir) {
+  if(!before) {
+    paste('<p class="caption"><b><em>',options$htmlcap,"</em></b></p>",sep="")
+    }
+    })
+knitr::opts_knit$set(self.contained = TRUE, cache = FALSE)
+knitr::opts_chunk$set(fig.path = "inst/figure/")
+```
 
 [![Build Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master) `r verbadge`
@@ -58,4 +70,19 @@ discoure_markers <- lapply(list(
 ), qdapRegex::bind)
 
 with(pres_debates2012, term_count(dialogue, list(person, time), discoure_markers))
+```
+
+
+### Print Method
+
+```{r}
+print(markers, pretty = FALSE)
+print(markers, zero.replace = "_")
+```
+
+### Plot Method
+
+```{r}
+plot(markers)
+plot(markers, labels=TRUE)
 ```

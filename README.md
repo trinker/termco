@@ -25,6 +25,8 @@ Table of Contents
 -   [Installation](#installation)
 -   [Contact](#contact)
     -   [Examples](#examples)
+        -   [Print Method](#print-method)
+        -   [Plot Method](#plot-method)
 
 Installation
 ============
@@ -58,13 +60,6 @@ The following examples demonstrate some of the functionality of
 
     library(termco); library(qdapRegex)
 
-    ## 
-    ## Attaching package: 'termco'
-    ## 
-    ## The following object is masked from 'package:qdap':
-    ## 
-    ##     weight
-
     data(pres_debates2012)
 
     discoure_markers <- lapply(list(
@@ -90,3 +85,49 @@ The following examples demonstrate some of the functionality of
     ## 9   QUESTION time 2     583        2(.34%)             0       0
     ## 10 SCHIEFFER time 3    1445              0             0       0
     ## Variables not shown: justification (chr)
+
+### Print Method
+
+    print(markers, pretty = FALSE)
+
+    ## Source: local data frame [10 x 7]
+    ## 
+    ##       person   time n.words response_cries back_channels summons
+    ## 1      OBAMA time 1    3599              0             0       0
+    ## 2      OBAMA time 2    7477              1             0       0
+    ## 3      OBAMA time 3    7243              0             1       0
+    ## 4     ROMNEY time 1    4085              0             0       1
+    ## 5     ROMNEY time 2    7536              0             3       0
+    ## 6     ROMNEY time 3    8303              1             0       1
+    ## 7    CROWLEY time 2    1672              0             0       0
+    ## 8     LEHRER time 1     765              1             3       0
+    ## 9   QUESTION time 2     583              2             0       0
+    ## 10 SCHIEFFER time 3    1445              0             0       0
+    ## Variables not shown: justification (int)
+
+    print(markers, zero.replace = "_")
+
+    ## Source: local data frame [10 x 7]
+    ## 
+    ##       person   time n.words response_cries back_channels summons
+    ## 1      OBAMA time 1    3599              _             _       _
+    ## 2      OBAMA time 2    7477        1(.01%)             _       _
+    ## 3      OBAMA time 3    7243              _       1(.01%)       _
+    ## 4     ROMNEY time 1    4085              _             _ 1(.02%)
+    ## 5     ROMNEY time 2    7536              _       3(.04%)       _
+    ## 6     ROMNEY time 3    8303        1(.01%)             _ 1(.01%)
+    ## 7    CROWLEY time 2    1672              _             _       _
+    ## 8     LEHRER time 1     765        1(.13%)       3(.39%)       _
+    ## 9   QUESTION time 2     583        2(.34%)             _       _
+    ## 10 SCHIEFFER time 3    1445              _             _       _
+    ## Variables not shown: justification (chr)
+
+### Plot Method
+
+    plot(markers)
+
+![](inst/figure/unnamed-chunk-5-1.png)
+
+    plot(markers, labels=TRUE)
+
+![](inst/figure/unnamed-chunk-5-2.png)
