@@ -9,7 +9,7 @@ Description: A small suite of functions used to count terms and
 Depends: R (>= 3.2.1)
 Imports: data.table, dplyr, ggplot2, grid, scales, stringi, tidyr
 Suggests: testthat, qdapRegex
-Date: 2015-07-26
+Date: 2015-07-27
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

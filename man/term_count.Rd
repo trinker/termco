@@ -47,12 +47,12 @@ the \code{\link[termco]{as.count}} function.
 \examples{
 data(pres_debates2012)
 
-discoure_markers <- lapply(list(
+discoure_markers <- list(
     response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
     back_channels = c("uh[- ]huh", "uhuh", "yeah"),
     summons = "hey",
     justification = "because"
-), qdapRegex::bind)
+)
 
 (markers <- with(pres_debates2012,
     term_count(dialogue, list(person, time), discoure_markers)

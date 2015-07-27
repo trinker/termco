@@ -62,28 +62,28 @@ The following examples demonstrate some of the functionality of
 
     data(pres_debates2012)
 
-    discoure_markers <- lapply(list(
+    discoure_markers <- list(
         response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
         back_channels = c("uh[- ]huh", "uhuh", "yeah"),
         summons = "hey",
         justification = "because"
-    ), qdapRegex::bind)
+    )
 
     with(pres_debates2012, term_count(dialogue, list(person, time), discoure_markers))
 
     ## Source: local data frame [10 x 7]
     ## 
-    ##       person   time n.words response_cries back_channels summons
-    ## 1      OBAMA time 1    3599              0             0       0
-    ## 2      OBAMA time 2    7477        1(.01%)             0       0
-    ## 3      OBAMA time 3    7243              0       1(.01%)       0
-    ## 4     ROMNEY time 1    4085              0             0 1(.02%)
-    ## 5     ROMNEY time 2    7536              0       3(.04%)       0
-    ## 6     ROMNEY time 3    8303        1(.01%)             0 1(.01%)
-    ## 7    CROWLEY time 2    1672              0             0       0
-    ## 8     LEHRER time 1     765        1(.13%)       3(.39%)       0
-    ## 9   QUESTION time 2     583        2(.34%)             0       0
-    ## 10 SCHIEFFER time 3    1445              0             0       0
+    ##       person   time n.words response_cries back_channels   summons
+    ## 1      OBAMA time 1    3599        4(.11%)             0 43(1.19%)
+    ## 2      OBAMA time 2    7477        2(.03%)             0  42(.56%)
+    ## 3      OBAMA time 3    7243        4(.06%)       1(.01%)  58(.80%)
+    ## 4     ROMNEY time 1    4085        1(.02%)             0  27(.66%)
+    ## 5     ROMNEY time 2    7536        6(.08%)       3(.04%)  49(.65%)
+    ## 6     ROMNEY time 3    8303        8(.10%)             0 84(1.01%)
+    ## 7    CROWLEY time 2    1672        2(.12%)             0   4(.24%)
+    ## 8     LEHRER time 1     765        6(.78%)       3(.39%)         0
+    ## 9   QUESTION time 2     583        2(.34%)             0         0
+    ## 10 SCHIEFFER time 3    1445              0             0   2(.14%)
     ## Variables not shown: justification (chr)
 
 ### Print Method
