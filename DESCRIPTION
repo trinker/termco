@@ -7,7 +7,7 @@ Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: A small suite of functions used to count terms and
         substrings in strings.
 Depends: R (>= 3.2.1)
-Imports: data.table, dplyr, stringi
+Imports: data.table, dplyr, ggplot2, grid, scales, stringi, tidyr
 Suggests: testthat, qdapRegex
 Date: 2015-07-26
 License: GPL-2

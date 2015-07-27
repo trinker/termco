@@ -38,6 +38,8 @@
 #'
 #' print(markers, pretty = FALSE)
 #' print(markers, zero.replace = "_")
+#' plot(markers)
+#' plot(markers, labels=TRUE)
 #'
 #' # permanently remove pretty printing
 #' (markers2 <- as.count(markers))
@@ -116,7 +118,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list, ignore.case = T
 #' @param pretty logical.  If \code{TRUE} the counts print in a pretty fashion,
 #' combining count and weighted information into a single display.
 #' \code{pretty} printing can be permanantly removed with
-#' \code{\link[termco]{count}}.
+#' \code{\link[termco]{as.count}}.
 #' @param \ldots ignored
 #' @method print term_count
 #' @export
@@ -151,4 +153,75 @@ as.count <- function(x, ...){
     validate_term_count(x)
     attributes(x)[["pretty"]] <- FALSE
     x
+}
+
+
+#' Plots a term_count object
+#'
+#' Plots a term_count object.
+#'
+#' @param x The term_count object.
+#' @param labels logical.  If \code{TRUE} the cell count values will be included
+#' on the heatmap.
+#' @param group  A character vector of the group variable names to include.
+#' Defaults to all group variables used in the call to
+#' \code{\link[termco]{term_count}}.
+#' @param low The color to be used for lower values.
+#' @param high The color to be used for higher values.
+#' @param grid The color of the grid (Use \code{NA} to remove the grid).
+#' @param label.color The color to make labels if \code{labels = TRUE}.
+#' @param label.size The size to make labels if \code{labels = TRUE}.
+#' @param weight The weight to apply to the cell values for gradient fill.
+#' Currently the following are available:
+#' \code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
+#' additional information.
+#' @param \ldots ignored
+#' @method plot term_count
+#' @export
+plot.term_count <- function(x, labels = FALSE, group = NULL, low ="white",
+    high = "red", grid = NA, label.color = "grey70", label.size = 3,
+    weight = "proportion", ...){
+
+    if (is.null(group)) {
+        group <- attributes(x)[["group.vars"]]
+    } else {
+        drops <- attributes(x)[["group.vars"]][!attributes(x)[["group.vars"]] %in% group]
+        x <- dplyr::select_(x, .dots = colnames(x)[!colnames(x) %in% drops])
+        x <- dplyr::summarise_each_(dplyr::group_by_(x, group),
+            dplyr::funs("sum"), colnames(x)[!colnames(x) %in% group])
+    }
+
+    y <- weight(x, weight = weight)
+    y[["group.vars"]] <- paste2(y[, group], sep = "_")
+    y <- y[!colnames(y) %in% group]
+    vars <- colnames(y)[!colnames(y) %in% c("group.vars", "n.words")]
+    dat <- tidyr::gather_(y, "terms", "values", vars)
+
+    weightname <- weight
+    substring(weightname, 1, 1) <- toupper(substring(weightname, 1, 1))
+
+    out <- ggplot2::ggplot(dat, ggplot2::aes_string(y = "group.vars", x = "terms", fill = "values")) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(
+            axis.text.x = ggplot2::element_text(angle = 90, vjust = .5, hjust = 1),
+            panel.grid.minor = ggplot2::element_blank(),
+            panel.grid.major = ggplot2::element_blank(),
+            panel.border = ggplot2::element_rect(colour = "grey80"),
+            legend.key.width = grid::unit(.25, 'cm'),
+            legend.key.height = grid::unit(1, 'cm')
+        ) +
+        ggplot2::xlab("Terms Categories") +
+        ggplot2::ylab("Groups") +
+        ggplot2::geom_tile(color = grid) +
+        ggplot2::scale_fill_gradient(high = high, low = low, name = weightname,
+            labels = scales::percent)
+
+    if (isTRUE(labels)){
+        values <- n.words <- NULL
+        out <- out +
+            ggplot2::geom_text(ggplot2::aes(label = round(n.words * values, 0)),
+                color = label.color, size = label.size)
+    }
+
+    out
 }

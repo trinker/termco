@@ -60,6 +60,8 @@ discoure_markers <- lapply(list(
 
 print(markers, pretty = FALSE)
 print(markers, zero.replace = "_")
+plot(markers)
+plot(markers, labels=TRUE)
 
 # permanently remove pretty printing
 (markers2 <- as.count(markers))

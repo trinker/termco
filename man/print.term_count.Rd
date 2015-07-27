@@ -22,7 +22,7 @@ to \code{"0"}.}
 \item{pretty}{logical.  If \code{TRUE} the counts print in a pretty fashion,
 combining count and weighted information into a single display.
 \code{pretty} printing can be permanantly removed with
-\code{\link[termco]{count}}.}
+\code{\link[termco]{as.count}}.}
 
 \item{\ldots}{ignored}
 }
