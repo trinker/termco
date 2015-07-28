@@ -24,9 +24,10 @@ on the heatmap.}
 
 \item{label.size}{The size to make labels if \code{labels = TRUE}.}
 
-\item{group}{A character vector of the group variable names to include.
-Defaults to all group variables used in the call to
-\code{\link[termco]{term_count}}.}
+\item{weight}{The weight to apply to the cell values for gradient fill.
+Currently the following are available:
+\code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
+additional information.}
 
 \item{\ldots}{ignored}
 }

@@ -163,14 +163,15 @@ as.count <- function(x, ...){
 #' @param x The term_count object.
 #' @param labels logical.  If \code{TRUE} the cell count values will be included
 #' on the heatmap.
-#' @param group  A character vector of the group variable names to include.
-#' Defaults to all group variables used in the call to
-#' \code{\link[termco]{term_count}}.
 #' @param low The color to be used for lower values.
 #' @param high The color to be used for higher values.
 #' @param grid The color of the grid (Use \code{NA} to remove the grid).
 #' @param label.color The color to make labels if \code{labels = TRUE}.
 #' @param label.size The size to make labels if \code{labels = TRUE}.
+#' @param weight The weight to apply to the cell values for gradient fill.
+#' Currently the following are available:
+#' \code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
+#' additional information.
 #' @param \ldots ignored
 #' @method plot term_count
 #' @export
