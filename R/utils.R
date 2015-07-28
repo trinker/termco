@@ -1,4 +1,4 @@
-validate_term_count <- function(x){
+validate_term_count <- function(x, warn = FALSE){
 
     nms2 <- unlist(list(attributes(x)[["term.vars"]], "n.words"))
     nms <- unlist(list(attributes(x)[["group.vars"]], nms2))
@@ -7,9 +7,12 @@ validate_term_count <- function(x){
         !is.null(attributes(x)[[y]])
     }))
     if (!check | !check2) {
-        stop("Does not appear to be a `term_count` object.\n",
-            "  Has the object or column names been altered?"
-        )
+        if (isTRUE(warn)){
+            warning("Does not appear to be a `term_count` object.\n",
+                "  Has the object or column names been altered?"
+            )
+        }
+        return(FALSE)
     }
     TRUE
 }

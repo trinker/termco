@@ -171,26 +171,14 @@ as.count <- function(x, ...){
 #' @param grid The color of the grid (Use \code{NA} to remove the grid).
 #' @param label.color The color to make labels if \code{labels = TRUE}.
 #' @param label.size The size to make labels if \code{labels = TRUE}.
-#' @param weight The weight to apply to the cell values for gradient fill.
-#' Currently the following are available:
-#' \code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
-#' additional information.
 #' @param \ldots ignored
 #' @method plot term_count
 #' @export
-plot.term_count <- function(x, labels = FALSE, group = NULL, low ="white",
+plot.term_count <- function(x, labels = FALSE, low ="white",
     high = "red", grid = NA, label.color = "grey70", label.size = 3,
     weight = "proportion", ...){
 
-    if (is.null(group)) {
-        group <- attributes(x)[["group.vars"]]
-    } else {
-        drops <- attributes(x)[["group.vars"]][!attributes(x)[["group.vars"]] %in% group]
-        x <- dplyr::select_(x, .dots = colnames(x)[!colnames(x) %in% drops])
-        x <- dplyr::summarise_each_(dplyr::group_by_(x, group),
-            dplyr::funs("sum"), colnames(x)[!colnames(x) %in% group])
-    }
-
+    group <- attributes(x)[["group.vars"]]
     y <- weight(x, weight = weight)
     y[["group.vars"]] <- paste2(y[, group], sep = "_")
     y <- y[!colnames(y) %in% group]

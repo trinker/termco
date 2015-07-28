@@ -4,8 +4,8 @@
 \alias{plot.term_count}
 \title{Plots a term_count object}
 \usage{
-\method{plot}{term_count}(x, labels = FALSE, group = NULL, low = "white",
-  high = "red", grid = NA, label.color = "grey70", label.size = 3,
+\method{plot}{term_count}(x, labels = FALSE, low = "white", high = "red",
+  grid = NA, label.color = "grey70", label.size = 3,
   weight = "proportion", ...)
 }
 \arguments{
@@ -13,10 +13,6 @@
 
 \item{labels}{logical.  If \code{TRUE} the cell count values will be included
 on the heatmap.}
-
-\item{group}{A character vector of the group variable names to include.
-Defaults to all group variables used in the call to
-\code{\link[termco]{term_count}}.}
 
 \item{low}{The color to be used for lower values.}
 
@@ -28,10 +24,9 @@ Defaults to all group variables used in the call to
 
 \item{label.size}{The size to make labels if \code{labels = TRUE}.}
 
-\item{weight}{The weight to apply to the cell values for gradient fill.
-Currently the following are available:
-\code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
-additional information.}
+\item{group}{A character vector of the group variable names to include.
+Defaults to all group variables used in the call to
+\code{\link[termco]{term_count}}.}
 
 \item{\ldots}{ignored}
 }
