@@ -125,8 +125,25 @@ term_count <- function(text.var, grouping.var = NULL, term.list, ignore.case = T
 print.term_count <- function(x, digits = 2, weight = "percent",
     zero.replace = "0", pretty = TRUE, ...) {
 
-    validate_term_count(x)
-    termcols <- attributes(x)[["term.vars"]]
+    val <- validate_term_count(x)
+    if (!isTRUE(val)) {
+
+        termcols <- attributes(x)[["term.vars"]]
+        wrdscol <- any(colnames(x) %in% 'n.words')
+
+        if (wrdscol & !is.null(termcols) && any(colnames(x) %in% termcols)) {
+
+            termcols <- colnames(x)[colnames(x) %in% termcols]
+
+        } else {
+
+            return(print(rm_class(x, "term_count")))
+
+        }
+    } else {
+
+        termcols <- attributes(x)[["term.vars"]]
+    }
 
     if (is.count(x) & pretty & attributes(x)[["pretty"]]) {
         fun2 <- function(y) comb(y, x[["n.words"]], digits = digits,

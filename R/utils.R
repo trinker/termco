@@ -17,6 +17,11 @@ validate_term_count <- function(x, warn = FALSE){
     TRUE
 }
 
+rm_class <- function(x, remove = "term_count", ...){
+    class(x) <- class(x)[!class(x) %in% remove]
+    x
+}
+
 
 propify <- function(x, fun, ...){
 
