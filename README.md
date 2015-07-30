@@ -2,6 +2,9 @@ termco
 ============
 
 
+[![Project Status: Wip - Initial development is in progress, but there
+has not yet been a stable, usable release suitable for the
+public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip)
 [![Build
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
@@ -71,6 +74,7 @@ The following examples demonstrate some of the functionality of
 
     with(pres_debates2012, term_count(dialogue, list(person, time), discoure_markers))
 
+    ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
     ## 
     ##       person   time n.words response_cries back_channels   summons
@@ -90,6 +94,7 @@ The following examples demonstrate some of the functionality of
 
     print(markers, pretty = FALSE)
 
+    ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
     ## 
     ##       person   time n.words response_cries back_channels summons
@@ -107,6 +112,7 @@ The following examples demonstrate some of the functionality of
 
     print(markers, zero.replace = "_")
 
+    ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
     ## 
     ##       person   time n.words response_cries back_channels summons
