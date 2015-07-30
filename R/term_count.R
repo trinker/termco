@@ -10,6 +10,7 @@
 #' @param term.list A list of named character vectors.
 #' @param ignore.case logical.  If \code{FALSE}, the pattern matching is case
 #' sensitive and if \code{TRUE}, case is ignored during matching.
+#' @param pretty logical.  If \code{TRUE} pretty printing is used.
 #' @return Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
 #' grouping variable.
 #' @note Note that while a \code{\link[termco]{term_count}} object prints as a
@@ -17,7 +18,7 @@
 #' parenthesis the underlying object is actually a \code{\link[dplyr]{tbl_df}}
 #' of integer term/substring counts.  The user can alter a
 #' \code{\link[termco]{term_count}} object to print as integer permanently using
-#' the \code{\link[termco]{as.count}} function.
+#' the \code{\link[termco]{as_count}} function.
 #' @keywords term substring
 #' @rdname term_count
 #' @importFrom data.table := .SD
@@ -42,20 +43,21 @@
 #' plot(markers, labels=TRUE)
 #'
 #' # permanently remove pretty printing
-#' (markers2 <- as.count(markers))
+#' (markers2 <- as_count(markers))
 #'
 #' # manipulating the output in a dplyr chain
 #' library(dplyr)
 #'
 #' pres_debates2012 %>%
 #'     with(., term_count(dialogue, list(person, time), discoure_markers)) %>%
-#'     as.count()  # removes pretty print method (not necessary to manipulate)
+#'     as_count()  # removes pretty print method (not necessary to manipulate)
 #'
 #' pres_debates2012 %>%
 #'     with(., term_count(dialogue, list(person, time), discoure_markers)) %>%
 #'     mutate(totals = response_cries + back_channels + summons + justification) %>%
 #'     arrange(-totals)
-term_count <- function(text.var, grouping.var = NULL, term.list, ignore.case = TRUE){
+term_count <- function(text.var, grouping.var = NULL, term.list,
+    ignore.case = TRUE, pretty = TRUE){
 
     if(is.null(grouping.var)) {
         G <- "all"
@@ -90,6 +92,9 @@ term_count <- function(text.var, grouping.var = NULL, term.list, ignore.case = T
         identical, "")])))
     term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
 
+
+    if(any(G %in% names(term.list))) stop("`grouping` names cannot be used as `term.list` names")
+
     out <- data.table::setDT(DF)[, names(term.list):= lapply(term.list, countfun,
         text.var, ignore.case = ignore.case), ][, text.var:=NULL][,
             lapply(.SD, sum, na.rm = TRUE), keyby = G]
@@ -99,7 +104,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list, ignore.case = T
     attributes(out)[["group.vars"]] <- G
     attributes(out)[["term.vars"]] <- nms
     attributes(out)[["weight"]] <- "count"
-    attributes(out)[["pretty"]] <- TRUE
+    attributes(out)[["pretty"]] <- pretty
     out
 
 }
@@ -118,12 +123,14 @@ term_count <- function(text.var, grouping.var = NULL, term.list, ignore.case = T
 #' @param pretty logical.  If \code{TRUE} the counts print in a pretty fashion,
 #' combining count and weighted information into a single display.
 #' \code{pretty} printing can be permanantly removed with
-#' \code{\link[termco]{as.count}}.
+#' \code{\link[termco]{as_count}}.
 #' @param \ldots ignored
 #' @method print term_count
 #' @export
 print.term_count <- function(x, digits = 2, weight = "percent",
     zero.replace = "0", pretty = TRUE, ...) {
+
+    n.words <- count <- NULL
 
     val <- validate_term_count(x)
     if (!isTRUE(val)) {
@@ -145,15 +152,19 @@ print.term_count <- function(x, digits = 2, weight = "percent",
         termcols <- attributes(x)[["term.vars"]]
     }
 
-    if (is.count(x) & pretty & attributes(x)[["pretty"]]) {
-        fun2 <- function(y) comb(y, x[["n.words"]], digits = digits,
-            zero.replace = zero.replace)
+    coverage <- sum(cov <- rowSums(x[, termcols]) != 0)/length(cov)
 
-        dat <- dplyr::select_(x, .dots = termcols)
-        x[termcols] <- dplyr::mutate_each_(dat, dplyr::funs(fun2), termcols)
+    if (is.count(x) & pretty & attributes(x)[["pretty"]]) {
+
+        tall <- tidyr::gather_(x, "term", "count", termcols)
+        tall_weighted <- dplyr::mutate(tall, count = comb(count, n.words, digits = digits,
+            zero.replace = zero.replace, weight = weight))
+
+        x <- tidyr::spread_(tall_weighted, "term", "count")
     }
 
     class(x) <- class(x)[!class(x) %in% "term_count"]
+    cat(sprintf("Coverage: %s%%", 100 * round(coverage, 4)), "\n")
     print(x)
 }
 
@@ -166,7 +177,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 #' @param \ldots ignored
 #' @rdname term_count
 #' @export
-as.count <- function(x, ...){
+as_count <- function(x, ...){
     validate_term_count(x)
     attributes(x)[["pretty"]] <- FALSE
     x

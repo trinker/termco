@@ -2,7 +2,7 @@
 
 S3method(plot,term_count)
 S3method(print,term_count)
-export(as.count)
+export(as_count)
 export(term_count)
 export(weight)
 importFrom(data.table,":=")

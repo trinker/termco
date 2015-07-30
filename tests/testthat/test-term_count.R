@@ -82,7 +82,7 @@ test_that("term_count prints pretty",{
     )
 
     expect_true(all.equal(capture.output(print(markers3, pretty = FALSE)),
-    c("Source: local data frame [10 x 7]", "", "      person   time n.words response_cries back_channels summons justification",
+    c("Coverage: 100% ", "Source: local data frame [10 x 7]", "", "      person   time n.words response_cries back_channels summons justification",
     "1      OBAMA time 1    3599              4             0      43            26",
     "2      OBAMA time 2    7477              2             0      42            29",
     "3      OBAMA time 3    7243              4             1      58            33",
@@ -110,10 +110,10 @@ test_that("term_count plots a ggplot object",{
         term_count(dialogue, list(person, time), discoure_markers)
     )
 
-    is(plot(markers3), "ggplot")
+    expect_true(is(plot(markers3), "ggplot"))
     expect_true(is.null(plot(markers)[["labels"]][["label"]]))
 
-    is(plot(markers3, labels=TRUE), "ggplot")
+    expect_true(is(plot(markers3, labels=TRUE), "ggplot"))
     expect_false(is.null(plot(markers, labels=TRUE)[["labels"]][["label"]]))
 
 

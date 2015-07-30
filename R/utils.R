@@ -55,8 +55,9 @@ countfun <- function(x, y, ignore.case = TRUE){
 }
 
 
-comb <- function(a, b, digits, zero.replace = "0") {
-    x <- sprintf("%s(%s%%)", a, digit_format(100 * (a/b), digits))
+comb <- function(a, b, digits, zero.replace = "0", weight = "percent") {
+    const <- ifelse(weight == "percent", 100, 1)
+    x <- sprintf("%s(%s%%)", a, digit_format(const * (a/b), digits))
     x[a == 0] <- zero.replace
     x
 }
