@@ -5,7 +5,7 @@
 \title{Prints a term_count Object}
 \usage{
 \method{print}{term_count}(x, digits = 2, weight = "percent",
-  zero.replace = "0", pretty = TRUE, ...)
+  zero.replace = "0", pretty = getOption("termco_pretty"), ...)
 }
 \arguments{
 \item{x}{The term_count object.}

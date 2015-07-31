@@ -10,7 +10,9 @@
 #' @param term.list A list of named character vectors.
 #' @param ignore.case logical.  If \code{FALSE}, the pattern matching is case
 #' sensitive and if \code{TRUE}, case is ignored during matching.
-#' @param pretty logical.  If \code{TRUE} pretty printing is used.
+#' @param pretty logical.  If \code{TRUE} pretty printing is used.  Pretty
+#' printing can be turned off globally by setting
+#' \code{options(termco_pretty = FALSE)}.
 #' @return Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
 #' grouping variable.
 #' @note Note that while a \code{\link[termco]{term_count}} object prints as a
@@ -18,7 +20,10 @@
 #' parenthesis the underlying object is actually a \code{\link[dplyr]{tbl_df}}
 #' of integer term/substring counts.  The user can alter a
 #' \code{\link[termco]{term_count}} object to print as integer permanently using
-#' the \code{\link[termco]{as_count}} function.
+#' the \code{\link[termco]{as_count}} function.  A percent \emph{Coverage} also
+#' prints.  This is the rate of grouping variables with no term found (i.e.,
+#' \code{\link[base]{rowSums}} is zero for terms).  For more details on coverage
+#' see \code{\link[termco]{coverage}}.
 #' @keywords term substring
 #' @rdname term_count
 #' @importFrom data.table := .SD
@@ -128,9 +133,10 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
 #' @method print term_count
 #' @export
 print.term_count <- function(x, digits = 2, weight = "percent",
-    zero.replace = "0", pretty = TRUE, ...) {
+    zero.replace = "0", pretty = getOption("termco_pretty"), ...) {
 
     n.words <- count <- NULL
+    if (is.null(pretty)) pretty <- TRUE
 
     val <- validate_term_count(x)
     if (!isTRUE(val)) {
@@ -168,20 +174,6 @@ print.term_count <- function(x, digits = 2, weight = "percent",
     print(x)
 }
 
-#' Remove Pretty Printing from \code{term_count} Object
-#'
-#' Forces a \code{term_count} object to print as count integers rather than a
-#' pretty integer weighted combination
-#'
-#' @param x A \code{term_count} object.
-#' @param \ldots ignored
-#' @rdname term_count
-#' @export
-as_count <- function(x, ...){
-    validate_term_count(x)
-    attributes(x)[["pretty"]] <- FALSE
-    x
-}
 
 
 #' Plots a term_count object

@@ -6,10 +6,12 @@ validate_term_count <- function(x, warn = FALSE){
     check2 <- all(sapply(c("group.vars", "term.vars", "weight", "pretty"), function(y){
         !is.null(attributes(x)[[y]])
     }))
-    if (!check | !check2) {
+    check3 <- !any(colnames(x) %in% c(nms2, nms, "n.words"))
+    if (!check | !check2 | check3) {
         if (isTRUE(warn)){
             warning("Does not appear to be a `term_count` object.\n",
-                "  Has the object or column names been altered?"
+                "  Has the object or column names been altered/added?",
+                immediate. = TRUE
             )
         }
         return(FALSE)
