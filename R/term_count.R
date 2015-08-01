@@ -160,6 +160,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 
     coverage <- sum(cov <- rowSums(x[, termcols]) != 0)/length(cov)
 
+    start <- Sys.time()
     if (is.count(x) & pretty & attributes(x)[["pretty"]]) {
 
         tall <- tidyr::gather_(x, "term", "count", termcols)
@@ -168,10 +169,32 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 
         x <- tidyr::spread_(tall_weighted, "term", "count")
     }
+    ptime <- difftime(Sys.time(), start)
 
     class(x) <- class(x)[!class(x) %in% "term_count"]
     cat(sprintf("Coverage: %s%%", 100 * round(coverage, 4)), "\n")
+
     print(x)
+
+    ask <- getOption("termco_pretty_ask")
+    if(is.null(ask)){
+        ask <- TRUE
+    }
+
+    if(ask && ptime > .61 && interactive()){
+        message(paste0(paste(rep("=", 70), collapse = ""), "\n"),
+            "\nYour `term_count` object is larger and is taking a while to print.\n",
+            "You can reduce this time by using `as_count` or setting:\n\n`options(termco_pretty = FALSE)`\n\n",
+            "Would you like to globally set `options(termco_pretty = FALSE)` now?\n")
+        ans <- utils::menu(c("Yes", "No", "Not Now"))
+        switch(ans,
+            `1` = {options(termco_pretty = FALSE)
+                   options(termco_pretty_ask = FALSE)},
+            `2` = {options(termco_pretty_ask = FALSE)},
+            `3` = {options(termco_pretty_ask = TRUE)}
+        )
+    }
+
 }
 
 

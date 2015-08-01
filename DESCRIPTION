@@ -1,6 +1,6 @@
 Package: termco
 Title: Regular Expression Counts of Terms and Substrings
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: c(person("Tyler", "Rinker", email =
         "tyler.rinker@gmail.com", role = c("aut", "cre")))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
@@ -9,7 +9,7 @@ Description: A small suite of functions used to count terms and
 Depends: R (>= 3.2.1)
 Imports: data.table, dplyr, ggplot2, grid, scales, stringi, tidyr
 Suggests: testthat, qdapRegex
-Date: 2015-07-30
+Date: 2015-07-31
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
