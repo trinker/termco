@@ -65,8 +65,7 @@ comb <- function(a, b, digits, zero.replace = "0", weight = "percent") {
 }
 
 digit_format <- function (x, digits = getOption("digit_digits")) {
-    if (is.null(digits))
-        digits <- 3
+    if (is.null(digits)) digits <- 3
     if (length(digits) > 1) {
         digits <- digits[1]
         warning("Using only digits[1]")
@@ -78,6 +77,7 @@ digit_format <- function (x, digits = getOption("digit_digits")) {
     out[out == "NA"] <- NA
     out
 }
+
 
 is.count <- function(x, ...){
     validate_term_count(x)

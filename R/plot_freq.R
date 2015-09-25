@@ -48,7 +48,7 @@ plot_freq <- function(x, direct.label = TRUE,
             Prop_Labs = paste0(
                 prettyNum(Counts),
                 "(",
-                paste0(f_dig(100*Prop, digits = digits), "%"), ")")
+                paste0(digit_format(100*Prop, digits = digits), "%"), ")")
          )
 
 

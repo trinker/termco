@@ -23,11 +23,11 @@ Make a regex to locate strings that contain >= 2 substrings with optional
 negation.
 }
 \examples{
+\dontrun{
 colo('overall', 'course')
 colo('overall', 'course', "eval")
 colo('overall', 'course', not="instructor")
 
-\dontrun{
 search_term(sam_i_am, colo("^i\\\\b", "like"))
 search_term(sam_i_am, colo("^i\\\\b", "like", "not"))
 search_term(sam_i_am, colo("^i\\\\b", "like", not="not")
