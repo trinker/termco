@@ -23,10 +23,13 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name pres_debates2012
-#' @usage data(pres_debates2012)
+#' @name presidential_debates_2012
+#' @usage data(presidential_debates_2012)
 #' @format A data frame with 2912 rows and 4 variables
 NULL
+
+
+
 
 #' Discourse Marker Search of Presidential Debates
 #'
@@ -51,3 +54,15 @@ NULL
 #' @format A data frame with 10 rows and 7 variables
 NULL
 
+
+#' Sam I Am Text
+#'
+#' A dataset containing a character vector of the text from Seuss's 'Sam I Am'.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name sam_i_am
+#' @usage data(sam_i_am)
+#' @format A character vector with 169 elements
+#' @references Seuss, Dr. (1960). Green Eggs and Ham.
+NULL

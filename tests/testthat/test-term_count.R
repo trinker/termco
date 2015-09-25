@@ -1,7 +1,7 @@
 context("Checking term_count")
 
 library(dplyr)
-data(pres_debates2012)
+data(presidential_debates_2012)
 
 test_that("term_count produces expected output when no grouping variable is supplied",{
 
@@ -12,7 +12,7 @@ test_that("term_count produces expected output when no grouping variable is supp
         justification = "because"
     )
 
-    markers1 <- with(pres_debates2012,
+    markers1 <- with(presidential_debates_2012,
         term_count(dialogue, , discoure_markers)
     )
 
@@ -33,7 +33,7 @@ test_that("term_count produces expected output when one grouping variable is sup
         justification = "because"
     )
 
-    markers2 <- with(pres_debates2012,
+    markers2 <- with(presidential_debates_2012,
         term_count(dialogue, list(person), discoure_markers)
     )
 
@@ -55,7 +55,7 @@ test_that("term_count produces expected output when two grouping variable is sup
         justification = "because"
     )
 
-    markers3 <- with(pres_debates2012,
+    markers3 <- with(presidential_debates_2012,
         term_count(dialogue, list(person, time), discoure_markers)
     )
 
@@ -77,12 +77,14 @@ test_that("term_count prints pretty",{
         justification = "because"
     )
 
-    markers3 <- with(pres_debates2012,
+    markers3 <- with(presidential_debates_2012,
         term_count(dialogue, list(person, time), discoure_markers)
     )
 
     expect_true(all.equal(capture.output(print(markers3, pretty = FALSE)),
-    c("Coverage: 100% ", "Source: local data frame [10 x 7]", "", "      person   time n.words response_cries back_channels summons justification",
+       c("Coverage: 100% ", "Source: local data frame [10 x 7]", "",
+    "      person   time n.words response_cries back_channels summons justification",
+    "      (fctr) (fctr)   (int)          (int)         (int)   (int)         (int)",
     "1      OBAMA time 1    3599              4             0      43            26",
     "2      OBAMA time 2    7477              2             0      42            29",
     "3      OBAMA time 3    7243              4             1      58            33",
@@ -106,7 +108,7 @@ test_that("term_count plots a ggplot object",{
         justification = "because"
     )
 
-    markers3 <- with(pres_debates2012,
+    markers3 <- with(presidential_debates_2012,
         term_count(dialogue, list(person, time), discoure_markers)
     )
 

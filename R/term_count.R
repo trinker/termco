@@ -1,6 +1,6 @@
 #' Search For and Count Terms
 #'
-#' \code{termco} - Search a string by any number of grouping variables for
+#' \code{term_count} - Search a string by any number of grouping variables for
 #' categories (themes) of grouped root terms/substrings.
 #'
 #' @param text.var The text string variable.
@@ -29,7 +29,7 @@
 #' @importFrom data.table := .SD
 #' @export
 #' @examples
-#' data(pres_debates2012)
+#' data(presidential_debates_2012)
 #'
 #' discoure_markers <- list(
 #'     response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
@@ -38,7 +38,7 @@
 #'     justification = "because"
 #' )
 #'
-#' (markers <- with(pres_debates2012,
+#' (markers <- with(presidential_debates_2012,
 #'     term_count(dialogue, list(person, time), discoure_markers)
 #' ))
 #'
@@ -53,11 +53,11 @@
 #' # manipulating the output in a dplyr chain
 #' library(dplyr)
 #'
-#' pres_debates2012 %>%
+#' presidential_debates_2012 %>%
 #'     with(., term_count(dialogue, list(person, time), discoure_markers)) %>%
 #'     as_count()  # removes pretty print method (not necessary to manipulate)
 #'
-#' pres_debates2012 %>%
+#' presidential_debates_2012 %>%
 #'     with(., term_count(dialogue, list(person, time), discoure_markers)) %>%
 #'     mutate(totals = response_cries + back_channels + summons + justification) %>%
 #'     arrange(-totals)

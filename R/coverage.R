@@ -1,21 +1,27 @@
-#' Extract Coverage Information
+#' Coverage for Various Objects
 #'
-#' Extract coverage information from a termco object including the percentage of
-#' rows that sum to zero as well as the location of non-covered rows for easy
-#' extraction.
+#' @description \code{coverage} - Get coverage of a logical vector, \code{termc_count}, or \code{search_term} object.
 #'
-#' @param x A \code{\link[termco]{term_count}} object.
-#' @param \ldots ignored
-#' @return Returns a list:
+#' @param x A logical vector, \code{termc_count}, or \code{search_term} object.
+#' @param \ldots Ignored.
+#' @description \code{coverage.term_count} - Extract coverage information from a \code{term_count}
+#' object including the percentage of rows that sum to zero as well as the
+#' location of non-covered rows for easy extraction.
+#'
+#' @export
+#' @return \code{termc_count} - Returns a proportion of elements covered by the search.
+#' @return \code{coverage.term_count} - Returns a list:
 #' \item{not}{A logical vector of all rows not covered (row sums equal zero)}
 #' \item{covered}{A logical vector of all rows covered (row sums greater than zero)}
 #' \item{coverage}{The percentage rate of \deqn{\frac{covered}{not + covered}}{covered/(not + covered)}}
 #' \item{n_covered}{The row sums of the unique terms}
 #' \item{total_terms}{The row sums of the terms}
-#' @keywords coverage
 #' @export
+#' @keywords coverage
 #' @examples
-#' data(pres_debates2012)
+#' coverage(sample(c(TRUE, FALSE), 1000, TRUE))
+#'
+#' data(presidential_debates_2012)
 #'
 #' discoure_markers <- list(
 #'     like = c("love", "like"),
@@ -26,15 +32,41 @@
 #' )
 #'
 #' library(dplyr)
-#' (markers2 <- with(dplyr::mutate(pres_debates2012, turn = dplyr::id(dialogue)),
+#' (markers2 <- with(dplyr::mutate(presidential_debates_2012, turn = dplyr::id(dialogue)),
 #'     term_count(dialogue, turn, discoure_markers)
 #' ))
 #'
 #' coverage(markers2)
 #'
-#' pres_debates2012[coverage(markers2)$not, "dialogue"] %>%
+#' presidential_debates_2012[coverage(markers2)$not, "dialogue"] %>%
 #'    c()
-coverage <- function(x, ...){
+coverage <- function(x, ...) {
+    UseMethod("coverage")
+}
+
+
+#' @export
+#' @method coverage default
+coverage.default <- function(x, ...) {
+     sum(x)/length(x)
+}
+
+
+#' @export
+#' @method coverage search_term
+coverage.search_term <- function(x, ...) {
+    attributes(x)[["coverage"]]
+}
+
+
+
+
+
+
+
+#' @export
+#' @method coverage term_count
+coverage.term_count <- function(x, ...){
 
     val <- validate_term_count(x)
     if (!isTRUE(val)) {

@@ -2,17 +2,19 @@
 % Please edit documentation in R/coverage.R
 \name{coverage}
 \alias{coverage}
-\title{Extract Coverage Information}
+\title{Coverage for Various Objects}
 \usage{
 coverage(x, ...)
 }
 \arguments{
-\item{x}{A \code{\link[termco]{term_count}} object.}
+\item{x}{A logical vector, \code{termc_count}, or \code{search_term} object.}
 
-\item{\ldots}{ignored}
+\item{\ldots}{Ignored.}
 }
 \value{
-Returns a list:
+\code{termc_count} - Returns a proportion of elements covered by the search.
+
+\code{coverage.term_count} - Returns a list:
 \item{not}{A logical vector of all rows not covered (row sums equal zero)}
 \item{covered}{A logical vector of all rows covered (row sums greater than zero)}
 \item{coverage}{The percentage rate of \deqn{\frac{covered}{not + covered}}{covered/(not + covered)}}
@@ -20,12 +22,12 @@ Returns a list:
 \item{total_terms}{The row sums of the terms}
 }
 \description{
-Extract coverage information from a termco object including the percentage of
-rows that sum to zero as well as the location of non-covered rows for easy
-extraction.
+\code{coverage} - Get coverage of a logical vector, \code{termc_count}, or \code{search_term} object.
 }
 \examples{
-data(pres_debates2012)
+coverage(sample(c(TRUE, FALSE), 1000, TRUE))
+
+data(presidential_debates_2012)
 
 discoure_markers <- list(
     like = c("love", "like"),
@@ -36,13 +38,13 @@ discoure_markers <- list(
 )
 
 library(dplyr)
-(markers2 <- with(dplyr::mutate(pres_debates2012, turn = dplyr::id(dialogue)),
+(markers2 <- with(dplyr::mutate(presidential_debates_2012, turn = dplyr::id(dialogue)),
     term_count(dialogue, turn, discoure_markers)
 ))
 
 coverage(markers2)
 
-pres_debates2012[coverage(markers2)$not, "dialogue"] \%>\%
+presidential_debates_2012[coverage(markers2)$not, "dialogue"] \%>\%
    c()
 }
 \keyword{coverage}
