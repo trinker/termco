@@ -33,7 +33,7 @@ y <- sapply(y, function(x) {
     x
 })
 
-plot_count(x)
-plot_count(y)
+plot_counts(x)
+plot_counts(y)
 }
 

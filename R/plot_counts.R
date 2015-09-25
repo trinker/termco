@@ -20,8 +20,8 @@
 #'     x
 #' })
 #'
-#' plot_count(x)
-#' plot_count(y)
+#' plot_counts(x)
+#' plot_counts(y)
 plot_counts <- function(x, n = NULL, item.name = "Terms", rev= FALSE, ...){
 
     Terms <- Prop <- Frequency <- Counts <- NULL
