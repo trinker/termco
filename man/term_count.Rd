@@ -12,7 +12,8 @@ term_count(text.var, grouping.var = NULL, term.list, ignore.case = TRUE,
 
 \item{grouping.var}{The grouping variable(s).  Default \code{NULL} generates
 one word list for all text.  Also takes a single grouping variable or a list
-of 1 or more grouping variables.}
+of 1 or more grouping variables.  If \code{TRUE} an \code{id} variable is
+used with a \code{seq_along} the \code{text.var}.}
 
 \item{term.list}{A list of named character vectors.}
 

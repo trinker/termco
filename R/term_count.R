@@ -6,7 +6,8 @@
 #' @param text.var The text string variable.
 #' @param grouping.var The grouping variable(s).  Default \code{NULL} generates
 #' one word list for all text.  Also takes a single grouping variable or a list
-#' of 1 or more grouping variables.
+#' of 1 or more grouping variables.  If \code{TRUE} an \code{id} variable is
+#' used with a \code{seq_along} the \code{text.var}.
 #' @param term.list A list of named character vectors.
 #' @param ignore.case logical.  If \code{FALSE}, the pattern matching is case
 #' sensitive and if \code{TRUE}, case is ignored during matching.
@@ -74,17 +75,25 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
                 }
             )
         } else {
-            G <- as.character(substitute(grouping.var))
-            G <- G[length(G)]
+            if (isTRUE(grouping.var)) {
+                G <- "id"
+            } else {
+                G <- as.character(substitute(grouping.var))
+                G <- G[length(G)]
+            }
         }
     }
     if(is.null(grouping.var)){
         grouping <- rep("all", length(text.var))
     } else {
-        if (is.list(grouping.var) & length(grouping.var)>1) {
-            grouping <- grouping.var
+        if (isTRUE(grouping.var)) {
+                grouping <- seq_along(text.var)
         } else {
-            grouping <- unlist(grouping.var)
+            if (is.list(grouping.var) & length(grouping.var)>1) {
+                grouping <- grouping.var
+            } else {
+                grouping <- unlist(grouping.var)
+            }
         }
     }
 
@@ -95,8 +104,13 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     nms <- names(term.list)
     names(term.list)[sapply(nms, identical, "")] <- make.names(seq_len(length(nms[sapply(nms,
         identical, "")])))
-    term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
 
+    if (!is.list(term.list)) {
+        warning("Expecting a named list for `term.list`; coerced to list.")
+        term.list <- stats::setNames(as.list(term.list), term.list)
+    } else {
+        term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
+    }
 
     if(any(G %in% names(term.list))) stop("`grouping` names cannot be used as `term.list` names")
 
