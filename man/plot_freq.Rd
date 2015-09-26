@@ -21,7 +21,7 @@ placed above bars.}
 \item{top.diff.weight}{A weight to apply to the space between the top bar and
 the top of the plot area.}
 
-\item{\ldots}{ignored.}
+\item{\ldots}{Other arguments passed to \code{\link[ggplot2]{geom_text}}.}
 }
 \value{
 \pkg{ggplot2} object
@@ -39,5 +39,28 @@ y <- sapply(y, function(x) {
 
 plot_freq(x)
 plot_freq(y)
+
+## Example
+library(dplyr)
+data(presidential_debates_2012)
+
+discoure_markers <- list(
+    response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
+    back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+    summons = "hey",
+    justification = "because"
+)
+
+presidential_debates_2012 \%>\%
+    with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
+    as_terms() \%>\%
+    plot_freq(size=3) +
+        ggplot2::xlab("Number of Tags")
+
+presidential_debates_2012 \%>\%
+    with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
+    as_terms() \%>\%
+    plot_counts() +
+        ggplot2::xlab("Tags")
 }
 

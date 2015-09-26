@@ -25,9 +25,34 @@ Ties default to random order.
 Use a count matrix to classify the rows, based on the frequencies in the cells.
 }
 \examples{
-data(markers)
-classify(markers)
-classify(markers, n = 2)
+set.seed(10)
+(x <- data.frame(matrix(sample(c(0, 0, 0, 1, 2, 3), 24, TRUE), ncol=3)))
+classify(x)
+classify(x, n=3)
+
+## Example
+library(dplyr)
+data(presidential_debates_2012)
+
+discoure_markers <- list(
+    response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
+    back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+    summons = "hey",
+    justification = "because"
+)
+
+presidential_debates_2012 \%>\%
+    with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
+    classify()
+
+presidential_debates_2012 \%>\%
+    with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
+    classify(n = 2)
+
+presidential_debates_2012 \%>\%
+    with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
+    {.[!uncovered(.), -c(1:2)]} \%>\%
+    classify()
 }
 \seealso{
 \code{\link[base]{max.col}}

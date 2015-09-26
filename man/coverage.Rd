@@ -38,8 +38,8 @@ discoure_markers <- list(
 )
 
 library(dplyr)
-(markers2 <- with(dplyr::mutate(presidential_debates_2012, turn = dplyr::id(dialogue)),
-    term_count(dialogue, turn, discoure_markers)
+(markers2 <- with(presidential_debates_2012,
+    term_count(dialogue, TRUE, discoure_markers)
 ))
 
 coverage(markers2)

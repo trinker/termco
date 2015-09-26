@@ -35,5 +35,28 @@ y <- sapply(y, function(x) {
 
 plot_counts(x)
 plot_counts(y)
+
+## Example
+library(dplyr)
+data(presidential_debates_2012)
+
+discoure_markers <- list(
+    response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
+    back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+    summons = "hey",
+    justification = "because"
+)
+
+presidential_debates_2012 \%>\%
+    with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
+    as_terms() \%>\%
+    plot_counts() +
+        ggplot2::xlab("Tags")
+
+presidential_debates_2012 \%>\%
+    with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
+    as_terms() \%>\%
+    plot_freq(size=3) +
+        ggplot2::xlab("Number of Tags")
 }
 

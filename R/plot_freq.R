@@ -10,7 +10,7 @@
 #' @param digits The number of percent digits to print.
 #' @param top.diff.weight A weight to apply to the space between the top bar and
 #' the top of the plot area.
-#' @param \ldots ignored.
+#' @param \ldots Other arguments passed to \code{\link[ggplot2]{geom_text}}.
 #' @return \pkg{ggplot2} object
 #' @export
 #' @importFrom dplyr %>%
@@ -24,6 +24,29 @@
 #'
 #' plot_freq(x)
 #' plot_freq(y)
+#'
+#' ## Example
+#' library(dplyr)
+#' data(presidential_debates_2012)
+#'
+#' discoure_markers <- list(
+#'     response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
+#'     back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+#'     summons = "hey",
+#'     justification = "because"
+#' )
+#'
+#' presidential_debates_2012 %>%
+#'     with(., term_count(dialogue, TRUE, discoure_markers)) %>%
+#'     as_terms() %>%
+#'     plot_freq(size=3) +
+#'         ggplot2::xlab("Number of Tags")
+#'
+#' presidential_debates_2012 %>%
+#'     with(., term_count(dialogue, TRUE, discoure_markers)) %>%
+#'     as_terms() %>%
+#'     plot_counts() +
+#'         ggplot2::xlab("Tags")
 plot_freq <- function(x, direct.label = TRUE,
     label.diff, digits = 1, top.diff.weight = .06, ...){
 
@@ -63,7 +86,7 @@ plot_freq <- function(x, direct.label = TRUE,
             ggplot2::theme(panel.grid = ggplot2::element_blank())
 
     if (isTRUE(direct.label)) {
-        out <- out + ggplot2::geom_text(ggplot2::aes_string(y = "y", label="Prop_Labs"))
+        out <- out + ggplot2::geom_text(ggplot2::aes_string(y = "y", label="Prop_Labs"), ...)
     }
     out
 }

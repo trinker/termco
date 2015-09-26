@@ -106,8 +106,9 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         identical, "")])))
 
     if (!is.list(term.list)) {
-        warning("Expecting a named list for `term.list`; coerced to list.")
-        term.list <- stats::setNames(as.list(term.list), term.list)
+        warning("Expecting a named list for `term.list`; coercing to list.")
+        term.list <- as.list(term.list)
+        if (is.null(names(term.list))) term.list <- stats::setNames(term.list, term.list)
     } else {
         term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
     }
@@ -118,12 +119,16 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         text.var, ignore.case = ignore.case), ][, text.var:=NULL][,
             lapply(.SD, sum, na.rm = TRUE), keyby = G]
 
+    text <- new.env(hash=FALSE)
+    text[["text.var"]] <- text.var
+
     out <- dplyr::tbl_df(out)
     class(out) <- c("term_count", class(out))
     attributes(out)[["group.vars"]] <- G
     attributes(out)[["term.vars"]] <- nms
     attributes(out)[["weight"]] <- "count"
     attributes(out)[["pretty"]] <- pretty
+    attributes(out)[["text.var"]] <- text
     out
 
 }
