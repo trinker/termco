@@ -10,7 +10,10 @@ colo(..., not = NULL, copy2clip = getOption("termco.copy2clip"))
 \item{not}{A substring to exclude from consideration.}
 
 \item{copy2clip}{logical.  If code{TRUE} uses \code{\link[clipr]{write_clip}}
-to copy the output to the clipboard.}
+to copy the output to the clipboard.  This option is most useful when trying
+to build a list regular expression model for easy pasting between testing
+a regex and putting it into the model.  This argument can be set globally by
+setting \code{options(termco.copy2clip = TRUE)}.}
 
 \item{\ldots}{Terms that cooccur/colocate}
 }

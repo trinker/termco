@@ -6,7 +6,10 @@
 #' @param \ldots Terms that cooccur/colocate
 #' @param not A substring to exclude from consideration.
 #' @param copy2clip logical.  If code{TRUE} uses \code{\link[clipr]{write_clip}}
-#' to copy the output to the clipboard.
+#' to copy the output to the clipboard.  This option is most useful when trying
+#' to build a list regular expression model for easy pasting between testing
+#' a regex and putting it into the model.  This argument can be set globally by
+#' setting \code{options(termco.copy2clip = TRUE)}.
 #' @return Returns a regular expression.  If Windows attempts to copy to
 #' clipboard as well.
 #' @keywords colocate cooccur
@@ -22,7 +25,7 @@
 #' search_term(sam_i_am, colo("^i\\b", "like", not="not")
 #' }
 colo <- function(..., not=NULL, copy2clip = getOption("termco.copy2clip")) {
-    if (is.null(copy2clip)) copy2clip <- TRUE
+    if (is.null(copy2clip)) copy2clip <- FALSE
     if (is.null(not)){
           if (length(substitute(...())) == 1) return(substitute(...()))
     	  cooc(..., copy2clip = copy2clip)
