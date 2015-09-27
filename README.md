@@ -381,7 +381,7 @@ This is an exploratory act. Finding the right combination of features
 that occur together requires lots of recursive noticing, trialling,
 testing, reading, interpreting, and deciding. In the example below I
 noticed that terms *people* and *course* appear with the term *right*. I
-use a grouped or expression with `colo` to build a regular expression
+use a grouped-or expression with `colo` to build a regular expression
 that will search for any text elements that contain these two terms
 anywhere. `colo` is more powerful than initially shown here, I
 demonstrate further functionality below.
@@ -454,8 +454,8 @@ combo to extract collocating words.
 
 As stated above, `colo` is a powerful search tool as it can take
 multiple regular expressions as well as allowing for multiple negations
-(i.e., find x but not if y). To include multiple negations use a grouped
-or regex as shown below.
+(i.e., find x but not if y). To include multiple negations use a
+grouped-or regex as shown below.
 
     ## Where do `jobs` and `create` collocate?
     search_term(untagged, colo("jobs", "create")) 
