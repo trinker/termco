@@ -430,8 +430,8 @@ new, similar contexts.
     ## attr(,"coverage")
     ## [1] 0.001977848
 
-Jobs seems important. Again, I use the `search_term` + `frequent_terms`
-combo to extract collocating words.
+The word *jobs* also seems important. Again, I use the `search_term` +
+`frequent_terms` combo to extract words collocating with *jobs*.
 
     search_term(untagged, "jobs") %>%
         frequent_terms(10)
