@@ -357,7 +357,8 @@ discriminate. Using `search_term` in combination with `frequent_terms`
 can be a powerful way to see which words tend to collocate. Here I pass
 a regex for *right* (`\\bright`) to `search_term`. This pulls up the
 text that contains this term. I then use `frequent_terms` to see what
-words frequent occur with the word *right*
+words frequently occur with the word *right*. We notice the word
+*people* tends to occur with *right*.
 
     untagged %>%
         search_term("\\bright") %>%

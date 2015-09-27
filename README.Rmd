@@ -179,7 +179,7 @@ untagged %>%
     frequent_terms()
 ```
 
-We may see a common term such as the word *right* and want to see what other terms collocate with it.  Using a regular expression that searches for multiple terms can improve a model's accuracy and ability to discriminate.  Using `search_term` in combination with `frequent_terms` can be a powerful way to see which words tend to collocate.  Here I pass a regex for *right* (`\\bright`) to `search_term`.  This pulls up the text that contains this term.  I then use `frequent_terms` to see what words frequent occur with the word *right*
+We may see a common term such as the word *right* and want to see what other terms collocate with it.  Using a regular expression that searches for multiple terms can improve a model's accuracy and ability to discriminate.  Using `search_term` in combination with `frequent_terms` can be a powerful way to see which words tend to collocate.  Here I pass a regex for *right* (`\\bright`) to `search_term`.  This pulls up the text that contains this term.  I then use `frequent_terms` to see what words frequently occur with the word *right*.  We notice the word *people* tends to occur with *right*.
 
 ```{r}
 untagged %>%
