@@ -262,7 +262,7 @@ indicating the regular expression model needs to be improved.
     ## Coverered:   384
     ## Not Covered: 2528
 
-Understanding how well out model discriminates is important as well. We
+Understanding how well our model discriminates is important as well. We
 want the model to cover as close to 100% of the data as possible, but
 likely want fewer tags assigned to each element. If the model is tagging
 many tags to each element is is not able to discriminate well. The
