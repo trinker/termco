@@ -521,8 +521,8 @@ Here is one more example with `colo` for the words *jobs* and
 *overseas*. The user may want to quickly test and then transfer the
 regex created by `colo` to the regular expression list. By setting
 `options(termco.copy2clip = TRUE)` the user globally sets `colo` to use
-the **clipr** package to copy the regex to the clip board for better
-work flow.
+the **clipr** package to copy the regex to the clipboard for better work
+flow.
 
     search_term(untagged, colo("jobs", "overseas")) 
 
