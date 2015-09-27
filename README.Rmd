@@ -187,7 +187,7 @@ untagged %>%
     frequent_terms(10)
 ```
 
-This is an exploratory act.  Finding the right combination of features that occur together requires lots of recursive noticing, trialling, testing, reading, interpreting, and deciding.  In the example below I noticed that terms *people* and *course* appear with the term *right*.  I use a grouped-or expression with `colo` to build a regular expression that will search for any text elements that contain these two terms anywhere.  `colo` is more powerful than initially shown here, I demonstrate further functionality below.
+This is an exploratory act.  Finding the right combination of features that occur together requires lots of recursive noticing, trialling, testing, reading, interpreting, and deciding.  In the example below I noticed that terms *people* and *course* appear with the term *right*.  I use a grouped-or expression with `colo` to build a regular expression that will search for any text elements that contain these two terms anywhere.  `colo` is more powerful than initially shown here; I demonstrate further functionality below.
 
 ```{r}
 colo("\\bright", "(people|course)")

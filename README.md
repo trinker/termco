@@ -383,7 +383,7 @@ testing, reading, interpreting, and deciding. In the example below I
 noticed that terms *people* and *course* appear with the term *right*. I
 use a grouped-or expression with `colo` to build a regular expression
 that will search for any text elements that contain these two terms
-anywhere. `colo` is more powerful than initially shown here, I
+anywhere. `colo` is more powerful than initially shown here; I
 demonstrate further functionality below.
 
     colo("\\bright", "(people|course)")
