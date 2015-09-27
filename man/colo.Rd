@@ -15,7 +15,7 @@ to build a list regular expression model for easy pasting between testing
 a regex and putting it into the model.  This argument can be set globally by
 setting \code{options(termco.copy2clip = TRUE)}.}
 
-\item{\ldots}{Terms that cooccur/colocate}
+\item{\ldots}{Terms that cooccur/collocate}
 }
 \value{
 Returns a regular expression.  If Windows attempts to copy to
@@ -36,6 +36,6 @@ search_term(sam_i_am, colo("^i\\\\b", "like", "not"))
 search_term(sam_i_am, colo("^i\\\\b", "like", not="not")
 }
 }
-\keyword{colocate}
+\keyword{collocate}
 \keyword{cooccur}
 

@@ -33,7 +33,7 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 
 <img src="inst/termco_logo/r_termco.png" width="200" alt="qdapRegex Logo">  
 
-**termco** is A small suite of functions used to count terms and substrings in strings.  The package wraps the [**data.table**](https://cran.r-project.org/web/packages/data.table/index.html) and [**stringi**](https://cran.r-project.org/web/packages/stringi/index.html) packages to create fast data frame counts of regular expression terms and substrings.  
+**termco** is A small suite of functions used to count and find terms and substrings in strings.  The tools can be used to build a expert rules, regular expression based text classification model.  The package wraps the [**data.table**](https://cran.r-project.org/web/packages/data.table/index.html) and [**stringi**](https://cran.r-project.org/web/packages/stringi/index.html) packages to create fast data frame counts of regular expression terms and substrings.  
 
 # Installation
 
@@ -88,3 +88,198 @@ print(markers, zero.replace = "_")
 plot(markers)
 plot(markers, labels=TRUE)
 ```
+
+## Building an Expert Rules, Regex Classifier Model
+
+This example section highlights the types of function combinations and order for a typical expert rules classification.  This task typically involves the combined use of available literature, close examinations of term usage within text, and researcher experience.  Building a classifier model requires the researcher to build a list of regular expressions that map to a category or tag.  Below I outline minimal work flow for classification.
+
+### Load the Tools/Data
+
+```{r}
+library(dplyr); library(ggplot2)
+data(presidential_debates_2012)
+```
+
+### View Most Used Words
+
+A common task in building a model is to understand the most frequent words while excluding less information rich function words.  The `frequnt_terms` function produces an ordered data frame of counts.  The researcher can exclude stop words and limit to terms to contain n characters between set thresholds.  The output is ordered by most to least frequent n terms but can be rearranged alphabetically.
+
+```{r}
+presidential_debates_2012 %>%
+    with(., frequent_terms(dialogue))
+presidential_debates_2012 %>%
+    with(., frequent_terms(dialogue, 40)) %>%
+    plot()
+```
+
+### Building the Model
+
+To build a model the researcher created a named list of regular expressions that map to a category/tag.  This is fed to the `term_count` function.  `term_count` allows for aggregation by grouping variables but for building the model we usually want to get observation level counts.  Set `grouping.var = TRUE` to generate an `id` column of 1 through number of observation which gives the researcher the observation level counts.
+
+```{r}
+discoure_markers <- list(
+    response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
+    back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+    summons = "hey",
+    justification = "because"
+)
+
+model <- presidential_debates_2012 %>%
+    with(term_count(dialogue, grouping.var = TRUE, discoure_markers))
+
+model
+```
+
+
+### Testing the Model
+
+In building a classifier the researcher is typically concerned with coverage, discrimination, and accuracy.  The first two are easier to obtain while accuracy is not possible to compute without a comparison sample of expertly tagged data.
+
+We want out model to be giving tags to as much of the text elements as possible.  The `coverage` function can provide an understanding of what percent of the data is tagged. Out model has relatively low coverage, indicating the regular expression model needs to be improved.
+
+```{r}
+model %>%
+    coverage()
+```
+
+Understanding how well out model discriminates is important as well.  We want the model to cover as close to 100% of the data as possible, but likely want fewer tags assigned to each element.  If the model is tagging many tags to each element is is not able to discriminate well.  The `as_terms` + `plot_freq` function provides a visual representation of the model's ability to discriminate.  The output is a density plot showing the distribution of the number of tags at the element level.  The goal is to have a larger cluster around one tag.  Note that the plot also gives a view of coverage as the zero bar shows the frequency of elements that could not be tagged.  Our model has a larger distribution of 1 tag compared to the > 1 tag distributions, though the coverage is very poor.  As the number of tags increases the ability of the model to discriminate typically lessens.  There is often a trade off between model coverage and discrimination.
+
+```{r}
+model %>%
+    as_terms() %>%
+    plot_freq(size=3) + xlab("Number of Tags")
+```
+
+We may also want to see the distribution of the tags as well.  The combination of `as_terms` + `plot_counts` gives the distribution of the tags.  In our model the majority of tags are applied to the **summons** category. 
+
+```{r}
+model %>%
+    as_terms() %>%
+    plot_counts() + xlab("Tags")
+```
+
+### Improving the Model
+
+The model does not have very good coverage.  To improve this the researcher will want to look at the data with no coverage to try to build additional regular expressions and categories.  This requires understanding language, noticing additional features of the data with no coverage that may map to categories, and building regular expressions to model these features.  This section will outline some of the tools that can be used to detect features and build regular expressions to model these language features.
+
+We first want to view the untagged data.  The `uncovered function provides a logical vector that can be used to exctract the text with no tags.
+
+```{r}
+untagged <- presidential_debates_2012 %>%
+    select(dialogue) %>%
+    {unlist(., use.names=FALSE)[uncovered(model)]}
+
+head(untagged)
+```
+
+The `frequent_terms` function can be used again to understand common features of the untagged data.
+
+```{r}
+untagged %>%
+    frequent_terms()
+```
+
+We may see a common term such as the word *right* and want to see what other terms collocate with it.  Using a regular expression that searches for multiple terms can improve a model's accuracy and ability to discriminate.  Using `search_term` in combination with `frequent_terms` can be a powerful way to see which words tend to collocate.  Here I pass a regex for *right* (`\\bright`) to `search_term`.  This pulls up the text that contains this term.  I then use `frequent_terms` to see what words frequent occur with the word *right*
+
+```{r}
+untagged %>%
+    search_term("\\bright") %>%
+    frequent_terms(10)
+```
+
+This is an exploratory act.  Finding the right combination of features that occur together requires lots of recursive noticing, trialling, testing, reading, interpreting, and deciding.  In the example below I noticed that terms *people* and *course* appear with the term *right*.  I use a grouped or expression with `colo` to build a regular expression that will search for any text elements that contain these two terms anywhere.  `colo` is more powerful than initially shown here, I demonstrate further functionality below.
+
+```{r}
+colo("\\bright", "(people|course)")
+```
+
+This is extremely powerful when used inside of `search_term` as the text containing this regular expression will be returned along with the coverage proportion on the uncovered data.
+
+```{r}
+search_term(untagged, colo("\\bright", "(people|course)"))
+```
+
+We notice right away that the phrase *right course* appears often.  I create a search with just this expression. 
+Note that the decision to include a regular expression in the model is up to the researcher.  We must guard against overfitting the model, making it not transferable to new, similar contexts.
+
+```{r}
+search_term(untagged, "right course")
+```
+
+Jobs seems important.  Again, I use the `search_term` + `frequent_terms` combo to extract collocating words.
+
+```{r}
+search_term(untagged, "jobs") %>%
+    frequent_terms(10)
+```
+
+As stated above, `colo` is a powerful search tool as it can take multiple regular expressions as well as allowing for multiple negations (i.e., find x but not if y).  To include multiple negations use a grouped or regex as shown below.
+
+```{r}
+## Where do `jobs` and `create` collocate?
+search_term(untagged, colo("jobs", "create")) 
+## Where do `jobs`, `create`,  and the word `not` collocate?
+search_term(untagged, colo("jobs", "create", "(not|'nt)")) 
+## Where do `jobs` and`create` collocate without a `not` word?
+search_term(untagged, colo("jobs", "create", not = "(not|'nt)")) 
+```
+
+Here is one more example with `colo` for the words *jobs* and *overseas*.  The user may want to quickly test and then transfer the regec created by `colo` to the regular expression list.  By setting `options(termco.copy2clip = TRUE)` the user globally sets `colo` to use the **clipr** package to copy the regex to the clip board for better work flow.
+
+```{r}
+search_term(untagged, colo("jobs", "overseas")) 
+```
+
+The researcher uses an iterative process to continue to build the regular expression list.  The `term_count` function builds the matrix of counts to further test the model.  The use of (a) `coverage`, (b) `as_terms` + `plot_counts`, and &#40;c) `as_terms` + `freq_counts` will allow for continued testing of model functioning.  
+
+### Categorizing/Tagging
+
+The `classify` function enables the researcher to apply n tags to each text element.  Depending on the text and the regular expression list's ability, multiple tags may be applied to a text.  The `n` argument allows the maximum number of tags to be set though the function does not guarantee this many (or any) tags will be assigned.
+
+Here I show the `head` of the returned vector (if `n` > 1 a `list` may be returned) as well as a `table` and plot of the counts.
+
+```{r}
+classify(model) %>%
+    head()
+classify(model) %>%
+    unlist() %>%
+    table()
+classify(model) %>%
+    unlist() %>%
+    plot_counts() + xlab("Tags")
+```
+
+
+### Accuracy
+
+The user may be interested in testing the accuracy of the model against a known, human coded sample.  The `accuracy` function allows the researcher to test a model's accuracy.  In the example below I randomly generate "known human coded tagged" vector.  Obviously, this is for demonstration purposes.  The model outputs a pretty printing of a list. The printing contains the number of text elements (`N`), the exact accuracy (perfect one to one correspondence between elements), and an adjusted score (this considers models that allow for multiple tags to be returned per element).  Note that if classify is constrained to `n = 1` then **Correct** and **Adjusted** will be identical.
+
+```{r}
+mod1 <- presidential_debates_2012 %>%
+    with(., term_count(dialogue, TRUE, discoure_markers)) %>%
+    classify()
+
+fake_known <- mod1
+set.seed(1)
+fake_known[sample(1:length(fake_known), 300)] <- "random noise"
+
+accuracy(mod1, fake_known)
+```
+
+In this model we allow for `n = 3` tags to be assigned in the classification.  This enables the potential for a (in this case *slightly*) better a **Adjusted** value.  The adjusted value upweights based on correctly applying a tag regardless of the position of that tag (`classify` gives higher preference to tags that have a higher term count for that text element; order for ties is broken randomly).
+
+```{r}
+mod2 <- presidential_debates_2012 %>%
+    with(., term_count(dialogue, TRUE, discoure_markers)) %>%
+    classify(n = 3)
+
+fake_known2 <- mod2
+set.seed(30)
+fake_known2[sample(1:length(fake_known2), 500)] <- c("random noise", "back_channels")
+
+accuracy(mod2, fake_known2)
+```
+
+These examples give guadance on how to use the tools in the **termco** package to build a expert rules, regular expression text classification model.
+
+

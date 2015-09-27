@@ -10,6 +10,8 @@
 #' @param stopwords A vector of stopwords to exclude.
 #' @param min.char The minimum number of characters a word must be (including
 #' apostrophes) for inclusion.
+#' @param max.char The maximum number of characters a word must be (including
+#' apostrophes) for inclusion.
 #' @param stem logical.  If \code{TRUE} the \code{\link[SnowballC]{wordStem}}
 #' is used with \code{language = "porter"} as the default.  Note that stopwords
 #' will be stemmed as well.
@@ -48,8 +50,8 @@
 #' z <- print(frequent_terms(x, n=100))
 #' nrow(z)
 frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.char = 4,
-    stem = FALSE, language = "porter", strip = TRUE, strip.regex = "[^a-z' ]",
-    alphabetical = FALSE, ...) {
+    max.char = Inf, stem = FALSE, language = "porter", strip = TRUE,
+    strip.regex = "[^a-z' ]", alphabetical = FALSE, ...) {
 
     x <- stringi::stri_trans_tolower(x)
 
@@ -69,6 +71,9 @@ frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.char 
 
     ## exclude less than the min character cut-off
     y <- y[nchar(y) > min.char - 1]
+
+    ## exclude more than the max character cut-off
+    y <- y[nchar(y) < max.char + 1]
 
     ## data frame of counts
     y <- sort(table(y), TRUE)

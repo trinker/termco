@@ -5,7 +5,7 @@
 \title{N Most Frequent Terms}
 \usage{
 frequent_terms(x, n = 20, stopwords = tm::stopwords("en"), min.char = 4,
-  stem = FALSE, language = "porter", strip = TRUE,
+  max.char = Inf, stem = FALSE, language = "porter", strip = TRUE,
   strip.regex = "[^a-z' ]", alphabetical = FALSE, ...)
 }
 \arguments{
@@ -19,6 +19,9 @@ value.}
 \item{stopwords}{A vector of stopwords to exclude.}
 
 \item{min.char}{The minimum number of characters a word must be (including
+apostrophes) for inclusion.}
+
+\item{max.char}{The maximum number of characters a word must be (including
 apostrophes) for inclusion.}
 
 \item{stem}{logical.  If \code{TRUE} the \code{\link[SnowballC]{wordStem}}

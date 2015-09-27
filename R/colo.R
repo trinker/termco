@@ -3,7 +3,7 @@
 #' Make a regex to locate strings that contain >= 2 substrings with optional
 #' negation.
 #'
-#' @param \ldots Terms that cooccur/colocate
+#' @param \ldots Terms that cooccur/collocate
 #' @param not A substring to exclude from consideration.
 #' @param copy2clip logical.  If code{TRUE} uses \code{\link[clipr]{write_clip}}
 #' to copy the output to the clipboard.  This option is most useful when trying
@@ -12,7 +12,7 @@
 #' setting \code{options(termco.copy2clip = TRUE)}.
 #' @return Returns a regular expression.  If Windows attempts to copy to
 #' clipboard as well.
-#' @keywords colocate cooccur
+#' @keywords collocate cooccur
 #' @export
 #' @examples
 #' \dontrun{
