@@ -14,6 +14,10 @@ output:
 
 ```{r, echo = FALSE, message = FALSE}
 library(knitr);library(termco)
+uri_embed <- function(path, add="") {
+    uri <- knitr::image_uri(path)
+    cat(paste0("<img ", add, " src=\"", uri, "\" />"))
+}
 knit_hooks$set(htmlcap = function(before, options, envir) {
   if(!before) {
     paste('<p class="caption"><b><em>',options$htmlcap,"</em></b></p>",sep="")
@@ -23,9 +27,14 @@ knitr::opts_knit$set(self.contained = TRUE, cache = FALSE)
 knitr::opts_chunk$set(fig.path = "inst/figure/")
 ```
 
-**termco** is A small suite of functions used to count and find terms and substrings in strings.  The tools can be used to build a expert rules, regular expression based text classification model.  The package wraps the [**data.table**](https://cran.r-project.org/web/packages/data.table/index.html) and [**stringi**](https://cran.r-project.org/web/packages/stringi/index.html) packages to create fast data frame counts of regular expression terms and substrings.  
+**termco** is A small suite of functions used to count and find terms and substrings in strings.  The tools can be used to build an expert rules, regular expression based text classification model.  The package wraps the [**data.table**](  https://cran.r-project.org/package=data.table) and [**stringi**](  https://cran.r-project.org/package=stringi) packages to create fast data frame counts of regular expression terms and substrings.   
 
-# Examples
+```{r, echo=FALSE, results='asis'}
+uri_embed("r_termco.png",
+    "width=\"250\", height=\"150\" style=\"display:block; margin-left:auto; margin-right:auto;\"")
+```
+
+# The Main Function: `termc_count`
 
 The following examples demonstrate some of the functionality of **termco**.
 

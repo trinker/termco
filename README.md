@@ -14,14 +14,13 @@ Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](http
 <img src="inst/termco_logo/r_termco.png" width="200" alt="qdapRegex Logo">
 
 **termco** is A small suite of functions used to count and find terms
-and substrings in strings. The tools can be used to build a expert
+and substrings in strings. The tools can be used to build an expert
 rules, regular expression based text classification model. The package
 wraps the
-[**data.table**](https://cran.r-project.org/web/packages/data.table/index.html)
-and
-[**stringi**](https://cran.r-project.org/web/packages/stringi/index.html)
-packages to create fast data frame counts of regular expression terms
-and substrings.
+[**data.table**](https://cran.r-project.org/package=data.table) and
+[**stringi**](https://cran.r-project.org/package=stringi) packages to
+create fast data frame counts of regular expression terms and
+substrings.
 
 
 Table of Contents
@@ -73,7 +72,7 @@ The following examples demonstrate some of the functionality of
 
     library(termco); library(qdapRegex)
 
-    data(pres_debates2012)
+    data(presidential_debates_2012)
 
     discoure_markers <- list(
         response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
@@ -82,7 +81,7 @@ The following examples demonstrate some of the functionality of
         justification = "because"
     )
 
-    with(pres_debates2012, term_count(dialogue, list(person, time), discoure_markers))
+    with(presidential_debates_2012, term_count(dialogue, list(person, time), discoure_markers))
 
     ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
