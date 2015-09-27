@@ -280,6 +280,6 @@ fake_known2[sample(1:length(fake_known2), 500)] <- c("random noise", "back_chann
 accuracy(mod2, fake_known2)
 ```
 
-These examples give guadance on how to use the tools in the **termco** package to build a expert rules, regular expression text classification model.
+These examples give guadance on how to use the tools in the **termco** package to build an expert rules, regular expression text classification model.
 
 

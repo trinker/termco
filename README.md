@@ -566,7 +566,7 @@ be returned) as well as a `table` and plot of the counts.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              3            123             26            232
+    ##              2            126             27            229
 
     classify(model) %>%
         unlist() %>%
@@ -623,5 +623,5 @@ count for that text element; order for ties is broken randomly).
     ## Adjusted: 82.9
 
 These examples give guadance on how to use the tools in the **termco**
-package to build a expert rules, regular expression text classification
+package to build an expert rules, regular expression text classification
 model.
