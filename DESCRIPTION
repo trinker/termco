@@ -9,8 +9,9 @@ Description: A small suite of functions used to count terms and
 Depends: R (>= 3.2.1)
 Imports: clipr, data.table, dplyr (>= 0.4.3), ggplot2, grid, scales,
         SnowballC, stringi, tidyr, tm, wordcloud
-Suggests: testthat, qdapRegex
+Suggests: knitr, qdapRegex, testthat
 Date: 2015-09-26
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
+VignetteBuilder: knitr
