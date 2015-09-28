@@ -177,7 +177,7 @@ classification.
 A common task in building a model is to understand the most frequent
 words while excluding less information rich function words. The
 `frequnt_terms` function produces an ordered data frame of counts. The
-researcher can exclude stop words and limit to terms to contain n
+researcher can exclude stop words and limit the terms to contain n
 characters between set thresholds. The output is ordered by most to
 least frequent n terms but can be rearranged alphabetically.
 
