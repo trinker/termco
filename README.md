@@ -153,10 +153,10 @@ Building an Expert Rules, Regex Classifier Model
 Machine learning models of classification are great when you have known
 tags to train with because the model scales. Qualitative, expert based
 human coding is terrific for when you have no tagged data. However, when
-you have a larger, untagged data set the machine learning approach have
-no outcome to learn from and the data is too large to classify by hand.
-One solution is to use a expert rules, regular expression approach that
-is somewhere between machine learning and hand coding. This is one
+you have a larger, untagged data set the machine learning approaches
+have no outcome to learn from and the data is too large to classify by
+hand. One solution is to use a expert rules, regular expression approach
+that is somewhere between machine learning and hand coding. This is one
 solution for tagging larger, untagged data sets.
 
 This example section highlights the types of function combinations and
