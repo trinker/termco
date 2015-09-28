@@ -100,8 +100,6 @@ Examples
 The following examples demonstrate some of the functionality of
 **termco**.
 
-    library(termco); library(qdapRegex)
-
     data(presidential_debates_2012)
 
     discoure_markers <- list(
@@ -173,11 +171,11 @@ The following examples demonstrate some of the functionality of
 
     plot(markers)
 
-![](inst/figure/unnamed-chunk-5-1.png)
+![](inst/figure/unnamed-chunk-6-1.png)
 
     plot(markers, labels=TRUE)
 
-![](inst/figure/unnamed-chunk-5-2.png)
+![](inst/figure/unnamed-chunk-6-2.png)
 
 Building an Expert Rules, Regex Classifier Model
 ------------------------------------------------
@@ -250,7 +248,7 @@ least frequent n terms but can be rearranged alphabetically.
         with(., frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](inst/figure/unnamed-chunk-7-1.png)
+![](inst/figure/unnamed-chunk-8-1.png)
 
 ### Building the Model
 
@@ -328,7 +326,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-10-1.png)
+![](inst/figure/unnamed-chunk-11-1.png)
 
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
@@ -339,7 +337,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-11-1.png)
+![](inst/figure/unnamed-chunk-12-1.png)
 
 ### Improving the Model
 
@@ -613,13 +611,13 @@ be returned) as well as a `table` and plot of the counts.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              4            127             26            227
+    ##              3            127             27            227
 
     classify(model) %>%
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-21-1.png)
+![](inst/figure/unnamed-chunk-22-1.png)
 
 ### Accuracy
 
