@@ -2,6 +2,36 @@ termco
 ============
 
 
+    ## 
+    ## Attaching package: 'dplyr'
+    ## 
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+    ## 
+    ## The following object is masked from 'package:qdap':
+    ## 
+    ##     %>%
+    ## 
+    ## The following object is masked from 'package:qdapTools':
+    ## 
+    ##     id
+    ## 
+    ## The following objects are masked from 'package:qdapRegex':
+    ## 
+    ##     escape, explain
+    ## 
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+    ## 
+    ## 
+    ## Attaching package: 'termco'
+    ## 
+    ## The following object is masked from 'package:qdap':
+    ## 
+    ##     weight
+
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
@@ -152,6 +182,15 @@ The following examples demonstrate some of the functionality of
 Building an Expert Rules, Regex Classifier Model
 ------------------------------------------------
 
+Machine learning models of classification are great when you have known
+tags to train with because the model scales. Qualitative, expert based
+human coding is terrific for when you have no tagged data. However, when
+you have a larger, untagged data set the machine learning approach have
+no outcome to learn from and the data is too large to classify by hand.
+One solution is to use a expert rules, regular expression approach that
+is somewhere between machine learning and hand coding. This is one
+solution for tagging larger, untagged data sets.
+
 This example section highlights the types of function combinations and
 order for a typical expert rules classification. This task typically
 involves the combined use of available literature, close examinations of
@@ -163,6 +202,14 @@ classification.
 ### Load the Tools/Data
 
     library(dplyr); library(ggplot2)
+
+    ## 
+    ## Attaching package: 'ggplot2'
+    ## 
+    ## The following object is masked from 'package:qdapRegex':
+    ## 
+    ##     %+%
+
     data(presidential_debates_2012)
 
 ### View Most Used Words
@@ -566,7 +613,7 @@ be returned) as well as a `table` and plot of the counts.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              2            126             27            229
+    ##              4            127             26            227
 
     classify(model) %>%
         unlist() %>%
