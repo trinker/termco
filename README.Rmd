@@ -256,11 +256,13 @@ classify(model) %>%
 
 The user may be interested in testing the accuracy of the model against a known, human coded sample.  The `accuracy` function allows the researcher to test a model's accuracy.  In the example below I randomly generate "known human coded tagged" vector.  Obviously, this is for demonstration purposes.  The model outputs a pretty printing of a list. The printing contains: 
 
-1. **N** - The number of text elements (`N`)
-2. **Exact** - Perfect one to one correspondence between whole vectors in `tagged` & `known` (use: `$exact`)
-3. **Ordered** - Proportion of the elements of tags in `tagged` matching `known` exactly; order matters (use: `$ordered`)
-4. **Adjusted** - An adjusted mean score of **Ordered** and **unordered** (v`$adjusted`).. 
-5. **Unordered** - Proportion of the elements of tags in `tagged` matching `known` regardless of order (use: `$unordered`)
+| Printed    |  Description                                          | Accessed |
+|--------------------|-----------------------------------------------|----------|
+|  **N**     |The number of text elements (`N`)                      |          |
+| **Exact**  | Perfect one to one correspondence between whole vectors in `tagged` & `known` | `$exact` |
+| **Ordered** | Proportion of the elements in `tagged` matching `known` exactly; order matters | `$ordered` |
+| **Adjusted** | An adjusted mean score of **Ordered** and **unordered** | `$adjusted` |
+| **Unordered** | Proportion of the elements in `tagged` matching `known` regardless of order | `$unordered` |
 
 Note that if classify is constrained to `n = 1` then all scores will be identical.  If a larger, known tagging is available the user may want to strongly consider machine learning models (see: [**RTextToolsdata.table**](https://cran.r-project.org/package=RTextTools)).
 

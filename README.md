@@ -590,15 +590,42 @@ generate "known human coded tagged" vector. Obviously, this is for
 demonstration purposes. The model outputs a pretty printing of a list.
 The printing contains:
 
-1.  **N** - The number of text elements (`N`)
-2.  **Exact** - Perfect one to one correspondence between whole vectors
-    in `tagged` & `known` (use: `$exact`)
-3.  **Ordered** - Proportion of the elements of tags in `tagged`
-    matching `known` exactly; order matters (use: `$ordered`)
-4.  **Adjusted** - An adjusted mean score of **Ordered** and
-    **unordered** (v`$adjusted`)..
-5.  **Unordered** - Proportion of the elements of tags in `tagged`
-    matching `known` regardless of order (use: `$unordered`)
+<table>
+<thead>
+<tr class="header">
+<th align="left">Printed</th>
+<th align="left">Description</th>
+<th align="left">Accessed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>N</strong></td>
+<td align="left">The number of text elements (<code>N</code>)</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Exact</strong></td>
+<td align="left">Perfect one to one correspondence between whole vectors in <code>tagged</code> &amp; <code>known</code></td>
+<td align="left"><code>$exact</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Ordered</strong></td>
+<td align="left">Proportion of the elements in <code>tagged</code> matching <code>known</code> exactly; order matters</td>
+<td align="left"><code>$ordered</code></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Adjusted</strong></td>
+<td align="left">An adjusted mean score of <strong>Ordered</strong> and <strong>unordered</strong></td>
+<td align="left"><code>$adjusted</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Unordered</strong></td>
+<td align="left">Proportion of the elements in <code>tagged</code> matching <code>known</code> regardless of order</td>
+<td align="left"><code>$unordered</code></td>
+</tr>
+</tbody>
+</table>
 
 Note that if classify is constrained to `n = 1` then all scores will be
 identical. If a larger, known tagging is available the user may want to
