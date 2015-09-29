@@ -632,6 +632,22 @@ identical. If a larger, known tagging is available the user may want to
 strongly consider machine learning models (see:
 [**RTextToolsdata.table**](https://cran.r-project.org/package=RTextTools)).
 
+This minimal example will provide insight into the way the accuracy
+scores behave:
+
+    known <- list(1:3, 3, NA, 4:5, 2:4, 5, integer(0))
+    tagged <- list(1:3, 3, 4, 5:4, c(2, 4:3), 5, integer(0))
+    accuracy(tagged, known)
+
+    ## N:         7
+    ## Exact:     42.9%
+    ## Ordered:   47.6%
+    ## Adjusted:  59.5%
+    ## Unordered: 71.4%
+
+Below we create fake "known" tags to test `accuracy` on with data
+(though the comparison is fabricated).
+
     mod1 <- presidential_debates_2012 %>%
         with(., term_count(dialogue, TRUE, discoure_markers)) %>%
         classify()
