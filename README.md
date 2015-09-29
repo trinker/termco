@@ -645,7 +645,7 @@ scores behave:
     ## Adjusted:  59.5%
     ## Unordered: 71.4%
 
-Below we create fake "known" tags to test `accuracy` on with data
+Below we create fake "known" tags to test `accuracy` with real data
 (though the comparison is fabricated).
 
     mod1 <- presidential_debates_2012 %>%
