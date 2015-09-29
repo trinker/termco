@@ -10,7 +10,7 @@ Depends: R (>= 3.2.1)
 Imports: clipr, data.table, dplyr (>= 0.4.3), ggplot2, grid, scales,
         SnowballC, stringi, tidyr, tm, wordcloud
 Suggests: knitr, qdapRegex, testthat
-Date: 2015-09-28
+Date: 2015-09-29
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

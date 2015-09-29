@@ -39,7 +39,7 @@ cooc <- function(..., copy2clip){
     if (length(x) == 2) {
         z <- sprintf("(%s.*%s|%s.*%s)", x[1], x[2], x[2], x[1])
     } else {
-        z <- paste(sprintf("(?=.*%s)", x), collapse="")
+        z <- paste0("^", paste(sprintf("(?=.*%s)", x), collapse=""))
     }
     if (copy2clip) {
         z2 <- paste0("\"", z, "\"")
