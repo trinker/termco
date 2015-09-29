@@ -630,7 +630,7 @@ The printing contains:
 Note that if classify is constrained to `n = 1` then all scores will be
 identical. If a larger, known tagging is available the user may want to
 strongly consider machine learning models (see:
-[**RTextToolsdata.table**](https://cran.r-project.org/package=RTextTools)).
+[**RTextTools**](https://cran.r-project.org/package=RTextTools)).
 
 This minimal example will provide insight into the way the accuracy
 scores behave:
