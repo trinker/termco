@@ -588,11 +588,22 @@ a known, human coded sample. The `accuracy` function allows the
 researcher to test a model's accuracy. In the example below I randomly
 generate "known human coded tagged" vector. Obviously, this is for
 demonstration purposes. The model outputs a pretty printing of a list.
-The printing contains the number of text elements (`N`), the exact
-accuracy (perfect one to one correspondence between elements), and an
-adjusted score (this considers models that allow for multiple tags to be
-returned per element). Note that if classify is constrained to `n = 1`
-then **Correct** and **Adjusted** will be identical.
+The printing contains:
+
+1.  **N** - The number of text elements (`N`)
+2.  **Exact** - Perfect one to one correspondence between whole vectors
+    in `tagged` & `known` (use: `$exact`)
+3.  **Ordered** - Proportion of the elements of tags in `tagged`
+    matching `known` exactly; order matters (use: `$ordered`)
+4.  **Adjusted** - An adjusted mean score of **Ordered** and
+    **unordered** (v`$adjusted`)..
+5.  **Unordered** - Proportion of the elements of tags in `tagged`
+    matching `known` regardless of order (use: `$unordered`)
+
+Note that if classify is constrained to `n = 1` then all scores will be
+identical. If a larger, known tagging is available the user may want to
+strongly consider machine learning models (see:
+[**RTextToolsdata.table**](https://cran.r-project.org/package=RTextTools)).
 
     mod1 <- presidential_debates_2012 %>%
         with(., term_count(dialogue, TRUE, discoure_markers)) %>%
@@ -604,9 +615,11 @@ then **Correct** and **Adjusted** will be identical.
 
     accuracy(mod1, fake_known)
 
-    ## N:        2912
-    ## Correct:  89.7%
-    ## Adjusted: 89.7
+    ## N:         2912
+    ## Exact:     89.7%
+    ## Ordered:   89.7%
+    ## Adjusted:  89.7%
+    ## Unordered: 89.7%
 
 In this model we allow for `n = 3` tags to be assigned in the
 classification. This enables the potential for a (in this case
@@ -625,9 +638,11 @@ count for that text element; order for ties is broken randomly).
 
     accuracy(mod2, fake_known2)
 
-    ## N:        2912
-    ## Correct:  82.8%
-    ## Adjusted: 82.9
+    ## N:         2912
+    ## Exact:     82.8%
+    ## Ordered:   82.9%
+    ## Adjusted:  82.9%
+    ## Unordered: 82.9%
 
 These examples give guadance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification

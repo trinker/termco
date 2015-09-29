@@ -7,14 +7,21 @@
 #' (typically the results of \code{classify}).
 #' @param known The known expert coded \code{\link[base]{list}}/\code{\link[base]{vector}} of outcomes.
 #' @return Returns a list of five elements:
-#' \item{exact}{A numeric vector between 0-1 (0 no match; 1 perfect match) comparing \code{x} to \code{known} for exact matching.}
+#' \item{exact.in}{A numeric vector between 0-1 (0 no match; 1 perfect match) comparing \code{x} to \code{known} for exact matching.}
 #' \item{any.in}{A numeric vector between 0-1 (0 no match; 1 perfect match) comparing \code{x} to \code{known} for non-location specific matching (\code{\%in\%} is used).  This ignores the differences in length between \code{x} and \code{known}.}
-#' \item{logical}{A logical version of \code{exact} with \code{TRUE} being equal to 1 and all else being \code{FALSE}.  This can be used to locate perfect and/or non matches.}
-#' \item{prop.correct}{The proportion of \code{logical} equal to \code{TRUE}.}
-#' \item{adj.score}{An adjusted score of \code{prop.correct} that considers partial matching for when multiple tags are assigned.  This averages the results of \code{exact} and \code{any.in}.}
+#' \item{logical.in}{A logical version of \code{exact} with \code{TRUE} being equal to 1 and all else being \code{FALSE}.  This can be used to locate perfect and/or non matches.}
+#' \item{exact}{The proportion of the vector of tags in \code{x} matching \code{known} exactly.}
+#' \item{ordered}{The proportion of the elements of tags in \code{x} matching \code{known} exactly (order matters).}
+#' \item{adjusted}{An adjusted mean score of \code{ordered} and \code{unordered}.}
+#' \item{unordered}{The proportion of the elements of tags in \code{x} matching \code{known} exactly regardless of order.}
 #' @keywords accuracy model fit
 #' @export
 #' @examples
+#' known <- list(1:3, 3, NA, 4:5, 2:4, 5, integer(0))
+#' tagged <- list(1:3, 3, 4, 5:4, c(2, 4:3), 5, integer(0))
+#' accuracy(tagged, known)
+#'
+#' ## Examples
 #' library(dplyr)
 #' data(presidential_debates_2012)
 #'
@@ -57,13 +64,13 @@ accuracy <- function(x, known){
 
     out <- acc_test(x, known)
     logic <- out[["exact"]] == 1
-    propcor <- sum(logic)/length(logic)
-    score <- mean(c(
-        sum(out[["exact"]])/length(out[["exact"]]),
-        sum(out[["any.in"]])/length(out[["any.in"]])
-    ))
-    out <- list(exact = unname(out[[1]]), any.in = unname(out[[2]]),
-        logical = logic, prop.correct = propcor, adj.score = score)
+    propcor <- sum(logic, na.rm = TRUE)/length(logic)
+    ordered_out <- sum(out[["exact"]],na.rm = TRUE)/length(out[["exact"]])
+    unordered_out <- sum(out[["any.in"]],na.rm = TRUE)/length(out[["any.in"]])
+    score <- mean(c(ordered_out, unordered_out), na.rm = TRUE)
+    out <- list(exact.in = unname(out[[1]]), any.in = unname(out[[2]]),
+        logical.in = logic, exact = propcor, ordered = ordered_out,
+        unordered =unordered_out, adjusted = score)
     class(out) <- "accuracy"
     out
 
@@ -78,11 +85,11 @@ accuracy <- function(x, known){
 #' @method print accuracy
 #' @export
 print.accuracy <- function(x, ...){
-
-    cat(sprintf("N:        %s\n", length(x[["logical"]])))
-    cat(sprintf("Correct:  %s%%\n", digit_format(100*x[["prop.correct"]], 1)))
-    cat(sprintf("Adjusted: %s\n", digit_format(100*x[["adj.score"]], 1)))
-
+    cat(sprintf("N:         %s\n", length(x[["logical.in"]])))
+    cat(sprintf("Exact:     %s%%\n", digit_format(100*x[["exact"]], 1)))
+    cat(sprintf("Ordered:   %s%%\n", digit_format(100*x[["ordered"]], 1)))
+    cat(sprintf("Adjusted:  %s%%\n", digit_format(100*x[["adjusted"]], 1)))
+    cat(sprintf("Unordered: %s%%\n", digit_format(100*x[["unordered"]], 1)))
 }
 
 acc_test <- function(x, y){

@@ -14,17 +14,24 @@ accuracy(x, known)
 }
 \value{
 Returns a list of five elements:
-\item{exact}{A numeric vector between 0-1 (0 no match; 1 perfect match) comparing \code{x} to \code{known} for exact matching.}
+\item{exact.in}{A numeric vector between 0-1 (0 no match; 1 perfect match) comparing \code{x} to \code{known} for exact matching.}
 \item{any.in}{A numeric vector between 0-1 (0 no match; 1 perfect match) comparing \code{x} to \code{known} for non-location specific matching (\code{\%in\%} is used).  This ignores the differences in length between \code{x} and \code{known}.}
-\item{logical}{A logical version of \code{exact} with \code{TRUE} being equal to 1 and all else being \code{FALSE}.  This can be used to locate perfect and/or non matches.}
-\item{prop.correct}{The proportion of \code{logical} equal to \code{TRUE}.}
-\item{adj.score}{An adjusted score of \code{prop.correct} that considers partial matching for when multiple tags are assigned.  This averages the results of \code{exact} and \code{any.in}.}
+\item{logical.in}{A logical version of \code{exact} with \code{TRUE} being equal to 1 and all else being \code{FALSE}.  This can be used to locate perfect and/or non matches.}
+\item{exact}{The proportion of the vector of tags in \code{x} matching \code{known} exactly.}
+\item{ordered}{The proportion of the elements of tags in \code{x} matching \code{known} exactly (order matters).}
+\item{adjusted}{An adjusted mean score of \code{ordered} and \code{unordered}.}
+\item{unordered}{The proportion of the elements of tags in \code{x} matching \code{known} exactly regardless of order.}
 }
 \description{
 Check a model's tagging/categorizing accuracy against known expert coded
 outcomes.
 }
 \examples{
+known <- list(1:3, 3, NA, 4:5, 2:4, 5, integer(0))
+tagged <- list(1:3, 3, 4, 5:4, c(2, 4:3), 5, integer(0))
+accuracy(tagged, known)
+
+## Examples
 library(dplyr)
 data(presidential_debates_2012)
 
