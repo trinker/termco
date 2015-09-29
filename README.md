@@ -630,7 +630,7 @@ The printing contains:
 Note that if classify is constrained to `n = 1` then all scores will be
 identical. If a larger, known tagging is available the user may want to
 strongly consider machine learning models (see:
-[**RTextToolsdata.table**](https://cran.r-project.org/package=RTextTools)).
+[**RTextTools**](https://cran.r-project.org/package=RTextTools)).
 
 This minimal example will provide insight into the way the accuracy
 scores behave:
@@ -645,7 +645,7 @@ scores behave:
     ## Adjusted:  59.5%
     ## Unordered: 71.4%
 
-Below we create fake "known" tags to test `accuracy` on with data
+Below we create fake "known" tags to test `accuracy` with real data
 (though the comparison is fabricated).
 
     mod1 <- presidential_debates_2012 %>%
