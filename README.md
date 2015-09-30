@@ -29,6 +29,8 @@ Table of Contents
 -   [Installation](#installation)
 -   [Contact](#contact)
     -   [Examples](#examples)
+        -   [Load the Tools/Data](#load-the-toolsdata)
+        -   [Build Counts Dataframe](#build-counts-dataframe)
         -   [Printing](#printing)
         -   [Plotting](#plotting)
     -   [Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)
@@ -70,18 +72,23 @@ Examples
 The following examples demonstrate some of the functionality of
 **termco**.
 
+### Load the Tools/Data
+
+    library(dplyr); library(ggplot2)
     data(presidential_debates_2012)
 
+### Build Counts Dataframe
+
     discoure_markers <- list(
-        response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
+        response_cries = c("\\boh", "\\bah", "aha", "ouch", "yuk"),
         back_channels = c("uh[- ]huh", "uhuh", "yeah"),
         summons = "hey",
         justification = "because"
     )
 
-    counts <- with(presidential_debates_2012, 
-        term_count(dialogue, list(person, time), discoure_markers)
-    )
+    counts <- presidential_debates_2012 %>%
+        with(term_count(dialogue, grouping.var = list(person, time), discoure_markers))
+
     counts
 
     ## Coverage: 100% 
@@ -89,14 +96,14 @@ The following examples demonstrate some of the functionality of
     ## 
     ##       person   time n.words response_cries back_channels   summons
     ##       (fctr) (fctr)   (int)          (chr)         (chr)     (chr)
-    ## 1      OBAMA time 1    3599        4(.11%)             0 43(1.19%)
+    ## 1      OBAMA time 1    3599        3(.08%)             0 43(1.19%)
     ## 2      OBAMA time 2    7477        2(.03%)             0  42(.56%)
-    ## 3      OBAMA time 3    7243        4(.06%)       1(.01%)  58(.80%)
-    ## 4     ROMNEY time 1    4085        1(.02%)             0  27(.66%)
-    ## 5     ROMNEY time 2    7536        6(.08%)       3(.04%)  49(.65%)
-    ## 6     ROMNEY time 3    8303        8(.10%)             0 84(1.01%)
+    ## 3      OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
+    ## 4     ROMNEY time 1    4085              0             0  27(.66%)
+    ## 5     ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
+    ## 6     ROMNEY time 3    8303        5(.06%)             0 84(1.01%)
     ## 7    CROWLEY time 2    1672        2(.12%)             0   4(.24%)
-    ## 8     LEHRER time 1     765        6(.78%)       3(.39%)         0
+    ## 8     LEHRER time 1     765        3(.39%)       3(.39%)         0
     ## 9   QUESTION time 2     583        2(.34%)             0         0
     ## 10 SCHIEFFER time 3    1445              0             0   2(.14%)
     ## Variables not shown: justification (chr)
@@ -110,14 +117,14 @@ The following examples demonstrate some of the functionality of
     ## 
     ##       person   time n.words response_cries back_channels summons
     ##       (fctr) (fctr)   (int)          (int)         (int)   (int)
-    ## 1      OBAMA time 1    3599              4             0      43
+    ## 1      OBAMA time 1    3599              3             0      43
     ## 2      OBAMA time 2    7477              2             0      42
-    ## 3      OBAMA time 3    7243              4             1      58
-    ## 4     ROMNEY time 1    4085              1             0      27
-    ## 5     ROMNEY time 2    7536              6             3      49
-    ## 6     ROMNEY time 3    8303              8             0      84
+    ## 3      OBAMA time 3    7243              1             1      58
+    ## 4     ROMNEY time 1    4085              0             0      27
+    ## 5     ROMNEY time 2    7536              1             3      49
+    ## 6     ROMNEY time 3    8303              5             0      84
     ## 7    CROWLEY time 2    1672              2             0       4
-    ## 8     LEHRER time 1     765              6             3       0
+    ## 8     LEHRER time 1     765              3             3       0
     ## 9   QUESTION time 2     583              2             0       0
     ## 10 SCHIEFFER time 3    1445              0             0       2
     ## Variables not shown: justification (int)
@@ -129,14 +136,14 @@ The following examples demonstrate some of the functionality of
     ## 
     ##       person   time n.words response_cries back_channels   summons
     ##       (fctr) (fctr)   (int)          (chr)         (chr)     (chr)
-    ## 1      OBAMA time 1    3599        4(.11%)             _ 43(1.19%)
+    ## 1      OBAMA time 1    3599        3(.08%)             _ 43(1.19%)
     ## 2      OBAMA time 2    7477        2(.03%)             _  42(.56%)
-    ## 3      OBAMA time 3    7243        4(.06%)       1(.01%)  58(.80%)
-    ## 4     ROMNEY time 1    4085        1(.02%)             _  27(.66%)
-    ## 5     ROMNEY time 2    7536        6(.08%)       3(.04%)  49(.65%)
-    ## 6     ROMNEY time 3    8303        8(.10%)             _ 84(1.01%)
+    ## 3      OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
+    ## 4     ROMNEY time 1    4085              _             _  27(.66%)
+    ## 5     ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
+    ## 6     ROMNEY time 3    8303        5(.06%)             _ 84(1.01%)
     ## 7    CROWLEY time 2    1672        2(.12%)             _   4(.24%)
-    ## 8     LEHRER time 1     765        6(.78%)       3(.39%)         _
+    ## 8     LEHRER time 1     765        3(.39%)       3(.39%)         _
     ## 9   QUESTION time 2     583        2(.34%)             _         _
     ## 10 SCHIEFFER time 3    1445              _             _   2(.14%)
     ## Variables not shown: justification (chr)
@@ -165,7 +172,9 @@ you have a larger, untagged data set the machine learning approaches
 have no outcome to learn from and the data is too large to classify by
 hand. One solution is to use a expert rules, regular expression approach
 that is somewhere between machine learning and hand coding. This is one
-solution for tagging larger, untagged data sets.
+solution for tagging larger, untagged data sets. Additionally, when each
+text element contains larger chunks of text, unsupervised clustering
+type algorithms such as k-means or topic modeling may be of use.
 
 This example section highlights the types of function combinations and
 order for a typical expert rules classification. This task typically
@@ -230,7 +239,7 @@ Set `grouping.var = TRUE` to generate an `id` column of 1 through number
 of observation which gives the researcher the observation level counts.
 
     discoure_markers <- list(
-        response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
+        response_cries = c("\\boh", "\\bah", "aha", "ouch", "yuk"),
         back_channels = c("uh[- ]huh", "uhuh", "yeah"),
         summons = "hey",
         justification = "because"
@@ -241,7 +250,7 @@ of observation which gives the researcher the observation level counts.
 
     model
 
-    ## Coverage: 13.19% 
+    ## Coverage: 13.02% 
     ## Source: local data frame [2,912 x 6]
     ## 
     ##       id n.words response_cries back_channels   summons justification
@@ -265,17 +274,17 @@ coverage, discrimination, and accuracy. The first two are easier to
 obtain while accuracy is not possible to compute without a comparison
 sample of expertly tagged data.
 
-We want our model to be giving tags to as much of the text elements as
-possible. The `coverage` function can provide an understanding of what
-percent of the data is tagged. Out model has relatively low coverage,
-indicating the regular expression model needs to be improved.
+We want our model to be assigning tags to as many of the text elements
+as possible. The `coverage` function can provide an understanding of
+what percent of the data is tagged. Our model has relatively low
+coverage, indicating the regular expression model needs to be improved.
 
     model %>%
         coverage()
 
-    ## Coverage:    13.19%
-    ## Coverered:   384
-    ## Not Covered: 2528
+    ## Coverage:    13.02%
+    ## Coverered:   379
+    ## Not Covered: 2533
 
 Understanding how well our model discriminates is important as well. We
 want the model to cover as close to 100% of the data as possible, but
@@ -347,21 +356,21 @@ features of the untagged data.
     ## 1  going     211      
     ## 2  governor  177      
     ## 3  president 172      
-    ## 4  people    168      
+    ## 4  people    169      
     ## 5  make      166      
     ## 6  said      149      
     ## 7  want      130      
     ## 8  sure      110      
-    ## 9  just      106      
+    ## 9  just      107      
     ## 10 will      103      
-    ## 11 years     100      
+    ## 11 years     101      
     ## 12 jobs       96      
     ## 13 romney     95      
     ## 14 know       82      
-    ## 15 four       80      
+    ## 15 four       81      
     ## 16 also       78      
     ## 17 america    77      
-    ## 18 right      75      
+    ## 18 right      76      
     ## 19 well       74      
     ## 20 world      72
 
@@ -377,29 +386,32 @@ words frequently occur with the word *right*. We notice the word
 
     untagged %>%
         search_term("\\bright") %>%
-        frequent_terms(10)
+        frequent_terms(10, stopwords = "right")
 
     ##    term       frequency
-    ## 1  right      75       
-    ## 2  people     10       
-    ## 3  government  7       
-    ## 4  course      6       
-    ## 5  going       6       
-    ## 6  president   6       
-    ## 7  want        6       
-    ## 8  also        5       
-    ## 9  governor    5       
-    ## 10 jobs        5       
-    ## 11 make        5
+    ## 1  that       32       
+    ## 2  have       12       
+    ## 3  people     10       
+    ## 4  with        9       
+    ## 5  this        8       
+    ## 6  government  7       
+    ## 7  course      6       
+    ## 8  going       6       
+    ## 9  it's        6       
+    ## 10 president   6       
+    ## 11 that's      6       
+    ## 12 want        6       
+    ## 13 you're      6
 
 This is an exploratory act. Finding the right combination of features
 that occur together requires lots of recursive noticing, trialling,
-testing, reading, interpreting, and deciding. In the example below I
-noticed that terms *people* and *course* appear with the term *right*. I
-use a grouped-or expression with `colo` to build a regular expression
-that will search for any text elements that contain these two terms
-anywhere. `colo` is more powerful than initially shown here; I
-demonstrate further functionality below.
+testing, reading, interpreting, and deciding. After we noticed that the
+terms *people* and *course* appear with the term *right* above we will
+want to see these text elements. We can use a grouped-or expression with
+`colo` to build a regular expression that will search for any text
+elements that contain these two terms anywhere. `colo` is more powerful
+than initially shown here; I demonstrate further functionality below.
+Here is the regex produced.
 
     colo("\\bright", "(people|course)")
 
@@ -427,13 +439,14 @@ coverage proportion on the uncovered data.
     ## [14] "People can look it up, you're right."                                                                                                                                                                                                                                                                                    
     ## [15] "Those are the kinds of choices that the American people face right now."                                                                                                                                                                                                                                                 
     ## attr(,"coverage")
-    ## [1] 0.005933544
+    ## [1] 0.005921832
 
-We notice right away that the phrase *right course* appears often. I
-create a search with just this expression. Note that the decision to
-include a regular expression in the model is up to the researcher. We
-must guard against overfitting the model, making it not transferable to
-new, similar contexts.
+We notice right away that the phrase *right course* appears often. We
+can create a search with just this expression.
+
+***Note*** *that the decision to include a regular expression in the
+model is up to the researcher. We must guard against overfitting the
+model, making it not transferable to new, similar contexts.*
 
     search_term(untagged, "right course")
 
@@ -443,29 +456,36 @@ new, similar contexts.
     ## [4] "The right course for us is to make sure that we go after the the people who are leaders of these various anti American groups and these these jihadists, but also help the Muslim world."                                                                                  
     ## [5] "And so the right course for us, is working through our partners and with our own resources, to identify responsible parties within Syria, organize them, bring them together in a in a form of if not government, a form of of of council that can take the lead in Syria."
     ## attr(,"coverage")
-    ## [1] 0.001977848
+    ## [1] 0.001973944
 
-The word *jobs* also seems important. Again, I use the `search_term` +
-`frequent_terms` combo to extract words collocating with *jobs*.
+Based on the `frequent_terms` output above, the word *jobs* also seems
+important. Again, we use the `search_term` + `frequent_terms` combo to
+extract words collocating with *jobs*.
 
     search_term(untagged, "jobs") %>%
-        frequent_terms(10)
+        frequent_terms(15, stopwords = "jobs")
 
     ##    term     frequency
-    ## 1  jobs     96       
+    ## 1  that     48       
     ## 2  million  17       
     ## 3  create   15       
     ## 4  going    15       
-    ## 5  back     12       
-    ## 6  country  11       
-    ## 7  people   10       
-    ## 8  make      9       
-    ## 9  sure      9       
-    ## 10 five      8       
-    ## 11 hundred   8       
-    ## 12 overseas  8       
-    ## 13 want      8       
-    ## 14 years     8
+    ## 5  this     15       
+    ## 6  we're    14       
+    ## 7  here     13       
+    ## 8  back     12       
+    ## 9  have     12       
+    ## 10 country  11       
+    ## 11 that's   11       
+    ## 12 people   10       
+    ## 13 make      9       
+    ## 14 sure      9       
+    ## 15 five      8       
+    ## 16 hundred   8       
+    ## 17 overseas  8       
+    ## 18 want      8       
+    ## 19 with      8       
+    ## 20 years     8
 
 As stated above, `colo` is a powerful search tool as it can take
 multiple regular expressions as well as allowing for multiple negations
@@ -497,7 +517,7 @@ grouped-or regex as shown below.
     ## [20] "And when it comes to our economy here at home, I know what it takes to create twelve million new jobs and rising take home pay."                                                                                                                                             
     ## [21] "And Governor Romney wants to take us back to those policies, a foreign policy that's wrong and reckless, economic policies that won't create jobs, won't reduce our deficit, but will make sure that folks at the very top don't have to play by the same rules that you do."
     ## attr(,"coverage")
-    ## [1] 0.008306962
+    ## [1] 0.008290565
 
     ## Where do `jobs`, `create`,  and the word `not` collocate?
     search_term(untagged, colo("jobs", "create", "(not|'nt)")) 
@@ -507,7 +527,7 @@ grouped-or regex as shown below.
     ## [3] "Government does not create jobs."                                                                           
     ## [4] "Government does not create jobs."                                                                           
     ## attr(,"coverage")
-    ## [1] 0.001582278
+    ## [1] 0.001579155
 
     ## Where do `jobs` and`create` collocate without a `not` word?
     search_term(untagged, colo("jobs", "create", not = "(not|'nt)")) 
@@ -530,7 +550,14 @@ grouped-or regex as shown below.
     ## [16] "And when it comes to our economy here at home, I know what it takes to create twelve million new jobs and rising take home pay."                                                                                                                                             
     ## [17] "And Governor Romney wants to take us back to those policies, a foreign policy that's wrong and reckless, economic policies that won't create jobs, won't reduce our deficit, but will make sure that folks at the very top don't have to play by the same rules that you do."
     ## attr(,"coverage")
-    ## [1] 0.006724684
+    ## [1] 0.006711409
+
+    ## Where do `jobs`, `romney`, and `create` collocate?
+    search_term(untagged, colo("jobs", "create", "romney")) 
+
+    ## [1] "And Governor Romney wants to take us back to those policies, a foreign policy that's wrong and reckless, economic policies that won't create jobs, won't reduce our deficit, but will make sure that folks at the very top don't have to play by the same rules that you do."
+    ## attr(,"coverage")
+    ## [1] 0.0003947888
 
 Here is one more example with `colo` for the words *jobs* and
 *overseas*. The user may want to quickly test and then transfer the
@@ -550,7 +577,7 @@ flow.
     ## [7] "And the one thing that I'm absolutely clear about is that after a decade in which we saw drift, jobs being shipped overseas, nobody championing American workers and American businesses, we've now begun to make some real progress."                                                                                                                                                                                                                                
     ## [8] "And I've put forward a plan to make sure that we're bringing manufacturing jobs back to our shores by rewarding companies and small businesses that are investing here, not overseas."                                                                                                                                                                                                                                                                                
     ## attr(,"coverage")
-    ## [1] 0.003164557
+    ## [1] 0.00315831
 
 The researcher uses an iterative process to continue to build the
 regular expression list. The `term_count` function builds the matrix of
@@ -560,14 +587,15 @@ allow for continued testing of model functioning.
 
 ### Categorizing/Tagging
 
-The `classify` function enables the researcher to apply n tags to each
+The `classify` function enables the researcher to apply *n* tags to each
 text element. Depending on the text and the regular expression list's
 ability, multiple tags may be applied to a text. The `n` argument allows
 the maximum number of tags to be set though the function does not
 guarantee this many (or any) tags will be assigned.
 
 Here I show the `head` of the returned vector (if `n` \> 1 a `list` may
-be returned) as well as a `table` and plot of the counts.
+be returned) as well as a `table` and plot of the counts. Use `n = Inf`
+to return all tags.
 
     classify(model) %>%
         head()
@@ -581,7 +609,7 @@ be returned) as well as a `table` and plot of the counts.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              2            126             27            229
+    ##              6            125             18            230
 
     classify(model) %>%
         unlist() %>%
@@ -690,11 +718,11 @@ count for that text element; order for ties is broken randomly).
     accuracy(mod2, fake_known2)
 
     ## N:         2912
-    ## Exact:     82.8%
+    ## Exact:     82.9%
     ## Ordered:   82.9%
     ## Adjusted:  82.9%
     ## Unordered: 82.9%
 
-These examples give guadance on how to use the tools in the **termco**
+These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification
 model.
