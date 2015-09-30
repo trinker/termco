@@ -147,6 +147,8 @@ The following examples demonstrate some of the functionality of
 
 ![](inst/figure/unnamed-chunk-6-2.png)
 
+    plot_ca(markers)
+
 Building an Expert Rules, Regex Classifier Model
 ------------------------------------------------
 
@@ -170,6 +172,14 @@ classification.
 ### Load the Tools/Data
 
     library(dplyr); library(ggplot2)
+
+    ## 
+    ## Attaching package: 'ggplot2'
+    ## 
+    ## The following object is masked from 'package:qdapRegex':
+    ## 
+    ##     %+%
+
     data(presidential_debates_2012)
 
 ### View Most Used Words
@@ -573,7 +583,7 @@ be returned) as well as a `table` and plot of the counts.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              2            126             27            229
+    ##              1            120             28            235
 
     classify(model) %>%
         unlist() %>%
