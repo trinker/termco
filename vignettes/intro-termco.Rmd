@@ -52,26 +52,26 @@ discoure_markers <- list(
     justification = "because"
 )
 
-markers <- with(presidential_debates_2012, 
+counts <- with(presidential_debates_2012, 
     term_count(dialogue, list(person, time), discoure_markers)
 )
-markers
+counts
 ```
 
 
 ## Printing
 
 ```{r}
-print(markers, pretty = FALSE)
-print(markers, zero.replace = "_")
+print(counts, pretty = FALSE)
+print(counts, zero.replace = "_")
 ```
 
 ## Plotting
 
 ```{r}
-plot(markers)
-plot(markers, labels=TRUE)
-plot_ca(markers, FALSE)
+plot(counts)
+plot(counts, labels=TRUE)
+plot_ca(counts, FALSE)
 ```
 
 # Building an Expert Rules, Regex Classifier Model

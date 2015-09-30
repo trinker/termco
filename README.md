@@ -79,10 +79,10 @@ The following examples demonstrate some of the functionality of
         justification = "because"
     )
 
-    markers <- with(presidential_debates_2012, 
+    counts <- with(presidential_debates_2012, 
         term_count(dialogue, list(person, time), discoure_markers)
     )
-    markers
+    counts
 
     ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
@@ -103,7 +103,7 @@ The following examples demonstrate some of the functionality of
 
 ### Printing
 
-    print(markers, pretty = FALSE)
+    print(counts, pretty = FALSE)
 
     ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
@@ -122,7 +122,7 @@ The following examples demonstrate some of the functionality of
     ## 10 SCHIEFFER time 3    1445              0             0       2
     ## Variables not shown: justification (int)
 
-    print(markers, zero.replace = "_")
+    print(counts, zero.replace = "_")
 
     ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
@@ -143,15 +143,15 @@ The following examples demonstrate some of the functionality of
 
 ### Plotting
 
-    plot(markers)
+    plot(counts)
 
 ![](inst/figure/unnamed-chunk-6-1.png)
 
-    plot(markers, labels=TRUE)
+    plot(counts, labels=TRUE)
 
 ![](inst/figure/unnamed-chunk-6-2.png)
 
-    plot_ca(markers, FALSE)
+    plot_ca(counts, FALSE)
 
 ![](inst/figure/unnamed-chunk-6-3.png)
 
