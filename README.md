@@ -609,7 +609,7 @@ to return all tags.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            125             18            230
+    ##              6            127             16            230
 
     classify(model) %>%
         unlist() %>%
@@ -712,16 +712,17 @@ count for that text element; order for ties is broken randomly).
         classify(n = 3)
 
     fake_known2 <- mod2
-    set.seed(30)
-    fake_known2[sample(1:length(fake_known2), 500)] <- c("random noise", "back_channels")
+    multi <- sapply(fake_known2, length) > 1
+    set.seed(1)
+    fake_known2[multi] <- lapply(fake_known2[multi], sample)
 
     accuracy(mod2, fake_known2)
 
     ## N:         2912
-    ## Exact:     82.9%
-    ## Ordered:   82.9%
-    ## Adjusted:  82.9%
-    ## Unordered: 82.9%
+    ## Exact:     99.4%
+    ## Ordered:   99.4%
+    ## Adjusted:  99.7%
+    ## Unordered: 100.0%
 
 These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification

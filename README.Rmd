@@ -306,8 +306,9 @@ mod2 <- presidential_debates_2012 %>%
     classify(n = 3)
 
 fake_known2 <- mod2
-set.seed(30)
-fake_known2[sample(1:length(fake_known2), 500)] <- c("random noise", "back_channels")
+multi <- sapply(fake_known2, length) > 1
+set.seed(1)
+fake_known2[multi] <- lapply(fake_known2[multi], sample)
 
 accuracy(mod2, fake_known2)
 ```
