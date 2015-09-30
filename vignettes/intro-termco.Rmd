@@ -52,18 +52,21 @@ discoure_markers <- list(
     justification = "because"
 )
 
-with(presidential_debates_2012, term_count(dialogue, list(person, time), discoure_markers))
+markers <- with(presidential_debates_2012, 
+    term_count(dialogue, list(person, time), discoure_markers)
+)
+markers
 ```
 
 
-## Print Method
+## Printing
 
 ```{r}
 print(markers, pretty = FALSE)
 print(markers, zero.replace = "_")
 ```
 
-## Plot Method
+## Plotting
 
 ```{r}
 plot(markers)

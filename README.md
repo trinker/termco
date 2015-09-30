@@ -29,8 +29,8 @@ Table of Contents
 -   [Installation](#installation)
 -   [Contact](#contact)
     -   [Examples](#examples)
-        -   [Print Method](#print-method)
-        -   [Plot Method](#plot-method)
+        -   [Printing](#printing)
+        -   [Plotting](#plotting)
     -   [Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)
         -   [Load the Tools/Data](#load-the-toolsdata)
         -   [View Most Used Words](#view-most-used-words)
@@ -79,7 +79,10 @@ The following examples demonstrate some of the functionality of
         justification = "because"
     )
 
-    with(presidential_debates_2012, term_count(dialogue, list(person, time), discoure_markers))
+    markers <- with(presidential_debates_2012, 
+        term_count(dialogue, list(person, time), discoure_markers)
+    )
+    markers
 
     ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
@@ -98,46 +101,47 @@ The following examples demonstrate some of the functionality of
     ## 10 SCHIEFFER time 3    1445              0             0   2(.14%)
     ## Variables not shown: justification (chr)
 
-### Print Method
+### Printing
 
     print(markers, pretty = FALSE)
 
     ## Coverage: 100% 
-    ## Source: local data frame [10 x 8]
+    ## Source: local data frame [10 x 7]
     ## 
-    ##       person   time n.words  like water justify    he    we
-    ##       (fctr) (fctr)   (int) (int) (int)   (int) (int) (int)
-    ## 1      OBAMA time 1    3599     5     0      26    43   120
-    ## 2      OBAMA time 2    7477    16     0      29   109   318
-    ## 3      OBAMA time 3    7243    10     1      33    59   451
-    ## 4     ROMNEY time 1    4085     9     0       8    34   121
-    ## 5     ROMNEY time 2    7536    12     4      20    93   199
-    ## 6     ROMNEY time 3    8303    18     0      19    46   447
-    ## 7    CROWLEY time 2    1672     3     0      12    38    44
-    ## 8     LEHRER time 1     765     1     0       0     9    20
-    ## 9   QUESTION time 2     583     0     0       2     4     9
-    ## 10 SCHIEFFER time 3    1445     6     0       6    10    52
+    ##       person   time n.words response_cries back_channels summons
+    ##       (fctr) (fctr)   (int)          (int)         (int)   (int)
+    ## 1      OBAMA time 1    3599              4             0      43
+    ## 2      OBAMA time 2    7477              2             0      42
+    ## 3      OBAMA time 3    7243              4             1      58
+    ## 4     ROMNEY time 1    4085              1             0      27
+    ## 5     ROMNEY time 2    7536              6             3      49
+    ## 6     ROMNEY time 3    8303              8             0      84
+    ## 7    CROWLEY time 2    1672              2             0       4
+    ## 8     LEHRER time 1     765              6             3       0
+    ## 9   QUESTION time 2     583              2             0       0
+    ## 10 SCHIEFFER time 3    1445              0             0       2
+    ## Variables not shown: justification (int)
 
     print(markers, zero.replace = "_")
 
     ## Coverage: 100% 
-    ## Source: local data frame [10 x 8]
+    ## Source: local data frame [10 x 7]
     ## 
-    ##       person   time n.words     like   water  justify         he
-    ##       (fctr) (fctr)   (int)    (chr)   (chr)    (chr)      (chr)
-    ## 1      OBAMA time 1    3599  5(.14%)       _ 26(.72%)  43(1.19%)
-    ## 2      OBAMA time 2    7477 16(.21%)       _ 29(.39%) 109(1.46%)
-    ## 3      OBAMA time 3    7243 10(.14%) 1(.01%) 33(.46%)   59(.81%)
-    ## 4     ROMNEY time 1    4085  9(.22%)       _  8(.20%)   34(.83%)
-    ## 5     ROMNEY time 2    7536 12(.16%) 4(.05%) 20(.27%)  93(1.23%)
-    ## 6     ROMNEY time 3    8303 18(.22%)       _ 19(.23%)   46(.55%)
-    ## 7    CROWLEY time 2    1672  3(.18%)       _ 12(.72%)  38(2.27%)
-    ## 8     LEHRER time 1     765  1(.13%)       _        _   9(1.18%)
-    ## 9   QUESTION time 2     583        _       _  2(.34%)    4(.69%)
-    ## 10 SCHIEFFER time 3    1445  6(.42%)       _  6(.42%)   10(.69%)
-    ## Variables not shown: we (chr)
+    ##       person   time n.words response_cries back_channels   summons
+    ##       (fctr) (fctr)   (int)          (chr)         (chr)     (chr)
+    ## 1      OBAMA time 1    3599        4(.11%)             _ 43(1.19%)
+    ## 2      OBAMA time 2    7477        2(.03%)             _  42(.56%)
+    ## 3      OBAMA time 3    7243        4(.06%)       1(.01%)  58(.80%)
+    ## 4     ROMNEY time 1    4085        1(.02%)             _  27(.66%)
+    ## 5     ROMNEY time 2    7536        6(.08%)       3(.04%)  49(.65%)
+    ## 6     ROMNEY time 3    8303        8(.10%)             _ 84(1.01%)
+    ## 7    CROWLEY time 2    1672        2(.12%)             _   4(.24%)
+    ## 8     LEHRER time 1     765        6(.78%)       3(.39%)         _
+    ## 9   QUESTION time 2     583        2(.34%)             _         _
+    ## 10 SCHIEFFER time 3    1445              _             _   2(.14%)
+    ## Variables not shown: justification (chr)
 
-### Plot Method
+### Plotting
 
     plot(markers)
 
