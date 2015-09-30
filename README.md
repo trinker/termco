@@ -265,7 +265,7 @@ coverage, discrimination, and accuracy. The first two are easier to
 obtain while accuracy is not possible to compute without a comparison
 sample of expertly tagged data.
 
-We want out model to be giving tags to as much of the text elements as
+We want our model to be giving tags to as much of the text elements as
 possible. The `coverage` function can provide an understanding of what
 percent of the data is tagged. Out model has relatively low coverage,
 indicating the regular expression model needs to be improved.
