@@ -22,8 +22,6 @@ knit_hooks$set(htmlcap = function(before, options, envir) {
     paste('<p class="caption"><b><em>',options$htmlcap,"</em></b></p>",sep="")
     }
     })
-library(rgl)
-knitr::knit_hooks$set(webgl = hook_webgl)
 knitr::opts_knit$set(self.contained = TRUE, cache = FALSE)
 knitr::opts_chunk$set(fig.path = "inst/figure/")
 ```
@@ -89,7 +87,7 @@ print(markers, zero.replace = "_")
 ```{r}
 plot(markers)
 plot(markers, labels=TRUE)
-plot_ca(markers)
+plot_ca(markers, FALSE)
 ```
 
 ## Building an Expert Rules, Regex Classifier Model
