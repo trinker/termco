@@ -53,18 +53,18 @@ You are welcome to:
 * send a pull request on: <https://github.com/trinker/termco/>
 * compose a friendly e-mail to: <tyler.rinker@gmail.com>
 
-## Examples
+# Examples
 
 The following examples demonstrate some of the functionality of **termco**.
 
-### Load the Tools/Data
+## Load the Tools/Data
 
 ```{r}
 library(dplyr); library(ggplot2)
 data(presidential_debates_2012)
 ```
 
-### Build Counts Dataframe
+## Build Counts Dataframe
 
 ```{r}
 discoure_markers <- list(
@@ -81,14 +81,14 @@ counts
 ```
 
 
-### Printing
+## Printing
 
 ```{r}
 print(counts, pretty = FALSE)
 print(counts, zero.replace = "_")
 ```
 
-### Plotting
+## Plotting
 
 ```{r}
 plot(counts)
@@ -96,20 +96,20 @@ plot(counts, labels=TRUE)
 plot_ca(counts, FALSE)
 ```
 
-## Building an Expert Rules, Regex Classifier Model
+# Building an Expert Rules, Regex Classifier Model
 
 Machine learning models of classification are great when you have known tags to train with because the model scales.  Qualitative, expert based human coding is terrific for when you have no tagged data. However, when you have a larger, untagged data set the machine learning approaches have no outcome to learn from and the data is too large to classify by hand.  One solution is to use a expert rules, regular expression approach that is somewhere between machine learning and hand coding.  This is one solution for tagging larger, untagged data sets. Additionally, when each text element contains larger chunks of text, unsupervised clustering type algorithms such as k-means or topic modeling may be of use.
 
 This example section highlights the types of function combinations and order for a typical expert rules classification.  This task typically involves the combined use of available literature, close examinations of term usage within text, and researcher experience.  Building a classifier model requires the researcher to build a list of regular expressions that map to a category or tag.  Below I outline minimal work flow for classification.
 
-### Load the Tools/Data
+## Load the Tools/Data
 
 ```{r}
 library(dplyr); library(ggplot2)
 data(presidential_debates_2012)
 ```
 
-### View Most Used Words
+## View Most Used Words
 
 A common task in building a model is to understand the most frequent words while excluding less information rich function words.  The `frequnt_terms` function produces an ordered data frame of counts.  The researcher can exclude stop words and limit the terms to contain n characters between set thresholds.  The output is ordered by most to least frequent n terms but can be rearranged alphabetically.
 
@@ -121,7 +121,7 @@ presidential_debates_2012 %>%
     plot()
 ```
 
-### Building the Model
+## Building the Model
 
 To build a model the researcher created a named list of regular expressions that map to a category/tag.  This is fed to the `term_count` function.  `term_count` allows for aggregation by grouping variables but for building the model we usually want to get observation level counts.  Set `grouping.var = TRUE` to generate an `id` column of 1 through number of observation which gives the researcher the observation level counts.
 
@@ -140,7 +140,7 @@ model
 ```
 
 
-### Testing the Model
+## Testing the Model
 
 In building a classifier the researcher is typically concerned with coverage, discrimination, and accuracy.  The first two are easier to obtain while accuracy is not possible to compute without a comparison sample of expertly tagged data.
 
@@ -167,11 +167,11 @@ model %>%
     plot_counts() + xlab("Tags")
 ```
 
-### Improving the Model
+## Improving the Model
 
 The model does not have very good coverage.  To improve this the researcher will want to look at the data with no coverage to try to build additional regular expressions and categories.  This requires understanding language, noticing additional features of the data with no coverage that may map to categories, and building regular expressions to model these features.  This section will outline some of the tools that can be used to detect features and build regular expressions to model these language features.
 
-We first want to view the untagged data.  The `uncovered function provides a logical vector that can be used to exctract the text with no tags.
+We first want to view the untagged data.  The `uncovered` function provides a logical vector that can be used to exctract the text with no tags.
 
 ```{r}
 untagged <- presidential_debates_2012 %>%
@@ -244,7 +244,7 @@ search_term(untagged, colo("jobs", "overseas"))
 
 The researcher uses an iterative process to continue to build the regular expression list.  The `term_count` function builds the matrix of counts to further test the model.  The use of (a) `coverage`, (b) `as_terms` + `plot_counts`, and &#40;c) `as_terms` + `freq_counts` will allow for continued testing of model functioning.  
 
-### Categorizing/Tagging
+## Categorizing/Tagging
 
 The `classify` function enables the researcher to apply $n$ tags to each text element.  Depending on the text and the regular expression list's ability, multiple tags may be applied to a text.  The `n` argument allows the maximum number of tags to be set though the function does not guarantee this many (or any) tags will be assigned.
 
@@ -262,7 +262,7 @@ classify(model) %>%
 ```
 
 
-### Accuracy
+## Accuracy
 
 The user may be interested in testing the accuracy of the model against a known, human coded sample.  The `accuracy` function allows the researcher to test a model's accuracy.  In the example below I randomly generate "known human coded tagged" vector.  Obviously, this is for demonstration purposes.  The model outputs a pretty printing of a list. The printing contains: 
 

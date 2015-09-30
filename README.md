@@ -28,19 +28,19 @@ Table of Contents
 
 -   [Installation](#installation)
 -   [Contact](#contact)
-    -   [Examples](#examples)
-        -   [Load the Tools/Data](#load-the-toolsdata)
-        -   [Build Counts Dataframe](#build-counts-dataframe)
-        -   [Printing](#printing)
-        -   [Plotting](#plotting)
-    -   [Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)
-        -   [Load the Tools/Data](#load-the-toolsdata)
-        -   [View Most Used Words](#view-most-used-words)
-        -   [Building the Model](#building-the-model)
-        -   [Testing the Model](#testing-the-model)
-        -   [Improving the Model](#improving-the-model)
-        -   [Categorizing/Tagging](#categorizingtagging)
-        -   [Accuracy](#accuracy)
+-   [Examples](#examples)
+    -   [Load the Tools/Data](#load-the-toolsdata)
+    -   [Build Counts Dataframe](#build-counts-dataframe)
+    -   [Printing](#printing)
+    -   [Plotting](#plotting)
+-   [Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)
+    -   [Load the Tools/Data](#load-the-toolsdata)
+    -   [View Most Used Words](#view-most-used-words)
+    -   [Building the Model](#building-the-model)
+    -   [Testing the Model](#testing-the-model)
+    -   [Improving the Model](#improving-the-model)
+    -   [Categorizing/Tagging](#categorizingtagging)
+    -   [Accuracy](#accuracy)
 
 Installation
 ============
@@ -67,17 +67,19 @@ You are welcome to:
 
 
 Examples
---------
+========
 
 The following examples demonstrate some of the functionality of
 **termco**.
 
-### Load the Tools/Data
+Load the Tools/Data
+-------------------
 
     library(dplyr); library(ggplot2)
     data(presidential_debates_2012)
 
-### Build Counts Dataframe
+Build Counts Dataframe
+----------------------
 
     discoure_markers <- list(
         response_cries = c("\\boh", "\\bah", "aha", "ouch", "yuk"),
@@ -108,7 +110,8 @@ The following examples demonstrate some of the functionality of
     ## 10 SCHIEFFER time 3    1445              0             0   2(.14%)
     ## Variables not shown: justification (chr)
 
-### Printing
+Printing
+--------
 
     print(counts, pretty = FALSE)
 
@@ -148,7 +151,8 @@ The following examples demonstrate some of the functionality of
     ## 10 SCHIEFFER time 3    1445              _             _   2(.14%)
     ## Variables not shown: justification (chr)
 
-### Plotting
+Plotting
+--------
 
     plot(counts)
 
@@ -163,7 +167,7 @@ The following examples demonstrate some of the functionality of
 ![](inst/figure/unnamed-chunk-6-3.png)
 
 Building an Expert Rules, Regex Classifier Model
-------------------------------------------------
+================================================
 
 Machine learning models of classification are great when you have known
 tags to train with because the model scales. Qualitative, expert based
@@ -184,12 +188,14 @@ model requires the researcher to build a list of regular expressions
 that map to a category or tag. Below I outline minimal work flow for
 classification.
 
-### Load the Tools/Data
+Load the Tools/Data
+-------------------
 
     library(dplyr); library(ggplot2)
     data(presidential_debates_2012)
 
-### View Most Used Words
+View Most Used Words
+--------------------
 
 A common task in building a model is to understand the most frequent
 words while excluding less information rich function words. The
@@ -229,7 +235,8 @@ least frequent n terms but can be rearranged alphabetically.
 
 ![](inst/figure/unnamed-chunk-8-1.png)
 
-### Building the Model
+Building the Model
+------------------
 
 To build a model the researcher created a named list of regular
 expressions that map to a category/tag. This is fed to the `term_count`
@@ -267,7 +274,8 @@ of observation which gives the researcher the observation level counts.
     ## 10    10      13              0             0  1(7.69%)             0
     ## ..   ...     ...            ...           ...       ...           ...
 
-### Testing the Model
+Testing the Model
+-----------------
 
 In building a classifier the researcher is typically concerned with
 coverage, discrimination, and accuracy. The first two are easier to
@@ -318,7 +326,8 @@ category.
 
 ![](inst/figure/unnamed-chunk-12-1.png)
 
-### Improving the Model
+Improving the Model
+-------------------
 
 The model does not have very good coverage. To improve this the
 researcher will want to look at the data with no coverage to try to
@@ -329,7 +338,7 @@ model these features. This section will outline some of the tools that
 can be used to detect features and build regular expressions to model
 these language features.
 
-We first want to view the untagged data. The \`uncovered function
+We first want to view the untagged data. The `uncovered` function
 provides a logical vector that can be used to exctract the text with no
 tags.
 
@@ -585,7 +594,8 @@ counts to further test the model. The use of (a) `coverage`, (b)
 `as_terms` + `plot_counts`, and (c) `as_terms` + `freq_counts` will
 allow for continued testing of model functioning.
 
-### Categorizing/Tagging
+Categorizing/Tagging
+--------------------
 
 The `classify` function enables the researcher to apply *n* tags to each
 text element. Depending on the text and the regular expression list's
@@ -617,7 +627,8 @@ to return all tags.
 
 ![](inst/figure/unnamed-chunk-22-1.png)
 
-### Accuracy
+Accuracy
+--------
 
 The user may be interested in testing the accuracy of the model against
 a known, human coded sample. The `accuracy` function allows the

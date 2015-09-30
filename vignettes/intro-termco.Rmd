@@ -152,7 +152,7 @@ model %>%
 
 The model does not have very good coverage.  To improve this the researcher will want to look at the data with no coverage to try to build additional regular expressions and categories.  This requires understanding language, noticing additional features of the data with no coverage that may map to categories, and building regular expressions to model these features.  This section will outline some of the tools that can be used to detect features and build regular expressions to model these language features.
 
-We first want to view the untagged data.  The `uncovered function provides a logical vector that can be used to exctract the text with no tags.
+We first want to view the untagged data.  The `uncovered` function provides a logical vector that can be used to exctract the text with no tags.
 
 ```{r}
 untagged <- presidential_debates_2012 %>%
@@ -207,13 +207,13 @@ search_term(untagged, "jobs") %>%
 As stated above, `colo` is a powerful search tool as it can take multiple regular expressions as well as allowing for multiple negations (i.e., find x but not if y).  To include multiple negations use a grouped-or regex as shown below.
 
 ```{r}
-# Where do `jobs` and `create` collocate?
+## Where do `jobs` and `create` collocate?
 search_term(untagged, colo("jobs", "create")) 
-# Where do `jobs`, `create`,  and the word `not` collocate?
+## Where do `jobs`, `create`,  and the word `not` collocate?
 search_term(untagged, colo("jobs", "create", "(not|'nt)")) 
-# Where do `jobs` and`create` collocate without a `not` word?
+## Where do `jobs` and`create` collocate without a `not` word?
 search_term(untagged, colo("jobs", "create", not = "(not|'nt)")) 
-# Where do `jobs`, `romney`, and `create` collocate?
+## Where do `jobs`, `romney`, and `create` collocate?
 search_term(untagged, colo("jobs", "create", "romney")) 
 ```
 
