@@ -179,8 +179,17 @@ plot.frequent_terms <- function(x, n, as.cloud = FALSE, random.order = FALSE,
         ggplot2::ggplot(x, ggplot2::aes_string(x='term', weight='frequency')) +
             ggplot2::geom_bar() +
             ggplot2::coord_flip() +
-    	    ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, 1.01 * x[1, "frequency"]))
-
+            ggplot2::ylab("Count") +
+            ggplot2::xlab("Terms") +
+    	    ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, 1.01 * x[1, "frequency"])) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(
+            panel.grid.major.y = ggplot2::element_blank(),
+            #legend.position="bottom",
+            legend.title = ggplot2::element_blank(),
+            panel.border = ggplot2::element_blank(),
+            axis.line = ggplot2::element_line(color="grey70")
+        )
     }
 
 }
