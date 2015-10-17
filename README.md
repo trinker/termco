@@ -78,14 +78,6 @@ Load the Tools/Data
 -------------------
 
     library(dplyr); library(ggplot2)
-
-    ## 
-    ## Attaching package: 'ggplot2'
-    ## 
-    ## The following object is masked from 'package:qdapRegex':
-    ## 
-    ##     %+%
-
     data(presidential_debates_2012)
 
 Build Counts Dataframe
@@ -183,7 +175,7 @@ Ngram Collocations
 to examine important ngram collocations. **quanteda**'s `collocation`
 function provides measures of: `"G2"`, `"X2"`, `"pmi"`, and `"dice"` to
 examine the strength of relationship between ngrams. **termco** adds
-stopwordremoval, min/max charcter filtering, and stemming to
+stopword removal, min/max character filtering, and stemming to
 **quanteda**'s `collocation` as well as a generic `plot` method.
 
     x <- presidential_debates_2012[["dialogue"]]
@@ -748,7 +740,7 @@ to return all tags.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            126             16            231
+    ##              6            127             16            230
 
     classify(model) %>%
         unlist() %>%

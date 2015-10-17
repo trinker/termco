@@ -98,7 +98,7 @@ plot_ca(counts, FALSE)
 
 ## Ngram Collocations
 
-**termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda) to examine important ngram collocations.  **quanteda**'s `collocation` function provides measures of: `"G2"`, `"X2"`, `"pmi"`, and `"dice"` to examine the strength of relationship between ngrams.  **termco** adds stopwordremoval, min/max charcter filtering, and stemming to **quanteda**'s `collocation` as well as a generic `plot` method.
+**termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda) to examine important ngram collocations.  **quanteda**'s `collocation` function provides measures of: `"G2"`, `"X2"`, `"pmi"`, and `"dice"` to examine the strength of relationship between ngrams.  **termco** adds stopword removal, min/max character filtering, and stemming to **quanteda**'s `collocation` as well as a generic `plot` method.
 
 ```{r}
 x <- presidential_debates_2012[["dialogue"]]
