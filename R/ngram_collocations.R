@@ -21,7 +21,7 @@
 #' @param \ldots Other arguments passed to \code{\link[quanteda]{collocations}}.
 #' @return Retuns a data.frame of terms and frequencies.
 #' @importFrom tm stopwords
-#' @importFrom data.table :=
+#' @importFrom data.table := .SD
 #' @keywords term word frequency
 #' @seealso \code{\link[quanteda]{collocations}}
 #' @export
