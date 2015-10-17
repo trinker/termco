@@ -33,6 +33,8 @@ Table of Contents
     -   [Build Counts Dataframe](#build-counts-dataframe)
     -   [Printing](#printing)
     -   [Plotting](#plotting)
+    -   [Ngram Collocations](#ngram-collocations)
+        -   [Collocation Plotting](#collocation-plotting)
 -   [Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)
     -   [Load the Tools/Data](#load-the-toolsdata)
     -   [View Most Used Words](#view-most-used-words)
@@ -76,6 +78,14 @@ Load the Tools/Data
 -------------------
 
     library(dplyr); library(ggplot2)
+
+    ## 
+    ## Attaching package: 'ggplot2'
+    ## 
+    ## The following object is masked from 'package:qdapRegex':
+    ## 
+    ##     %+%
+
     data(presidential_debates_2012)
 
 Build Counts Dataframe
@@ -166,6 +176,125 @@ Plotting
 
 ![](inst/figure/unnamed-chunk-6-3.png)
 
+Ngram Collocations
+------------------
+
+**termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda)
+to examine important ngram collocations. **quanteda**'s `collocation`
+function provides measures of: `"G2"`, `"X2"`, `"pmi"`, and `"dice"` to
+examine the strength of relationship between ngrams. **termco** adds
+stopwordremoval, min/max charcter filtering, and stemming to
+**quanteda**'s `collocation` as well as a generic `plot` method.
+
+    x <- presidential_debates_2012[["dialogue"]]
+
+    ngram_collocations(x)
+
+    ##        term1      term2 frequency        G2        X2      pmi      dice
+    ##  1:     make       sure       127 1257.4909 17987.052 4.957449 0.6827957
+    ##  2: governor     romney       105 1233.9595 26050.830 5.515143 0.8235294
+    ##  3:     four      years        63  656.4017 13899.582 5.399987 0.6028708
+    ##  4:   mister  president        61  624.8574 10995.269 5.198654 0.4784314
+    ##  5:   united     states        31  419.4881 22511.341 6.588394 0.7654321
+    ##  6:   middle      class        30  366.8708 14048.433 6.150553 0.5714286
+    ##  7:     last       four        27  253.5892  5176.427 5.262552 0.3698630
+    ##  8:   middle       east        26  337.2778 13802.693 6.275716 0.5360825
+    ##  9:   health       care        26  316.9656 13965.719 6.287706 0.6046512
+    ## 10: american     people        26  193.6594  2067.460 4.393881 0.1984733
+    ## 11:    small businesses        22  261.6469 11402.784 6.252305 0.5500000
+    ## 12:   making       sure        19  149.8686  1912.972 4.626317 0.1890547
+    ## 13:     dodd      frank        15  264.9045 37737.000 7.830346 1.0000000
+    ## 14:  federal government        15  149.9675  4000.717 5.591056 0.3061224
+    ## 15: governor   romney's        13  145.8008  3371.479 5.561663 0.1645570
+    ## 16:    small   business        13  143.4335  5539.514 6.057569 0.3768116
+    ## 17:  private     sector        11  162.3632 16537.462 7.315891 0.6285714
+    ## 18: national   security        11  136.2147  7888.633 6.576718 0.4313725
+    ## 19:     wall     street         9  161.6374 33962.400 8.235811 0.9473684
+    ## 20:     food     stamps         9  157.7079 30874.091 8.140501 0.9000000
+
+    ngram_collocations(x, gram.length = 3)
+
+    ##        term1  term2      term3 frequency        G2         X2       pmi
+    ##  1:     last   four      years        27  927.5627   593.7586  6.377042
+    ##  2: governor romney       says         8  875.0792 19728.7724  9.192229
+    ##  3: governor romney       said         6  835.9895   613.9352  5.791032
+    ##  4:     also   make       sure         3 1245.9453  1057.2660  6.452585
+    ##  5:     will   make       sure         3 1237.9291  6818.4983  8.130076
+    ##  6: governor romney      talks         3  826.7321 21685.5103  8.882568
+    ##  7: governor romney       just         3  820.2948  3166.0495  7.988257
+    ##  8: governor romney     talked         2  825.0387   384.9124  5.440897
+    ##  9:     make   sure      folks         1 1218.0546  2346.2809  7.700575
+    ## 10:     make   sure      small         1 1217.8131   616.7290  6.243899
+    ## 11:     make   sure       take         1 1217.1423   197.0394  4.460263
+    ## 12: governor romney criticized         1  812.2985   793.3167  6.278270
+    ## 13: governor romney      feels         1  812.2985 22172.2798  8.616865
+    ## 14: governor romney  indicates         1  812.2985 83098.9284 11.324915
+    ## 15: governor romney     stands         1  812.2985  3841.8656  8.189421
+    ## 16: governor romney   there'll         1  812.2985  2618.9923  7.140483
+    ## 17: governor romney     thinks         1  812.2985   177.0220  4.262242
+    ## 18: governor romney     agrees         1  809.5322   328.0611  5.683008
+    ## 19: governor romney      keeps         1  807.3197   287.3948  4.117056
+    ## 20: governor romney      maybe         1  807.3197   252.7850  5.525823
+    ##            dice
+    ##  1: 0.002176279
+    ##  2: 0.004634994
+    ##  3: 0.001558846
+    ##  4: 0.001951220
+    ##  5: 0.004415011
+    ##  6: 0.006802721
+    ##  7: 0.001568627
+    ##  8: 0.001520913
+    ##  9: 0.002290951
+    ## 10: 0.002100840
+    ## 11: 0.001367989
+    ## 12: 0.001749781
+    ## 13: 0.008403361
+    ## 14: 0.002398082
+    ## 15: 0.002277904
+    ## 16: 0.003898635
+    ## 17: 0.001490313
+    ## 18: 0.002070393
+    ## 19: 0.001512859
+    ## 20: 0.002036660
+
+    ngram_collocations(x, order.by = "dice")
+
+    ##        term1      term2 frequency        G2        X2      pmi      dice
+    ##  1:     dodd      frank        15  264.9045 37737.000 7.830346 1.0000000
+    ##  2:     wall     street         9  161.6374 33962.400 8.235811 0.9473684
+    ##  3:     food     stamps         9  157.7079 30874.091 8.140501 0.9000000
+    ##  4: governor     romney       105 1233.9595 26050.830 5.515143 0.8235294
+    ##  5:   united     states        31  419.4881 22511.341 6.588394 0.7654321
+    ##  6:     make       sure       127 1257.4909 17987.052 4.957449 0.6827957
+    ##  7:  private     sector        11  162.3632 16537.462 7.315891 0.6285714
+    ##  8:   health       care        26  316.9656 13965.719 6.287706 0.6046512
+    ##  9:     four      years        63  656.4017 13899.582 5.399987 0.6028708
+    ## 10:   middle      class        30  366.8708 14048.433 6.150553 0.5714286
+    ## 11:    small businesses        22  261.6469 11402.784 6.252305 0.5500000
+    ## 12:   middle       east        26  337.2778 13802.693 6.275716 0.5360825
+    ## 13:   mister  president        61  624.8574 10995.269 5.198654 0.4784314
+    ## 14: national   security        11  136.2147  7888.633 6.576718 0.4313725
+    ## 15:    small   business        13  143.4335  5539.514 6.057569 0.3768116
+    ## 16:     last       four        27  253.5892  5176.427 5.262552 0.3698630
+    ## 17:  federal government        15  149.9675  4000.717 5.591056 0.3061224
+    ## 18: american     people        26  193.6594  2067.460 4.393881 0.1984733
+    ## 19:   making       sure        19  149.8686  1912.972 4.626317 0.1890547
+    ## 20: governor   romney's        13  145.8008  3371.479 5.561663 0.1645570
+
+### Collocation Plotting
+
+    plot(ngram_collocations(x))
+
+![](inst/figure/unnamed-chunk-8-1.png)
+
+    plot(ngram_collocations(x, gram.length = 3))
+
+![](inst/figure/unnamed-chunk-8-2.png)
+
+    plot(ngram_collocations(x, order.by = "dice"))
+
+![](inst/figure/unnamed-chunk-8-3.png)
+
 Building an Expert Rules, Regex Classifier Model
 ================================================
 
@@ -233,7 +362,7 @@ least frequent n terms but can be rearranged alphabetically.
         with(., frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](inst/figure/unnamed-chunk-8-1.png)
+![](inst/figure/unnamed-chunk-10-1.png)
 
 Building the Model
 ------------------
@@ -313,7 +442,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-11-1.png)
+![](inst/figure/unnamed-chunk-13-1.png)
 
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
@@ -324,7 +453,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-12-1.png)
+![](inst/figure/unnamed-chunk-14-1.png)
 
 Improving the Model
 -------------------
@@ -619,13 +748,13 @@ to return all tags.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            127             16            230
+    ##              6            126             16            231
 
     classify(model) %>%
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-22-1.png)
+![](inst/figure/unnamed-chunk-24-1.png)
 
 Accuracy
 --------

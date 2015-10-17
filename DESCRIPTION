@@ -7,10 +7,10 @@ Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: A small suite of functions used to count terms and
         substrings in strings.
 Depends: R (>= 3.2.1)
-Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, grid, rgl, scales,
-        SnowballC, stringi, tidyr, tm, wordcloud
+Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, grid, gridExtra,
+        quanteda, rgl,  scales, SnowballC, stringi, tidyr, tm, utils, wordcloud
 Suggests: knitr, qdapRegex, testthat
-Date: 2015-09-29
+Date: 2015-10-17
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
