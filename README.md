@@ -78,6 +78,14 @@ Load the Tools/Data
 -------------------
 
     library(dplyr); library(ggplot2)
+
+    ## 
+    ## Attaching package: 'ggplot2'
+    ## 
+    ## The following object is masked from 'package:qdapRegex':
+    ## 
+    ##     %+%
+
     data(presidential_debates_2012)
 
 Build Counts Dataframe
@@ -740,7 +748,7 @@ to return all tags.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            127             16            230
+    ##              6            124             17            232
 
     classify(model) %>%
         unlist() %>%

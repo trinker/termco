@@ -246,9 +246,10 @@ plot.term_count <- function(x, labels = FALSE, low ="white",
     y[["group.vars"]] <- paste2(y[, group], sep = "_")
     y <- y[!colnames(y) %in% group]
     vars <- colnames(y)[!colnames(y) %in% c("group.vars", "n.words")]
-    dat <- tidyr::gather_(y, "terms", "values", vars)
+    dat <- tidyr::gather_(y, "terms", "values", vars) %>%
+        dplyr::mutate(prop = values/n.words)
 
-    out <- ggplot2::ggplot(dat, ggplot2::aes_string(y = "group.vars", x = "terms", fill = "values")) +
+    out <- ggplot2::ggplot(dat, ggplot2::aes_string(y = "group.vars", x = "terms", fill = "prop")) +
         ggplot2::theme_bw() +
         ggplot2::theme(
             axis.text.x = ggplot2::element_text(angle = 90, vjust = .5, hjust = 1),
