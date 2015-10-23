@@ -5,7 +5,7 @@
 \title{Search For and Count Terms}
 \usage{
 term_count(text.var, grouping.var = NULL, term.list, ignore.case = TRUE,
-  pretty = TRUE)
+  pretty = TRUE, group.names, ...)
 }
 \arguments{
 \item{text.var}{The text string variable.}
@@ -23,6 +23,11 @@ sensitive and if \code{TRUE}, case is ignored during matching.}
 \item{pretty}{logical.  If \code{TRUE} pretty printing is used.  Pretty
 printing can be turned off globally by setting
 \code{options(termco_pretty = FALSE)}.}
+
+\item{group.names}{A vector of names that corresponds to group.  Generally
+for internal use.}
+
+\item{\ldots}{ignored.}
 }
 \value{
 Returns a \code{\link[dplyr]{tbl_df}} object of term counts by

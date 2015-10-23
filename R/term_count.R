@@ -14,6 +14,9 @@
 #' @param pretty logical.  If \code{TRUE} pretty printing is used.  Pretty
 #' printing can be turned off globally by setting
 #' \code{options(termco_pretty = FALSE)}.
+#' @param group.names A vector of names that corresponds to group.  Generally
+#' for internal use.
+#' @param \ldots ignored.
 #' @return Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
 #' grouping variable.
 #' @note Note that while a \code{\link[termco]{term_count}} object prints as a
@@ -63,7 +66,7 @@
 #'     mutate(totals = response_cries + back_channels + summons + justification) %>%
 #'     arrange(-totals)
 term_count <- function(text.var, grouping.var = NULL, term.list,
-    ignore.case = TRUE, pretty = TRUE){
+    ignore.case = TRUE, pretty = TRUE, group.names, ...){
 
     if(is.null(grouping.var)) {
         G <- "all"
@@ -95,6 +98,10 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
                 grouping <- unlist(grouping.var)
             }
         }
+    }
+
+    if(!missing(group.names)) {
+        G <- group.names
     }
 
     DF <- data.frame(text.var, check.names = FALSE, stringsAsFactors = FALSE)
