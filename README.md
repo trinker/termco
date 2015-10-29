@@ -77,17 +77,6 @@ The following examples demonstrate some of the functionality of
 Load the Tools/Data
 -------------------
 
-    library(dplyr); library(ggplot2)
-
-    ## 
-    ## Attaching package: 'ggplot2'
-    ## 
-    ## The following object is masked from 'package:qdapRegex':
-    ## 
-    ##     %+%
-
-    data(presidential_debates_2012)
-
 Build Counts Dataframe
 ----------------------
 
@@ -319,9 +308,6 @@ classification.
 
 Load the Tools/Data
 -------------------
-
-    library(dplyr); library(ggplot2)
-    data(presidential_debates_2012)
 
 View Most Used Words
 --------------------
@@ -748,7 +734,7 @@ to return all tags.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            124             17            232
+    ##              6            127             16            230
 
     classify(model) %>%
         unlist() %>%

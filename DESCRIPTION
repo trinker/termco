@@ -11,7 +11,7 @@ Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, grid,
         gridExtra, quanteda, rgl, scales, SnowballC, stringi, tidyr,
         tm, utils, wordcloud
 Suggests: knitr, qdapRegex, testthat
-Date: 2015-10-23
+Date: 2015-10-28
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

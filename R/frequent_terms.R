@@ -20,10 +20,10 @@
 #' or spaces are stripped.  This regex can be changed via the \code{strip.regex}
 #' argument.
 #' @param strip.regex A regular expression used for stripping undesired characters.
-#' @param alphabetical logical.  Should rows be aranged alphabetically by term
+#' @param alphabetical logical.  Should rows be arranged alphabetically by term
 #' or frequency.
 #' @param \ldots ignored.
-#' @return Retuns a data.frame of terms and frequencies.
+#' @return Returns a data.frame of terms and frequencies.
 #' @importFrom tm stopwords
 #' @keywords term word frequency
 #' @export

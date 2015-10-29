@@ -59,7 +59,7 @@ The following examples demonstrate some of the functionality of **termco**.
 
 ## Load the Tools/Data
 
-```{r}
+```{r, echo=FALSE, message=FALSE}
 library(dplyr); library(ggplot2)
 data(presidential_debates_2012)
 ```
@@ -123,7 +123,7 @@ This example section highlights the types of function combinations and order for
 
 ## Load the Tools/Data
 
-```{r}
+```{r, echo=FALSE, message=FALSE}
 library(dplyr); library(ggplot2)
 data(presidential_debates_2012)
 ```

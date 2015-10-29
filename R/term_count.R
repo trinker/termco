@@ -153,7 +153,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
 #' to \code{"0"}.
 #' @param pretty logical.  If \code{TRUE} the counts print in a pretty fashion,
 #' combining count and weighted information into a single display.
-#' \code{pretty} printing can be permanantly removed with
+#' \code{pretty} printing can be permanently removed with
 #' \code{\link[termco]{as_count}}.
 #' @param \ldots ignored
 #' @method print term_count
