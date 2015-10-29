@@ -77,6 +77,9 @@ The following examples demonstrate some of the functionality of
 Load the Tools/Data
 -------------------
 
+    library(dplyr); library(ggplot2)
+    data(presidential_debates_2012)
+
 Build Counts Dataframe
 ----------------------
 
@@ -308,6 +311,9 @@ classification.
 
 Load the Tools/Data
 -------------------
+
+    library(dplyr); library(ggplot2)
+    data(presidential_debates_2012)
 
 View Most Used Words
 --------------------
