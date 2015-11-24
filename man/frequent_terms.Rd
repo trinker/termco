@@ -36,13 +36,13 @@ argument.}
 
 \item{strip.regex}{A regular expression used for stripping undesired characters.}
 
-\item{alphabetical}{logical.  Should rows be aranged alphabetically by term
+\item{alphabetical}{logical.  Should rows be arranged alphabetically by term
 or frequency.}
 
 \item{\ldots}{ignored.}
 }
 \value{
-Retuns a data.frame of terms and frequencies.
+Returns a data.frame of terms and frequencies.
 }
 \description{
 Find a list of the n most frequent terms.
