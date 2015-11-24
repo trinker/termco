@@ -122,12 +122,16 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
 
     if(any(G %in% names(term.list))) stop("`grouping` names cannot be used as `term.list` names")
 
-    out <- data.table::setDT(DF)[, names(term.list):= lapply(term.list, countfun,
-        text.var, ignore.case = ignore.case), ][, text.var:=NULL][,
-            lapply(.SD, sum, na.rm = TRUE), keyby = G]
+    counts <- data.table::setDT(DF)[, names(term.list):= lapply(term.list, countfun,
+        text.var, ignore.case = ignore.case), ][, text.var:=NULL]
+
+    out <- counts[,lapply(.SD, sum, na.rm = TRUE), keyby = G]
 
     text <- new.env(hash=FALSE)
     text[["text.var"]] <- text.var
+
+    count <- new.env(hash=FALSE)
+    count[["count"]] <- counts
 
     out <- dplyr::tbl_df(out)
     class(out) <- c("term_count", class(out))
@@ -135,6 +139,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     attributes(out)[["term.vars"]] <- nms
     attributes(out)[["weight"]] <- "count"
     attributes(out)[["pretty"]] <- pretty
+    attributes(out)[["counts"]] <- count
     attributes(out)[["text.var"]] <- text
     out
 
