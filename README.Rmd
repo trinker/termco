@@ -109,7 +109,7 @@ ngram_collocations(x, order.by = "dice")
 ```
 
 ### Collocation Plotting
-```{r}
+```{r, fig.width=14}
 plot(ngram_collocations(x))
 plot(ngram_collocations(x, gram.length = 3))
 plot(ngram_collocations(x, order.by = "dice"))
