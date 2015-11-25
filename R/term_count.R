@@ -252,7 +252,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 #' @export
 plot.term_count <- function(x, labels = FALSE, low ="white",
     high = "red", grid = NA, label.color = "grey70", label.size = 3,
-    label.digits = 2, weight = "percent", ...){
+    label.digits = if(weight=="count"){0} else {2}, weight = "percent", ...){
 
     group <- attributes(x)[["group.vars"]]
     if (weight == "count") {
