@@ -244,24 +244,28 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 #' @param label.size The size to make labels if \code{labels = TRUE}.
 #' @param weight The weight to apply to the cell values for gradient fill.
 #' Currently the following are available:
-#' \code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
-#' additional information.
+#' \code{"proportion"}, \code{"percent"}, and \code{"count"}.  See
+#' \code{\link[termco]{weight}} for additional information.
 #' @param \ldots ignored
 #' @method plot term_count
 #' @export
 plot.term_count <- function(x, labels = FALSE, low ="white",
     high = "red", grid = NA, label.color = "grey70", label.size = 3,
-    weight = "proportion", ...){
+    weight = "percent", ...){
 
     group <- attributes(x)[["group.vars"]]
-    y <- weight(x, weight = weight)
+    if (weight == "count") {
+        y <- x
+    } else {
+        y <- weight(x, weight = weight)
+    }
+
     y[["group.vars"]] <- paste2(y[, group], sep = "_")
     y <- y[!colnames(y) %in% group]
     vars <- colnames(y)[!colnames(y) %in% c("group.vars", "n.words")]
-    dat <- tidyr::gather_(y, "terms", "values", vars) %>%
-        dplyr::mutate(prop = values/n.words)
+    dat <- tidyr::gather_(y, "terms", "values", vars)
 
-    out <- ggplot2::ggplot(dat, ggplot2::aes_string(y = "group.vars", x = "terms", fill = "prop")) +
+    out <- ggplot2::ggplot(dat, ggplot2::aes_string(y = "group.vars", x = "terms", fill = "values")) +
         ggplot2::theme_bw() +
         ggplot2::theme(
             axis.text.x = ggplot2::element_text(angle = 90, vjust = .5, hjust = 1),
@@ -273,10 +277,17 @@ plot.term_count <- function(x, labels = FALSE, low ="white",
         ) +
         ggplot2::xlab("Terms Categories") +
         ggplot2::ylab("Groups") +
-        ggplot2::geom_tile(color = grid) +
-        ggplot2::scale_fill_gradient(high = high, low = low, name = "Percent",
-            labels = scales::percent)
+        ggplot2::geom_tile(color = grid)
 
+    if (weight == "percent"){
+        out <- out +
+            ggplot2::scale_fill_gradient(high = high, low = low, name = "Percent",
+                labels = function(x) paste0(x, "%"))
+    } else {
+        out <- out +
+            ggplot2::scale_fill_gradient(high = high, low = low,
+                name = gsub("(\\w)(\\w*)","\\U\\1\\L\\2", weight, perl=TRUE))
+    }
     if (isTRUE(labels)){
         values <- n.words <- NULL
         out <- out +

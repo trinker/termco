@@ -17,6 +17,25 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
+
+termco 0.1.0
+----------------------------------------------------------------
+
+**BUG FIXES**
+
+* `plot.term_count` did not properly handle weighting.  Ths has been fixed and
+  allows for `"count"` as a choice.
+
+**NEW FEATURES**
+
+**MINOR FEATURES**
+
+IMPROVEMENTS
+
+**CHANGES**
+
+
+
 termco 0.0.1
 ----------------------------------------------------------------
 

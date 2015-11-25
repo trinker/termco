@@ -8,7 +8,7 @@ Description: A small suite of functions used to count terms and
         substrings in strings.
 Depends: R (>= 3.2.1)
 Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, grid,
-        gridExtra, quanteda, rgl, scales, SnowballC, stringi, tidyr,
+        gridExtra, quanteda, rgl, SnowballC, stringi, tidyr,
         tm, utils, wordcloud
 Suggests: knitr, qdapRegex, testthat
 Date: 2015-11-24

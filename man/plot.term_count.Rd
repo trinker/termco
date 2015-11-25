@@ -5,8 +5,8 @@
 \title{Plots a term_count object}
 \usage{
 \method{plot}{term_count}(x, labels = FALSE, low = "white", high = "red",
-  grid = NA, label.color = "grey70", label.size = 3,
-  weight = "proportion", ...)
+  grid = NA, label.color = "grey70", label.size = 3, weight = "percent",
+  ...)
 }
 \arguments{
 \item{x}{The term_count object.}
@@ -26,8 +26,8 @@ on the heatmap.}
 
 \item{weight}{The weight to apply to the cell values for gradient fill.
 Currently the following are available:
-\code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
-additional information.}
+\code{"proportion"}, \code{"percent"}, and \code{"count"}.  See
+\code{\link[termco]{weight}} for additional information.}
 
 \item{\ldots}{ignored}
 }

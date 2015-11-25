@@ -20,7 +20,7 @@
 #' out
 #' as_count(out) <- TRUE
 #' out
-as_count <- function (x, value = TRUE){
+as_count <- function (x, value = FALSE){
     validate_term_count(x)
     attributes(x)[["pretty"]] <- value
     x

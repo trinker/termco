@@ -5,7 +5,7 @@
 \alias{as_count<-}
 \title{Set Pretty/Count Printing of a term_count Object}
 \usage{
-as_count(x, value = TRUE)
+as_count(x, value = FALSE)
 
 as_count(x) <- value
 }
