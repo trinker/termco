@@ -279,7 +279,7 @@ stopword removal, min/max character filtering, and stemming to
 
 ![](inst/figure/unnamed-chunk-8-1.png)
 
-    plot(ngram_collocations(x), FALSE)
+    plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
 
 ![](inst/figure/unnamed-chunk-8-2.png)
 
@@ -744,7 +744,7 @@ to return all tags.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            126             17            230
+    ##              6            127             16            230
 
     classify(model) %>%
         unlist() %>%
