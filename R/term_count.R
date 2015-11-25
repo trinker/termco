@@ -262,6 +262,7 @@ plot.term_count <- function(x, labels = FALSE, low ="white",
     }
 
     y[["group.vars"]] <- paste2(y[, group], sep = "_")
+    y[["group.vars"]] <- factor(y[["group.vars"]], levels = rev(y[["group.vars"]]))
     y <- y[!colnames(y) %in% group]
     vars <- colnames(y)[!colnames(y) %in% c("group.vars", "n.words")]
     dat <- tidyr::gather_(y, "terms", "values", vars)
