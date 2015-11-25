@@ -279,13 +279,17 @@ stopword removal, min/max character filtering, and stemming to
 
 ![](inst/figure/unnamed-chunk-8-1.png)
 
-    plot(ngram_collocations(x, gram.length = 3))
+    plot(ngram_collocations(x), FALSE)
 
 ![](inst/figure/unnamed-chunk-8-2.png)
 
-    plot(ngram_collocations(x, order.by = "dice"))
+    plot(ngram_collocations(x, gram.length = 3))
 
 ![](inst/figure/unnamed-chunk-8-3.png)
+
+    plot(ngram_collocations(x, order.by = "dice"))
+
+![](inst/figure/unnamed-chunk-8-4.png)
 
 Building an Expert Rules, Regex Classifier Model
 ================================================
@@ -740,7 +744,7 @@ to return all tags.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            126             16            231
+    ##              6            126             17            230
 
     classify(model) %>%
         unlist() %>%

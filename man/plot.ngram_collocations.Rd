@@ -4,10 +4,14 @@
 \alias{plot.ngram_collocations}
 \title{Plots a ngram_collocations Object}
 \usage{
-\method{plot}{ngram_collocations}(x, plot = TRUE, ...)
+\method{plot}{ngram_collocations}(x, drop.redundant.yaxis.text = TRUE,
+  plot = TRUE, ...)
 }
 \arguments{
 \item{x}{The \code{ngram_collocations} object.}
+
+\item{drop.redundant.yaxis.text}{logical.  If \code{TRUE} the second y axis text/ticks,
+in the heat plot are dropped.}
 
 \item{plot}{logical.  If \code{TRUE} the output is plotted.}
 

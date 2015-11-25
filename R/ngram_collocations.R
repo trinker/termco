@@ -110,13 +110,16 @@ ngram_collocations <- function(x, n = 20, gram.length = 2,
 #' Plots a ngram_collocations object.
 #'
 #' @param x The \code{ngram_collocations} object.
+#' @param drop.redundant.yaxis.text logical.  If \code{TRUE} the second y axis text/ticks,
+#' in the heat plot are dropped.
 #' @param plot logical.  If \code{TRUE} the output is plotted.
 #' @param \ldots ignored.
 #' @return Returns a list of the three \pkg{ggplot2} objects that make the
 #' combined plot.
 #' @method plot ngram_collocations
 #' @export
-plot.ngram_collocations <- function(x, plot = TRUE, ...){
+plot.ngram_collocations <- function(x, drop.redundant.yaxis.text = TRUE,
+    plot = TRUE, ...){
 
     Grams <- Method <- Scaled <- Measure <- NULL
     termcols <- colnames(x)[seq_len(attr(x, "gram.length"))]
@@ -165,6 +168,13 @@ plot.ngram_collocations <- function(x, plot = TRUE, ...){
         ) +
         ggplot2::guides(fill = ggplot2::guide_colorbar(barwidth = .5, barheight = 10))
 
+    if (isTRUE(drop.redundant.yaxis.text)){
+        heat_plot <- heat_plot +
+            ggplot2::theme(
+                axis.text.y = ggplot2::element_blank(),
+                axis.ticks.y = ggplot2::element_blank()
+            )
+    }
 
     plotout <- gridExtra::arrangeGrob(plot1, heat_plot, ncol=2)
     if (isTRUE(plot)) gridExtra::grid.arrange(plotout)
