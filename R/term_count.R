@@ -242,6 +242,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 #' @param grid The color of the grid (Use \code{NA} to remove the grid).
 #' @param label.color The color to make labels if \code{labels = TRUE}.
 #' @param label.size The size to make labels if \code{labels = TRUE}.
+#' @param label.digits The number of digits to print if labels are printed.
 #' @param weight The weight to apply to the cell values for gradient fill.
 #' Currently the following are available:
 #' \code{"proportion"}, \code{"percent"}, and \code{"count"}.  See
@@ -251,7 +252,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 #' @export
 plot.term_count <- function(x, labels = FALSE, low ="white",
     high = "red", grid = NA, label.color = "grey70", label.size = 3,
-    weight = "percent", ...){
+    label.digits = 2, weight = "percent", ...){
 
     group <- attributes(x)[["group.vars"]]
     if (weight == "count") {
@@ -264,6 +265,11 @@ plot.term_count <- function(x, labels = FALSE, low ="white",
     y <- y[!colnames(y) %in% group]
     vars <- colnames(y)[!colnames(y) %in% c("group.vars", "n.words")]
     dat <- tidyr::gather_(y, "terms", "values", vars)
+
+    if (isTRUE(labels)){
+        values <- NULL
+        dat <- dplyr::mutate(dat, labels = digit_format(values, label.digits))
+    }
 
     out <- ggplot2::ggplot(dat, ggplot2::aes_string(y = "group.vars", x = "terms", fill = "values")) +
         ggplot2::theme_bw() +
@@ -289,9 +295,8 @@ plot.term_count <- function(x, labels = FALSE, low ="white",
                 name = gsub("(\\w)(\\w*)","\\U\\1\\L\\2", weight, perl=TRUE))
     }
     if (isTRUE(labels)){
-        values <- NULL
         out <- out +
-            ggplot2::geom_text(ggplot2::aes(label = round(values, 0)),
+            ggplot2::geom_text(ggplot2::aes_string(label = 'labels'),
                 color = label.color, size = label.size)
     }
 
