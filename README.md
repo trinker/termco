@@ -740,7 +740,7 @@ to return all tags.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            125             17            231
+    ##              6            127             16            230
 
     classify(model) %>%
         unlist() %>%

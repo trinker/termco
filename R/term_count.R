@@ -289,9 +289,9 @@ plot.term_count <- function(x, labels = FALSE, low ="white",
                 name = gsub("(\\w)(\\w*)","\\U\\1\\L\\2", weight, perl=TRUE))
     }
     if (isTRUE(labels)){
-        values <- n.words <- NULL
+        values <- NULL
         out <- out +
-            ggplot2::geom_text(ggplot2::aes(label = round(n.words * values, 0)),
+            ggplot2::geom_text(ggplot2::aes(label = round(values, 0)),
                 color = label.color, size = label.size)
     }
 
