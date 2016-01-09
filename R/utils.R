@@ -24,7 +24,6 @@ rm_class <- function(x, remove = "term_count", ...){
     x
 }
 
-
 propify <- function(x, fun, ...){
 
     validate_term_count(x)
@@ -34,14 +33,14 @@ propify <- function(x, fun, ...){
         x <- attributes(x)[["counts"]]
     } else {
         counts <- new.env(FALSE)
-        counts[["term_counts"]] <- x
+        counts[["term_counts"]] <- as.data.frame(x)
         attributes(x)[["counts"]] <- counts
     }
 
     fun2 <- function(y) fun(y, x[["n.words"]])
 
-    dat <- dplyr::select_(x, .dots = termcols)
-    x[termcols] <- dplyr::mutate_each_(dat, dplyr::funs(fun2), termcols)
+    dat <- x[termcols]
+    x[termcols] <- lapply(dat, fun2)
     class(x)[class(x) %in% "term_count"] <- "term_count_weighted"
     attributes(x)[["weight"]] <- "proportion"
     x

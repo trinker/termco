@@ -26,23 +26,19 @@ substrings.
 Table of Contents
 ============
 
--   [Installation](#installation)
--   [Contact](#contact)
--   [Examples](#examples)
-    -   [Load the Tools/Data](#load-the-toolsdata)
-    -   [Build Counts Dataframe](#build-counts-dataframe)
-    -   [Printing](#printing)
-    -   [Plotting](#plotting)
-    -   [Ngram Collocations](#ngram-collocations)
-        -   [Collocation Plotting](#collocation-plotting)
--   [Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)
-    -   [Load the Tools/Data](#load-the-toolsdata)
-    -   [View Most Used Words](#view-most-used-words)
-    -   [Building the Model](#building-the-model)
-    -   [Testing the Model](#testing-the-model)
-    -   [Improving the Model](#improving-the-model)
-    -   [Categorizing/Tagging](#categorizingtagging)
-    -   [Accuracy](#accuracy)
+-   [[Installation](#installation)](#[installation](#installation))
+-   [[Contact](#contact)](#[contact](#contact))
+-   [[Examples](#examples)](#[examples](#examples))
+    -   [[Load the Tools/Data](#load-the-toolsdata)](#[load-the-toolsdata](#load-the-toolsdata))
+    -   [[Build Counts Dataframe](#build-counts-dataframe)](#[build-counts-dataframe](#build-counts-dataframe))
+    -   [[Printing](#printing)](#[printing](#printing))
+    -   [[Plotting](#plotting)](#[plotting](#plotting))
+        -   [[Collocation Plotting](#collocation-plotting)](#[collocation-plotting](#collocation-plotting))
+    -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
+    -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
+    -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
+    -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
+    -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
 
 Installation
 ============
@@ -158,18 +154,16 @@ Plotting
 
     plot(counts)
 
-![](inst/figure/unnamed-chunk-6-1.png)
+![](inst/figure/unnamed-chunk-6-1.png)  
 
     plot(counts, labels=TRUE)
 
-![](inst/figure/unnamed-chunk-6-2.png)
+![](inst/figure/unnamed-chunk-6-2.png)  
 
     plot_ca(counts, FALSE)
 
-![](inst/figure/unnamed-chunk-6-3.png)
-
-Ngram Collocations
-------------------
+![](inst/figure/unnamed-chunk-6-3.png)  
+\#\# Ngram Collocations
 
 **termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda)
 to examine important ngram collocations. **quanteda**'s `collocation`
@@ -183,26 +177,26 @@ stopword removal, min/max character filtering, and stemming to
     ngram_collocations(x)
 
     ##        term1      term2 frequency        G2        X2      pmi      dice
-    ##  1:     make       sure       127 1257.4909 17987.052 4.957449 0.6827957
-    ##  2: governor     romney       105 1233.9595 26050.830 5.515143 0.8235294
-    ##  3:     four      years        63  656.4017 13899.582 5.399987 0.6028708
-    ##  4:   mister  president        61  624.8574 10995.269 5.198654 0.4784314
-    ##  5:   united     states        31  419.4881 22511.341 6.588394 0.7654321
-    ##  6:   middle      class        30  366.8708 14048.433 6.150553 0.5714286
-    ##  7:     last       four        27  253.5892  5176.427 5.262552 0.3698630
-    ##  8:   middle       east        26  337.2778 13802.693 6.275716 0.5360825
-    ##  9:   health       care        26  316.9656 13965.719 6.287706 0.6046512
-    ## 10: american     people        26  193.6594  2067.460 4.393881 0.1984733
-    ## 11:    small businesses        22  261.6469 11402.784 6.252305 0.5500000
-    ## 12:   making       sure        19  149.8686  1912.972 4.626317 0.1890547
-    ## 13:     dodd      frank        15  264.9045 37737.000 7.830346 1.0000000
-    ## 14:  federal government        15  149.9675  4000.717 5.591056 0.3061224
-    ## 15: governor   romney's        13  145.8008  3371.479 5.561663 0.1645570
-    ## 16:    small   business        13  143.4335  5539.514 6.057569 0.3768116
-    ## 17:  private     sector        11  162.3632 16537.462 7.315891 0.6285714
-    ## 18: national   security        11  136.2147  7888.633 6.576718 0.4313725
-    ## 19:     wall     street         9  161.6374 33962.400 8.235811 0.9473684
-    ## 20:     food     stamps         9  157.7079 30874.091 8.140501 0.9000000
+    ##  1:     make       sure       127 1255.7464 17863.555 4.950589 0.6827957
+    ##  2: governor     romney       105 1243.1213 26609.589 5.536256 0.8366534
+    ##  3:     four      years        63  657.9166 13958.627 5.404176 0.6057692
+    ##  4:   mister  president        61  624.0201 10919.771 5.191794 0.4784314
+    ##  5:   united     states        31  419.0626 22357.342 6.581534 0.7654321
+    ##  6:   middle      class        30  366.4590 13952.244 6.143693 0.5714286
+    ##  7:     last       four        27  253.2193  5140.805 5.255692 0.3698630
+    ##  8:   middle       east        26  336.9210 13708.214 6.268856 0.5360825
+    ##  9:   health       care        26  316.6088 13870.101 6.280845 0.6046512
+    ## 10: american     people        26  193.3048  2053.071 4.387020 0.1984733
+    ## 11:    small businesses        22  261.3451 11324.690 6.245445 0.5500000
+    ## 12:   making       sure        19  149.6092  1899.705 4.619457 0.1890547
+    ## 13:     dodd      frank        15  264.6986 37479.000 7.823486 1.0000000
+    ## 14:  federal government        15  149.7619  3973.231 5.584196 0.3061224
+    ## 15: governor   romney's        13  146.3850  3443.705 5.582776 0.1688312
+    ## 16:    small   business        13  143.2552  5501.534 6.050709 0.3768116
+    ## 17:  private     sector        11  162.2122 16424.353 7.309030 0.6285714
+    ## 18: national   security        11  136.0638  7834.623 6.569857 0.4313725
+    ## 19:     wall     street         9  161.5139 33730.200 8.228951 0.9473684
+    ## 20:     food     stamps         9  157.5844 30663.000 8.133641 0.9000000
 
     ngram_collocations(x, gram.length = 3)
 
@@ -252,47 +246,45 @@ stopword removal, min/max character filtering, and stemming to
     ngram_collocations(x, order.by = "dice")
 
     ##        term1      term2 frequency        G2        X2      pmi      dice
-    ##  1:     dodd      frank        15  264.9045 37737.000 7.830346 1.0000000
-    ##  2:     wall     street         9  161.6374 33962.400 8.235811 0.9473684
-    ##  3:     food     stamps         9  157.7079 30874.091 8.140501 0.9000000
-    ##  4: governor     romney       105 1233.9595 26050.830 5.515143 0.8235294
-    ##  5:   united     states        31  419.4881 22511.341 6.588394 0.7654321
-    ##  6:     make       sure       127 1257.4909 17987.052 4.957449 0.6827957
-    ##  7:  private     sector        11  162.3632 16537.462 7.315891 0.6285714
-    ##  8:   health       care        26  316.9656 13965.719 6.287706 0.6046512
-    ##  9:     four      years        63  656.4017 13899.582 5.399987 0.6028708
-    ## 10:   middle      class        30  366.8708 14048.433 6.150553 0.5714286
-    ## 11:    small businesses        22  261.6469 11402.784 6.252305 0.5500000
-    ## 12:   middle       east        26  337.2778 13802.693 6.275716 0.5360825
-    ## 13:   mister  president        61  624.8574 10995.269 5.198654 0.4784314
-    ## 14: national   security        11  136.2147  7888.633 6.576718 0.4313725
-    ## 15:    small   business        13  143.4335  5539.514 6.057569 0.3768116
-    ## 16:     last       four        27  253.5892  5176.427 5.262552 0.3698630
-    ## 17:  federal government        15  149.9675  4000.717 5.591056 0.3061224
-    ## 18: american     people        26  193.6594  2067.460 4.393881 0.1984733
-    ## 19:   making       sure        19  149.8686  1912.972 4.626317 0.1890547
-    ## 20: governor   romney's        13  145.8008  3371.479 5.561663 0.1645570
+    ##  1:     dodd      frank        15  264.6986 37479.000 7.823486 1.0000000
+    ##  2:     wall     street         9  161.5139 33730.200 8.228951 0.9473684
+    ##  3:     food     stamps         9  157.5844 30663.000 8.133641 0.9000000
+    ##  4: governor     romney       105 1243.1213 26609.589 5.536256 0.8366534
+    ##  5:   united     states        31  419.0626 22357.342 6.581534 0.7654321
+    ##  6:     make       sure       127 1255.7464 17863.555 4.950589 0.6827957
+    ##  7:  private     sector        11  162.2122 16424.353 7.309030 0.6285714
+    ##  8:     four      years        63  657.9166 13958.627 5.404176 0.6057692
+    ##  9:   health       care        26  316.6088 13870.101 6.280845 0.6046512
+    ## 10:   middle      class        30  366.4590 13952.244 6.143693 0.5714286
+    ## 11:    small businesses        22  261.3451 11324.690 6.245445 0.5500000
+    ## 12:   middle       east        26  336.9210 13708.214 6.268856 0.5360825
+    ## 13:   mister  president        61  624.0201 10919.771 5.191794 0.4784314
+    ## 14: national   security        11  136.0638  7834.623 6.569857 0.4313725
+    ## 15:    small   business        13  143.2552  5501.534 6.050709 0.3768116
+    ## 16:     last       four        27  253.2193  5140.805 5.255692 0.3698630
+    ## 17:  federal government        15  149.7619  3973.231 5.584196 0.3061224
+    ## 18: american     people        26  193.3048  2053.071 4.387020 0.1984733
+    ## 19:   making       sure        19  149.6092  1899.705 4.619457 0.1890547
+    ## 20: governor   romney's        13  146.3850  3443.705 5.582776 0.1688312
 
 ### Collocation Plotting
 
     plot(ngram_collocations(x))
 
-![](inst/figure/unnamed-chunk-8-1.png)
+![](inst/figure/unnamed-chunk-8-1.png)  
 
     plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
 
-![](inst/figure/unnamed-chunk-8-2.png)
+![](inst/figure/unnamed-chunk-8-2.png)  
 
     plot(ngram_collocations(x, gram.length = 3))
 
-![](inst/figure/unnamed-chunk-8-3.png)
+![](inst/figure/unnamed-chunk-8-3.png)  
 
     plot(ngram_collocations(x, order.by = "dice"))
 
-![](inst/figure/unnamed-chunk-8-4.png)
-
-Building an Expert Rules, Regex Classifier Model
-================================================
+![](inst/figure/unnamed-chunk-8-4.png)  
+\# Building an Expert Rules, Regex Classifier Model
 
 Machine learning models of classification are great when you have known
 tags to train with because the model scales. Qualitative, expert based
@@ -358,10 +350,8 @@ least frequent n terms but can be rearranged alphabetically.
         with(., frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](inst/figure/unnamed-chunk-10-1.png)
-
-Building the Model
-------------------
+![](inst/figure/unnamed-chunk-10-1.png)  
+\#\# Building the Model
 
 To build a model the researcher created a named list of regular
 expressions that map to a category/tag. This is fed to the `term_count`
@@ -429,7 +419,7 @@ the distribution of the number of tags at the element level. The goal is
 to have a larger density at 1 tag. Note that the plot also gives a view
 of coverage, as the zero bar shows the frequency of elements that could
 not be tagged. Our model has a larger distribution of 1 tag compared to
-the  \> 1 tag distributions, though the coverage is very poor. As the
+the &gt;1 tag distributions, though the coverage is very poor. As the
 number of tags increases the ability of the model to discriminate
 typically lessens. There is often a trade off between model coverage and
 discrimination.
@@ -438,8 +428,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-13-1.png)
-
+![](inst/figure/unnamed-chunk-13-1.png)  
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
 tags. In our model the majority of tags are applied to the **summons**
@@ -449,10 +438,8 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-14-1.png)
-
-Improving the Model
--------------------
+![](inst/figure/unnamed-chunk-14-1.png)  
+\#\# Improving the Model
 
 The model does not have very good coverage. To improve this the
 researcher will want to look at the data with no coverage to try to
@@ -728,9 +715,9 @@ ability, multiple tags may be applied to a text. The `n` argument allows
 the maximum number of tags to be set though the function does not
 guarantee this many (or any) tags will be assigned.
 
-Here I show the `head` of the returned vector (if `n` \> 1 a `list` may
-be returned) as well as a `table` and plot of the counts. Use `n = Inf`
-to return all tags.
+Here I show the `head` of the returned vector (if `n` &gt; 1 a `list`
+may be returned) as well as a `table` and plot of the counts. Use
+`n = Inf` to return all tags.
 
     classify(model) %>%
         head()
@@ -744,13 +731,13 @@ to return all tags.
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            127             16            230
+    ##              6            123             17            233
 
     classify(model) %>%
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-24-1.png)
+![](inst/figure/unnamed-chunk-24-1.png)  
 
 Accuracy
 --------
@@ -762,7 +749,12 @@ generate "known human coded tagged" vector. Obviously, this is for
 demonstration purposes. The model outputs a pretty printing of a list.
 The printing contains:
 
-<table>
+<table style="width:111%;">
+<colgroup>
+<col width="29%" />
+<col width="66%" />
+<col width="15%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Printed</th>

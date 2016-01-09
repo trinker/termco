@@ -1,6 +1,6 @@
 #' N Most Frequent Terms
 #'
-#' Find a list of the n most frequent terms.
+#' \code{frequent_terms} - Find a list of the n most frequent terms.
 #'
 #' @param x A vector of character strings.
 #' @param n The number of rows to print.  If integer selects the frequency at
@@ -8,6 +8,8 @@
 #' the frequency value for the nth\% row is selected and prints all rows >= that
 #' value.
 #' @param stopwords A vector of stopwords to exclude.
+#' @param min.freq The minimum frequency to print.  Note that this argument
+#' overides the \code{n} argument.
 #' @param min.char The minimum number of characters a word must be (including
 #' apostrophes) for inclusion.
 #' @param max.char The maximum number of characters a word must be (including
@@ -26,6 +28,7 @@
 #' @return Returns a data.frame of terms and frequencies.
 #' @importFrom tm stopwords
 #' @keywords term word frequency
+#' @rdname frequent_terms
 #' @export
 #' @examples
 #' x <- presidential_debates_2012[["dialogue"]]
@@ -49,9 +52,11 @@
 #' nrow(y)
 #' z <- print(frequent_terms(x, n=100))
 #' nrow(z)
-frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.char = 4,
-    max.char = Inf, stem = FALSE, language = "porter", strip = TRUE,
+frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.freq = NULL,
+    min.char = 4, max.char = Inf, stem = FALSE, language = "porter", strip = TRUE,
     strip.regex = "[^a-z' ]", alphabetical = FALSE, ...) {
+
+    if (is.data.frame(x)) stop("`x` is a `data.frame`; please pass a vector")
 
     x <- stringi::stri_trans_tolower(x)
 
@@ -94,7 +99,16 @@ frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.char 
         n <- round(n * nrow(out), 0)
     }
 
-    out2 <- out[out[["frequency"]] >= out[["frequency"]][n], ]
+    if (n > nrow(out)) {
+        n <- nrow(out)
+    }
+
+    if (is.null(min.freq)) {
+        out2 <- out[out[["frequency"]] >= out[["frequency"]][n], ]
+    } else {
+        out2 <- out[out[["frequency"]] >= min.freq, ]
+        n <- nrow(out2)
+    }
 
     class(out2) <- c('frequent_terms', class(out))
     attributes(out2)[["n"]] <- n
@@ -103,6 +117,14 @@ frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.char 
 
 }
 
+#' N Most Frequent Terms
+#'
+#' \code{all_words} - Find a list of all terms used.
+#' @rdname frequent_terms
+#' @export
+all_words <- function(x, stopwords = NULL, min.char = 0, ...) {
+    frequent_terms(x, stopwords = stopwords, min.char = min.char, min.freq = 1)
+}
 
 #' Prints a frequent_terms Object
 #'
@@ -167,6 +189,7 @@ plot.frequent_terms <- function(x, n, as.cloud = FALSE, random.order = FALSE,
         n <- round(n * nrow(x), 0)
     }
 
+    x <- attributes(x)[["full"]]
     x <- x[x[["frequency"]] >= x[["frequency"]][n], ]
 
     if (isTRUE(as.cloud)) {
@@ -181,9 +204,10 @@ plot.frequent_terms <- function(x, n, as.cloud = FALSE, random.order = FALSE,
             ggplot2::coord_flip() +
             ggplot2::ylab("Count") +
             ggplot2::xlab("Terms") +
-    	    ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, 1.01 * x[1, "frequency"])) +
-        ggplot2::theme_bw() +
-        ggplot2::theme(
+    	      ggplot2::scale_y_continuous(expand = c(0, 0),
+    	          limits = c(0, 1.01 * x[1, "frequency"])) +
+            ggplot2::theme_bw() +
+            ggplot2::theme(
             panel.grid.major.y = ggplot2::element_blank(),
             #legend.position="bottom",
             legend.title = ggplot2::element_blank(),

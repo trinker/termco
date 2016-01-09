@@ -135,8 +135,9 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
 
     out <- dplyr::tbl_df(out)
     class(out) <- c("term_count", class(out))
+
     attributes(out)[["group.vars"]] <- G
-    attributes(out)[["term.vars"]] <- nms
+    attributes(out)[["term.vars"]] <- names(term.list)
     attributes(out)[["weight"]] <- "count"
     attributes(out)[["pretty"]] <- pretty
     attributes(out)[["counts"]] <- count
@@ -168,6 +169,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 
     n.words <- count <- NULL
     if (is.null(pretty)) pretty <- TRUE
+    if (weight == "count") pretty <- FALSE
 
     val <- validate_term_count(x)
     if (!isTRUE(val)) {
@@ -269,7 +271,8 @@ plot.term_count <- function(x, labels = FALSE, low ="white",
 
     if (isTRUE(labels)){
         values <- NULL
-        dat <- dplyr::mutate(dat, labels = digit_format(values, label.digits))
+        fact <- ifelse(weight == "percent", 100, 1)
+        dat <- dplyr::mutate(dat, labels = digit_format(values/fact, label.digits))
     }
 
     out <- ggplot2::ggplot(dat, ggplot2::aes_string(y = "group.vars", x = "terms", fill = "values")) +
