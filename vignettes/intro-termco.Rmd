@@ -2,9 +2,7 @@
 title: "termco Introduction"
 author: "Tyler Rinker"
 date: "2015-09-27"
-output:
-  html_document:
-    toc: true
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
