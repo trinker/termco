@@ -1,12 +1,6 @@
 termco
 ============
 
-    Model](#building-an-expert-rules-regex-classifier-model)
-    -   [Load the Tools/Data](#load-the-toolsdata-1)
-    -   [View Most Used Words](#view-most-used-words)
-    -   [Testing the Model](#testing-the-model)
-    -   [Categorizing/Tagging](#categorizingtagging)
-    -   [Accuracy](#accuracy)
 
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
@@ -42,6 +36,12 @@ Table of Contents
     -   [[Ngram Collocations](#ngram-collocations)](#[ngram-collocations](#ngram-collocations))
         -   [[Collocation Plotting](#collocation-plotting)](#[collocation-plotting](#collocation-plotting))
 -   [[Building an Expert Rules, Regex Classifier](#[building-an-expert-rules-regex-classifier)
+    [Model](#building-an-expert-rules-regex-classifier-model)](#model](#building-an-expert-rules-regex-classifier-model))
+    -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
+    -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
+    -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
+    -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
+    -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
 
 Installation
 ============
