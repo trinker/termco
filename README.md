@@ -1,6 +1,12 @@
 termco
 ============
 
+    Model](#building-an-expert-rules-regex-classifier-model)
+    -   [Load the Tools/Data](#load-the-toolsdata-1)
+    -   [View Most Used Words](#view-most-used-words)
+    -   [Testing the Model](#testing-the-model)
+    -   [Categorizing/Tagging](#categorizingtagging)
+    -   [Accuracy](#accuracy)
 
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
@@ -33,12 +39,9 @@ Table of Contents
     -   [[Build Counts Dataframe](#build-counts-dataframe)](#[build-counts-dataframe](#build-counts-dataframe))
     -   [[Printing](#printing)](#[printing](#printing))
     -   [[Plotting](#plotting)](#[plotting](#plotting))
+    -   [[Ngram Collocations](#ngram-collocations)](#[ngram-collocations](#ngram-collocations))
         -   [[Collocation Plotting](#collocation-plotting)](#[collocation-plotting](#collocation-plotting))
-    -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
-    -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
-    -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
-    -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
-    -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
+-   [[Building an Expert Rules, Regex Classifier](#[building-an-expert-rules-regex-classifier)
 
 Installation
 ============
@@ -163,7 +166,9 @@ Plotting
     plot_ca(counts, FALSE)
 
 ![](inst/figure/unnamed-chunk-6-3.png)  
-\#\# Ngram Collocations
+
+Ngram Collocations
+------------------
 
 **termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda)
 to examine important ngram collocations. **quanteda**'s `collocation`
@@ -284,7 +289,9 @@ stopword removal, min/max character filtering, and stemming to
     plot(ngram_collocations(x, order.by = "dice"))
 
 ![](inst/figure/unnamed-chunk-8-4.png)  
-\# Building an Expert Rules, Regex Classifier Model
+
+Building an Expert Rules, Regex Classifier Model
+================================================
 
 Machine learning models of classification are great when you have known
 tags to train with because the model scales. Qualitative, expert based
@@ -731,7 +738,7 @@ may be returned) as well as a `table` and plot of the counts. Use
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            123             17            233
+    ##              6            127             16            230
 
     classify(model) %>%
         unlist() %>%

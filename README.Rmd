@@ -96,7 +96,8 @@ plot(counts, labels=TRUE)
 plot_ca(counts, FALSE)
 ```
 
-## Ngram Collocations
+
+## Ngram Collocations    
 
 **termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda) to examine important ngram collocations.  **quanteda**'s `collocation` function provides measures of: `"G2"`, `"X2"`, `"pmi"`, and `"dice"` to examine the strength of relationship between ngrams.  **termco** adds stopword removal, min/max character filtering, and stemming to **quanteda**'s `collocation` as well as a generic `plot` method.
 
@@ -116,7 +117,8 @@ plot(ngram_collocations(x, gram.length = 3))
 plot(ngram_collocations(x, order.by = "dice"))
 ```
 
-# Building an Expert Rules, Regex Classifier Model
+
+# Building an Expert Rules, Regex Classifier Model    
 
 Machine learning models of classification are great when you have known tags to train with because the model scales.  Qualitative, expert based human coding is terrific for when you have no tagged data. However, when you have a larger, untagged data set the machine learning approaches have no outcome to learn from and the data is too large to classify by hand.  One solution is to use a expert rules, regular expression approach that is somewhere between machine learning and hand coding.  This is one solution for tagging larger, untagged data sets. Additionally, when each text element contains larger chunks of text, unsupervised clustering type algorithms such as k-means or topic modeling may be of use.
 
