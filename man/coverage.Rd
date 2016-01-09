@@ -22,7 +22,7 @@ coverage(x, ...)
 \item{total_terms}{The row sums of the terms}
 }
 \description{
-\code{coverage} - Get coverage of a logical vector, \code{termc_count}, or \code{search_term} object.
+\code{coverage} - Get coverage of a logical vector, \code{term_count}, or \code{search_term} object.
 
 \code{coverage.term_count} - Extract coverage information from a \code{term_count}
 object including the percentage of rows that sum to zero as well as the

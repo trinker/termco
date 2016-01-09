@@ -1,6 +1,6 @@
 #' Coverage for Various Objects
 #'
-#' @description \code{coverage} - Get coverage of a logical vector, \code{termc_count}, or \code{search_term} object.
+#' @description \code{coverage} - Get coverage of a logical vector, \code{term_count}, or \code{search_term} object.
 #'
 #' @param x A logical vector, \code{termc_count}, or \code{search_term} object.
 #' @param \ldots Ignored.

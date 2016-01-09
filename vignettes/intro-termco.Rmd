@@ -5,12 +5,10 @@ date: "2015-09-27"
 output:
   html_document:
     toc: true
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
-
-<!--
-%\VignetteEngine{knitr}
-%\VignetteIndexEntry{termco Introduction}
--->
 
 ```{r, echo = FALSE, message = FALSE}
 library(knitr);library(termco)
@@ -34,7 +32,31 @@ uri_embed("r_termco.png",
     "width=\"250\", height=\"150\" style=\"display:block; margin-left:auto; margin-right:auto;\"")
 ```
 
-# The Main Function: `termc_count`
+# Functions
+
+The main function of **termco** is `term_count`.  It is used to extract regex term counts by grouping variable(s) as well as to generate classification models.
+
+Most of the functions *count*, *search*, *plot* terms, and *covert* between output types, while a few remaining functions are used to train, test and interpret *model*s.  The table below describes the functions, category of use, and their description:
+
+| Function                     | Use Category |  Description                                      |
+|------------------------------|--------------|---------------------------------------------------|
+| `term_count`                 | count        | Count regex term occurrence; modeling             |
+| `frequent_terms`/`all_words` | count        | Frequent terms                                    |
+| `ngram_collocations`         | count        | Weighted frequent ngram (2 & 3) collocations      |
+| `colo`                       | search       | Regex output to find term collocations            |
+| `search_term`                | search       | Search for regex terms                            |
+| `accuracy`                   | modelling    | Check accuracy of model against human coder       |
+| `classify`                   | modelling    | Assign n tags to text from a model                |
+| `coverage`                   | modelling    | Coverage for `term_count` or `search_term` object |
+| `uncovered`/`get_uncovered`  | modelling    | Get the uncovered text rom a model                |
+| `as_count`                   | convert      | Strip pretty printing from `term_count` object    |
+| `as_terms`                   | convert      | Convert a count matrix to list of term vectors    |
+| `weight`                     | convert      | Weight a `term_count` object proportion/percent   |
+| `plot_ca`                    | plot         | Plot `term_count` object as 3-D correspondence analysis map  |
+| `plot_counts`                | plot         | Horizontal bar plot of group counts               |
+| `plot_freq`                  | plot         | Vertical bar plot of frequencies of counts        |
+
+
 
 The following examples demonstrate some of the functionality of **termco**.
 

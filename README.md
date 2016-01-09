@@ -22,10 +22,110 @@ wraps the
 create fast data frame counts of regular expression terms and
 substrings.
 
+Functions
+=========
+
+The main function of **termco** is `term_count`. It is used to extract
+regex term counts by grouping variable(s) as well as to generate
+classification models.
+
+Most of the functions *count*, *search*, *plot* terms, and *covert*
+between output types, while a few remaining functions are used to train,
+test and interpret *model*s. The table below describes the functions,
+category of use, and their description:
+
+<table>
+<thead>
+<tr class="header">
+<th align="left">Function</th>
+<th align="left">Use Category</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>term_count</code></td>
+<td align="left">count</td>
+<td align="left">Count regex term occurrence; modeling</td>
+</tr>
+<tr class="even">
+<td align="left"><code>frequent_terms</code>/<code>all_words</code></td>
+<td align="left">count</td>
+<td align="left">Frequent terms</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>ngram_collocations</code></td>
+<td align="left">count</td>
+<td align="left">Weighted frequent ngram (2 &amp; 3) collocations</td>
+</tr>
+<tr class="even">
+<td align="left"><code>colo</code></td>
+<td align="left">search</td>
+<td align="left">Regex output to find term collocations</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>search_term</code></td>
+<td align="left">search</td>
+<td align="left">Search for regex terms</td>
+</tr>
+<tr class="even">
+<td align="left"><code>accuracy</code></td>
+<td align="left">modelling</td>
+<td align="left">Check accuracy of model against human coder</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>classify</code></td>
+<td align="left">modelling</td>
+<td align="left">Assign n tags to text from a model</td>
+</tr>
+<tr class="even">
+<td align="left"><code>coverage</code></td>
+<td align="left">modelling</td>
+<td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
+<td align="left">modelling</td>
+<td align="left">Get the uncovered text rom a model</td>
+</tr>
+<tr class="even">
+<td align="left"><code>as_count</code></td>
+<td align="left">convert</td>
+<td align="left">Strip pretty printing from <code>term_count</code> object</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>as_terms</code></td>
+<td align="left">convert</td>
+<td align="left">Convert a count matrix to list of term vectors</td>
+</tr>
+<tr class="even">
+<td align="left"><code>weight</code></td>
+<td align="left">convert</td>
+<td align="left">Weight a <code>term_count</code> object proportion/percent</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>plot_ca</code></td>
+<td align="left">plot</td>
+<td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
+</tr>
+<tr class="even">
+<td align="left"><code>plot_counts</code></td>
+<td align="left">plot</td>
+<td align="left">Horizontal bar plot of group counts</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>plot_freq</code></td>
+<td align="left">plot</td>
+<td align="left">Vertical bar plot of frequencies of counts</td>
+</tr>
+</tbody>
+</table>
+
 
 Table of Contents
 ============
 
+-   [[Functions](#functions)](#[functions](#functions))
 -   [[Installation](#installation)](#[installation](#installation))
 -   [[Contact](#contact)](#[contact](#contact))
 -   [[Examples](#examples)](#[examples](#examples))
@@ -35,12 +135,12 @@ Table of Contents
     -   [[Plotting](#plotting)](#[plotting](#plotting))
     -   [[Ngram Collocations](#ngram-collocations)](#[ngram-collocations](#ngram-collocations))
         -   [[Collocation Plotting](#collocation-plotting)](#[collocation-plotting](#collocation-plotting))
--   [[Building an Expert Rules, Regex Classifier](#[building-an-expert-rules-regex-classifier)
-    [Model](#building-an-expert-rules-regex-classifier-model)](#model](#building-an-expert-rules-regex-classifier-model))
+-   [[Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)](#[building-an-expert-rules-regex-classifier-model](#building-an-expert-rules-regex-classifier-model))
     -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
     -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
     -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
     -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
+    -   [[Improving the Model](#improving-the-model)](#[improving-the-model](#improving-the-model))
     -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
     -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
 
@@ -449,7 +549,9 @@ category.
         plot_counts() + xlab("Tags")
 
 ![](inst/figure/unnamed-chunk-14-1.png)  
-\#\# Improving the Model
+
+Improving the Model
+-------------------
 
 The model does not have very good coverage. To improve this the
 researcher will want to look at the data with no coverage to try to
@@ -464,9 +566,7 @@ We first want to view the untagged data. The `uncovered` function
 provides a logical vector that can be used to exctract the text with no
 tags.
 
-    untagged <- presidential_debates_2012 %>%
-        select(dialogue) %>%
-        {unlist(., use.names=FALSE)[uncovered(model)]}
+    untagged <- get_uncovered(model)
 
     head(untagged)
 

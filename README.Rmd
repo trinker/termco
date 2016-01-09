@@ -33,7 +33,33 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 
 <img src="inst/termco_logo/r_termco.png" width="200" alt="qdapRegex Logo">  
 
-**termco** is A small suite of functions used to count and find terms and substrings in strings.  The tools can be used to build an expert rules, regular expression based text classification model.  The package wraps the [**data.table**](https://cran.r-project.org/package=data.table) and [**stringi**](https://cran.r-project.org/package=stringi) packages to create fast data frame counts of regular expression terms and substrings.   
+**termco** is A small suite of functions used to count and find terms and substrings in strings.  The tools can be used to build an expert rules, regular expression based text classification model.  The package wraps the [**data.table**](https://cran.r-project.org/package=data.table) and [**stringi**](https://cran.r-project.org/package=stringi) packages to create fast data frame counts of regular expression terms and substrings. 
+
+
+# Functions
+
+The main function of **termco** is `term_count`.  It is used to extract regex term counts by grouping variable(s) as well as to generate classification models.
+
+Most of the functions *count*, *search*, *plot* terms, and *covert* between output types, while a few remaining functions are used to train, test and interpret *model*s.  The table below describes the functions, category of use, and their description:
+
+| Function                     | Use Category |  Description                                      |
+|------------------------------|--------------|---------------------------------------------------|
+| `term_count`                 | count        | Count regex term occurrence; modeling             |
+| `frequent_terms`/`all_words` | count        | Frequent terms                                    |
+| `ngram_collocations`         | count        | Weighted frequent ngram (2 & 3) collocations      |
+| `colo`                       | search       | Regex output to find term collocations            |
+| `search_term`                | search       | Search for regex terms                            |
+| `accuracy`                   | modelling    | Check accuracy of model against human coder       |
+| `classify`                   | modelling    | Assign n tags to text from a model                |
+| `coverage`                   | modelling    | Coverage for `term_count` or `search_term` object |
+| `uncovered`/`get_uncovered`  | modelling    | Get the uncovered text rom a model                |
+| `as_count`                   | convert      | Strip pretty printing from `term_count` object    |
+| `as_terms`                   | convert      | Convert a count matrix to list of term vectors    |
+| `weight`                     | convert      | Weight a `term_count` object proportion/percent   |
+| `plot_ca`                    | plot         | Plot `term_count` object as 3-D correspondence analysis map  |
+| `plot_counts`                | plot         | Horizontal bar plot of group counts               |
+| `plot_freq`                  | plot         | Vertical bar plot of frequencies of counts        |
+
 
 # Installation
 
@@ -190,6 +216,7 @@ model %>%
     plot_counts() + xlab("Tags")
 ```
 
+
 ## Improving the Model
 
 The model does not have very good coverage.  To improve this the researcher will want to look at the data with no coverage to try to build additional regular expressions and categories.  This requires understanding language, noticing additional features of the data with no coverage that may map to categories, and building regular expressions to model these features.  This section will outline some of the tools that can be used to detect features and build regular expressions to model these language features.
@@ -197,9 +224,7 @@ The model does not have very good coverage.  To improve this the researcher will
 We first want to view the untagged data.  The `uncovered` function provides a logical vector that can be used to exctract the text with no tags.
 
 ```{r}
-untagged <- presidential_debates_2012 %>%
-    select(dialogue) %>%
-    {unlist(., use.names=FALSE)[uncovered(model)]}
+untagged <- get_uncovered(model)
 
 head(untagged)
 ```
