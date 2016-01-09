@@ -67,6 +67,7 @@ library(dplyr); library(ggplot2)
 data(presidential_debates_2012)
 ```
 
+
 ## Build Counts Dataframe
 
 ```{r}
@@ -91,6 +92,7 @@ print(counts, pretty = FALSE)
 print(counts, zero.replace = "_")
 ```
 
+
 ## Plotting
 
 ```{r}
@@ -98,6 +100,7 @@ plot(counts)
 plot(counts, labels=TRUE)
 plot_ca(counts, FALSE)
 ```
+
 
 # Building an Expert Rules, Regex Classifier Model
 
@@ -112,6 +115,7 @@ library(dplyr); library(ggplot2)
 data(presidential_debates_2012)
 ```
 
+
 ## View Most Used Words
 
 A common task in building a model is to understand the most frequent words while excluding less information rich function words.  The `frequnt_terms` function produces an ordered data frame of counts.  The researcher can exclude stop words and limit the terms to contain n characters between set thresholds.  The output is ordered by most to least frequent n terms but can be rearranged alphabetically.
@@ -123,6 +127,7 @@ presidential_debates_2012 %>%
     with(., frequent_terms(dialogue, 40)) %>%
     plot()
 ```
+
 
 ## Building the Model
 
@@ -170,6 +175,7 @@ model %>%
     plot_counts() + xlab("Tags")
 ```
 
+
 ## Improving the Model
 
 The model does not have very good coverage.  To improve this the researcher will want to look at the data with no coverage to try to build additional regular expressions and categories.  This requires understanding language, noticing additional features of the data with no coverage that may map to categories, and building regular expressions to model these features.  This section will outline some of the tools that can be used to detect features and build regular expressions to model these language features.
@@ -177,9 +183,7 @@ The model does not have very good coverage.  To improve this the researcher will
 We first want to view the untagged data.  The `uncovered` function provides a logical vector that can be used to exctract the text with no tags.
 
 ```{r}
-untagged <- presidential_debates_2012 %>%
-    select(dialogue) %>%
-    {unlist(., use.names=FALSE)[uncovered(model)]}
+untagged <- get_uncovered(model)
 
 head(untagged)
 ```
