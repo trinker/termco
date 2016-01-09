@@ -39,6 +39,7 @@ Table of Contents
     [Model](#building-an-expert-rules-regex-classifier-model)](#model](#building-an-expert-rules-regex-classifier-model))
     -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
     -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
+    -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
     -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
     -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
     -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
@@ -358,7 +359,9 @@ least frequent n terms but can be rearranged alphabetically.
         plot()
 
 ![](inst/figure/unnamed-chunk-10-1.png)  
-\#\# Building the Model
+
+Building the Model
+------------------
 
 To build a model the researcher created a named list of regular
 expressions that map to a category/tag. This is fed to the `term_count`

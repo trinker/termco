@@ -143,6 +143,7 @@ presidential_debates_2012 %>%
     plot()
 ```
 
+
 ## Building the Model
 
 To build a model the researcher created a named list of regular expressions that map to a category/tag.  This is fed to the `term_count` function.  `term_count` allows for aggregation by grouping variables but for building the model we usually want to get observation level counts.  Set `grouping.var = TRUE` to generate an `id` column of 1 through number of observation which gives the researcher the observation level counts.
