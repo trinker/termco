@@ -430,7 +430,7 @@ characters between set thresholds. The output is ordered by most to
 least frequent n terms but can be rearranged alphabetically.
 
     presidential_debates_2012 %>%
-        with(., frequent_terms(dialogue))
+        with(frequent_terms(dialogue))
 
     ##    term      frequency
     ## 1  going     271      
@@ -455,7 +455,7 @@ least frequent n terms but can be rearranged alphabetically.
     ## 20 think      88
 
     presidential_debates_2012 %>%
-        with(., frequent_terms(dialogue, 40)) %>%
+        with(frequent_terms(dialogue, 40)) %>%
         plot()
 
 ![](inst/figure/unnamed-chunk-10-1.png)  
@@ -923,7 +923,7 @@ Below we create fake "known" tags to test `accuracy` with real data
 (though the comparison is fabricated).
 
     mod1 <- presidential_debates_2012 %>%
-        with(., term_count(dialogue, TRUE, discoure_markers)) %>%
+        with(term_count(dialogue, TRUE, discoure_markers)) %>%
         classify()
 
     fake_known <- mod1
@@ -946,7 +946,7 @@ based on correctly applying a tag regardless of the position of that tag
 count for that text element; order for ties is broken randomly).
 
     mod2 <- presidential_debates_2012 %>%
-        with(., term_count(dialogue, TRUE, discoure_markers)) %>%
+        with(term_count(dialogue, TRUE, discoure_markers)) %>%
         classify(n = 3)
 
     fake_known2 <- mod2
