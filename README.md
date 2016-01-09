@@ -22,8 +22,32 @@ wraps the
 create fast data frame counts of regular expression terms and
 substrings.
 
+
+Table of Contents
+============
+
+-   [[Functions](#functions)](#[functions](#functions))
+-   [[Installation](#installation)](#[installation](#installation))
+-   [[Contact](#contact)](#[contact](#contact))
+-   [[Examples](#examples)](#[examples](#examples))
+    -   [[Load the Tools/Data](#load-the-toolsdata)](#[load-the-toolsdata](#load-the-toolsdata))
+    -   [[Build Counts Dataframe](#build-counts-dataframe)](#[build-counts-dataframe](#build-counts-dataframe))
+    -   [[Printing](#printing)](#[printing](#printing))
+    -   [[Plotting](#plotting)](#[plotting](#plotting))
+    -   [[Ngram Collocations](#ngram-collocations)](#[ngram-collocations](#ngram-collocations))
+        -   [[Collocation Plotting](#collocation-plotting)](#[collocation-plotting](#collocation-plotting))
+-   [[Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)](#[building-an-expert-rules-regex-classifier-model](#building-an-expert-rules-regex-classifier-model))
+    -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
+    -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
+    -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
+    -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
+    -   [[Improving the Model](#improving-the-model)](#[improving-the-model](#improving-the-model))
+    -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
+    -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
+
 Functions
-=========
+============
+
 
 The main function of **termco** is `term_count`. It is used to extract
 regex term counts by grouping variable(s) as well as to generate
@@ -70,22 +94,22 @@ category of use, and their description:
 </tr>
 <tr class="even">
 <td align="left"><code>accuracy</code></td>
-<td align="left">modelling</td>
+<td align="left">modeling</td>
 <td align="left">Check accuracy of model against human coder</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>classify</code></td>
-<td align="left">modelling</td>
+<td align="left">modeling</td>
 <td align="left">Assign n tags to text from a model</td>
 </tr>
 <tr class="even">
 <td align="left"><code>coverage</code></td>
-<td align="left">modelling</td>
+<td align="left">modeling</td>
 <td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
-<td align="left">modelling</td>
+<td align="left">modeling</td>
 <td align="left">Get the uncovered text rom a model</td>
 </tr>
 <tr class="even">
@@ -121,32 +145,8 @@ category of use, and their description:
 </tbody>
 </table>
 
-
-Table of Contents
-============
-
--   [[Functions](#functions)](#[functions](#functions))
--   [[Installation](#installation)](#[installation](#installation))
--   [[Contact](#contact)](#[contact](#contact))
--   [[Examples](#examples)](#[examples](#examples))
-    -   [[Load the Tools/Data](#load-the-toolsdata)](#[load-the-toolsdata](#load-the-toolsdata))
-    -   [[Build Counts Dataframe](#build-counts-dataframe)](#[build-counts-dataframe](#build-counts-dataframe))
-    -   [[Printing](#printing)](#[printing](#printing))
-    -   [[Plotting](#plotting)](#[plotting](#plotting))
-    -   [[Ngram Collocations](#ngram-collocations)](#[ngram-collocations](#ngram-collocations))
-        -   [[Collocation Plotting](#collocation-plotting)](#[collocation-plotting](#collocation-plotting))
--   [[Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)](#[building-an-expert-rules-regex-classifier-model](#building-an-expert-rules-regex-classifier-model))
-    -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
-    -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
-    -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
-    -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
-    -   [[Improving the Model](#improving-the-model)](#[improving-the-model](#improving-the-model))
-    -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
-    -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
-
 Installation
 ============
-
 
 To download the development version of **termco**:
 

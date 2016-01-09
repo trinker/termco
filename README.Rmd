@@ -49,10 +49,10 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `ngram_collocations`         | count        | Weighted frequent ngram (2 & 3) collocations      |
 | `colo`                       | search       | Regex output to find term collocations            |
 | `search_term`                | search       | Search for regex terms                            |
-| `accuracy`                   | modelling    | Check accuracy of model against human coder       |
-| `classify`                   | modelling    | Assign n tags to text from a model                |
-| `coverage`                   | modelling    | Coverage for `term_count` or `search_term` object |
-| `uncovered`/`get_uncovered`  | modelling    | Get the uncovered text rom a model                |
+| `accuracy`                   | modeling     | Check accuracy of model against human coder       |
+| `classify`                   | modeling     | Assign n tags to text from a model                |
+| `coverage`                   | modeling     | Coverage for `term_count` or `search_term` object |
+| `uncovered`/`get_uncovered`  | modeling     | Get the uncovered text rom a model                |
 | `as_count`                   | convert      | Strip pretty printing from `term_count` object    |
 | `as_terms`                   | convert      | Convert a count matrix to list of term vectors    |
 | `weight`                     | convert      | Weight a `term_count` object proportion/percent   |
