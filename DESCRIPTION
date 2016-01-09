@@ -8,9 +8,9 @@ Description: A small suite of functions used to count terms and
         substrings in strings.
 Depends: R (>= 3.2.1)
 Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, grid,
-        gridExtra, quanteda, rgl, SnowballC, stringi, tidyr, tm, utils,
+        gridExtra, quanteda, SnowballC, stringi, tidyr, tm, utils,
         wordcloud
-Suggests: rmarkdown, qdapRegex, testthat
+Suggests: knitr, rmarkdown, qdapRegex, rgl, testthat
 Date: 2016-01-09
 License: GPL-2
 LazyData: TRUE
