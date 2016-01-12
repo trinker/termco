@@ -3,6 +3,7 @@
 S3method(coverage,default)
 S3method(coverage,search_term)
 S3method(coverage,term_count)
+S3method(plot,classify)
 S3method(plot,frequent_terms)
 S3method(plot,ngram_collocations)
 S3method(plot,term_count)

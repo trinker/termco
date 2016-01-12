@@ -53,14 +53,28 @@ classify <- function(x, n = 1, ties.method = "random", ...) {
         out <- colnames(x)[max.col(x, ties.method = ties.method)]
         out[rowSums(x) == 0] <- NA
         out
-
+        class(out) <- unique(c("classify", class(out)))
+        out
     } else {
 
-        apply(x, 1, function(y){
+        out <- apply(x, 1, function(y){
             if (all(y == 0)) return(NA)
             out <- names(sort(rank(y[y > 0], ties.method = ties.method), TRUE))
             out[seq_len(min(length(out), n))]
         })
-
+        class(out) <- unique(c("classify", class(out)))
+        out
     }
+}
+
+#' Plots a plot.classify Object
+#'
+#' Plots a plot.classify object
+#'
+#' @param x A classify object.
+#' @param \ldots Other arguments passed to \code{\link[termco]{plot_counts}}.
+#' @method plot classify
+#' @export
+plot.classify <- function(x, ...){
+    plot_counts(unlist(x), ...) + ggplot2::xlab("Number of Tags")
 }
