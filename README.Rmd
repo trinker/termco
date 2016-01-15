@@ -47,6 +47,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `term_count`                 | count        | Count regex term occurrence; modeling             |
 | `frequent_terms`/`all_words` | count        | Frequent terms                                    |
 | `ngram_collocations`         | count        | Weighted frequent ngram (2 & 3) collocations      |
+| `word_count`                 | count        | Count words                                       |
 | `colo`                       | search       | Regex output to find term collocations            |
 | `search_term`                | search       | Search for regex terms                            |
 | `accuracy`                   | modeling     | Check accuracy of model against human coder       |
