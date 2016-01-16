@@ -38,6 +38,7 @@ Table of Contents
         -   [[Collocation Plotting](#collocation-plotting)](#[collocation-plotting](#collocation-plotting))
 -   [[Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)](#[building-an-expert-rules-regex-classifier-model](#building-an-expert-rules-regex-classifier-model))
     -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
+    -   [[Splitting Data](#splitting-data)](#[splitting-data](#splitting-data))
     -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
     -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
     -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
@@ -98,51 +99,56 @@ category of use, and their description:
 <td align="left">Search for regex terms</td>
 </tr>
 <tr class="odd">
+<td align="left"><code>split_data</code></td>
+<td align="left">modelling</td>
+<td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
+</tr>
+<tr class="even">
 <td align="left"><code>accuracy</code></td>
 <td align="left">modeling</td>
 <td align="left">Check accuracy of model against human coder</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>classify</code></td>
 <td align="left">modeling</td>
 <td align="left">Assign n tags to text from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>coverage</code></td>
 <td align="left">modeling</td>
 <td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
 <td align="left">modeling</td>
 <td align="left">Get the uncovered text rom a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>as_count</code></td>
 <td align="left">convert</td>
 <td align="left">Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>as_terms</code></td>
 <td align="left">convert</td>
 <td align="left">Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>weight</code></td>
 <td align="left">convert</td>
 <td align="left">Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_ca</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_counts</code></td>
 <td align="left">plot</td>
 <td align="left">Horizontal bar plot of group counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_freq</code></td>
 <td align="left">plot</td>
 <td align="left">Vertical bar plot of frequencies of counts</td>
@@ -182,7 +188,9 @@ The following examples demonstrate some of the functionality of
 Load the Tools/Data
 -------------------
 
-    library(dplyr); library(ggplot2)
+    if (!require("pacman")) install.packages("pacman")
+    pacman::p_load(dplyr, ggplot2, termco)
+
     data(presidential_debates_2012)
 
 Build Counts Dataframe
@@ -421,8 +429,96 @@ classification.
 Load the Tools/Data
 -------------------
 
-    library(dplyr); library(ggplot2)
+    if (!require("pacman")) install.packages("pacman")
+    pacman::p_load(dplyr, ggplot2, termco)
+
     data(presidential_debates_2012)
+
+Splitting Data
+--------------
+
+Many classification techniques require the data to be split into a
+training and test set to allow the researcher to observe how a model
+will perform on a new data set. This also prevents over-fitting the
+data. The `split_data` function allows easy splitting of `data.frame` or
+`vector` data by integer or proportion. The function returns a named
+list of the data set into a `train` and `test` set. The printed view is
+a truncated version of the returned list with `|...` indicating there
+are additional observations.
+
+    set.seed(111)
+    (pres_deb_split <- split_data(presidential_debates_2012, .75))
+
+    ## split_data:
+    ## 
+    ## train: n = 2184
+    ## Source: local data frame [6 x 5]
+    ## 
+    ##      person    tot   time      role
+    ##      (fctr)  (chr) (fctr)    (fctr)
+    ## 1   CROWLEY  230.2 time 2 moderator
+    ## 2 SCHIEFFER   48.1 time 3 moderator
+    ## 3    ROMNEY  98.15 time 2 candidate
+    ## 4    ROMNEY 173.12 time 2 candidate
+    ## 5     OBAMA  102.6 time 2 candidate
+    ## 6     OBAMA 120.16 time 2 candidate
+    ## Variables not shown: dialogue (chr)
+    ## |...
+    ## 
+    ## test: n = 728
+    ## Source: local data frame [6 x 5]
+    ## 
+    ##   person   tot   time      role
+    ##   (fctr) (chr) (fctr)    (fctr)
+    ## 1 LEHRER   1.1 time 1 moderator
+    ## 2 ROMNEY   2.2 time 1 candidate
+    ## 3 ROMNEY   4.4 time 1 candidate
+    ## 4 ROMNEY   4.5 time 1 candidate
+    ## 5 ROMNEY   4.7 time 1 candidate
+    ## 6 ROMNEY  4.17 time 1 candidate
+    ## Variables not shown: dialogue (chr)
+    ## |...
+
+The training set can be accessed via `pres_deb_split$train`; likewise,
+the test set can be accessed by way of `pres_deb_split$train`.
+
+Here I show splitting by integer.
+
+    split_data(presidential_debates_2012, 100)
+
+    ## split_data:
+    ## 
+    ## train: n = 100
+    ## Source: local data frame [6 x 5]
+    ## 
+    ##   person    tot   time      role
+    ##   (fctr)  (chr) (fctr)    (fctr)
+    ## 1  OBAMA  102.4 time 2 candidate
+    ## 2 ROMNEY 122.26 time 3 candidate
+    ## 3 ROMNEY 166.16 time 3 candidate
+    ## 4 ROMNEY 162.18 time 3 candidate
+    ## 5  OBAMA   20.3 time 2 candidate
+    ## 6 ROMNEY  59.12 time 1 candidate
+    ## Variables not shown: dialogue (chr)
+    ## |...
+    ## 
+    ## test: n = 2812
+    ## Source: local data frame [6 x 5]
+    ## 
+    ##   person   tot   time      role
+    ##   (fctr) (chr) (fctr)    (fctr)
+    ## 1 LEHRER   1.1 time 1 moderator
+    ## 2 LEHRER   1.2 time 1 moderator
+    ## 3 ROMNEY   2.1 time 1 candidate
+    ## 4 ROMNEY   2.2 time 1 candidate
+    ## 5 LEHRER   3.1 time 1 moderator
+    ## 6 ROMNEY   4.1 time 1 candidate
+    ## Variables not shown: dialogue (chr)
+    ## |...
+
+I could have trained on the training set and tested on the testing set
+in the following examples around modeling but have chosen not too for
+simplicity.
 
 View Most Used Words
 --------------------
@@ -463,7 +559,7 @@ least frequent n terms but can be rearranged alphabetically.
         with(frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](inst/figure/unnamed-chunk-10-1.png)  
+![](inst/figure/unnamed-chunk-13-1.png)  
 
 Building the Model
 ------------------
@@ -543,7 +639,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-13-1.png)  
+![](inst/figure/unnamed-chunk-16-1.png)  
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
 tags. In our model the majority of tags are applied to the **summons**
@@ -553,7 +649,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-14-1.png)  
+![](inst/figure/unnamed-chunk-17-1.png)  
 
 Improving the Model
 -------------------
@@ -846,13 +942,13 @@ may be returned) as well as a `table` and plot of the counts. Use
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            123             16            234
+    ##              6            124             17            232
 
     classify(model) %>%
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-24-1.png)  
+![](inst/figure/unnamed-chunk-27-1.png)  
 
 Accuracy
 --------

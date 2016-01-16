@@ -44,6 +44,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `word_count`                 | count        | Count words                                       |
 | `colo`                       | search       | Regex output to find term collocations            |
 | `search_term`                | search       | Search for regex terms                            |
+| `split_data`                 | modelling    | Split data into `train` & `test` sets             |
 | `accuracy`                   | modelling    | Check accuracy of model against human coder       |
 | `classify`                   | modelling    | Assign n tags to text from a model                |
 | `coverage`                   | modelling    | Coverage for `term_count` or `search_term` object |
@@ -62,7 +63,9 @@ The following examples demonstrate some of the functionality of **termco**.
 ## Load the Tools/Data
 
 ```{r}
-library(dplyr); library(ggplot2)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dplyr, ggplot2, termco)
+
 data(presidential_debates_2012)
 ```
 
@@ -110,10 +113,36 @@ This example section highlights the types of function combinations and order for
 ## Load the Tools/Data
 
 ```{r}
-library(dplyr); library(ggplot2)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dplyr, ggplot2, termco)
+
 data(presidential_debates_2012)
 ```
 
+## Splitting Data
+
+Many classification techniques require the data to be split into a training and test set to allow the researcher to observe how a model will perform on a new data set.  This also prevents over-fitting the data.  The `split_data` function allows easy splitting of `data.frame` or `vector` data by integer or proportion.  The function returns a named list of the data set into a `train` and `test` set.  The printed view is a truncated version of the returned list with `|...` indicating there are additional observations.
+
+```{r}
+set.seed(111)
+(pres_deb_split <- split_data(presidential_debates_2012, .75))
+```
+
+
+The training set can be accessed via `pres_deb_split$train`; likewise, the test set can be accessed by way of `pres_deb_split$train`.
+
+Here I show splitting by integer.
+
+```{r, eval=FALSE}
+split_data(presidential_debates_2012, 100)
+```
+
+```{r, echo=FALSE}
+set.seed(112)
+(pres_deb_split <- split_data(presidential_debates_2012, 100))
+```
+
+I could have trained on the training set and tested on the testing set in the following examples around modeling but have chosen not too for simplicity.
 
 ## View Most Used Words
 

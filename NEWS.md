@@ -28,6 +28,8 @@ termco 0.1.0
 
 **NEW FEATURES**
 
+* `split_data` added for easy creationg of training and testing data.
+
 **MINOR FEATURES**
 
 IMPROVEMENTS

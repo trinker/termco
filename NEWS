@@ -28,6 +28,8 @@ BUG FIXES
 
 NEW FEATURES
 
+* `split_data` added for easy creationg of training and testing data.
+
 MINOR FEATURES
 
 IMPROVEMENTS
