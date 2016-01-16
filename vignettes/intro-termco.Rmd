@@ -63,9 +63,7 @@ The following examples demonstrate some of the functionality of **termco**.
 ## Load the Tools/Data
 
 ```{r}
-if (!require("pacman")) install.packages("pacman")
-pacman::p_load(dplyr, ggplot2, termco)
-
+library(dplyr); library(ggplot2); library(termco)
 data(presidential_debates_2012)
 ```
 
@@ -113,9 +111,7 @@ This example section highlights the types of function combinations and order for
 ## Load the Tools/Data
 
 ```{r}
-if (!require("pacman")) install.packages("pacman")
-pacman::p_load(dplyr, ggplot2, termco)
-
+library(dplyr); library(ggplot2); library(termco)
 data(presidential_debates_2012)
 ```
 
