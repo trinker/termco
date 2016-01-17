@@ -29,7 +29,7 @@ split_data <- function(x, n.train = .5, ...){
 #' @export
 #' @rdname split_data
 #' @method split_data data.frame
-split_data.data.frame <- function(data, n.train = .5, ...){
+split_data.data.frame <- function(x, n.train = .5, ...){
 
     if (n.train < 1){
         n.train <- round(nrow(data) * n.train)
@@ -44,7 +44,7 @@ split_data.data.frame <- function(data, n.train = .5, ...){
 #' @export
 #' @rdname split_data
 #' @method split_data default
-split_data.default <- function(data, n.train = .5, ...){
+split_data.default <- function(x, n.train = .5, ...){
 
     if (n.train < 1){
         n.train <- round(length(data) * n.train)
