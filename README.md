@@ -59,7 +59,12 @@ between output types, while a few remaining functions are used to train,
 test and interpret *model*s. The table below describes the functions,
 category of use, and their description:
 
-<table>
+<table style="width:136%;">
+<colgroup>
+<col width="43%" />
+<col width="20%" />
+<col width="72%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Function</th>
@@ -99,56 +104,61 @@ category of use, and their description:
 <td align="left">Search for regex terms</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>split_data</code></td>
-<td align="left">modelling</td>
-<td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
+<td align="left"><code>classification_project</code></td>
+<td align="left">modeling</td>
+<td align="left">Make a classification modeling project template</td>
 </tr>
 <tr class="even">
+<td align="left"><code>split_data</code></td>
+<td align="left">modeling</td>
+<td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>accuracy</code></td>
 <td align="left">modeling</td>
 <td align="left">Check accuracy of model against human coder</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>classify</code></td>
 <td align="left">modeling</td>
 <td align="left">Assign n tags to text from a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>coverage</code></td>
 <td align="left">modeling</td>
 <td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
 <td align="left">modeling</td>
 <td align="left">Get the uncovered text rom a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>as_count</code></td>
 <td align="left">convert</td>
 <td align="left">Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>as_terms</code></td>
 <td align="left">convert</td>
 <td align="left">Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>weight</code></td>
 <td align="left">convert</td>
 <td align="left">Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_ca</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_counts</code></td>
 <td align="left">plot</td>
 <td align="left">Horizontal bar plot of group counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_freq</code></td>
 <td align="left">plot</td>
 <td align="left">Vertical bar plot of frequencies of counts</td>
@@ -425,6 +435,12 @@ term usage within text, and researcher experience. Building a classifier
 model requires the researcher to build a list of regular expressions
 that map to a category or tag. Below I outline minimal work flow for
 classification.
+
+Note that the user may want to begin with a classification model
+template that contains subdirectories and files for a classification
+project. The `classification_project` generates this template with a
+pre-populated *'classification.R'* script that can guide the user
+through the modeling process.
 
 Load the Tools/Data
 -------------------

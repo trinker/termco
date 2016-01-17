@@ -30,6 +30,9 @@ NEW FEATURES
 
 * `split_data` added for easy creationg of training and testing data.
 
+* `classification_project` added to make a classification modeling project
+  template.
+
 MINOR FEATURES
 
 IMPROVEMENTS

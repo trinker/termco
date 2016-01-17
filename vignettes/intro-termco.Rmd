@@ -44,11 +44,12 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `word_count`                 | count        | Count words                                       |
 | `colo`                       | search       | Regex output to find term collocations            |
 | `search_term`                | search       | Search for regex terms                            |
-| `split_data`                 | modelling    | Split data into `train` & `test` sets             |
-| `accuracy`                   | modelling    | Check accuracy of model against human coder       |
-| `classify`                   | modelling    | Assign n tags to text from a model                |
-| `coverage`                   | modelling    | Coverage for `term_count` or `search_term` object |
-| `uncovered`/`get_uncovered`  | modelling    | Get the uncovered text rom a model                |
+| `classification_project`     | modeling    | Make a classification modeling project template  |
+| `split_data`                 | modeling    | Split data into `train` & `test` sets             |
+| `accuracy`                   | modeling    | Check accuracy of model against human coder       |
+| `classify`                   | modeling    | Assign n tags to text from a model                |
+| `coverage`                   | modeling    | Coverage for `term_count` or `search_term` object |
+| `uncovered`/`get_uncovered`  | modeling    | Get the uncovered text rom a model                |
 | `as_count`                   | convert      | Strip pretty printing from `term_count` object    |
 | `as_terms`                   | convert      | Convert a count matrix to list of term vectors    |
 | `weight`                     | convert      | Weight a `term_count` object proportion/percent   |
@@ -107,6 +108,9 @@ plot_ca(counts, FALSE)
 Machine learning models of classification are great when you have known tags to train with because the model scales.  Qualitative, expert based human coding is terrific for when you have no tagged data. However, when you have a larger, untagged data set the machine learning approaches have no outcome to learn from and the data is too large to classify by hand.  One solution is to use a expert rules, regular expression approach that is somewhere between machine learning and hand coding.  This is one solution for tagging larger, untagged data sets. Additionally, when each text element contains larger chunks of text, unsupervised clustering type algorithms such as k-means or topic modeling may be of use.
 
 This example section highlights the types of function combinations and order for a typical expert rules classification.  This task typically involves the combined use of available literature, close examinations of term usage within text, and researcher experience.  Building a classifier model requires the researcher to build a list of regular expressions that map to a category or tag.  Below I outline minimal work flow for classification.
+
+Note that the user may want to begin with a classification model template that contains subdirectories and files for a classification project.  The `classification_project` generates this template with a pre-populated *'classification.R'* script that can guide the user through the modeling process.
+
 
 ## Load the Tools/Data
 
