@@ -11,7 +11,7 @@ Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
 [![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.1.0-orange.svg"><img src="https://img.shields.io/badge/Version-0.1.0-orange.svg" alt="Version"/></a>
 </p>
-<img src="inst/termco_logo/r_termco.png" width="200" alt="qdapRegex Logo">
+<img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
 **termco** is A small suite of functions used to count and find terms
 and substrings in strings. The tools can be used to build an expert

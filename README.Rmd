@@ -31,7 +31,7 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 [![Coverage Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master) 
 [![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)`r verbadge`
 
-<img src="inst/termco_logo/r_termco.png" width="200" alt="qdapRegex Logo">  
+<img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">  
 
 **termco** is A small suite of functions used to count and find terms and substrings in strings.  The tools can be used to build an expert rules, regular expression based text classification model.  The package wraps the [**data.table**](https://cran.r-project.org/package=data.table) and [**stringi**](https://cran.r-project.org/package=stringi) packages to create fast data frame counts of regular expression terms and substrings. 
 
