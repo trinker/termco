@@ -440,7 +440,23 @@ Note that the user may want to begin with a classification model
 template that contains subdirectories and files for a classification
 project. The `classification_project` generates this template with a
 pre-populated *'classification.R'* script that can guide the user
-through the modeling process.
+through the modeling process. The directory tree looks like the
+following:
+
+    template
+        |
+        |   .Rproj
+        |   
+        +---categories
+        |       categories.R
+        |       
+        +---data
+        +---output
+        +---plots
+        +---reports
+        \---scripts
+                01_data_cleaning.R
+                02_classification.R
 
 Load the Tools/Data
 -------------------

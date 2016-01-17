@@ -109,7 +109,23 @@ Machine learning models of classification are great when you have known tags to 
 
 This example section highlights the types of function combinations and order for a typical expert rules classification.  This task typically involves the combined use of available literature, close examinations of term usage within text, and researcher experience.  Building a classifier model requires the researcher to build a list of regular expressions that map to a category or tag.  Below I outline minimal work flow for classification.
 
-Note that the user may want to begin with a classification model template that contains subdirectories and files for a classification project.  The `classification_project` generates this template with a pre-populated *'classification.R'* script that can guide the user through the modeling process.
+Note that the user may want to begin with a classification model template that contains subdirectories and files for a classification project.  The `classification_project` generates this template with a pre-populated *'classification.R'* script that can guide the user through the modeling process.  The directory tree looks like the following:
+
+```
+template
+    |
+    |   .Rproj
+    |   
+    +---categories
+    |       categories.R
+    |       
+    +---data
+    +---output
+    +---plots
+    +---reports
+    \---scripts
+            01_data_cleaning.R
+      
 
 
 ## Load the Tools/Data
