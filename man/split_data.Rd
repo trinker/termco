@@ -6,14 +6,14 @@
 \alias{split_data.default}
 \title{Split Data Into Training and Test}
 \usage{
-split_data(x, n.train = 0.5, ...)
+split_data(data, n.train = 0.5, ...)
 
-\method{split_data}{data.frame}(x, n.train = 0.5, ...)
+\method{split_data}{data.frame}(data, n.train = 0.5, ...)
 
-\method{split_data}{default}(x, n.train = 0.5, ...)
+\method{split_data}{default}(data, n.train = 0.5, ...)
 }
 \arguments{
-\item{x}{A \code{\link[base]{data.frame}} or \code{\link[base]{vector}}.}
+\item{data}{A \code{\link[base]{data.frame}} or \code{\link[base]{vector}}.}
 
 \item{n.train}{An integer (number of) or proportion (proportion of) dictating
 how many observations to place in the training set.}

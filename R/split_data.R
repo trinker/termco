@@ -2,7 +2,7 @@
 #'
 #' Split a data set into training and testing data.
 #'
-#' @param x A \code{\link[base]{data.frame}} or \code{\link[base]{vector}}.
+#' @param data A \code{\link[base]{data.frame}} or \code{\link[base]{vector}}.
 #' @param n.train An integer (number of) or proportion (proportion of) dictating
 #' how many observations to place in the training set.
 #' @param \ldots ignored.
@@ -20,7 +20,7 @@
 #' split_data(LETTERS)
 #' split_data(LETTERS, .4)
 #' split_data(LETTERS, 10)
-split_data <- function(x, n.train = .5, ...){
+split_data <- function(data, n.train = .5, ...){
 
     UseMethod("split_data")
 
@@ -29,7 +29,7 @@ split_data <- function(x, n.train = .5, ...){
 #' @export
 #' @rdname split_data
 #' @method split_data data.frame
-split_data.data.frame <- function(x, n.train = .5, ...){
+split_data.data.frame <- function(data, n.train = .5, ...){
 
     if (n.train < 1){
         n.train <- round(nrow(data) * n.train)
@@ -44,7 +44,7 @@ split_data.data.frame <- function(x, n.train = .5, ...){
 #' @export
 #' @rdname split_data
 #' @method split_data default
-split_data.default <- function(x, n.train = .5, ...){
+split_data.default <- function(data, n.train = .5, ...){
 
     if (n.train < 1){
         n.train <- round(length(data) * n.train)
