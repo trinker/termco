@@ -57,6 +57,8 @@ classification_project <- function (path = "new", open = is.global(2)){
 
 }
 
+#' @param n The number of generations to go back. If used as a function argument
+#' \code{n} should be set to 2.
 #' @export
 #' @rdname classification_project
 is.global <- function (n = 1) {

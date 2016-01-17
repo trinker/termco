@@ -15,6 +15,9 @@ is.global(n = 1)
 \item{open}{logical. If \code{TRUE} the project will be opened in RStudio.
 The default is to test if new_project is being used in the global environment,
 if it is then the project directory will be opened.}
+
+\item{n}{The number of generations to go back. If used as a function argument
+\code{n} should be set to 2.}
 }
 \description{
 Create a template directory of subdirectories and files for a classification
