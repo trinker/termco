@@ -204,7 +204,7 @@ plot.frequent_terms <- function(x, n, as.cloud = FALSE, random.order = FALSE,
             ggplot2::coord_flip() +
             ggplot2::ylab("Count") +
             ggplot2::xlab("Terms") +
-    	      ggplot2::scale_y_continuous(expand = c(0, 0),
+    	      ggplot2::scale_y_continuous(expand = c(0, 0), labels = comma,
     	          limits = c(0, 1.01 * x[1, "frequency"])) +
             ggplot2::theme_bw() +
             ggplot2::theme(
@@ -218,4 +218,5 @@ plot.frequent_terms <- function(x, n, as.cloud = FALSE, random.order = FALSE,
 
 }
 
+comma <- function(x) prettyNum(x, big.mark=",")
 
