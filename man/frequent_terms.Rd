@@ -78,6 +78,9 @@ y <- frequent_terms(x, n=10)
 nrow(y)
 z <- print(frequent_terms(x, n=100))
 nrow(z)
+
+## Cumulative Percent Plot
+plot_cum_percent(frequent_terms(presidential_debates_2012[["dialogue"]]))
 }
 \keyword{frequency}
 \keyword{term}

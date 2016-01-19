@@ -52,6 +52,9 @@
 #' nrow(y)
 #' z <- print(frequent_terms(x, n=100))
 #' nrow(z)
+#'
+#' ## Cumulative Percent Plot
+#' plot_cum_percent(frequent_terms(presidential_debates_2012[["dialogue"]]))
 frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.freq = NULL,
     min.char = 4, max.char = Inf, stem = FALSE, language = "porter", strip = TRUE,
     strip.regex = "[^a-z' ]", alphabetical = FALSE, ...) {
@@ -204,7 +207,7 @@ plot.frequent_terms <- function(x, n, as.cloud = FALSE, random.order = FALSE,
             ggplot2::coord_flip() +
             ggplot2::ylab("Count") +
             ggplot2::xlab("Terms") +
-    	      ggplot2::scale_y_continuous(expand = c(0, 0), 
+    	      ggplot2::scale_y_continuous(expand = c(0, 0),
     	          labels = function(x) format(x, big.mark = ",", scientific = FALSE, trim = TRUE),
     	          limits = c(0, 1.01 * x[1, "frequency"])) +
             ggplot2::theme_bw() +

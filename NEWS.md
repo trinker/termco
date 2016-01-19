@@ -33,6 +33,8 @@ termco 0.1.0
 * `classification_project` added to make a classification modeling project
   template.
 
+* `plot_cum_percent` added for cumulative percent plot of frequent terms.
+
 **MINOR FEATURES**
 
 IMPROVEMENTS
