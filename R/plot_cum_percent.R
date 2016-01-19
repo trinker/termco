@@ -17,8 +17,8 @@ plot_cum_percent <- function(x, rotate.term = TRUE, ...){
         ) %>%
         ggplot2::ggplot(ggplot2::aes_string('term', 'cumprop', group = 1)) +
             ggplot2::geom_line(size=1, color="blue") +
-            ggplot2::geom_point(size=4, shape=16, color="blue") +
-            ggplot2::geom_point(size=2, shape=16, color = "white") +
+            ggplot2::geom_point(size=3, shape=16, color="blue") +
+            ggplot2::geom_point(size=1.2, shape=16, color = "white") +
             ggplot2::scale_y_continuous(label = function(x) paste0(round(100 * x, 0), "%")) +
             ggplot2::ylab("Percent") +
             ggplot2::xlab("Term") +
