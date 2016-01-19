@@ -163,6 +163,11 @@ category of use, and their description:
 <td align="left">plot</td>
 <td align="left">Vertical bar plot of frequencies of counts</td>
 </tr>
+<tr class="odd">
+<td align="left"><code>plot_cum_percent</code></td>
+<td align="left">plot</td>
+<td align="left">Cumulative percent of frequent terms</td>
+</tr>
 </tbody>
 </table>
 
