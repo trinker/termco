@@ -166,7 +166,7 @@ category of use, and their description:
 <tr class="odd">
 <td align="left"><code>plot_cum_percent</code></td>
 <td align="left">plot</td>
-<td align="left">Cumulative percent of frequent terms</td>
+<td align="left">Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
 </tbody>
 </table>
@@ -597,6 +597,16 @@ least frequent n terms but can be rearranged alphabetically.
         plot()
 
 ![](inst/figure/unnamed-chunk-13-1.png)  
+A cumulative percent can give a different view of the term usage. The
+`plot_cum_percent` function converts a `frequent_terms` output into a
+cumulative percent plot. Additionally, `ngram_collocations` + `plot` can
+give insight into the frequently occurring ngrams.
+
+    presidential_debates_2012 %>%
+        with(frequent_terms(dialogue, 40)) %>%
+        plot_cum_percent()
+
+![](inst/figure/unnamed-chunk-14-1.png)  
 
 Building the Model
 ------------------
@@ -676,7 +686,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-16-1.png)  
+![](inst/figure/unnamed-chunk-17-1.png)  
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
 tags. In our model the majority of tags are applied to the **summons**
@@ -686,7 +696,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-17-1.png)  
+![](inst/figure/unnamed-chunk-18-1.png)  
 
 Improving the Model
 -------------------
@@ -985,7 +995,7 @@ may be returned) as well as a `table` and plot of the counts. Use
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-27-1.png)  
+![](inst/figure/unnamed-chunk-28-1.png)  
 
 Accuracy
 --------

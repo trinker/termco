@@ -11,7 +11,7 @@
 plot_cum_percent <- function(x, rotate.term = TRUE, ...){
     out <- x %>%
         dplyr::mutate(
-            prop = frequency/sum(attributes(x)[["full"]][["frequency"]]),
+            prop = frequency/attributes(x)[["n.words"]],
             cumprop = cumsum(prop),
             term = factor(term, levels = term)
         ) %>%

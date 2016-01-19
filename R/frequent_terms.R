@@ -70,6 +70,7 @@ frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.freq 
     if (isTRUE(strip)) x <- gsub(strip.regex, " ", x)
 
     y <- unlist(stringi::stri_extract_all_words(x))
+    n.words <- sum(stringi::stri_count_words(x), na.rm = TRUE)
 
     ## stemming
     if (isTRUE(stem)) {
@@ -116,6 +117,7 @@ frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.freq 
     class(out2) <- c('frequent_terms', class(out))
     attributes(out2)[["n"]] <- n
     attributes(out2)[["full"]] <- out
+    attributes(out2)[["n.words"]] <- n.words
     out2
 
 }

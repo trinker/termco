@@ -56,7 +56,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `plot_ca`                    | plot         | Plot `term_count` object as 3-D correspondence analysis map  |
 | `plot_counts`                | plot         | Horizontal bar plot of group counts               |
 | `plot_freq`                  | plot         | Vertical bar plot of frequencies of counts        |
-| `plot_cum_percent`           | plot         | Cumulative percent of frequent terms              |
+| `plot_cum_percent`           | plot         | Plot `frequent_terms` object as cumulative percent |
 
 
 The following examples demonstrate some of the functionality of **termco**.
@@ -125,7 +125,7 @@ template
     +---reports
     \---scripts
             01_data_cleaning.R
-      
+```      
 
 
 ## Load the Tools/Data
@@ -170,6 +170,16 @@ presidential_debates_2012 %>%
 presidential_debates_2012 %>%
     with(frequent_terms(dialogue, 40)) %>%
     plot()
+```
+
+
+
+A cumulative percent can give a different view of the term usage.  The `plot_cum_percent` function converts a `frequent_terms` output into a cumulative percent plot.  Additionally, `ngram_collocations` + `plot` can give insight into the frequently occurring ngrams.
+
+```{r, fig.width=8, fig.height=6}
+presidential_debates_2012 %>%
+    with(frequent_terms(dialogue, 40)) %>%
+    plot_cum_percent()
 ```
 
 
