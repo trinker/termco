@@ -40,6 +40,7 @@ Table of Contents
     -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
     -   [[Splitting Data](#splitting-data)](#[splitting-data](#splitting-data))
     -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
+    -   [[View Most Used Words in Context](#view-most-used-words-in-context)](#[view-most-used-words-in-context](#view-most-used-words-in-context))
     -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
     -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
     -   [[Improving the Model](#improving-the-model)](#[improving-the-model](#improving-the-model))
@@ -56,8 +57,10 @@ classification models.
 
 Most of the functions *count*, *search*, *plot* terms, and *covert*
 between output types, while a few remaining functions are used to train,
-test and interpret *model*s. The table below describes the functions,
-category of use, and their description:
+test and interpret *model*s. Additionally, the `probe_` family of
+function generate lists of function calls or plots for given search
+terms. The table below describes the functions, category of use, and
+their description:
 
 <table style="width:136%;">
 <colgroup>
@@ -167,6 +170,26 @@ category of use, and their description:
 <td align="left"><code>plot_cum_percent</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>frequent_terms</code> object as cumulative percent</td>
+</tr>
+<tr class="even">
+<td align="left"><code>probe_list</code></td>
+<td align="left">probe</td>
+<td align="left">Generate list of <code>search_term</code> function calls</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>probe_colo_list</code></td>
+<td align="left">probe</td>
+<td align="left">Generate list of <code>search_term</code> + <code>frequent_terms</code> function calls</td>
+</tr>
+<tr class="even">
+<td align="left"><code>probe_colo_plot_list</code></td>
+<td align="left">probe</td>
+<td align="left">Generate list of <code>search_term</code> + <code>frequent_terms</code> + <code>plot</code> function calls</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>probe_colo_plot</code></td>
+<td align="left">probe</td>
+<td align="left">Plot <code>probe_colo_plot_list</code> directly</td>
 </tr>
 </tbody>
 </table>
@@ -608,6 +631,83 @@ give insight into the frequently occurring ngrams.
 
 ![](inst/figure/unnamed-chunk-14-1.png)  
 
+View Most Used Words in Context
+-------------------------------
+
+Much of the exploration of terms in context in effort to build the named
+list of regular expressions that map to a category/tag involves
+recursive views of frequent terms in context. The `probe` family of
+functions can generate lists of function calls (and copy them to the
+clipboard for easy transfer) allowing the user to circulate through term
+lists generated from other **termco** tools such as `frequent_terms`.
+This is meant to standardize and speed up the process.
+
+The first `probe_` tool makes a list of function calls for `search_term`
+using a term list. Here I show just 10 terms from `frequent_terms`. This
+can be pasted into a script and then run line by line to explore the
+frequent terms in context.
+
+    presidential_debates_2012 %>%
+        with(frequent_terms(dialogue, 10)) %>%
+        select(term) %>%
+        unlist() %>%
+        probe_list("presidential_debates_2012$dialogue") 
+
+    ## search_term(presidential_debates_2012$dialogue, "going")
+    ## search_term(presidential_debates_2012$dialogue, "make")
+    ## search_term(presidential_debates_2012$dialogue, "people")
+    ## search_term(presidential_debates_2012$dialogue, "governor")
+    ## search_term(presidential_debates_2012$dialogue, "president")
+    ## search_term(presidential_debates_2012$dialogue, "said")
+    ## search_term(presidential_debates_2012$dialogue, "want")
+    ## search_term(presidential_debates_2012$dialogue, "sure")
+    ## search_term(presidential_debates_2012$dialogue, "just")
+    ## search_term(presidential_debates_2012$dialogue, "will")
+
+The next `probe_` function wraps `search_term` with `frequent_terms`.
+This allows the user to systematically explore the words that frequently
+colocate with the original terms.
+
+    presidential_debates_2012 %>%
+        with(frequent_terms(dialogue, 5)) %>%
+        select(term) %>%
+        unlist() %>%
+        probe_colo_list("presidential_debates_2012$dialogue") 
+
+    ## frequent_terms(search_term(presidential_debates_2012$dialogue, "going"))
+    ## frequent_terms(search_term(presidential_debates_2012$dialogue, "make"))
+    ## frequent_terms(search_term(presidential_debates_2012$dialogue, "people"))
+    ## frequent_terms(search_term(presidential_debates_2012$dialogue, "governor"))
+    ## frequent_terms(search_term(presidential_debates_2012$dialogue, "president"))
+
+As `frequent_terms` has a `plot` method the user may wish to generate
+function calls similar to `probe_colo_list` but wrapped with `plot` for
+a visual exploration of the data. The `probe_colo_plot_list` makes a
+list of such function calls, whereas the `probe_colo_plot` plots the
+output directly to a single external .pdf file.
+
+    presidential_debates_2012 %>%
+        with(frequent_terms(dialogue, 5)) %>%
+        select(term) %>%
+        unlist() %>%
+        probe_colo_plot_list("presidential_debates_2012$dialogue") 
+
+    ## plot(frequent_terms(search_term(presidential_debates_2012$dialogue, "going")))
+    ## plot(frequent_terms(search_term(presidential_debates_2012$dialogue, "make")))
+    ## plot(frequent_terms(search_term(presidential_debates_2012$dialogue, "people")))
+    ## plot(frequent_terms(search_term(presidential_debates_2012$dialogue, "governor")))
+    ## plot(frequent_terms(search_term(presidential_debates_2012$dialogue, "president")))
+
+The plots can be generated externally with the `probe_colo_plot`
+function which makes multi-page .pdf of frequent terms bar plots; one
+plot for each term.
+
+    presidential_debates_2012 %>%
+        with(frequent_terms(dialogue, 5)) %>%
+        select(term) %>%
+        unlist() %>%
+        probe_colo_plot("presidential_debates_2012$dialogue") 
+
 Building the Model
 ------------------
 
@@ -686,7 +786,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-17-1.png)  
+![](inst/figure/unnamed-chunk-21-1.png)  
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
 tags. In our model the majority of tags are applied to the **summons**
@@ -696,7 +796,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-18-1.png)  
+![](inst/figure/unnamed-chunk-22-1.png)  
 
 Improving the Model
 -------------------
@@ -995,7 +1095,7 @@ may be returned) as well as a `table` and plot of the counts. Use
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-28-1.png)  
+![](inst/figure/unnamed-chunk-32-1.png)  
 
 Accuracy
 --------

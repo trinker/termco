@@ -40,7 +40,7 @@ knitr::opts_chunk$set(fig.path = "inst/figure/")
 
 The main function of **termco** is `term_count`.  It is used to extract regex term counts by grouping variable(s) as well as to generate classification models.
 
-Most of the functions *count*, *search*, *plot* terms, and *covert* between output types, while a few remaining functions are used to train, test and interpret *model*s.  The table below describes the functions, category of use, and their description:
+Most of the functions *count*, *search*, *plot* terms, and *covert* between output types, while a few remaining functions are used to train, test and interpret *model*s.  Additionally, the `probe_` family of function generate lists of function calls or plots for given search terms.  The table below describes the functions, category of use, and their description:
 
 | Function                     | Use Category |  Description                                      |
 |------------------------------|--------------|---------------------------------------------------|
@@ -63,6 +63,10 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `plot_counts`                | plot         | Horizontal bar plot of group counts               |
 | `plot_freq`                  | plot         | Vertical bar plot of frequencies of counts        |
 | `plot_cum_percent`           | plot         | Plot `frequent_terms` object as cumulative percent |
+| `probe_list`                 | probe        | Generate list of `search_term` function calls     |
+| `probe_colo_list`            | probe        | Generate list of `search_term` + `frequent_terms` function calls |
+| `probe_colo_plot_list`       | probe        | Generate list of `search_term` + `frequent_terms` + `plot` function calls |
+| `probe_colo_plot`            | probe        | Plot `probe_colo_plot_list` directly              |
 
 # Installation
 
@@ -229,6 +233,50 @@ presidential_debates_2012 %>%
     plot_cum_percent()
 ```
 
+
+## View Most Used Words in Context
+
+Much of the exploration of terms in context in effort to build the named list of regular expressions that map to a category/tag involves recursive views of frequent terms in context.  The `probe` family of functions can generate lists of function calls (and copy them to the clipboard for easy transfer) allowing the user to circulate through term lists generated from other **termco** tools such as `frequent_terms`.  This is meant to standardize and speed up the process.
+
+The first `probe_` tool makes a list of function calls for `search_term` using a term list.  Here I show just 10 terms from `frequent_terms`.  This can be pasted into a script and then run line by line to explore the frequent terms in context.
+
+```{r}
+presidential_debates_2012 %>%
+    with(frequent_terms(dialogue, 10)) %>%
+    select(term) %>%
+    unlist() %>%
+    probe_list("presidential_debates_2012$dialogue") 
+```
+
+The next `probe_` function wraps `search_term` with `frequent_terms`.  This allows the user to systematically explore the words that frequently colocate with the original terms.  
+
+```{r}
+presidential_debates_2012 %>%
+    with(frequent_terms(dialogue, 5)) %>%
+    select(term) %>%
+    unlist() %>%
+    probe_colo_list("presidential_debates_2012$dialogue") 
+```
+
+As `frequent_terms` has a `plot` method the user may wish to generate function calls similar to `probe_colo_list` but wrapped with `plot` for a visual exploration of the data.  The `probe_colo_plot_list` makes a list of such function calls, whereas the `probe_colo_plot` plots the output directly to a single external .pdf file.
+
+```{r}
+presidential_debates_2012 %>%
+    with(frequent_terms(dialogue, 5)) %>%
+    select(term) %>%
+    unlist() %>%
+    probe_colo_plot_list("presidential_debates_2012$dialogue") 
+```
+
+The plots can be generated externally with the `probe_colo_plot` function which makes multi-page .pdf of frequent terms bar plots; one plot for each term.
+
+```{r, eval=FALSE}
+presidential_debates_2012 %>%
+    with(frequent_terms(dialogue, 5)) %>%
+    select(term) %>%
+    unlist() %>%
+    probe_colo_plot("presidential_debates_2012$dialogue") 
+```
 
 
 ## Building the Model

@@ -35,6 +35,10 @@ NEW FEATURES
 
 * `plot_cum_percent` added for cumulative percent plot of frequent terms.
 
+* `probe_` family of functions added to easily make lists of function calls for
+  exploration of the frequent terms in the context of the data.  Functions include:
+  `probe_list`, `probe_colo_list`, `probe_colo_plot_list`, & `probe_colo_plot`.
+
 MINOR FEATURES
 
 IMPROVEMENTS
