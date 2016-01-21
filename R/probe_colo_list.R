@@ -23,6 +23,7 @@
 #' \code{copy2clip = TRUE} the calls are easily pasted for use in exploration
 #' of the terms in the text data set.
 #' @family probe functions
+#' @export
 #' @examples
 #' probe_colo_list(c("thank", "\\bthe\"", "ee"), "sam_i_am")
 #' probe_colo_list(

@@ -29,6 +29,7 @@
 #' takes a character name for \code{data.name} whereas \code{probe_colo_plot}
 #' takes a an actual vector object for \code{data}.
 #' @family probe functions
+#' @export
 #' @rdname probe_colo__plot
 #' @examples
 #' probe_colo_plot_list(c("thank", "\\bthe\"", "ee"), "sam_i_am")
@@ -72,6 +73,7 @@ probe_colo_plot_list <- function(terms, data.name, copy2clip = getOption("termco
 #' @param height The height of the graphics region in inches.
 #' @param \ldots Other arguments passed to frequent terms.
 #' @family probe functions
+#' @export
 #' @rdname probe_colo__plot
 probe_colo_plot <- function(terms, data, file = "Rplots.pdf", width = 5.5, height = 7, ...){
 
