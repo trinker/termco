@@ -27,13 +27,13 @@ setting \code{options(termco.copy2clip = TRUE)}.}
 \item{ldots}{A string (starting with a comma) of additional arguments to
 include in the \code{frequent_terms} function of the list of function calls.}
 
+\item{data}{A vector of character strings.}
+
 \item{file}{A  \file{.pdf} file to plot to.}
 
 \item{width}{The width of the graphics region in inches.}
 
 \item{height}{The height of the graphics region in inches.}
-
-\item{A}{vector of character strings.}
 
 \item{\ldots}{Other arguments passed to frequent terms.}
 }

@@ -67,7 +67,7 @@ probe_colo_plot_list <- function(terms, data.name, copy2clip = getOption("termco
 #'
 #' \code{probe_colo_plot} - Make the plots of \code{probe_colo_plot_list}
 #' directly to an external \file{.pdf} file.
-#' @param A vector of character strings.
+#' @param data A vector of character strings.
 #' @param file A  \file{.pdf} file to plot to.
 #' @param width The width of the graphics region in inches.
 #' @param height The height of the graphics region in inches.
