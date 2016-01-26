@@ -222,7 +222,7 @@ I could have trained on the training set and tested on the testing set in the fo
 
 In order to build the named list of regular expressions that map to a category/tag the researcher must understand the terms (particularly information salient terms) in context.  The understanding of term use helps the researcher to begin to build a mental model of the topics being used in a fashion similar to qualitative coding techniques.  Broad categories will begin to coalesce as word use is elucidated.  It forms the initial names of the "named list of regular expressions".  Of course building the regular expressions in the regex model building step will allow the researcher to see new ways in which terms are used as well as new important terms.  This in turn will reshape, remove, and add names to the "named list of regular expressions".  This recursive process is captured in the model below.
 
-<img src="inst/figure/model2.png" width="300" alt="model">  
+<img src="inst/figure/model2.png" width="400" alt="model">  
 
 
 ### View Most Used Words
