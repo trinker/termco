@@ -315,15 +315,15 @@ Plotting
 
     plot(counts)
 
-![](inst/figure/unnamed-chunk-6-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-6-1.png)
 
     plot(counts, labels=TRUE)
 
-![](inst/figure/unnamed-chunk-6-2.png)<!-- -->
+![](inst/figure/unnamed-chunk-6-2.png)
 
     plot_ca(counts, FALSE)
 
-![](inst/figure/unnamed-chunk-6-3.png)<!-- -->
+![](inst/figure/unnamed-chunk-6-3.png)
 
 Ngram Collocations
 ------------------
@@ -434,19 +434,19 @@ stopword removal, min/max character filtering, and stemming to
 
     plot(ngram_collocations(x))
 
-![](inst/figure/unnamed-chunk-8-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-8-1.png)
 
     plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
 
-![](inst/figure/unnamed-chunk-8-2.png)<!-- -->
+![](inst/figure/unnamed-chunk-8-2.png)
 
     plot(ngram_collocations(x, gram.length = 3))
 
-![](inst/figure/unnamed-chunk-8-3.png)<!-- -->
+![](inst/figure/unnamed-chunk-8-3.png)
 
     plot(ngram_collocations(x, order.by = "dice"))
 
-![](inst/figure/unnamed-chunk-8-4.png)<!-- -->
+![](inst/figure/unnamed-chunk-8-4.png)
 
 Building an Expert Rules, Regex Classifier Model
 ================================================
@@ -642,7 +642,7 @@ least frequent n terms but can be rearranged alphabetically.
         with(frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](inst/figure/unnamed-chunk-13-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-13-1.png)
 
 A cumulative percent can give a different view of the term usage. The
 `plot_cum_percent` function converts a `frequent_terms` output into a
@@ -653,7 +653,7 @@ give insight into the frequently occurring ngrams.
         with(frequent_terms(dialogue, 40)) %>%
         plot_cum_percent()
 
-![](inst/figure/unnamed-chunk-14-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-14-1.png)
 
 It may also be helpful to view the unique contribution of terms on the
 coverage excluding all elements from the match vector that were
@@ -705,7 +705,7 @@ unique coverage of terms.
         with(hierarchical_coverage(dialogue, terms)) %>%
         plot(use.terms = TRUE)
 
-![](inst/figure/unnamed-chunk-15-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-15-1.png)
 
 ### View Most Used Words in Context
 
@@ -861,7 +861,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-22-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-22-1.png)
 
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
@@ -872,7 +872,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-23-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-23-1.png)
 
 Improving the Model
 -------------------
@@ -1171,7 +1171,7 @@ may be returned) as well as a `table` and plot of the counts. Use
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-33-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-33-1.png)
 
 Accuracy
 --------
