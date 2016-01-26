@@ -39,6 +39,11 @@ NEW FEATURES
   exploration of the frequent terms in the context of the data.  Functions include:
   `probe_list`, `probe_colo_list`, `probe_colo_plot_list`, & `probe_colo_plot`.
 
+* `hierarchical_coverage` added to allow exploration of the unique coverage of a
+  text vector by a term after partitioning out the elements matched by previous
+  terms.
+
+
 MINOR FEATURES
 
 IMPROVEMENTS

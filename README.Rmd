@@ -46,6 +46,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 |------------------------------|--------------|---------------------------------------------------|
 | `term_count`                 | count        | Count regex term occurrence; modeling             |
 | `frequent_terms`/`all_words` | count        | Frequent terms                                    |
+| `hierarchical_coverage`      | count        | Unique coverage of a text vector by terms         |
 | `ngram_collocations`         | count        | Weighted frequent ngram (2 & 3) collocations      |
 | `word_count`                 | count        | Count words                                       |
 | `colo`                       | search       | Regex output to find term collocations            |
@@ -213,7 +214,7 @@ set.seed(112)
 I could have trained on the training set and tested on the testing set in the following examples around modeling but have chosen not too for simplicity.
 
 
-## View Most Used Words
+### View Most Used Words
 
 A common task in building a model is to understand the most frequent words while excluding less information rich function words.  The `frequnt_terms` function produces an ordered data frame of counts.  The researcher can exclude stop words and limit the terms to contain n characters between set thresholds.  The output is ordered by most to least frequent n terms but can be rearranged alphabetically.
 
@@ -233,8 +234,30 @@ presidential_debates_2012 %>%
     plot_cum_percent()
 ```
 
+It may also be helpful to view the unique contribution of terms on the coverage excluding all elements from the match vector that were previously matched by another term.  The `hierarchical_coverage` and accompanying `plot` method allows for hierarchical exploration of the unique coverage of terms.
 
-## View Most Used Words in Context
+
+```{r, fig.width=8, fig.height=6}
+terms <- presidential_debates_2012 %>%
+    with(frequent_terms(dialogue, 30)) %>%
+    `[[`("term")
+
+presidential_debates_2012 %>%
+    with(hierarchical_coverage(dialogue, terms))
+
+presidential_debates_2012 %>%
+    with(hierarchical_coverage(dialogue, terms)) %>%
+    plot(use.terms = TRUE)
+```
+
+## Understanding Term Use
+
+In order to build the named list of regular expressions that map to a category/tag the researcher must understand the terms (particularly information salient terms) in context.  The understanding of term use helps the researcher to begin to build a mental model of the topics being used in a fashion similar to qualitative coding techniques.  Broad categories will begin to coalesce as word use is elucidated.  It forms the initial names of the "named list of regular expressions".  Of course building the regular expressions in the regex model building step will allow the researcher to see new ways in which terms are used as well as new important terms.  This in turn will reshape, remove, and add names to the "named list of regular expressions".  This recursive process is captured in the model below.
+
+![](figures/model2.png)
+
+
+### View Most Used Words in Context
 
 Much of the exploration of terms in context in effort to build the named list of regular expressions that map to a category/tag involves recursive views of frequent terms in context.  The `probe` family of functions can generate lists of function calls (and copy them to the clipboard for easy transfer) allowing the user to circulate through term lists generated from other **termco** tools such as `frequent_terms`.  This is meant to standardize and speed up the process.
 

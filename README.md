@@ -39,8 +39,9 @@ Table of Contents
 -   [[Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)](#[building-an-expert-rules-regex-classifier-model](#building-an-expert-rules-regex-classifier-model))
     -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
     -   [[Splitting Data](#splitting-data)](#[splitting-data](#splitting-data))
-    -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
-    -   [[View Most Used Words in Context](#view-most-used-words-in-context)](#[view-most-used-words-in-context](#view-most-used-words-in-context))
+        -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
+    -   [[Understanding Term Use](#understanding-term-use)](#[understanding-term-use](#understanding-term-use))
+        -   [[View Most Used Words in Context](#view-most-used-words-in-context)](#[view-most-used-words-in-context](#view-most-used-words-in-context))
     -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
     -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
     -   [[Improving the Model](#improving-the-model)](#[improving-the-model](#improving-the-model))
@@ -87,106 +88,111 @@ their description:
 <td align="left">Frequent terms</td>
 </tr>
 <tr class="odd">
+<td align="left"><code>hierarchical_coverage</code></td>
+<td align="left">count</td>
+<td align="left">Unique coverage of a text vector by terms</td>
+</tr>
+<tr class="even">
 <td align="left"><code>ngram_collocations</code></td>
 <td align="left">count</td>
 <td align="left">Weighted frequent ngram (2 &amp; 3) collocations</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>word_count</code></td>
 <td align="left">count</td>
 <td align="left">Count words</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>colo</code></td>
 <td align="left">search</td>
 <td align="left">Regex output to find term collocations</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>search_term</code></td>
 <td align="left">search</td>
 <td align="left">Search for regex terms</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>classification_project</code></td>
 <td align="left">modeling</td>
 <td align="left">Make a classification modeling project template</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_data</code></td>
 <td align="left">modeling</td>
 <td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>accuracy</code></td>
 <td align="left">modeling</td>
 <td align="left">Check accuracy of model against human coder</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>classify</code></td>
 <td align="left">modeling</td>
 <td align="left">Assign n tags to text from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>coverage</code></td>
 <td align="left">modeling</td>
 <td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
 <td align="left">modeling</td>
 <td align="left">Get the uncovered text rom a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>as_count</code></td>
 <td align="left">convert</td>
 <td align="left">Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>as_terms</code></td>
 <td align="left">convert</td>
 <td align="left">Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>weight</code></td>
 <td align="left">convert</td>
 <td align="left">Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_ca</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_counts</code></td>
 <td align="left">plot</td>
 <td align="left">Horizontal bar plot of group counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_freq</code></td>
 <td align="left">plot</td>
 <td align="left">Vertical bar plot of frequencies of counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_cum_percent</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_colo_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> + <code>frequent_terms</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_colo_plot_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> + <code>frequent_terms</code> + <code>plot</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_colo_plot</code></td>
 <td align="left">probe</td>
 <td align="left">Plot <code>probe_colo_plot_list</code> directly</td>
@@ -249,19 +255,19 @@ Build Counts Dataframe
     ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
     ## 
-    ##       person   time n.words response_cries back_channels   summons
-    ##       (fctr) (fctr)   (int)          (chr)         (chr)     (chr)
-    ## 1      OBAMA time 1    3599        3(.08%)             0 43(1.19%)
-    ## 2      OBAMA time 2    7477        2(.03%)             0  42(.56%)
-    ## 3      OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
-    ## 4     ROMNEY time 1    4085              0             0  27(.66%)
-    ## 5     ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
-    ## 6     ROMNEY time 3    8303        5(.06%)             0 84(1.01%)
-    ## 7    CROWLEY time 2    1672        2(.12%)             0   4(.24%)
-    ## 8     LEHRER time 1     765        3(.39%)       3(.39%)         0
-    ## 9   QUESTION time 2     583        2(.34%)             0         0
-    ## 10 SCHIEFFER time 3    1445              0             0   2(.14%)
-    ## Variables not shown: justification (chr)
+    ##       person   time n.words back_channels justification response_cries
+    ##       (fctr) (fctr)   (int)         (chr)         (chr)          (chr)
+    ## 1      OBAMA time 1    3599             0      26(.72%)        3(.08%)
+    ## 2      OBAMA time 2    7477             0      29(.39%)        2(.03%)
+    ## 3      OBAMA time 3    7243       1(.01%)      33(.46%)        1(.01%)
+    ## 4     ROMNEY time 1    4085             0       8(.20%)              0
+    ## 5     ROMNEY time 2    7536       3(.04%)      20(.27%)        1(.01%)
+    ## 6     ROMNEY time 3    8303             0      19(.23%)        5(.06%)
+    ## 7    CROWLEY time 2    1672             0      12(.72%)        2(.12%)
+    ## 8     LEHRER time 1     765       3(.39%)             0        3(.39%)
+    ## 9   QUESTION time 2     583             0       2(.34%)        2(.34%)
+    ## 10 SCHIEFFER time 3    1445             0       6(.42%)              0
+    ## Variables not shown: summons (chr)
 
 Printing
 --------
@@ -290,34 +296,34 @@ Printing
     ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
     ## 
-    ##       person   time n.words response_cries back_channels   summons
-    ##       (fctr) (fctr)   (int)          (chr)         (chr)     (chr)
-    ## 1      OBAMA time 1    3599        3(.08%)             _ 43(1.19%)
-    ## 2      OBAMA time 2    7477        2(.03%)             _  42(.56%)
-    ## 3      OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
-    ## 4     ROMNEY time 1    4085              _             _  27(.66%)
-    ## 5     ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
-    ## 6     ROMNEY time 3    8303        5(.06%)             _ 84(1.01%)
-    ## 7    CROWLEY time 2    1672        2(.12%)             _   4(.24%)
-    ## 8     LEHRER time 1     765        3(.39%)       3(.39%)         _
-    ## 9   QUESTION time 2     583        2(.34%)             _         _
-    ## 10 SCHIEFFER time 3    1445              _             _   2(.14%)
-    ## Variables not shown: justification (chr)
+    ##       person   time n.words back_channels justification response_cries
+    ##       (fctr) (fctr)   (int)         (chr)         (chr)          (chr)
+    ## 1      OBAMA time 1    3599             _      26(.72%)        3(.08%)
+    ## 2      OBAMA time 2    7477             _      29(.39%)        2(.03%)
+    ## 3      OBAMA time 3    7243       1(.01%)      33(.46%)        1(.01%)
+    ## 4     ROMNEY time 1    4085             _       8(.20%)              _
+    ## 5     ROMNEY time 2    7536       3(.04%)      20(.27%)        1(.01%)
+    ## 6     ROMNEY time 3    8303             _      19(.23%)        5(.06%)
+    ## 7    CROWLEY time 2    1672             _      12(.72%)        2(.12%)
+    ## 8     LEHRER time 1     765       3(.39%)             _        3(.39%)
+    ## 9   QUESTION time 2     583             _       2(.34%)        2(.34%)
+    ## 10 SCHIEFFER time 3    1445             _       6(.42%)              _
+    ## Variables not shown: summons (chr)
 
 Plotting
 --------
 
     plot(counts)
 
-![](inst/figure/unnamed-chunk-6-1.png)  
+![](inst/figure/unnamed-chunk-6-1.png)<!-- -->
 
     plot(counts, labels=TRUE)
 
-![](inst/figure/unnamed-chunk-6-2.png)  
+![](inst/figure/unnamed-chunk-6-2.png)<!-- -->
 
     plot_ca(counts, FALSE)
 
-![](inst/figure/unnamed-chunk-6-3.png)  
+![](inst/figure/unnamed-chunk-6-3.png)<!-- -->
 
 Ngram Collocations
 ------------------
@@ -428,19 +434,19 @@ stopword removal, min/max character filtering, and stemming to
 
     plot(ngram_collocations(x))
 
-![](inst/figure/unnamed-chunk-8-1.png)  
+![](inst/figure/unnamed-chunk-8-1.png)<!-- -->
 
     plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
 
-![](inst/figure/unnamed-chunk-8-2.png)  
+![](inst/figure/unnamed-chunk-8-2.png)<!-- -->
 
     plot(ngram_collocations(x, gram.length = 3))
 
-![](inst/figure/unnamed-chunk-8-3.png)  
+![](inst/figure/unnamed-chunk-8-3.png)<!-- -->
 
     plot(ngram_collocations(x, order.by = "dice"))
 
-![](inst/figure/unnamed-chunk-8-4.png)  
+![](inst/figure/unnamed-chunk-8-4.png)<!-- -->
 
 Building an Expert Rules, Regex Classifier Model
 ================================================
@@ -580,8 +586,7 @@ I could have trained on the training set and tested on the testing set
 in the following examples around modeling but have chosen not too for
 simplicity.
 
-View Most Used Words
---------------------
+### View Most Used Words
 
 A common task in building a model is to understand the most frequent
 words while excluding less information rich function words. The
@@ -619,7 +624,8 @@ least frequent n terms but can be rearranged alphabetically.
         with(frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](inst/figure/unnamed-chunk-13-1.png)  
+![](inst/figure/unnamed-chunk-13-1.png)<!-- -->
+
 A cumulative percent can give a different view of the term usage. The
 `plot_cum_percent` function converts a `frequent_terms` output into a
 cumulative percent plot. Additionally, `ngram_collocations` + `plot` can
@@ -629,10 +635,79 @@ give insight into the frequently occurring ngrams.
         with(frequent_terms(dialogue, 40)) %>%
         plot_cum_percent()
 
-![](inst/figure/unnamed-chunk-14-1.png)  
+![](inst/figure/unnamed-chunk-14-1.png)<!-- -->
 
-View Most Used Words in Context
--------------------------------
+It may also be helpful to view the unique contribution of terms on the
+coverage excluding all elements from the match vector that were
+previously matched by another term. The `hierarchical_coverage` and
+accompanying `plot` method allows for hierarchical exploration of the
+unique coverage of terms.
+
+    terms <- presidential_debates_2012 %>%
+        with(frequent_terms(dialogue, 30)) %>%
+        `[[`("term")
+
+    presidential_debates_2012 %>%
+        with(hierarchical_coverage(dialogue, terms))
+
+    ##          term       unique cumulative
+    ## 1       going 0.0834478022  0.0834478
+    ## 2    governor 0.0583791209  0.1418269
+    ## 3        make 0.0576923077  0.1995192
+    ## 4      people 0.0515109890  0.2510302
+    ## 5   president 0.0480769231  0.2991071
+    ## 6        want 0.0305631868  0.3296703
+    ## 7        said 0.0295329670  0.3592033
+    ## 8       years 0.0240384615  0.3832418
+    ## 9        just 0.0223214286  0.4055632
+    ## 10       will 0.0212912088  0.4268544
+    ## 11       jobs 0.0164835165  0.4433379
+    ## 12      right 0.0157967033  0.4591346
+    ## 13       well 0.0144230769  0.4735577
+    ## 14       also 0.0127060440  0.4862637
+    ## 15      world 0.0116758242  0.4979396
+    ## 16      think 0.0113324176  0.5092720
+    ## 17     number 0.0109890110  0.5202610
+    ## 18       know 0.0106456044  0.5309066
+    ## 19    america 0.0099587912  0.5408654
+    ## 20   thousand 0.0085851648  0.5494505
+    ## 21       need 0.0082417582  0.5576923
+    ## 22       time 0.0082417582  0.5659341
+    ## 23 government 0.0082417582  0.5741758
+    ## 24    economy 0.0075549451  0.5817308
+    ## 25       work 0.0068681319  0.5885989
+    ## 26      first 0.0065247253  0.5951236
+    ## 27       sure 0.0058379121  0.6009615
+    ## 28       back 0.0058379121  0.6067995
+    ## 29     middle 0.0054945055  0.6122940
+    ## 30       four 0.0051510989  0.6174451
+    ## 31     romney 0.0003434066  0.6177885
+
+    presidential_debates_2012 %>%
+        with(hierarchical_coverage(dialogue, terms)) %>%
+        plot(use.terms = TRUE)
+
+![](inst/figure/unnamed-chunk-15-1.png)<!-- -->
+
+Understanding Term Use
+----------------------
+
+In order to build the named list of regular expressions that map to a
+category/tag the researcher must understand the terms (particularly
+information salient terms) in context. The understanding of term use
+helps the researcher to begin to build a mental model of the topics
+being used in a fashion similar to qualitative coding techniques. Broad
+categories will begin to coalesce as word use is elucidated. It forms
+the initial names of the "named list of regular expressions". Of course
+building the regular expressions in the regex model building step will
+allow the researcher to see new ways in which terms are used as well as
+new important terms. This in turn will reshape, remove, and add names to
+the "named list of regular expressions". This recursive process is
+captured in the model below.
+
+![](figures/model2.png)
+
+### View Most Used Words in Context
 
 Much of the exploration of terms in context in effort to build the named
 list of regular expressions that map to a category/tag involves
@@ -733,19 +808,19 @@ of observation which gives the researcher the observation level counts.
     ## Coverage: 13.02% 
     ## Source: local data frame [2,912 x 6]
     ## 
-    ##       id n.words response_cries back_channels   summons justification
-    ##    (int)   (int)          (chr)         (chr)     (chr)         (chr)
-    ## 1      1      10              0             0         0             0
-    ## 2      2       9      1(11.11%)             0         0             0
-    ## 3      3      14              0             0         0             0
-    ## 4      4      14              0             0         0             0
-    ## 5      5       5      1(20.00%)             0         0             0
-    ## 6      6       5              0             0         0             0
-    ## 7      7      40              0             0         0             0
-    ## 8      8       2              0             0         0             0
-    ## 9      9      20              0             0 2(10.00%)             0
-    ## 10    10      13              0             0  1(7.69%)             0
-    ## ..   ...     ...            ...           ...       ...           ...
+    ##       id n.words back_channels justification response_cries   summons
+    ##    (int)   (int)         (chr)         (chr)          (chr)     (chr)
+    ## 1      1      10             0             0              0         0
+    ## 2      2       9             0             0      1(11.11%)         0
+    ## 3      3      14             0             0              0         0
+    ## 4      4      14             0             0              0         0
+    ## 5      5       5             0             0      1(20.00%)         0
+    ## 6      6       5             0             0              0         0
+    ## 7      7      40             0             0              0         0
+    ## 8      8       2             0             0              0         0
+    ## 9      9      20             0             0              0 2(10.00%)
+    ## 10    10      13             0             0              0  1(7.69%)
+    ## ..   ...     ...           ...           ...            ...       ...
 
 Testing the Model
 -----------------
@@ -786,7 +861,8 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-21-1.png)  
+![](inst/figure/unnamed-chunk-22-1.png)<!-- -->
+
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
 tags. In our model the majority of tags are applied to the **summons**
@@ -796,7 +872,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-22-1.png)  
+![](inst/figure/unnamed-chunk-23-1.png)<!-- -->
 
 Improving the Model
 -------------------
@@ -1095,7 +1171,7 @@ may be returned) as well as a `table` and plot of the counts. Use
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-32-1.png)  
+![](inst/figure/unnamed-chunk-33-1.png)<!-- -->
 
 Accuracy
 --------
