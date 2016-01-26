@@ -602,7 +602,7 @@ new important terms. This in turn will reshape, remove, and add names to
 the "named list of regular expressions". This recursive process is
 captured in the model below.
 
-![](inst/figure/model2.png)
+<img src="inst/figure/model2.png" width="300" alt="model">
 
 ### View Most Used Words
 
