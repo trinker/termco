@@ -100,6 +100,7 @@ pacman::p_load(dplyr, ggplot2, termco)
 data(presidential_debates_2012)
 ```
 
+
 ## Build Counts Dataframe
 
 ```{r}
@@ -124,6 +125,7 @@ print(counts, pretty = FALSE)
 print(counts, zero.replace = "_")
 ```
 
+
 ## Plotting
 
 ```{r}
@@ -145,7 +147,9 @@ ngram_collocations(x, gram.length = 3)
 ngram_collocations(x, order.by = "dice")
 ```
 
+
 ### Collocation Plotting
+
 ```{r, fig.width=10}
 plot(ngram_collocations(x))
 plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
@@ -188,6 +192,7 @@ pacman::p_load(dplyr, ggplot2, termco)
 data(presidential_debates_2012)
 ```
 
+
 ## Splitting Data
 
 Many classification techniques require the data to be split into a training and test set to allow the researcher to observe how a model will perform on a new data set.  This also prevents over-fitting the data.  The `split_data` function allows easy splitting of `data.frame` or `vector` data by integer or proportion.  The function returns a named list of the data set into a `train` and `test` set.  The printed view is a truncated version of the returned list with `|...` indicating there are additional observations.
@@ -213,6 +218,11 @@ set.seed(112)
 
 I could have trained on the training set and tested on the testing set in the following examples around modeling but have chosen not too for simplicity.
 
+## Understanding Term Use
+
+In order to build the named list of regular expressions that map to a category/tag the researcher must understand the terms (particularly information salient terms) in context.  The understanding of term use helps the researcher to begin to build a mental model of the topics being used in a fashion similar to qualitative coding techniques.  Broad categories will begin to coalesce as word use is elucidated.  It forms the initial names of the "named list of regular expressions".  Of course building the regular expressions in the regex model building step will allow the researcher to see new ways in which terms are used as well as new important terms.  This in turn will reshape, remove, and add names to the "named list of regular expressions".  This recursive process is captured in the model below.
+
+![](inst/figure/model2.png)
 
 ### View Most Used Words
 
@@ -249,12 +259,6 @@ presidential_debates_2012 %>%
     with(hierarchical_coverage(dialogue, terms)) %>%
     plot(use.terms = TRUE)
 ```
-
-## Understanding Term Use
-
-In order to build the named list of regular expressions that map to a category/tag the researcher must understand the terms (particularly information salient terms) in context.  The understanding of term use helps the researcher to begin to build a mental model of the topics being used in a fashion similar to qualitative coding techniques.  Broad categories will begin to coalesce as word use is elucidated.  It forms the initial names of the "named list of regular expressions".  Of course building the regular expressions in the regex model building step will allow the researcher to see new ways in which terms are used as well as new important terms.  This in turn will reshape, remove, and add names to the "named list of regular expressions".  This recursive process is captured in the model below.
-
-![](figures/model2.png)
 
 
 ### View Most Used Words in Context

@@ -39,8 +39,8 @@ Table of Contents
 -   [[Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)](#[building-an-expert-rules-regex-classifier-model](#building-an-expert-rules-regex-classifier-model))
     -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
     -   [[Splitting Data](#splitting-data)](#[splitting-data](#splitting-data))
-        -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
     -   [[Understanding Term Use](#understanding-term-use)](#[understanding-term-use](#understanding-term-use))
+        -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
         -   [[View Most Used Words in Context](#view-most-used-words-in-context)](#[view-most-used-words-in-context](#view-most-used-words-in-context))
     -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
     -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
@@ -586,6 +586,24 @@ I could have trained on the training set and tested on the testing set
 in the following examples around modeling but have chosen not too for
 simplicity.
 
+Understanding Term Use
+----------------------
+
+In order to build the named list of regular expressions that map to a
+category/tag the researcher must understand the terms (particularly
+information salient terms) in context. The understanding of term use
+helps the researcher to begin to build a mental model of the topics
+being used in a fashion similar to qualitative coding techniques. Broad
+categories will begin to coalesce as word use is elucidated. It forms
+the initial names of the "named list of regular expressions". Of course
+building the regular expressions in the regex model building step will
+allow the researcher to see new ways in which terms are used as well as
+new important terms. This in turn will reshape, remove, and add names to
+the "named list of regular expressions". This recursive process is
+captured in the model below.
+
+![](inst/figure/model2.png)
+
 ### View Most Used Words
 
 A common task in building a model is to understand the most frequent
@@ -688,24 +706,6 @@ unique coverage of terms.
         plot(use.terms = TRUE)
 
 ![](inst/figure/unnamed-chunk-15-1.png)<!-- -->
-
-Understanding Term Use
-----------------------
-
-In order to build the named list of regular expressions that map to a
-category/tag the researcher must understand the terms (particularly
-information salient terms) in context. The understanding of term use
-helps the researcher to begin to build a mental model of the topics
-being used in a fashion similar to qualitative coding techniques. Broad
-categories will begin to coalesce as word use is elucidated. It forms
-the initial names of the "named list of regular expressions". Of course
-building the regular expressions in the regex model building step will
-allow the researcher to see new ways in which terms are used as well as
-new important terms. This in turn will reshape, remove, and add names to
-the "named list of regular expressions". This recursive process is
-captured in the model below.
-
-![](figures/model2.png)
 
 ### View Most Used Words in Context
 
