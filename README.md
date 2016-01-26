@@ -642,7 +642,7 @@ least frequent n terms but can be rearranged alphabetically.
         with(frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](inst/figure/unnamed-chunk-13-1.png)<!-- -->
+![](inst/figure/unnamed-chunk-13-1.png)
 
 A cumulative percent can give a different view of the term usage. The
 `plot_cum_percent` function converts a `frequent_terms` output into a
