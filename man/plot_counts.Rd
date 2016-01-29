@@ -4,13 +4,17 @@
 \alias{plot_counts}
 \title{Horizontal Bar Plot of Group Counts}
 \usage{
-plot_counts(x, n = NULL, item.name = "Terms", rev = FALSE, ...)
+plot_counts(x, n = NULL, percent = TRUE, item.name = "Terms",
+  rev = FALSE, ...)
 }
 \arguments{
 \item{x}{A vector or list of elements.}
 
 \item{n}{Minimum frequency to be shown in the plot.  If \code{NULL} all are
 shown.}
+
+\item{percent}{logical.  If \code{TRUE} the x axis is scaled as percentages.
+Otherwise, the x axis is counts.}
 
 \item{item.name}{The name of the variable that contains the groups (different
 element in the vector/list).}
@@ -58,5 +62,10 @@ presidential_debates_2012 \%>\%
     as_terms() \%>\%
     plot_freq(size=3) +
         ggplot2::xlab("Number of Tags")
+
+presidential_debates_2012 \%>\%
+    with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
+    as_terms() \%>\%
+    plot_counts(percent=FALSE, item.name = "Tags")
 }
 

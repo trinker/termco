@@ -54,7 +54,7 @@ hierarchical_coverage <- function(x, terms, bind = TRUE, ignore.case = TRUE, ...
     }
 
     out <- data.frame(term = original, unique = coverage, stringsAsFactors = FALSE)
-    out <- dplyr::arrange(out, desc(unique))
+    out <- dplyr::arrange(out, dplyr::desc(unique))
     out <- dplyr::mutate(out, cumulative = cumsum(unique))
     class(out) <- c("hierarchical_coverage", "data.frame")
     out
