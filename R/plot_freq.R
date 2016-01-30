@@ -5,6 +5,7 @@
 #' @param x A vector or list of elements.
 #' @param direct.label logical.  If \code{TRUE} count + percent labels are
 #' placed above bars.
+#' @param size The size to plot the text above the bars.
 #' @param label.diff The amount to place the labels above the bars.  If
 #' \code{missing} a reasonable guess is attempted.
 #' @param digits The number of percent digits to print.
@@ -47,7 +48,7 @@
 #'     as_terms() %>%
 #'     plot_counts() +
 #'         ggplot2::xlab("Tags")
-plot_freq <- function(x, direct.label = TRUE,
+plot_freq <- function(x, direct.label = TRUE, size = 4,
     label.diff, digits = 1, top.diff.weight = .06, ...){
 
     Terms <- Prop <- Frequency <- Counts <- NULL
@@ -86,7 +87,7 @@ plot_freq <- function(x, direct.label = TRUE,
             ggplot2::theme(panel.grid = ggplot2::element_blank())
 
     if (isTRUE(direct.label)) {
-        out <- out + ggplot2::geom_text(ggplot2::aes_string(y = "y", label="Prop_Labs"), ...)
+        out <- out + ggplot2::geom_text(ggplot2::aes_string(y = "y", label="Prop_Labs"), size=size)
     }
     out
 }

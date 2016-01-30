@@ -46,6 +46,8 @@ NEW FEATURES
 
 MINOR FEATURES
 
+* `plot_freq` picks up a `size` argument.
+
 IMPROVEMENTS
 
 CHANGES

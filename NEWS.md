@@ -46,6 +46,8 @@ termco 0.1.0
 
 **MINOR FEATURES**
 
+* `plot_freq` picks up a `size` argument.
+
 IMPROVEMENTS
 
 **CHANGES**

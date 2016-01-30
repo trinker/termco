@@ -4,7 +4,7 @@
 \alias{plot_freq}
 \title{Vertical Bar Plot of Frequencies of Counts}
 \usage{
-plot_freq(x, direct.label = TRUE, label.diff, digits = 1,
+plot_freq(x, direct.label = TRUE, size = 4, label.diff, digits = 1,
   top.diff.weight = 0.06, ...)
 }
 \arguments{
@@ -12,6 +12,8 @@ plot_freq(x, direct.label = TRUE, label.diff, digits = 1,
 
 \item{direct.label}{logical.  If \code{TRUE} count + percent labels are
 placed above bars.}
+
+\item{size}{The size to plot the text above the bars.}
 
 \item{label.diff}{The amount to place the labels above the bars.  If
 \code{missing} a reasonable guess is attempted.}
