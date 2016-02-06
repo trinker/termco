@@ -465,7 +465,10 @@ hand. One solution is to use a expert rules, regular expression approach
 that is somewhere between machine learning and hand coding. This is one
 solution for tagging larger, untagged data sets. Additionally, when each
 text element contains larger chunks of text, unsupervised clustering
-type algorithms such as k-means or topic modeling may be of use.
+type algorithms such as k-means, non-negative matrix factorization,
+[hierarchical clustering](https://github.com/trinker/hclustext), or
+[topic modeling](https://github.com/trinker/topicmodels_learning) may be
+of use.
 
 This example section highlights the types of function combinations and
 order for a typical expert rules classification. This task typically
