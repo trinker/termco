@@ -76,10 +76,10 @@ probe_colo_plot(terms, txt)
 }
 }
 \seealso{
-Other probe.functions: \code{\link{probe_colo_list}},
+Other probe functions: \code{\link{probe_colo_list}},
   \code{\link{probe_list}}
 
-Other probe.functions: \code{\link{probe_colo_list}},
+Other probe functions: \code{\link{probe_colo_list}},
   \code{\link{probe_list}}
 }
 

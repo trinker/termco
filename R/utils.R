@@ -111,3 +111,14 @@ paste2 <- function (multi.columns, sep = ".", handle.na = TRUE, trim = TRUE) {
     return(m)
 }
 
+pn <- function(x, big.mark = ",", ...) {
+
+    prettyNum(x, big.mark, ...)
+}
+
+pp <- function(x, digits = 1, ...) {
+
+    paste0(round(100*x, digits = digits), "%")
+}
+
+

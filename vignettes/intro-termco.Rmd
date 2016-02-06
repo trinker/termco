@@ -40,7 +40,8 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 |------------------------------|--------------|---------------------------------------------------|
 | `term_count`                 | count        | Count regex term occurrence; modeling             |
 | `frequent_terms`/`all_words` | count        | Frequent terms                                    |
-| `hierarchical_coverage`      | count        | Unique coverage of a text vector by terms         |
+| `hierarchical_coverage_term` | count        | Unique coverage of a text vector by terms         |
+| `hierarchical_coverage_regex`| count        | Unique coverage of a text vector by regex         |
 | `ngram_collocations`         | count        | Weighted frequent ngram (2 & 3) collocations      |
 | `word_count`                 | count        | Count words                                       |
 | `colo`                       | search       | Regex output to find term collocations            |
@@ -192,7 +193,7 @@ presidential_debates_2012 %>%
     plot_cum_percent()
 ```
 
-It may also be helpful to view the unique contribution of terms on the coverage excluding all elements from the match vector that were previously matched by another term.  The `hierarchical_coverage` and accompanying `plot` method allows for hierarchical exploration of the unique coverage of terms.
+It may also be helpful to view the unique contribution of terms on the coverage excluding all elements from the match vector that were previously matched by another term.  The `hierarchical_coverage_term` and accompanying `plot` method allows for hierarchical exploration of the unique coverage of terms.
 
 
 ```{r, fig.width=8, fig.height=6}
@@ -201,10 +202,10 @@ terms <- presidential_debates_2012 %>%
     `[[`("term")
 
 presidential_debates_2012 %>%
-    with(hierarchical_coverage(dialogue, terms))
+    with(hierarchical_coverage_term(dialogue, terms))
 
 presidential_debates_2012 %>%
-    with(hierarchical_coverage(dialogue, terms)) %>%
+    with(hierarchical_coverage_term(dialogue, terms)) %>%
     plot(use.terms = TRUE)
 ```
 

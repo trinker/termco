@@ -1,4 +1,4 @@
-termco [![Follow](https://img.shields.io/twitter/follow/tylerrinker.svg?style=social)](https://twitter.com/intent/follow?screen_name=tylerrinker)
+termco   [![Follow](https://img.shields.io/twitter/follow/tylerrinker.svg?style=social)](https://twitter.com/intent/follow?screen_name=tylerrinker)
 ============
 
 
@@ -88,111 +88,116 @@ their description:
 <td align="left">Frequent terms</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>hierarchical_coverage</code></td>
+<td align="left"><code>hierarchical_coverage_term</code></td>
 <td align="left">count</td>
 <td align="left">Unique coverage of a text vector by terms</td>
 </tr>
 <tr class="even">
+<td align="left"><code>hierarchical_coverage_regex</code></td>
+<td align="left">count</td>
+<td align="left">Unique coverage of a text vector by regex</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>ngram_collocations</code></td>
 <td align="left">count</td>
 <td align="left">Weighted frequent ngram (2 &amp; 3) collocations</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>word_count</code></td>
 <td align="left">count</td>
 <td align="left">Count words</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>colo</code></td>
 <td align="left">search</td>
 <td align="left">Regex output to find term collocations</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>search_term</code></td>
 <td align="left">search</td>
 <td align="left">Search for regex terms</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>classification_project</code></td>
 <td align="left">modeling</td>
 <td align="left">Make a classification modeling project template</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_data</code></td>
 <td align="left">modeling</td>
 <td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>accuracy</code></td>
 <td align="left">modeling</td>
 <td align="left">Check accuracy of model against human coder</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>classify</code></td>
 <td align="left">modeling</td>
 <td align="left">Assign n tags to text from a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>coverage</code></td>
 <td align="left">modeling</td>
 <td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
 <td align="left">modeling</td>
 <td align="left">Get the uncovered text rom a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>as_count</code></td>
 <td align="left">convert</td>
 <td align="left">Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>as_terms</code></td>
 <td align="left">convert</td>
 <td align="left">Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>weight</code></td>
 <td align="left">convert</td>
 <td align="left">Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_ca</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_counts</code></td>
 <td align="left">plot</td>
 <td align="left">Horizontal bar plot of group counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_freq</code></td>
 <td align="left">plot</td>
 <td align="left">Vertical bar plot of frequencies of counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_cum_percent</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_colo_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> + <code>frequent_terms</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_colo_plot_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> + <code>frequent_terms</code> + <code>plot</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_colo_plot</code></td>
 <td align="left">probe</td>
 <td align="left">Plot <code>probe_colo_plot_list</code> directly</td>
@@ -217,7 +222,7 @@ development version:
 Contact
 =======
 
-You are welcome to: 
+ou are welcome to: 
 * submit suggestions and bug-reports at: <https://github.com/trinker/termco/issues> 
 * send a pull request on: <https://github.com/trinker/termco/> 
 * compose a friendly e-mail to: <tyler.rinker@gmail.com>
@@ -657,7 +662,7 @@ give insight into the frequently occurring ngrams.
 
 It may also be helpful to view the unique contribution of terms on the
 coverage excluding all elements from the match vector that were
-previously matched by another term. The `hierarchical_coverage` and
+previously matched by another term. The `hierarchical_coverage_term` and
 accompanying `plot` method allows for hierarchical exploration of the
 unique coverage of terms.
 
@@ -666,43 +671,43 @@ unique coverage of terms.
         `[[`("term")
 
     presidential_debates_2012 %>%
-        with(hierarchical_coverage(dialogue, terms))
+        with(hierarchical_coverage_term(dialogue, terms))
 
     ##          term       unique cumulative
     ## 1       going 0.0834478022  0.0834478
-    ## 2    governor 0.0583791209  0.1418269
-    ## 3        make 0.0576923077  0.1995192
-    ## 4      people 0.0515109890  0.2510302
+    ## 2        make 0.0576923077  0.1411401
+    ## 3      people 0.0515109890  0.1926511
+    ## 4    governor 0.0583791209  0.2510302
     ## 5   president 0.0480769231  0.2991071
-    ## 6        want 0.0305631868  0.3296703
-    ## 7        said 0.0295329670  0.3592033
-    ## 8       years 0.0240384615  0.3832418
-    ## 9        just 0.0223214286  0.4055632
-    ## 10       will 0.0212912088  0.4268544
-    ## 11       jobs 0.0164835165  0.4433379
-    ## 12      right 0.0157967033  0.4591346
-    ## 13       well 0.0144230769  0.4735577
-    ## 14       also 0.0127060440  0.4862637
-    ## 15      world 0.0116758242  0.4979396
-    ## 16      think 0.0113324176  0.5092720
-    ## 17     number 0.0109890110  0.5202610
-    ## 18       know 0.0106456044  0.5309066
-    ## 19    america 0.0099587912  0.5408654
-    ## 20   thousand 0.0085851648  0.5494505
-    ## 21       need 0.0082417582  0.5576923
-    ## 22       time 0.0082417582  0.5659341
-    ## 23 government 0.0082417582  0.5741758
-    ## 24    economy 0.0075549451  0.5817308
-    ## 25       work 0.0068681319  0.5885989
-    ## 26      first 0.0065247253  0.5951236
-    ## 27       sure 0.0058379121  0.6009615
-    ## 28       back 0.0058379121  0.6067995
-    ## 29     middle 0.0054945055  0.6122940
-    ## 30       four 0.0051510989  0.6174451
-    ## 31     romney 0.0003434066  0.6177885
+    ## 6        said 0.0295329670  0.3286401
+    ## 7        want 0.0305631868  0.3592033
+    ## 8        sure 0.0058379121  0.3650412
+    ## 9        just 0.0223214286  0.3873626
+    ## 10       will 0.0212912088  0.4086538
+    ## 11      years 0.0240384615  0.4326923
+    ## 12       jobs 0.0164835165  0.4491758
+    ## 13     romney 0.0003434066  0.4495192
+    ## 14       also 0.0127060440  0.4622253
+    ## 15       know 0.0106456044  0.4728709
+    ## 16       four 0.0051510989  0.4780220
+    ## 17      world 0.0116758242  0.4896978
+    ## 18       well 0.0144230769  0.5041209
+    ## 19      right 0.0157967033  0.5199176
+    ## 20      think 0.0113324176  0.5312500
+    ## 21    america 0.0099587912  0.5412088
+    ## 22     number 0.0109890110  0.5521978
+    ## 23       back 0.0058379121  0.5580357
+    ## 24       need 0.0082417582  0.5662775
+    ## 25      first 0.0065247253  0.5728022
+    ## 26     middle 0.0054945055  0.5782967
+    ## 27   thousand 0.0085851648  0.5868819
+    ## 28       time 0.0082417582  0.5951236
+    ## 29    economy 0.0075549451  0.6026786
+    ## 30 government 0.0082417582  0.6109203
+    ## 31       work 0.0068681319  0.6177885
 
     presidential_debates_2012 %>%
-        with(hierarchical_coverage(dialogue, terms)) %>%
+        with(hierarchical_coverage_term(dialogue, terms)) %>%
         plot(use.terms = TRUE)
 
 ![](inst/figure/unnamed-chunk-15-1.png)

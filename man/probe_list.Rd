@@ -32,7 +32,7 @@ function generates a list of function calls for \code{search_term} with a
 user predefined data set and term list.
 }
 \seealso{
-Other probe.functions: \code{\link{probe_colo_list}},
+Other probe functions: \code{\link{probe_colo_list}},
   \code{\link{probe_colo_plot_list}}
 }
 
