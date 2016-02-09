@@ -61,7 +61,7 @@ hierarchical_coverage_regex <- function(x, term.list, ignore.case = TRUE,
 
     for(i in seq_along(term.list)){
         N <- length(x)
-        x <- grep(term.list[[i]], x, perl = TRUE, ignore.case = ignore.case, invert=TRUE, value=TRUE)
+        x <- grep_return_null(term.list[[i]], x, ignore.case = ignore.case)
         n[i] <- (N - length(x))
         coverage[i] <- n[i]/orig_nx
         if (isTRUE(verbose)) {

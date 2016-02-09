@@ -122,3 +122,6 @@ pp <- function(x, digits = 1, ...) {
 }
 
 
+grep_return_null <- function(pattern, x, ignore.case = TRUE){
+    x[!stringi::stri_detect_regex(x, pattern, opts_regex = stringi::stri_opts_regex(case_insensitive = ignore.case))]
+}
