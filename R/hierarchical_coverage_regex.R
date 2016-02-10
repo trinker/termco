@@ -109,15 +109,25 @@ hierarchical_coverage_regex <- function(x, term.list, ignore.case = TRUE,
 #' equal to or less than 30 in length.
 #' @param mark.one logical.  If \code{TRUE} a purple horizontal line is added at
 #' 100\% and the y axis is extended as well.
+#' @param sort logical.  If \code{TRUE} the regex terms are sorted by highest unique
+#' gain.
 #' @param \ldots ignored.
 #' @method plot hierarchical_coverage_regex
 #' @export
-plot.hierarchical_coverage_regex <- function(x, use.names = nrow(x) <= 30, mark.one = FALSE, ...){
+plot.hierarchical_coverage_regex <- function(x, use.names = nrow(x) <= 30, mark.one = FALSE, sort = FALSE, ...){
+
+    unique_prop <- unique_n <- NULL
+    if (isTRUE(sort)) {
+        x <- dplyr::arrange(x, dplyr::desc(unique_prop))
+        x <- dplyr::mutate(x, cum_prop = cumsum(unique_prop), cum_n = cumsum(unique_n))
+    }
 
     x[["name"]] <- factor(x[["name"]], levels = x[["name"]])
 
     out <- ggplot2::ggplot(x, ggplot2::aes_string(ifelse(use.names , 'name', 'step'), 'cum_prop', group = 1)) +
         ggplot2::geom_line(size=1, color="blue") +
+        ggplot2::geom_point(size=3, shape=16, color="blue") +
+        ggplot2::geom_point(size=1.2, shape=16, color = "white") +
         ggplot2::scale_y_continuous(label = function(x) paste0(round(100 * x, 0), "%")) +
         ggplot2::ylab("Percent") +
         ggplot2::xlab(ifelse(use.names, "Regex Group", "Regex Number")) +

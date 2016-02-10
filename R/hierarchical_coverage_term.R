@@ -81,16 +81,28 @@ hierarchical_coverage_term <- function(x, terms, bound = TRUE, ignore.case = TRU
 #' equal to or less than 30 in length.
 #' @param mark.one logical.  If \code{TRUE} a purple horizontal line is added at
 #' 100\% and the y axis is extended as well.
+#' @param sort logical.  If \code{TRUE} the terms are sorted by highest unique
+#' gain.
 #' @param \ldots ignored.
 #' @method plot hierarchical_coverage_term
 #' @export
-plot.hierarchical_coverage_term <- function(x, use.terms = nrow(x) <= 30, mark.one = FALSE, ...){
+plot.hierarchical_coverage_term <- function(x, use.terms = nrow(x) <= 30,
+    mark.one = FALSE, sort = FALSE, ...){
 
     x[["Word_Number"]] <- seq_len(nrow(x))
+
+    unique_prop <- unique_n <- NULL
+    if (isTRUE(sort)) {
+        x <- dplyr::arrange(x, dplyr::desc(unique))
+        x <- dplyr::mutate(x, cumulative = cumsum(unique))
+    }
+
     x[["term"]] <- factor(x[["term"]], levels = x[["term"]])
 
     out <- ggplot2::ggplot(x, ggplot2::aes_string(ifelse(use.terms, 'term', "Word_Number"), 'cumulative', group = 1)) +
         ggplot2::geom_line(size=1, color="blue") +
+        ggplot2::geom_point(size=3, shape=16, color="blue") +
+        ggplot2::geom_point(size=1.2, shape=16, color = "white") +
         ggplot2::scale_y_continuous(label = function(x) paste0(round(100 * x, 0), "%")) +
         ggplot2::ylab("Percent") +
         ggplot2::xlab(ifelse(use.terms, "Term", "Word Number")) +

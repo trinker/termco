@@ -5,7 +5,7 @@
 \title{Plots a hierarchical_coverage_term Object}
 \usage{
 \method{plot}{hierarchical_coverage_term}(x, use.terms = nrow(x) <= 30,
-  mark.one = FALSE, ...)
+  mark.one = FALSE, sort = FALSE, ...)
 }
 \arguments{
 \item{x}{A hierarchical_coverage_term object.}
@@ -16,6 +16,9 @@ equal to or less than 30 in length.}
 
 \item{mark.one}{logical.  If \code{TRUE} a purple horizontal line is added at
 100\% and the y axis is extended as well.}
+
+\item{sort}{logical.  If \code{TRUE} the terms are sorted by highest unique
+gain.}
 
 \item{\ldots}{ignored.}
 }

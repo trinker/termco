@@ -8,7 +8,7 @@
 #' @export
 #' @examples
 #' plot_cum_percent(frequent_terms(presidential_debates_2012[["dialogue"]]))
-plot_cum_percent <- function(x, rotate.term = TRUE, ...){
+plot_cum_percent <- function(x, rotate.term = TRUE,  ...){
 
     term <- NULL
 
@@ -30,6 +30,8 @@ plot_cum_percent <- function(x, rotate.term = TRUE, ...){
         out <- out +
             ggplot2::theme(axis.text.x = ggplot2::element_text(angle=45, , hjust = 1, vjust = 1))
     }
-    out
+
+    out   +
+        ggplot2::ggtitle("Cumulative Percent Coverage of Each Term")
 }
 
