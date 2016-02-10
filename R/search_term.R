@@ -2,7 +2,7 @@
 #'
 #' \code{search_term} - Find text items that contain a term(s).
 #'
-#' @param text A text vect to seach through.
+#' @param text A text vect to search through.
 #' @param term A regular expression to search for (uses \code{grep}).
 #' @param exclude A regular expression to exclude cases for (uses \code{grep}).
 #' @param and A regular expression that must also be contained in addition to
