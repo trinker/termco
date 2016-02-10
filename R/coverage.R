@@ -117,13 +117,19 @@ coverage.term_count <- function(x, ...){
 #' @export
 print.coverage <- function(x, ...){
 
-    nots <- sum(x[["not"]], na.rm = TRUE)
-    covs <- sum(x[["covered"]], na.rm = TRUE)
-    perc <- round(x[["coverage"]], 2)
+    nots <- pn(sum(x[["not"]], na.rm = TRUE))
+    covs <- pn(sum(x[["covered"]], na.rm = TRUE))
+    perc <- pp(x[["coverage"]]/100, 1)
 
-    cat(sprintf("Coverage:    %s%%\n", perc))
-    cat(sprintf("Coverered:   %s\n", covs))
-    cat(sprintf("Not Covered: %s\n", nots))
+    mn <- max(nchar(c(nots, covs, perc)))
+    params <- paste(
+        sapply(nchar(c(nots, covs, perc)), function(x) paste(rep(" ", mn - x), collapse="")),
+        c(nots, covs, perc),
+        sep=""
+    )
+
+    cat(sprintf("Coverage    : %s\n", params[3]))
+    cat(sprintf("Coverered   : %s\n", params[2]))
+    cat(sprintf("Not Covered : %s\n", params[1]))
 }
-
 
