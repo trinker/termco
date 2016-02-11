@@ -95,6 +95,23 @@ hierarchical_coverage_regex <- function(x, term.list, ignore.case = TRUE,
 
 
 
+#' Prints a hierarchical_coverage_regex Object
+#'
+#' Prints a hierarchical_coverage_regex object
+#'
+#' @param x A hierarchical_coverage_regex object..
+#' @param \ldots ignored.
+#' @method print hierarchical_coverage_regex
+#' @export
+print.hierarchical_coverage_regex <- function(x, ...){
+
+    class(x) <- class(x)[!class(x) %in% "hierarchical_coverage_regex"]
+    origwd <- options()[["width"]]
+    on.exit(options(width=origwd))
+    options(width=10000)
+    print(x)
+    options(width=origwd)
+}
 
 
 

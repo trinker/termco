@@ -468,7 +468,8 @@ text element contains larger chunks of text, unsupervised clustering
 type algorithms such as k-means, non-negative matrix factorization,
 [hierarchical clustering](https://github.com/trinker/hclustext), or
 [topic modeling](https://github.com/trinker/topicmodels_learning) may be
-of use.
+of use for creating clusters that could be interpreted and treated as
+categories.
 
 This example section highlights the types of function combinations and
 order for a typical expert rules classification. This task typically
@@ -846,9 +847,9 @@ coverage, indicating the regular expression model needs to be improved.
     model %>%
         coverage()
 
-    ## Coverage:    13.02%
-    ## Coverered:   379
-    ## Not Covered: 2533
+    ## Coverage    :   13%
+    ## Coverered   :   379
+    ## Not Covered : 2,533
 
 Understanding how well our model discriminates is important as well. We
 want the model to cover as close to 100% of the data as possible, but
