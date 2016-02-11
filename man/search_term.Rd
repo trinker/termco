@@ -11,7 +11,7 @@ search_term_which(text, term, exclude = NULL, and = NULL,
   ignore.case = TRUE)
 }
 \arguments{
-\item{text}{A text vect to seach through.}
+\item{text}{A text vect to search through.}
 
 \item{term}{A regular expression to search for (uses \code{grep}).}
 
