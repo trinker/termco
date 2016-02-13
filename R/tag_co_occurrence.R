@@ -141,7 +141,7 @@ plot.tag_co_occurrence <- function(x, cor = TRUE, edge.weight = 8, node.weight=8
         ggplot2::coord_flip() +
         ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, max(x[["ave_tag"]][["ave"]]) * 1.01)) +
         ggplot2::geom_text(ggplot2::aes(label=f(ave, digits), y=.02), color=bar.font.color, size=bar.font.size, hjust=0) +
-        ggplot2::labs(y = "Average Number of Tags\nPer Text Element", x=NULL) +
+        ggplot2::labs(y = "Average Number of\nCo-Occurring Other Tags", x=NULL) +
         ggplot2::theme_minimal() +
         ggplot2::annotate("segment", x=-Inf, xend=Inf, y=-Inf, yend=-Inf, color = font.color)+
         ggplot2::annotate("segment", x=-Inf, xend=-Inf, y=-Inf, yend=Inf, color = font.color) +
