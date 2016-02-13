@@ -47,6 +47,9 @@ classify <- function(x, n = 1, ties.method = "random", ...) {
     val <- validate_term_count(x)
     if (isTRUE(val)) {
         x <- x[, attributes(x)[["term.vars"]]]
+    } else {
+        warning("Object is not `term_count`...\n",
+            "Object may have been altered.  Check to make sure tags are correct.")
     }
     if (n < 2){
 
