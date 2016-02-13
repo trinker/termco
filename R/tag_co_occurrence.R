@@ -14,6 +14,7 @@
 #' \item{min_max_adjacency}{A min-max scaled adjacency matrix between tags; diagonals set to 0.}
 #' \item{node_size}{The diagonals from the adjacency matrix; the number of times a tag occurred.}
 #' @export
+#' @author Steve T. Simpson and Tyler Rinker <tyler.rinker@@gmail.com>.
 #' @examples
 #' ## Example 1
 #' regs <- frequent_terms(presidential_debates_2012[["dialogue"]])[[1]]
@@ -37,6 +38,7 @@
 #' plot(x)
 #' plot(x, cor=FALSE)
 #' plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")
+#' plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
 #' plot(x, bar = FALSE)
 #'
 #' ## Example 2
@@ -52,6 +54,9 @@
 #' plot(x2, bar = FALSE, min.edge.cutoff = .13)
 #' plot(x2, node.weight = 3)
 #' plot(x2, edge.weight = 20, node.weight = 5)
+#'
+#' ## Small Number of Tags Example
+#' plot(tag_co_occurrence(markers), node.weight = 30)
 tag_co_occurrence <- function(x, ...){
 
     tag <- NULL

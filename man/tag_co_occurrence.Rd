@@ -48,6 +48,7 @@ barplot(setNames(x[["ave_tag"]][[2]], x[["ave_tag"]][[1]]), las=2)
 plot(x)
 plot(x, cor=FALSE)
 plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")
+plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
 plot(x, bar = FALSE)
 
 ## Example 2
@@ -63,5 +64,11 @@ plot(x2)
 plot(x2, bar = FALSE, min.edge.cutoff = .13)
 plot(x2, node.weight = 3)
 plot(x2, edge.weight = 20, node.weight = 5)
+
+## Small Number of Tags Example
+plot(tag_co_occurrence(markers), node.weight = 30)
+}
+\author{
+Steve T. Simpson and Tyler Rinker <tyler.rinker@gmail.com>.
 }
 
