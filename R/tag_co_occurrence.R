@@ -54,7 +54,7 @@
 #' plot(x2, edge.weight = 20, node.weight = 5)
 tag_co_occurrence <- function(x, ...){
 
-    tag <- NUL
+    tag <- NULL
     validate_term_count(x, TRUE)
 
     ## tag clustering
