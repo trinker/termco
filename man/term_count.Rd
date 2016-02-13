@@ -81,6 +81,28 @@ presidential_debates_2012 \%>\%
     with(., term_count(dialogue, list(person, time), discoure_markers)) \%>\%
     mutate(totals = response_cries + back_channels + summons + justification) \%>\%
     arrange(-totals)
+
+## hierarchical terms
+trms <- frequent_terms(presidential_debates_2012[["dialogue"]])[[1]]
+
+discoure_markers <- list(
+    response_cries = c("\\\\boh", "\\\\bah", "\\\\baha", "\\\\bouch", "yuk"),
+    back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+    summons = "hey",
+    justification = "because"
+)
+
+dbl_list <- list(
+    discoure_markers,
+    setNames(as.list(trms[1:8]), trms[1:8]),
+    setNames(as.list(trms[9:length(trms)]), trms[9:length(trms)])
+)
+
+x <- with(presidential_debates_2012,
+    term_count(dialogue, TRUE, dbl_list)
+)
+
+coverage(x)
 }
 \keyword{substring}
 \keyword{term}

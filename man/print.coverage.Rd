@@ -10,10 +10,6 @@
 \item{x}{The coverage object.}
 
 \item{\ldots}{ignored}
-
-\item{x}{The coverage object.}
-
-\item{\ldots}{ignored}
 }
 \description{
 Prints a coverage object

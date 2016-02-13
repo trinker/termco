@@ -115,14 +115,6 @@ coverage.term_count <- function(x, ...){
 #' @param \ldots ignored
 #' @method print coverage
 #' @export
-#' Prints a coverage Object
-#'
-#' Prints a coverage object
-#'
-#' @param x The coverage object.
-#' @param \ldots ignored
-#' @method print coverage
-#' @export
 print.coverage <- function(x, ...){
 
     nots <- pn(sum(x[["not"]], na.rm = TRUE))
