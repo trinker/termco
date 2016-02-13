@@ -68,6 +68,7 @@
 term_count <- function(text.var, grouping.var = NULL, term.list,
     ignore.case = TRUE, pretty = TRUE, group.names, ...){
 
+    amodel <- FALSE
     if(is.null(grouping.var)) {
         G <- "all"
     } else {
@@ -80,6 +81,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         } else {
             if (isTRUE(grouping.var)) {
                 G <- "id"
+                amodel <- TRUE
             } else {
                 G <- as.character(substitute(grouping.var))
                 G <- G[length(G)]
@@ -108,6 +110,79 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     DF[G] <- grouping
     DF['n.words'] <- stringi::stri_count_words(text.var)
 
+    list_list <- FALSE
+    if (is.list(term.list[[1]]) && length(term.list) > 1 && all(sapply(term.list, is.list))) {
+
+        list_list <- TRUE
+
+        out_list <- vector(mode = "list", length = length(term.list))
+        inds  <- vector(mode = "list", length = length(term.list))
+        term.list <- lapply(term.list, term_lister_check, G)
+
+        inds[[1]] <- seq_along(text.var)
+
+        for (i in seq_along(term.list)){
+
+            out_list[[i]] <- copy(data.table::setDT(DF))[inds[[i]], ][,names(term.list[[i]]):= lapply(term.list[[i]], countfun,
+                text.var, ignore.case = ignore.case), ][, text.var:=NULL]
+
+
+            terminds <- (1 + which(colnames(out_list[[i]]) == "n.words")):ncol(out_list[[i]])
+            inds[[i + 1]] <- which(rowSums(out_list[[i]][, terminds, with = FALSE]) == 0)
+        }
+
+        invisible(lapply(2:length(out_list), function(i) out_list[[i]][, 'n.words' := NULL]))
+
+        lapply(out_list, setkeyv, G)
+
+        counts <- Reduce(mymerge, out_list)
+        term.cols <- colnames(counts)[(1 + which(colnames(counts) == "n.words")):ncol(counts)]
+        for (i in term.cols) eval(parse(text=paste("counts[,",i,":=na.replace(",i,")]")))
+        out <- counts[,lapply(.SD, sum, na.rm = TRUE), keyby = G]
+
+
+    } else {
+        term.list <- term_lister_check(term.list, G)
+
+        counts <- data.table::setDT(DF)[, names(term.list):= lapply(term.list, countfun,
+            text.var, ignore.case = ignore.case), ][, text.var:=NULL]
+
+        out <- counts[,lapply(.SD, sum, na.rm = TRUE), keyby = G]
+    }
+
+    text <- new.env(hash=FALSE)
+    text[["text.var"]] <- text.var
+
+    count <- new.env(hash=FALSE)
+    count[["count"]] <- counts
+
+    out <- dplyr::tbl_df(out)
+    class(out) <- c("term_count", class(out))
+
+    if(isTRUE(list_list)) class(out) <- c("hierarchical_term_count", class(out))
+
+    attributes(out)[["group.vars"]] <- G
+    if (isTRUE(list_list)) {
+        attributes(out)[["term.vars"]] <- unlist(lapply(term.list, names))
+    } else {
+        attributes(out)[["term.vars"]] <- names(term.list)
+    }
+    attributes(out)[["weight"]] <- "count"
+    attributes(out)[["pretty"]] <- pretty
+    attributes(out)[["counts"]] <- count
+    attributes(out)[["text.var"]] <- text
+    attributes(out)[["model"]] <- amodel
+    if(isTRUE(list_list)) attributes(out)[["hierarchical_terms"]] <- lapply(term.list, names)
+    out
+}
+
+na.replace <- function(v, value=0) { v[is.na(v)] <- value; v }
+mymerge <-  function(x, y) merge(x, y, all=TRUE)
+
+
+term_lister_check <- function(term.list, G){
+    if(any(G %in% names(term.list))) stop("`grouping` names cannot be used as `term.list` names")
+
     nms <- names(term.list)
     names(term.list)[sapply(nms, identical, "")] <- make.names(seq_len(length(nms[sapply(nms,
         identical, "")])))
@@ -119,31 +194,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     } else {
         term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
     }
-
-    if(any(G %in% names(term.list))) stop("`grouping` names cannot be used as `term.list` names")
-
-    counts <- data.table::setDT(DF)[, names(term.list):= lapply(term.list, countfun,
-        text.var, ignore.case = ignore.case), ][, text.var:=NULL]
-
-    out <- counts[,lapply(.SD, sum, na.rm = TRUE), keyby = G]
-
-    text <- new.env(hash=FALSE)
-    text[["text.var"]] <- text.var
-
-    count <- new.env(hash=FALSE)
-    count[["count"]] <- counts
-
-    out <- dplyr::tbl_df(out)
-    class(out) <- c("term_count", class(out))
-
-    attributes(out)[["group.vars"]] <- G
-    attributes(out)[["term.vars"]] <- names(term.list)
-    attributes(out)[["weight"]] <- "count"
-    attributes(out)[["pretty"]] <- pretty
-    attributes(out)[["counts"]] <- count
-    attributes(out)[["text.var"]] <- text
-    out
-
+    term.list
 }
 
 #' Prints a term_count Object

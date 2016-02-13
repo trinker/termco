@@ -115,11 +115,19 @@ coverage.term_count <- function(x, ...){
 #' @param \ldots ignored
 #' @method print coverage
 #' @export
+#' Prints a coverage Object
+#'
+#' Prints a coverage object
+#'
+#' @param x The coverage object.
+#' @param \ldots ignored
+#' @method print coverage
+#' @export
 print.coverage <- function(x, ...){
 
     nots <- pn(sum(x[["not"]], na.rm = TRUE))
     covs <- pn(sum(x[["covered"]], na.rm = TRUE))
-    perc <- pp(x[["coverage"]]/100, 1)
+    perc <- pp(x[["coverage"]], 1)
 
     mn <- max(nchar(c(nots, covs, perc)))
     params <- paste(
@@ -132,4 +140,5 @@ print.coverage <- function(x, ...){
     cat(sprintf("Coverered   : %s\n", params[2]))
     cat(sprintf("Not Covered : %s\n", params[1]))
 }
+
 
