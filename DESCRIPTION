@@ -8,10 +8,10 @@ Description: A small suite of functions used to count terms and
         substrings in strings.
 Depends: R (>= 3.2.1)
 Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, grid,
-        gridExtra, quanteda, SnowballC, stringi, tidyr, tm, utils,
-        wordcloud
+        gridBase, gridExtra, igraph, quanteda, SnowballC, stringi,
+        textshape, tidyr, tm, utils, wordcloud
 Suggests: knitr, rmarkdown, qdapRegex, rgl, testthat
-Date: 2016-02-10
+Date: 2016-02-13
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

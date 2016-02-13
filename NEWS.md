@@ -43,6 +43,8 @@ termco 0.1.0
   text vector by a term after partitioning out the elements matched by previous
   terms.
 
+* `tag_co_occurrence` added to explore tag co-occurrences.
+
 
 **MINOR FEATURES**
 

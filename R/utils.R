@@ -116,12 +116,39 @@ pn <- function(x, big.mark = ",", ...) {
     prettyNum(x, big.mark, ...)
 }
 
-pp <- function(x, digits = 1, ...) {
+pp <- function(x, digits = getOption("digit_digits")) {
 
-    paste0(round(100*x, digits = digits), "%")
+    f(x, digits = digits, e="%")
 }
+
+
+f <- function(x, digits = getOption("digit_digits"), s, e) {
+
+    if (is.null(digits)) digits <- 3
+
+    if(length(digits) > 1) {
+        digits <- digits[1]
+        warning("Using only digits[1]")
+    }
+
+    x <- round(as.numeric(x), digits)
+
+    if (digits > 0) x <- sprintf(paste0("%.", digits, "f"), x)
+    out <- gsub("^0(?=\\.)|(?<=-)0", "", x, perl=TRUE)
+    out[out == "NA"] <- NA
+    if (!missing(s)) out <- paste0(s, out)
+    if (!missing(e)) out <- paste0(out, e)
+    out
+}
+
 
 
 grep_return_null <- function(pattern, x, ignore.case = TRUE){
     x[!stringi::stri_detect_regex(x, pattern, opts_regex = stringi::stri_opts_regex(case_insensitive = ignore.case))]
 }
+
+
+minmax_scale <- function(x) {
+    (x - min(x))/(max(x) - min(x))
+}
+

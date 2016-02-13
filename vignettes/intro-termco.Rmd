@@ -51,7 +51,8 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `accuracy`                   | modeling     | Check accuracy of model against human coder       |
 | `classify`                   | modeling     | Assign n tags to text from a model                |
 | `coverage`                   | modeling     | Coverage for `term_count` or `search_term` object |
-| `uncovered`/`get_uncovered`  | modeling     | Get the uncovered text rom a model                |
+| `uncovered`/`get_uncovered`  | modeling     | Get the uncovered text from a model               |
+| `tag_co_occurrence`          | modeling     | Explor co-occurrence of tags from a model         |
 | `as_count`                   | convert      | Strip pretty printing from `term_count` object    |
 | `as_terms`                   | convert      | Convert a count matrix to list of term vectors    |
 | `weight`                     | convert      | Weight a `term_count` object proportion/percent   |
