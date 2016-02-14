@@ -1173,8 +1173,9 @@ limited number of regex tags. As the number of tags increases the plot
 increases in complexity. The network plot on the left shows the strength
 of relationships between tags, while the plot on the right shows the
 average number of other tags that co-occur with each regex tag. The
-unconnected nodes and shorter bars provide the best discriminatory
-power.
+unconnected nodes and shorter bars represent the tags that provide the
+best discriminatory power, whereas the other tags have the potential to
+be redundant.
 
     tag_co_occurrence(model) %>%
         plot()
