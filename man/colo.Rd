@@ -2,7 +2,7 @@
 % Please edit documentation in R/colo.R
 \name{colo}
 \alias{colo}
-\title{Make Regex to Locate Strings Containing Coocuring Substrings}
+\title{Make Regex to Locate Strings Containing Co-ocuring Substrings}
 \usage{
 colo(..., not = NULL, copy2clip = getOption("termco.copy2clip"))
 }

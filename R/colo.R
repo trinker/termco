@@ -1,4 +1,4 @@
-#' Make Regex to Locate Strings Containing Coocuring Substrings
+#' Make Regex to Locate Strings Containing Co-ocuring Substrings
 #'
 #' Make a regex to locate strings that contain >= 2 substrings with optional
 #' negation.

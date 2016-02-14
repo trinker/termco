@@ -5,13 +5,14 @@
 \alias{search_term_which}
 \title{Search For Terms}
 \usage{
-search_term(text, term, exclude = NULL, and = NULL, ignore.case = TRUE)
+search_term(text, term, exclude = NULL, and = NULL, ignore.case = TRUE,
+  ...)
 
 search_term_which(text, term, exclude = NULL, and = NULL,
   ignore.case = TRUE)
 }
 \arguments{
-\item{text}{A text vect to seach through.}
+\item{text}{A text vect to search through.}
 
 \item{term}{A regular expression to search for (uses \code{grep}).}
 
@@ -20,8 +21,9 @@ search_term_which(text, term, exclude = NULL, and = NULL,
 \item{and}{A regular expression that must also be contained in addition to
 \code{term} (uses \code{grep}).}
 
-\item{ignore.case}{Logical. Should \code{grep} be done idependant of case?
-Can also be a vector of length 3}
+\item{ignore.case}{Logical. Should \code{grep} be done idependant of case?}
+
+\item{\ldots}{ignored.}
 }
 \value{
 \code{search_term} - Returns a text vector meeting \code{term}

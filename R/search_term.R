@@ -2,13 +2,13 @@
 #'
 #' \code{search_term} - Find text items that contain a term(s).
 #'
-#' @param text A text vect to seach through.
+#' @param text A text vect to search through.
 #' @param term A regular expression to search for (uses \code{grep}).
 #' @param exclude A regular expression to exclude cases for (uses \code{grep}).
 #' @param and A regular expression that must also be contained in addition to
 #' \code{term} (uses \code{grep}).
 #' @param ignore.case Logical. Should \code{grep} be done idependant of case?
-#' Can also be a vector of length 3
+#' @param \ldots ignored.
 #' @return \code{search_term} - Returns a text vector meeting \code{term}
 #' regex but not \code{exclude} regex.
 #' @keywords search
@@ -17,7 +17,8 @@
 #' @examples
 #' search_term_which(sam_i_am, "\\bsam")
 #' search_term(sam_i_am, "\\bsam")
-search_term <- function(text, term, exclude = NULL, and = NULL, ignore.case=TRUE){
+search_term <- function(text, term, exclude = NULL, and = NULL, ignore.case=TRUE,
+    ...){
 
     out <- search_term_which(term=term, text=text, exclude=exclude, and=and, ignore.case)
 
