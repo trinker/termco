@@ -16,7 +16,7 @@ the nth row and prints all rows >= that value.  If proportional (less than 0)
 the frequency value for the nth\% row is selected and prints all rows >= that
 value.}
 
-\item{ignore.case}{logical. Should \code{grep} be done idependant of case?}
+\item{ignore.case}{logical. Should \code{grep} be done independent of case?}
 
 \item{\ldots}{Other arguments passed to \code{\link[termco]{search_term}}
 and \code{\link[termco]{frequent_terms}}.}

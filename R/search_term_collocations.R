@@ -11,7 +11,7 @@
 #' the nth row and prints all rows >= that value.  If proportional (less than 0)
 #' the frequency value for the nth\% row is selected and prints all rows >= that
 #' value.
-#' @param ignore.case logical. Should \code{grep} be done idependant of case?
+#' @param ignore.case logical. Should \code{grep} be done independent of case?
 #' @param \ldots Other arguments passed to \code{\link[termco]{search_term}}
 #' and \code{\link[termco]{frequent_terms}}.
 #' @return Returns a \code{\link[base]{data.frame}} of collocating terms and

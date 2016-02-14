@@ -202,12 +202,12 @@ their description:
 <tr class="odd">
 <td align="left"><code>probe_colo_list</code></td>
 <td align="left">probe</td>
-<td align="left">Generate list of <code>search_term</code> + <code>frequent_terms</code> function calls</td>
+<td align="left">Generate list of <code>search_term_collocations</code> function calls</td>
 </tr>
 <tr class="even">
 <td align="left"><code>probe_colo_plot_list</code></td>
 <td align="left">probe</td>
-<td align="left">Generate list of <code>search_term</code> + <code>frequent_terms</code> + <code>plot</code> function calls</td>
+<td align="left">Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>probe_colo_plot</code></td>
@@ -760,9 +760,11 @@ frequent terms in context.
     ## search_term(presidential_debates_2012$dialogue, "just")
     ## search_term(presidential_debates_2012$dialogue, "will")
 
-The next `probe_` function wraps `search_term` with `frequent_terms`.
-This allows the user to systematically explore the words that frequently
-colocate with the original terms.
+The next `probe_` function generates a list of
+`search_term_collocations` function calls (`search_term_collocations`
+wraps `search_term` with `frequent_terms` and eliminates the search term
+from the output). This allows the user to systematically explore the
+words that frequently collocate with the original terms.
 
     presidential_debates_2012 %>%
         with(frequent_terms(dialogue, 5)) %>%
@@ -770,17 +772,17 @@ colocate with the original terms.
         unlist() %>%
         probe_colo_list("presidential_debates_2012$dialogue") 
 
-    ## frequent_terms(search_term(presidential_debates_2012$dialogue, "going"))
-    ## frequent_terms(search_term(presidential_debates_2012$dialogue, "make"))
-    ## frequent_terms(search_term(presidential_debates_2012$dialogue, "people"))
-    ## frequent_terms(search_term(presidential_debates_2012$dialogue, "governor"))
-    ## frequent_terms(search_term(presidential_debates_2012$dialogue, "president"))
+    ## search_term_collocations(presidential_debates_2012$dialogue, "going")
+    ## search_term_collocations(presidential_debates_2012$dialogue, "make")
+    ## search_term_collocations(presidential_debates_2012$dialogue, "people")
+    ## search_term_collocations(presidential_debates_2012$dialogue, "governor")
+    ## search_term_collocations(presidential_debates_2012$dialogue, "president")
 
-As `frequent_terms` has a `plot` method the user may wish to generate
-function calls similar to `probe_colo_list` but wrapped with `plot` for
-a visual exploration of the data. The `probe_colo_plot_list` makes a
-list of such function calls, whereas the `probe_colo_plot` plots the
-output directly to a single external .pdf file.
+As `search_term_collocations` has a `plot` method the user may wish to
+generate function calls similar to `probe_colo_list` but wrapped with
+`plot` for a visual exploration of the data. The `probe_colo_plot_list`
+makes a list of such function calls, whereas the `probe_colo_plot` plots
+the output directly to a single external .pdf file.
 
     presidential_debates_2012 %>%
         with(frequent_terms(dialogue, 5)) %>%
@@ -788,11 +790,11 @@ output directly to a single external .pdf file.
         unlist() %>%
         probe_colo_plot_list("presidential_debates_2012$dialogue") 
 
-    ## plot(frequent_terms(search_term(presidential_debates_2012$dialogue, "going")))
-    ## plot(frequent_terms(search_term(presidential_debates_2012$dialogue, "make")))
-    ## plot(frequent_terms(search_term(presidential_debates_2012$dialogue, "people")))
-    ## plot(frequent_terms(search_term(presidential_debates_2012$dialogue, "governor")))
-    ## plot(frequent_terms(search_term(presidential_debates_2012$dialogue, "president")))
+    ## plot(search_term_collocations(presidential_debates_2012$dialogue, "going"))
+    ## plot(search_term_collocations(presidential_debates_2012$dialogue, "make"))
+    ## plot(search_term_collocations(presidential_debates_2012$dialogue, "people"))
+    ## plot(search_term_collocations(presidential_debates_2012$dialogue, "governor"))
+    ## plot(search_term_collocations(presidential_debates_2012$dialogue, "president"))
 
 The plots can be generated externally with the `probe_colo_plot`
 function which makes multi-page .pdf of frequent terms bar plots; one
@@ -910,7 +912,7 @@ can be used to detect features and build regular expressions to model
 these language features.
 
 We first want to view the untagged data. The `uncovered` function
-provides a logical vector that can be used to exctract the text with no
+provides a logical vector that can be used to extract the text with no
 tags.
 
     untagged <- get_uncovered(model)
@@ -981,6 +983,25 @@ words frequently occur with the word *right*. We notice the word
     ## 12 want        6       
     ## 13 you're      6
 
+The `search_term_collocations` function provides a convenient wrapper
+for `search_term` + `frequent_terms` which also removes the search term
+from the output.
+
+    untagged %>%
+        search_term_collocations("\\bright", n=10)
+
+    ##    term       frequency
+    ## 1  people     10       
+    ## 2  government  7       
+    ## 3  course      6       
+    ## 4  going       6       
+    ## 5  president   6       
+    ## 6  want        6       
+    ## 7  also        5       
+    ## 8  governor    5       
+    ## 9  jobs        5       
+    ## 10 make        5
+
 This is an exploratory act. Finding the right combination of features
 that occur together requires lots of recursive noticing, trialling,
 testing, reading, interpreting, and deciding. After we noticed that the
@@ -1023,7 +1044,7 @@ We notice right away that the phrase *right course* appears often. We
 can create a search with just this expression.
 
 ***Note*** *that the decision to include a regular expression in the
-model is up to the researcher. We must guard against overfitting the
+model is up to the researcher. We must guard against over-fitting the
 model, making it not transferable to new, similar contexts.*
 
     search_term(untagged, "right course")
@@ -1040,30 +1061,30 @@ Based on the `frequent_terms` output above, the word *jobs* also seems
 important. Again, we use the `search_term` + `frequent_terms` combo to
 extract words collocating with *jobs*.
 
-    search_term(untagged, "jobs") %>%
-        frequent_terms(15, stopwords = "jobs")
+    search_term_collocations(untagged, "jobs", n=15)
 
-    ##    term     frequency
-    ## 1  that     48       
-    ## 2  million  17       
-    ## 3  create   15       
-    ## 4  going    15       
-    ## 5  this     15       
-    ## 6  we're    14       
-    ## 7  here     13       
-    ## 8  back     12       
-    ## 9  have     12       
-    ## 10 country  11       
-    ## 11 that's   11       
-    ## 12 people   10       
-    ## 13 make      9       
-    ## 14 sure      9       
-    ## 15 five      8       
-    ## 16 hundred   8       
-    ## 17 overseas  8       
-    ## 18 want      8       
-    ## 19 with      8       
-    ## 20 years     8
+    ##    term          frequency
+    ## 1  million       17       
+    ## 2  create        15       
+    ## 3  going         15       
+    ## 4  back          12       
+    ## 5  country       11       
+    ## 6  people        10       
+    ## 7  make           9       
+    ## 8  sure           9       
+    ## 9  five           8       
+    ## 10 hundred        8       
+    ## 11 overseas       8       
+    ## 12 want           8       
+    ## 13 years          8       
+    ## 14 businesses     7       
+    ## 15 companies      7       
+    ## 16 creating       7       
+    ## 17 energy         7       
+    ## 18 good           7       
+    ## 19 just           7       
+    ## 20 manufacturing  7       
+    ## 21 thousand       7
 
 As stated above, `colo` is a powerful search tool as it can take
 multiple regular expressions as well as allowing for multiple negations
@@ -1218,7 +1239,7 @@ may be returned) as well as a `table` and plot of the counts. Use
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-33-1.png)
+![](inst/figure/unnamed-chunk-34-1.png)
 
 Accuracy
 --------
@@ -1311,7 +1332,7 @@ Below we create fake "known" tags to test `accuracy` with real data
 
 In this model we allow for `n = 3` tags to be assigned in the
 classification. This enables the potential for a (in this case
-*slightly*) better a **Adjusted** value. The adjusted value upweights
+*slightly*) better a **Adjusted** value. The adjusted value up-weights
 based on correctly applying a tag regardless of the position of that tag
 (`classify` gives higher preference to tags that have a higher term
 count for that text element; order for ties is broken randomly).

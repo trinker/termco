@@ -20,7 +20,7 @@ search_term_which(x, term, exclude = NULL, and = NULL, ignore.case = TRUE)
 \code{term} (uses \code{\link[base]{grep}}).}
 
 \item{ignore.case}{logical. Should \code{\link[base]{grep}} be done
-idependant of case? Can also be length 3 corresponding to the arguments
+independent of case? Can also be length 3 corresponding to the arguments
 \code{term}, \code{exclude}, & \code{and}.}
 
 \item{\ldots}{ignored.}

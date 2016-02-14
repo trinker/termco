@@ -226,7 +226,7 @@ presidential_debates_2012 %>%
     probe_list("presidential_debates_2012$dialogue") 
 ```
 
-The next `probe_` function wraps `search_term` with `frequent_terms`.  This allows the user to systematically explore the words that frequently colocate with the original terms.  
+The next `probe_` function generates a list of `search_term_collocations` function calls (`search_term_collocations` wraps `search_term` with `frequent_terms` and eliminates the search term from the output).  This allows the user to systematically explore the words that frequently collocate with the original terms.  
 
 ```{r}
 presidential_debates_2012 %>%
@@ -236,7 +236,7 @@ presidential_debates_2012 %>%
     probe_colo_list("presidential_debates_2012$dialogue") 
 ```
 
-As `frequent_terms` has a `plot` method the user may wish to generate function calls similar to `probe_colo_list` but wrapped with `plot` for a visual exploration of the data.  The `probe_colo_plot_list` makes a list of such function calls, whereas the `probe_colo_plot` plots the output directly to a single external .pdf file.
+As `search_term_collocations` has a `plot` method the user may wish to generate function calls similar to `probe_colo_list` but wrapped with `plot` for a visual exploration of the data.  The `probe_colo_plot_list` makes a list of such function calls, whereas the `probe_colo_plot` plots the output directly to a single external .pdf file.
 
 ```{r}
 presidential_debates_2012 %>%
@@ -311,7 +311,7 @@ model %>%
 
 The model does not have very good coverage.  To improve this the researcher will want to look at the data with no coverage to try to build additional regular expressions and categories.  This requires understanding language, noticing additional features of the data with no coverage that may map to categories, and building regular expressions to model these features.  This section will outline some of the tools that can be used to detect features and build regular expressions to model these language features.
 
-We first want to view the untagged data.  The `uncovered` function provides a logical vector that can be used to exctract the text with no tags.
+We first want to view the untagged data.  The `uncovered` function provides a logical vector that can be used to extract the text with no tags.
 
 ```{r}
 untagged <- get_uncovered(model)
@@ -334,6 +334,15 @@ untagged %>%
     frequent_terms(10, stopwords = "right")
 ```
 
+
+The `search_term_collocations` function provides a convenient wrapper for `search_term` + `frequent_terms` which also removes the search term from the output.
+
+```{r}
+untagged %>%
+    search_term_collocations("\\bright", n=10)
+```
+
+
 This is an exploratory act.  Finding the right combination of features that occur together requires lots of recursive noticing, trialling, testing, reading, interpreting, and deciding.  After we noticed that the terms *people* and *course* appear with the term *right* above we will want to see these text elements.  We can use a grouped-or expression with `colo` to build a regular expression that will search for any text elements that contain these two terms anywhere.  `colo` is more powerful than initially shown here; I demonstrate further functionality below.  Here is the regex produced.
 
 ```{r}
@@ -348,7 +357,7 @@ search_term(untagged, colo("\\bright", "(people|course)"))
 
 We notice right away that the phrase *right course* appears often.  We can create a search with just this expression. 
 
-***Note*** *that the decision to include a regular expression in the model is up to the researcher.  We must guard against overfitting the model, making it not transferable to new, similar contexts.*
+***Note*** *that the decision to include a regular expression in the model is up to the researcher.  We must guard against over-fitting the model, making it not transferable to new, similar contexts.*
 
 ```{r}
 search_term(untagged, "right course")
@@ -357,8 +366,7 @@ search_term(untagged, "right course")
 Based on the `frequent_terms` output above, the word *jobs* also seems important.  Again, we use the `search_term` + `frequent_terms` combo to extract words collocating with *jobs*.
 
 ```{r}
-search_term(untagged, "jobs") %>%
-    frequent_terms(15, stopwords = "jobs")
+search_term(untagged, colo("jobs", "overseas")) 
 ```
 
 As stated above, `colo` is a powerful search tool as it can take multiple regular expressions as well as allowing for multiple negations (i.e., find x but not if y).  To include multiple negations use a grouped-or regex as shown below.
@@ -452,7 +460,7 @@ fake_known[sample(1:length(fake_known), 300)] <- "random noise"
 accuracy(mod1, fake_known)
 ```
 
-In this model we allow for `n = 3` tags to be assigned in the classification.  This enables the potential for a (in this case *slightly*) better a **Adjusted** value.  The adjusted value upweights based on correctly applying a tag regardless of the position of that tag (`classify` gives higher preference to tags that have a higher term count for that text element; order for ties is broken randomly).
+In this model we allow for `n = 3` tags to be assigned in the classification.  This enables the potential for a (in this case *slightly*) better a **Adjusted** value.  The adjusted value up-weights based on correctly applying a tag regardless of the position of that tag (`classify` gives higher preference to tags that have a higher term count for that text element; order for ties is broken randomly).
 
 ```{r}
 mod2 <- presidential_debates_2012 %>%

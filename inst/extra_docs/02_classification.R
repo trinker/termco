@@ -15,8 +15,8 @@ testing <- split_dat$test
 ## Inspect Data
 
 n <- 50
-train %>%
-    with(frequent_terms(dialogue, n = n))
+(freqs <- train %>%
+    with(frequent_terms(dialogue, n = n)))
 
 train %>%
     with(frequent_terms(dialogue, n = n)) %>%
@@ -30,6 +30,9 @@ train %>%
 train %>%
     with(ngram_collocations(dialogue)) %>%
     plot()
+
+## Systematically View Frequent Terms in Context
+probe_colo_list(freqs[[1]], "dat[['INSERT_TEXT_VAR_NAME_HERE']]")
 
 ## Build the Model
 file.edit("categories/categories.R")
@@ -47,6 +50,9 @@ model %>%
     as_terms() %>%
     plot_freq(size=3) + xlab("Number of Tags")
 
+tag_co_occurrence(model) %>%
+    plot()
+
 # Category Loadings
 model %>%
     as_terms() %>%
@@ -60,13 +66,13 @@ untagged <- get_uncovered(model)
 untagged %>%
     frequent_terms()
 
-# Terms That Colocate with a Frequent Term
+# Terms That Collocate with a Frequent Term
 untagged %>%
     search_term("termA") %>%
     frequent_terms(10, stopwords = "TooFrequentTerm")
 
 
-# Colocation Regex
+# Collocation Regex
 # options(termco.copy2clip = TRUE) ## copies colo output to clipboard
 colo("\\btermA", "(termB|termC)")
 

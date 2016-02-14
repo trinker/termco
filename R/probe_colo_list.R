@@ -1,11 +1,12 @@
-#' Generate List of Exploration \code{search_term} + \code{frequent_terms} Function Calls
+#' Generate List of Exploration \code{search_term_collocations} Function Calls
 #'
 #' The task of determining the regexes used to feed a \code{term_count} object's
 #' \code{term.list} requires careful exploration of term use in context.  This
-#' function generates a list of function calls for \code{search_term} +
-#' \code{frequent_terms} with a user predefined data set and term list.  This
-#' allows the user to explore a list of terms (such as from \code{frequent_terms})
-#' and the accompanying terms that frequently colocate with these terms.
+#' function generates a list of function calls for \code{search_term_collocations}
+#' (a wrapper for \code{search_term} + \code{frequent_terms}) with a user
+#' predefined data set and term list.  This allows the user to explore a list of
+#' terms (such as from \code{frequent_terms}) and the accompanying terms that
+#' frequently collocate with these terms.
 #'
 #' @param terms A vector of regex terms to explore (often populated from
 #' \code{frequent_terms}.
@@ -25,9 +26,9 @@
 #' @family probe functions
 #' @export
 #' @examples
-#' probe_colo_list(c("thank", "\\bthe\"", "ee"), "sam_i_am")
+#' probe_colo_list(c("thank", "\\bthe", "ee"), "sam_i_am")
 #' probe_colo_list(
-#'     c("thank", "\\bthe\"", "ee"),
+#'     c("thank", "\\bthe", "ee"),
 #'     "sam_i_am",
 #'     ldots = ", n = 10, min.char = 5"
 #' )
@@ -44,13 +45,12 @@ probe_colo_list <- function(terms, data.name, copy2clip = getOption("termco.copy
     terms <- stringi::stri_escape_unicode(terms)
 
     m <- paste(
-        paste0('frequent_terms(search_term(',  data.name, ', "', terms, "\")", ldots, ")"),
+        paste0('search_term_collocations(',  data.name, ', "', terms, "\"", ldots, ")"),
         collapse = "\n"
     )
     if (isTRUE(copy2clip)) clipr::write_clip(m)
     class(m) <- c("probe_list", class(m))
     m
 }
-
 
 

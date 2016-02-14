@@ -6,7 +6,7 @@
 #' function calls for \code{search_term} + \code{frequent_terms} + \code{plot}
 #' with a user predefined data set and term list.  This allows the user to use
 #' bar plot explorations to explore a list of terms (such as from
-#' \code{frequent_terms}) and the accompanying terms that frequently colocate
+#' \code{frequent_terms}) and the accompanying terms that frequently collocate
 #' with these terms.
 #'
 #' @param terms A vector of regex terms to explore (often populated from
@@ -32,9 +32,9 @@
 #' @export
 #' @rdname probe_colo__plot
 #' @examples
-#' probe_colo_plot_list(c("thank", "\\bthe\"", "ee"), "sam_i_am")
+#' probe_colo_plot_list(c("thank", "\\bthe", "ee"), "sam_i_am")
 #' probe_colo_plot_list(
-#'     c("thank", "\\bthe\"", "ee"),
+#'     c("thank", "\\bthe", "ee"),
 #'     "sam_i_am",
 #'     ldots = ", n = 10, min.char = 5"
 #' )
@@ -54,7 +54,7 @@ probe_colo_plot_list <- function(terms, data.name, copy2clip = getOption("termco
     terms <- stringi::stri_escape_unicode(terms)
 
     m <- paste(
-        paste0('plot(frequent_terms(search_term(',  data.name, ', "', terms, "\")", ldots, "))"),
+        paste0('plot(search_term_collocations(',  data.name, ', "', terms, "\"", ldots, "))"),
         collapse = "\n"
     )
     if (isTRUE(copy2clip)) clipr::write_clip(m)
@@ -80,8 +80,8 @@ probe_colo_plot <- function(terms, data, file = "Rplots.pdf", width = 5.5, heigh
     terms <- stringi::stri_escape_unicode(terms)
 
     pdf(file=file, width = width, height = height)
-    for(i in terms){2
-       print(plot(frequent_terms(search_term(data, i, ...))) + ggplot2::ggtitle(i))
+    for(i in terms){
+       print(plot(search_term_collocations(data, i, ...)) + ggplot2::ggtitle(i))
        Sys.sleep(1)
     }
     dev.off()

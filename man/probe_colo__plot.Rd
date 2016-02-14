@@ -44,7 +44,7 @@ exploration of term use in context.  This function generates a list of
 function calls for \code{search_term} + \code{frequent_terms} + \code{plot}
 with a user predefined data set and term list.  This allows the user to use
 bar plot explorations to explore a list of terms (such as from
-\code{frequent_terms}) and the accompanying terms that frequently colocate
+\code{frequent_terms}) and the accompanying terms that frequently collocate
 with these terms.
 
 \code{probe_colo_plot} - Make the plots of \code{probe_colo_plot_list}
@@ -57,9 +57,9 @@ takes a character name for \code{data.name} whereas \code{probe_colo_plot}
 takes a an actual vector object for \code{data}.
 }
 \examples{
-probe_colo_plot_list(c("thank", "\\\\bthe\\"", "ee"), "sam_i_am")
+probe_colo_plot_list(c("thank", "\\\\bthe", "ee"), "sam_i_am")
 probe_colo_plot_list(
-    c("thank", "\\\\bthe\\"", "ee"),
+    c("thank", "\\\\bthe", "ee"),
     "sam_i_am",
     ldots = ", n = 10, min.char = 5"
 )

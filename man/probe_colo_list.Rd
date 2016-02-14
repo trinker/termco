@@ -2,7 +2,7 @@
 % Please edit documentation in R/probe_colo_list.R
 \name{probe_colo_list}
 \alias{probe_colo_list}
-\title{Generate List of Exploration \code{search_term} + \code{frequent_terms} Function Calls}
+\title{Generate List of Exploration \code{search_term_collocations} Function Calls}
 \usage{
 probe_colo_list(terms, data.name, copy2clip = getOption("termco.copy2clip"),
   ldots = "")
@@ -32,15 +32,16 @@ of the terms in the text data set.
 \description{
 The task of determining the regexes used to feed a \code{term_count} object's
 \code{term.list} requires careful exploration of term use in context.  This
-function generates a list of function calls for \code{search_term} +
-\code{frequent_terms} with a user predefined data set and term list.  This
-allows the user to explore a list of terms (such as from \code{frequent_terms})
-and the accompanying terms that frequently colocate with these terms.
+function generates a list of function calls for \code{search_term_collocations}
+(a wrapper for \code{search_term} + \code{frequent_terms}) with a user
+predefined data set and term list.  This allows the user to explore a list of
+terms (such as from \code{frequent_terms}) and the accompanying terms that
+frequently collocate with these terms.
 }
 \examples{
-probe_colo_list(c("thank", "\\\\bthe\\"", "ee"), "sam_i_am")
+probe_colo_list(c("thank", "\\\\bthe", "ee"), "sam_i_am")
 probe_colo_list(
-    c("thank", "\\\\bthe\\"", "ee"),
+    c("thank", "\\\\bthe", "ee"),
     "sam_i_am",
     ldots = ", n = 10, min.char = 5"
 )

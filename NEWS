@@ -31,6 +31,10 @@ IMPROVEMENTS
 
 CHANGES
 
+* `probe_colo_list`,`probe_colo_plot_list`, & `probe_colo_plot` all use
+  `search_term_collocations` under the hood rather than `search_term` + `
+  frequent_terms`.
+
 
 termco 0.1.0
 ----------------------------------------------------------------

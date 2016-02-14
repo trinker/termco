@@ -8,7 +8,7 @@
 #' @param and A regular expression that must also be contained in addition to
 #' \code{term} (uses \code{\link[base]{grep}}).
 #' @param ignore.case logical. Should \code{\link[base]{grep}} be done
-#' idependant of case? Can also be length 3 corresponding to the arguments
+#' independent of case? Can also be length 3 corresponding to the arguments
 #' \code{term}, \code{exclude}, & \code{and}.
 #' @param \ldots ignored.
 #' @return \code{search_term} - Returns a text vector meeting \code{term}
