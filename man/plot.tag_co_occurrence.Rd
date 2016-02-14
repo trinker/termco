@@ -4,7 +4,7 @@
 \alias{plot.tag_co_occurrence}
 \title{Plots a tag_co_occurrence Object}
 \usage{
-\method{plot}{tag_co_occurrence}(x, cor = TRUE, edge.weight = 8,
+\method{plot}{tag_co_occurrence}(x, cor = FALSE, edge.weight = 8,
   node.weight = 8, edge.color = "gray80", node.color = "orange",
   bar.color = node.color, font.color = "gray55",
   bar.font.color = ifelse(bar, "gray96", bar.color), bar.font.size = TRUE,

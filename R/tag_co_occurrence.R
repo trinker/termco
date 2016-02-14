@@ -127,7 +127,7 @@ tag_co_occurrence <- function(x, ...){
 #' @param \ldots Other arguments passed to \code{\link[igraph]{plot.igraph}}.
 #' @method plot tag_co_occurrence
 #' @export
-plot.tag_co_occurrence <- function(x, cor = TRUE, edge.weight = 8, node.weight=8,
+plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=8,
     edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
     bar.font.color = ifelse(bar, "gray96", bar.color), bar.font.size = TRUE, digits = 1,
     min.edge.cutoff = .15, plot.widths = c(.65, .35), bar = TRUE, ...){
