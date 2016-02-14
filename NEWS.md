@@ -18,6 +18,20 @@ And constructed with the following guidelines:
 
 
 
+termco 0.2.0
+----------------------------------------------------------------
+
+**BUG FIXES**
+
+**NEW FEATURES**
+
+**MINOR FEATURES**
+
+IMPROVEMENTS
+
+**CHANGES**
+
+
 termco 0.1.0
 ----------------------------------------------------------------
 
@@ -25,6 +39,9 @@ termco 0.1.0
 
 * `plot.term_count` did not properly handle weighting.  This has been fixed and
   allows for `"count"` as a choice.
+
+* `search_term_which` (also `search_term`) did not treat te `and` argument
+  correctly.  `and` was treated identical to the `not` argument.
 
 **NEW FEATURES**
 
@@ -45,6 +62,9 @@ termco 0.1.0
 
 * `tag_co_occurrence` added to explore tag co-occurrences.
 
+* `search_term_collocations`   added as a conveinence wrapper for `search_term`
+  + `frequent_terms`. (Thanks to Steve Simpson)
+
 
 **MINOR FEATURES**
 
@@ -57,9 +77,6 @@ IMPROVEMENTS
   set of regexes on only those rows/text elements that were left untagged
   (count `rowSums` is zero).  This is accomplished by passing a `list` of
   `list`s of regexes.  Thanks to Steve Simpson for suggesting this feature.
-
-**CHANGES**
-
 
 
 termco 0.0.1

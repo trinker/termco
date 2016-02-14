@@ -46,6 +46,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `word_count`                 | count        | Count words                                       |
 | `colo`                       | search       | Regex output to find term collocations            |
 | `search_term`                | search       | Search for regex terms                            |
+| `search_term_collocations`   | search       | Wrapper for `search_term` + `frequent_terms`      |
 | `classification_project`     | modeling     | Make a classification modeling project template   |
 | `split_data`                 | modeling     | Split data into `train` & `test` sets             |
 | `accuracy`                   | modeling     | Check accuracy of model against human coder       |

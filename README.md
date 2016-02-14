@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.1.0-orange.svg"><img src="https://img.shields.io/badge/Version-0.1.0-orange.svg" alt="Version"/></a>
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.2.0-orange.svg"><img src="https://img.shields.io/badge/Version-0.2.0-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
@@ -120,91 +120,96 @@ their description:
 <td align="left">Search for regex terms</td>
 </tr>
 <tr class="odd">
+<td align="left"><code>search_term_collocations</code></td>
+<td align="left">search</td>
+<td align="left">Wrapper for <code>search_term</code> + <code>frequent_terms</code></td>
+</tr>
+<tr class="even">
 <td align="left"><code>classification_project</code></td>
 <td align="left">modeling</td>
 <td align="left">Make a classification modeling project template</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>split_data</code></td>
 <td align="left">modeling</td>
 <td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>accuracy</code></td>
 <td align="left">modeling</td>
 <td align="left">Check accuracy of model against human coder</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>classify</code></td>
 <td align="left">modeling</td>
 <td align="left">Assign n tags to text from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>coverage</code></td>
 <td align="left">modeling</td>
 <td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
 <td align="left">modeling</td>
 <td align="left">Get the uncovered text from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>tag_co_occurrence</code></td>
 <td align="left">modeling</td>
 <td align="left">Explor co-occurrence of tags from a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>as_count</code></td>
 <td align="left">convert</td>
 <td align="left">Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>as_terms</code></td>
 <td align="left">convert</td>
 <td align="left">Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>weight</code></td>
 <td align="left">convert</td>
 <td align="left">Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_ca</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_counts</code></td>
 <td align="left">plot</td>
 <td align="left">Horizontal bar plot of group counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_freq</code></td>
 <td align="left">plot</td>
 <td align="left">Vertical bar plot of frequencies of counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_cum_percent</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_colo_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> + <code>frequent_terms</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_colo_plot_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> + <code>frequent_terms</code> + <code>plot</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_colo_plot</code></td>
 <td align="left">probe</td>
 <td align="left">Plot <code>probe_colo_plot_list</code> directly</td>

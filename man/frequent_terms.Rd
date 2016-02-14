@@ -49,7 +49,7 @@ or frequency.}
 \item{\ldots}{ignored.}
 }
 \value{
-Returns a data.frame of terms and frequencies.
+Returns a \code{\link[base]{data.frame}} of terms and frequencies.
 }
 \description{
 \code{frequent_terms} - Find a list of the n most frequent terms.

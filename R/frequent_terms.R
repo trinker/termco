@@ -25,7 +25,7 @@
 #' @param alphabetical logical.  Should rows be arranged alphabetically by term
 #' or frequency.
 #' @param \ldots ignored.
-#' @return Returns a data.frame of terms and frequencies.
+#' @return Returns a \code{\link[base]{data.frame}} of terms and frequencies.
 #' @importFrom tm stopwords
 #' @keywords term word frequency
 #' @rdname frequent_terms

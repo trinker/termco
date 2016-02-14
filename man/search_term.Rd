@@ -5,23 +5,23 @@
 \alias{search_term_which}
 \title{Search For Terms}
 \usage{
-search_term(text, term, exclude = NULL, and = NULL, ignore.case = TRUE,
-  ...)
+search_term(x, term, exclude = NULL, and = NULL, ignore.case = TRUE, ...)
 
-search_term_which(text, term, exclude = NULL, and = NULL,
-  ignore.case = TRUE)
+search_term_which(x, term, exclude = NULL, and = NULL, ignore.case = TRUE)
 }
 \arguments{
-\item{text}{A text vect to search through.}
+\item{x}{A vector of character strings.}
 
 \item{term}{A regular expression to search for (uses \code{grep}).}
 
 \item{exclude}{A regular expression to exclude cases for (uses \code{grep}).}
 
 \item{and}{A regular expression that must also be contained in addition to
-\code{term} (uses \code{grep}).}
+\code{term} (uses \code{\link[base]{grep}}).}
 
-\item{ignore.case}{Logical. Should \code{grep} be done idependant of case?}
+\item{ignore.case}{logical. Should \code{\link[base]{grep}} be done
+idependant of case? Can also be length 3 corresponding to the arguments
+\code{term}, \code{exclude}, & \code{and}.}
 
 \item{\ldots}{ignored.}
 }
@@ -37,6 +37,7 @@ regex but not \code{exclude} regex.
 \examples{
 search_term_which(sam_i_am, "\\\\bsam")
 search_term(sam_i_am, "\\\\bsam")
+search_term(sam_i_am, c('green', "\\\\bsam"))
 }
 \keyword{search}
 
