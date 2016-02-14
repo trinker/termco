@@ -8,7 +8,14 @@
 #' one word list for all text.  Also takes a single grouping variable or a list
 #' of 1 or more grouping variables.  If \code{TRUE} an \code{id} variable is
 #' used with a \code{seq_along} the \code{text.var}.
-#' @param term.list A list of named character vectors.
+#' @param term.list A list of named character vectors.  `code{term_count} can
+#' be used in a hierarchical fashion as well; that is a list of regexes can be
+#' passed and counted and then a second (or more) pass can be taken wit a new
+#' set of regexes on only those rows/text elements that were left untagged
+#' (count \code{\link[base]{rowSums}} is zero).  This is accomplished by passing
+#' a \code{\link[base]{list}} of \code{\link[base]{list}}s of regexes.
+#' See \bold{Examples} for the \strong{hierarchical terms} section for a
+#' demonstration.
 #' @param ignore.case logical.  If \code{FALSE}, the pattern matching is case
 #' sensitive and if \code{TRUE}, case is ignored during matching.
 #' @param pretty logical.  If \code{TRUE} pretty printing is used.  Pretty
@@ -88,7 +95,8 @@
 #'
 #' coverage(x)
 term_count <- function(text.var, grouping.var = NULL, term.list,
-    ignore.case = TRUE, pretty = TRUE, group.names, ...){
+    ignore.case = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
+    group.names, ...){
 
     amodel <- FALSE
     if(is.null(grouping.var)) {
@@ -137,28 +145,39 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
 
         list_list <- TRUE
 
-        out_list <- vector(mode = "list", length = length(term.list))
-        inds  <- vector(mode = "list", length = length(term.list))
+        #out_list <- vector(mode = "list", length = length(term.list))
+        #inds  <- vector(mode = "list", length = length(term.list))
         term.list <- lapply(term.list, term_lister_check, G)
 
-        inds[[1]] <- seq_along(text.var)
+        inds <- seq_along(text.var)
 
         for (i in seq_along(term.list)){
 
-            out_list[[i]] <- data.table::copy(data.table::setDT(DF))[inds[[i]], ][,
-                names(term.list[[i]]):= lapply(term.list[[i]], countfun,
-                text.var, ignore.case = ignore.case), ][, text.var:=NULL]
+            if (i == 1){
+                counts <- data.table::setkeyv(
+                    data.table::copy(data.table::setDT(DF))[inds, ][,
+                        names(term.list[[i]]):= lapply(term.list[[i]], countfun,
+                        text.var, ignore.case = ignore.case), ][, 'text.var':=NULL],
+                    G
+                )
+            } else {
 
+                counts <- merge(
+                    counts,
+                    data.table::setkeyv(data.table::copy(data.table::setDT(DF))[inds, ][,
+                        names(term.list[[i]]):= lapply(term.list[[i]], countfun,
+                        text.var, ignore.case = ignore.case), ][, 'text.var':=NULL][,
+                            'n.words' := NULL], G),
+                    all=TRUE
+                )
 
-            terminds <- (1 + which(colnames(out_list[[i]]) == "n.words")):ncol(out_list[[i]])
-            inds[[i + 1]] <- which(rowSums(out_list[[i]][, terminds, with = FALSE]) == 0)
+            }
+
+            terminds <- (1 + which(colnames(counts) == "n.words")):ncol(counts)
+            inds <- which(rowSums(counts[, terminds, with = FALSE]) == 0)
         }
 
-        invisible(lapply(2:length(out_list), function(i) out_list[[i]][, 'n.words' := NULL]))
 
-        lapply(out_list, data.table::setkeyv, G)
-
-        counts <- Reduce(mymerge, out_list)
         term.cols <- colnames(counts)[(1 + which(colnames(counts) == "n.words")):ncol(counts)]
         for (i in term.cols) eval(parse(text=paste("counts[,",i,":=na.replace(",i,")]")))
         out <- counts[,lapply(.SD, sum, na.rm = TRUE), keyby = G]

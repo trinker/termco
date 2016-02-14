@@ -135,7 +135,7 @@ plot.tag_co_occurrence <- function(x, cor = TRUE, edge.weight = 8, node.weight=8
     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]
     x[["ave_tag"]][["tag"]] <- factor(x[["ave_tag"]][["tag"]], levels=rev(x[["ave_tag"]][["tag"]]))
 
-    if (isTRUE(bar.font.size)) bar.font.size <- round((1/length(x[["ave_tag"]][["tag"]])) * 110)
+    if (isTRUE(bar.font.size)) bar.font.size <- round((1/length(x[["ave_tag"]][["tag"]])) * 100)
 
     ave_tags_plot <- ggplot2::ggplot(x[["ave_tag"]], ggplot2::aes_string(x="tag")) +
         {if (isTRUE(bar)) {

@@ -379,6 +379,22 @@ search_term(untagged, colo("jobs", "overseas"))
 
 The researcher uses an iterative process to continue to build the regular expression list.  The `term_count` function builds the matrix of counts to further test the model.  The use of (a) `coverage`, (b) `as_terms` + `plot_counts`, and &#40;c) `as_terms` + `freq_counts` will allow for continued testing of model functioning.  
 
+
+## Improving Discrimination
+
+It is often desirable to improve discrimination.  While the bar plot highlighting the distribution of the number of tags is useful, it only indicates if there is a problem, not where the problem lies.  The `tag_co_occurrence` function produces a list of `data.frame` and `matrices` that aide in understanding how to improve discrimination.  These are useful, but the `plot` method provides a visual view of the co-occurrences of tags.
+
+In this particular case the plot combo is not complex because of the limited number of regex tags.  As the number of tags increases the plot increases in complexity.  The network plot on the left shows the strength of relationships between tags, while the plot on the right shows the average number of other tags that co-occur with each regex tag.  The unconnected nodes and shorter bars provide the best discriminatory power.
+
+
+```{r, impr_disc, eval=FALSE}
+tag_co_occurrence(model) %>%
+    plot()
+````
+
+![](impr_disc-2.png)
+
+
 ## Categorizing/Tagging
 
 The `classify` function enables the researcher to apply $n$ tags to each text element.  Depending on the text and the regular expression list's ability, multiple tags may be applied to a text.  The `n` argument allows the maximum number of tags to be set though the function does not guarantee this many (or any) tags will be assigned.

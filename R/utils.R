@@ -152,3 +152,7 @@ minmax_scale <- function(x) {
     (x - min(x))/(max(x) - min(x))
 }
 
+spacer <- function(x){
+    mc <- max(nchar(x))
+    paste0(sapply(mc - sapply(x, nchar), function(y) paste(rep(" ", y), collapse = "")), x)
+}

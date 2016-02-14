@@ -5,7 +5,7 @@
 \title{Search For and Count Terms}
 \usage{
 term_count(text.var, grouping.var = NULL, term.list, ignore.case = TRUE,
-  pretty = TRUE, group.names, ...)
+  pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE), group.names, ...)
 }
 \arguments{
 \item{text.var}{The text string variable.}
@@ -15,7 +15,14 @@ one word list for all text.  Also takes a single grouping variable or a list
 of 1 or more grouping variables.  If \code{TRUE} an \code{id} variable is
 used with a \code{seq_along} the \code{text.var}.}
 
-\item{term.list}{A list of named character vectors.}
+\item{term.list}{A list of named character vectors.  `code{term_count} can
+be used in a hierarchical fashion as well; that is a list of regexes can be
+passed and counted and then a second (or more) pass can be taken wit a new
+set of regexes on only those rows/text elements that were left untagged
+(count \code{\link[base]{rowSums}} is zero).  This is accomplished by passing
+a \code{\link[base]{list}} of \code{\link[base]{list}}s of regexes.
+See \bold{Examples} for the \strong{hierarchical terms} section for a
+demonstration.}
 
 \item{ignore.case}{logical.  If \code{FALSE}, the pattern matching is case
 sensitive and if \code{TRUE}, case is ignored during matching.}

@@ -60,10 +60,6 @@ coverage.search_term <- function(x, ...) {
 
 
 
-
-
-
-
 #' @export
 #' @method coverage term_count
 coverage.term_count <- function(x, ...){
@@ -105,6 +101,25 @@ coverage.term_count <- function(x, ...){
 
 }
 
+#' @export
+#' @method coverage hierarchical_term_count
+coverage.hierarchical_term_count <- function(x, ...){
+
+    increased <- lapply(attributes(x)[["hierarchical_terms"]], function(z){
+        rowSums(x[, z]) > 0
+    })
+
+    n_increased <- unlist(lapply(increased, sum))
+
+    cover <- coverage.term_count(x)
+
+    cover[["hierarchical_covered"]] <- n_increased
+    cover[["hierarchical_n_covered"]] <- n_increased
+    cover[["hierarchical_coverage"]] <- n_increased/nrow(x)
+
+    class(cover) <- c("hierarchical_coverage", class(cover))
+    cover
+}
 
 
 #' Prints a coverage Object
@@ -132,5 +147,29 @@ print.coverage <- function(x, ...){
     cat(sprintf("Coverered   : %s\n", params[2]))
     cat(sprintf("Not Covered : %s\n", params[1]))
 }
+
+
+
+#' Prints a hierarchical_coverage Object
+#'
+#' Prints a hierarchical_coverage object
+#'
+#' @param x The hierarchical_coverage object.
+#' @param \ldots ignored
+#' @method print hierarchical_coverage
+#' @export
+print.hierarchical_coverage <- function(x, ...){
+
+    print(rm_class(x, "hierarchical_coverage"))
+    cat(paste("\nHierarchical Coverage", paste0(rep("-", 21), collapse=""), sep="\n"), "\n")
+    cat(paste(paste0(
+        "Run ", spacer(seq_along(x[["hierarchical_coverage"]])), ": ",
+        spacer(pp(x[["hierarchical_coverage"]]*100, 1)),
+        "    n = ",
+        spacer(pn(x[["hierarchical_n_covered"]]))
+    ), collapse="\n"), "\n")
+}
+
+
 
 

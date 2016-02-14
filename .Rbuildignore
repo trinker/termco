@@ -19,4 +19,5 @@ inst/staticdocs
 inst/extra_statdoc
 inst/maintenance.R
 inst/vign_stuff
+Thumbs.db
 

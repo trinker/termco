@@ -23,12 +23,12 @@ termco 0.1.0
 
 **BUG FIXES**
 
-* `plot.term_count` did not properly handle weighting.  Ths has been fixed and
+* `plot.term_count` did not properly handle weighting.  This has been fixed and
   allows for `"count"` as a choice.
 
 **NEW FEATURES**
 
-* `split_data` added for easy creationg of training and testing data.
+* `split_data` added for easy creation of training and testing data.
 
 * `classification_project` added to make a classification modeling project
   template.
@@ -51,6 +51,12 @@ termco 0.1.0
 * `plot_freq` picks up a `size` argument.
 
 IMPROVEMENTS
+
+* `term_count` now can be used in a hierarchical fashion.  A list of regexes can
+  be passed and counted and then a second (or more) pass can be taken wit a new
+  set of regexes on only those rows/text elements that were left untagged
+  (count `rowSums` is zero).  This is accomplished by passing a `list` of
+  `list`s of regexes.  Thanks to Steve Simpson for suggesting this feature.
 
 **CHANGES**
 

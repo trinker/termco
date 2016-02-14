@@ -45,6 +45,7 @@ Table of Contents
     -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
     -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
     -   [[Improving the Model](#improving-the-model)](#[improving-the-model](#improving-the-model))
+    -   [[Improving Discrimination](#improving-discrimination)](#[improving-discrimination](#improving-discrimination))
     -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
     -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
 
@@ -822,19 +823,19 @@ of observation which gives the researcher the observation level counts.
     ## Coverage: 13.02% 
     ## Source: local data frame [2,912 x 6]
     ## 
-    ##       id n.words back_channels justification response_cries   summons
-    ##    (int)   (int)         (chr)         (chr)          (chr)     (chr)
-    ## 1      1      10             0             0              0         0
-    ## 2      2       9             0             0      1(11.11%)         0
-    ## 3      3      14             0             0              0         0
-    ## 4      4      14             0             0              0         0
-    ## 5      5       5             0             0      1(20.00%)         0
-    ## 6      6       5             0             0              0         0
-    ## 7      7      40             0             0              0         0
-    ## 8      8       2             0             0              0         0
-    ## 9      9      20             0             0              0 2(10.00%)
-    ## 10    10      13             0             0              0  1(7.69%)
-    ## ..   ...     ...           ...           ...            ...       ...
+    ##       id n.words response_cries back_channels summons justification
+    ##    (int)   (int)          (int)         (int)   (int)         (int)
+    ## 1      1      10              0             0       0             0
+    ## 2      2       9              1             0       0             0
+    ## 3      3      14              0             0       0             0
+    ## 4      4      14              0             0       0             0
+    ## 5      5       5              1             0       0             0
+    ## 6      6       5              0             0       0             0
+    ## 7      7      40              0             0       0             0
+    ## 8      8       2              0             0       0             0
+    ## 9      9      20              0             0       2             0
+    ## 10    10      13              0             0       1             0
+    ## ..   ...     ...            ...           ...     ...           ...
 
 Testing the Model
 -----------------
@@ -852,7 +853,7 @@ coverage, indicating the regular expression model needs to be improved.
     model %>%
         coverage()
 
-    ## Coverage    :   .1%
+    ## Coverage    : 13.0%
     ## Coverered   :   379
     ## Not Covered : 2,533
 
@@ -1153,6 +1154,30 @@ regular expression list. The `term_count` function builds the matrix of
 counts to further test the model. The use of (a) `coverage`, (b)
 `as_terms` + `plot_counts`, and (c) `as_terms` + `freq_counts` will
 allow for continued testing of model functioning.
+
+Improving Discrimination
+------------------------
+
+It is often desirable to improve discrimination. While the bar plot
+highlighting the distribution of the number of tags is useful, it only
+indicates if there is a problem, not where the problem lies. The
+`tag_co_occurrence` function produces a list of `data.frame` and
+`matrices` that aide in understanding how to improve discrimination.
+These are useful, but the `plot` method provides a visual view of the
+co-occurrences of tags.
+
+In this particular case the plot combo is not complex because of the
+limited number of regex tags. As the number of tags increases the plot
+increases in complexity. The network plot on the left shows the strength
+of relationships between tags, while the plot on the right shows the
+average number of other tags that co-occur with each regex tag. The
+unconnected nodes and shorter bars provide the best discriminatory
+power.
+
+    tag_co_occurrence(model) %>%
+        plot()
+
+![](inst/figure/impr_disc-2.png)
 
 Categorizing/Tagging
 --------------------

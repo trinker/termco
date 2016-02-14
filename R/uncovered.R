@@ -52,7 +52,7 @@ uncovered <- function(x, ...){
 get_uncovered <- function(x, ...){
     y <- attributes(x)[["text.var"]][["text.var"]]
     if (length(y) > nrow(x)) {
-        stop("`get_uncovered` should be used on a `temco` object where `grouping.var = TRUE`")
+        stop("`get_uncovered` should only be used on a `term_count` object where `grouping.var = TRUE`")
     }
     unlist(y, use.names=FALSE)[uncovered(x)]
 }
