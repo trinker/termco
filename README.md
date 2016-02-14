@@ -45,7 +45,8 @@ Table of Contents
     -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
     -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
     -   [[Improving the Model](#improving-the-model)](#[improving-the-model](#improving-the-model))
-    -   [[Improving Discrimination](#improving-discrimination)](#[improving-discrimination](#improving-discrimination))
+        -   [[Improving Coverage](#improving-coverage)](#[improving-coverage](#improving-coverage))
+        -   [[Improving Discrimination](#improving-discrimination)](#[improving-discrimination](#improving-discrimination))
     -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
     -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
 
@@ -892,6 +893,8 @@ category.
 Improving the Model
 -------------------
 
+### Improving Coverage
+
 The model does not have very good coverage. To improve this the
 researcher will want to look at the data with no coverage to try to
 build additional regular expressions and categories. This requires
@@ -1155,8 +1158,7 @@ counts to further test the model. The use of (a) `coverage`, (b)
 `as_terms` + `plot_counts`, and (c) `as_terms` + `freq_counts` will
 allow for continued testing of model functioning.
 
-Improving Discrimination
-------------------------
+### Improving Discrimination
 
 It is often desirable to improve discrimination. While the bar plot
 highlighting the distribution of the number of tags is useful, it only

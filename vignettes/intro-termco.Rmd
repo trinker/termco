@@ -306,6 +306,8 @@ model %>%
 
 ## Improving the Model
 
+### Improving Coverage
+
 The model does not have very good coverage.  To improve this the researcher will want to look at the data with no coverage to try to build additional regular expressions and categories.  This requires understanding language, noticing additional features of the data with no coverage that may map to categories, and building regular expressions to model these features.  This section will outline some of the tools that can be used to detect features and build regular expressions to model these language features.
 
 We first want to view the untagged data.  The `uncovered` function provides a logical vector that can be used to exctract the text with no tags.
@@ -380,7 +382,7 @@ search_term(untagged, colo("jobs", "overseas"))
 The researcher uses an iterative process to continue to build the regular expression list.  The `term_count` function builds the matrix of counts to further test the model.  The use of (a) `coverage`, (b) `as_terms` + `plot_counts`, and &#40;c) `as_terms` + `freq_counts` will allow for continued testing of model functioning.  
 
 
-## Improving Discrimination
+### Improving Discrimination
 
 It is often desirable to improve discrimination.  While the bar plot highlighting the distribution of the number of tags is useful, it only indicates if there is a problem, not where the problem lies.  The `tag_co_occurrence` function produces a list of `data.frame` and `matrices` that aide in understanding how to improve discrimination.  These are useful, but the `plot` method provides a visual view of the co-occurrences of tags.
 
