@@ -163,7 +163,7 @@ print.hierarchical_coverage <- function(x, ...){
     print(rm_class(x, "hierarchical_coverage"))
     cat(paste("\nHierarchical Coverage", paste0(rep("-", 21), collapse=""), sep="\n"), "\n")
     cat(paste(paste0(
-        "Run ", spacer(seq_along(x[["hierarchical_coverage"]])), ": ",
+        "Run ", spacer(seq_along(x[["hierarchical_coverage"]])), ":   ",
         spacer(pp(x[["hierarchical_coverage"]]*100, 1)),
         "    n = ",
         spacer(pn(x[["hierarchical_n_covered"]]))
