@@ -48,7 +48,7 @@ hierarchical_coverage_regex <- function(x, term.list, ignore.case = TRUE,
     if (!is.list(term.list)) {
         term.list <- as.list(term.list)
     } else {
-        term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
+        term.list <- lapply(unnest_term_list(term.list), function(x) paste(paste0("(", x, ")"), collapse = "|"))
     }
 
     if (is.null(names(term.list))) term.list <- stats::setNames(term.list, seq_along(term.list))
