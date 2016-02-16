@@ -5,7 +5,7 @@
 #' with a term(s).  Note that the `\code{term} regexes are eliminated from the
 #' output of top occurring terms.
 #'
-#' @param x A vector of character strings.
+#' @param text.var A vector of character strings.
 #' @param term A regular expression(s) to search for (uses \code{grep}).
 #' @param n The number of rows to print.  If integer selects the frequency at
 #' the nth row and prints all rows >= that value.  If proportional (less than 0)
@@ -46,10 +46,10 @@
 #'
 #' top_colo_exclude
 #' plot(top_colo_exclude)
-search_term_collocations <- function(x, term, n=10, ignore.case = TRUE, ...) {
+search_term_collocations <- function(text.var, term, n=10, ignore.case = TRUE, ...) {
 
     ## frequent terms for a term (collocations)
-    out <- frequent_terms(search_term(x, term, ignore.case=ignore.case, ...),
+    out <- frequent_terms(search_term(text.var, term, ignore.case=ignore.case, ...),
         n = n, ...)
 
     ## reset n.words and n from output

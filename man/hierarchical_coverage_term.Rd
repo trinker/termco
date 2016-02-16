@@ -4,11 +4,11 @@
 \alias{hierarchical_coverage_term}
 \title{Hierarchical Coverage of Terms}
 \usage{
-hierarchical_coverage_term(x, terms, bound = TRUE, ignore.case = TRUE,
-  sort = FALSE, ...)
+hierarchical_coverage_term(text.var, terms, bound = TRUE,
+  ignore.case = TRUE, sort = FALSE, ...)
 }
 \arguments{
-\item{x}{A text vector (vector of strings).}
+\item{text.var}{A text vector (vector of strings).}
 
 \item{terms}{A vector of regular expressions to match against \code{x}.}
 

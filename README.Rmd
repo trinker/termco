@@ -444,14 +444,12 @@ The researcher uses an iterative process to continue to build the regular expres
 
 It is often desirable to improve discrimination.  While the bar plot highlighting the distribution of the number of tags is useful, it only indicates if there is a problem, not where the problem lies.  The `tag_co_occurrence` function produces a list of `data.frame` and `matrices` that aide in understanding how to improve discrimination.  These are useful, but the `plot` method provides a visual view of the co-occurrences of tags.
 
-In this particular case the plot combo is not complex because of the limited number of regex tags.  As the number of tags increases the plot increases in complexity.  The network plot on the left shows the strength of relationships between tags, while the plot on the right shows the average number of other tags that co-occur with each regex tag.  The unconnected nodes and shorter bars represent the tags that provide the best discriminatory power, whereas the other tags have the potential to be redundant.
+In this particular case the plot combo is not complex because of the limited number of regex tags (i.e., the tags don't coverage much text and what they do doesn't overlap).  As the number of tags increases the plot increases in complexity.  The network plot on the left shows the strength of relationships between tags, while the plot on the right shows the average number of other tags that co-occur with each regex tag.  The unconnected nodes and shorter bars represent the tags that provide the best discriminatory power, whereas the other tags have the potential to be redundant.
 
-```{r, impr_disc, eval=FALSE}
+```{r, impr_disc}
 tag_co_occurrence(model) %>%
     plot()
 ````
-
-![](inst/figure/impr_disc-2.png)
 
 
 ## Categorizing/Tagging

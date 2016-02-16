@@ -2,7 +2,7 @@
 #'
 #' \code{search_term} - Find text items that contain a term(s).
 #'
-#' @param x A vector of character strings.
+#' @param text.var A vector of character strings.
 #' @param term A regular expression to search for (uses \code{grep}).
 #' @param exclude A regular expression to exclude cases for (uses \code{grep}).
 #' @param and A regular expression that must also be contained in addition to
@@ -20,12 +20,12 @@
 #' search_term_which(sam_i_am, "\\bsam")
 #' search_term(sam_i_am, "\\bsam")
 #' search_term(sam_i_am, c('green', "\\bsam"))
-search_term <- function(x, term, exclude = NULL, and = NULL, ignore.case=TRUE,
+search_term <- function(text.var, term, exclude = NULL, and = NULL, ignore.case=TRUE,
     ...){
 
-    out <- search_term_which(term=term, x=x, exclude=exclude, and=and, ignore.case)
+    out <- search_term_which(term=term, text.var=text.var, exclude=exclude, and=and, ignore.case)
 
-    out2 <- x[out]
+    out2 <- text.var[out]
     class(out2) <- c("search_term", class(out2))
     attributes(out2)[["coverage"]] <- coverage(out)
     out2
@@ -55,19 +55,19 @@ print.search_term <-
 #'
 #' @rdname search_term
 #' @export
-search_term_which <- function(x, term, exclude = NULL, and = NULL, ignore.case=TRUE){
+search_term_which <- function(text.var, term, exclude = NULL, and = NULL, ignore.case=TRUE){
 
     if (!length(ignore.case) %in% c(1, 3)) {
         stop("`ignore.case` must be of length 1 (recycled) or 3 corresponding to the arguments `term`, `exclude`, & `and`")
     }
     if (length(ignore.case) == 1) ignore.case <- rep(ignore.case, 3)
 	term <- paste(paste0("(", term, ")"), collapse = "|")
-    out <- grepl(term, x, ignore.case=ignore.case[1], perl=TRUE)
+    out <- grepl(term, text.var, ignore.case=ignore.case[1], perl=TRUE)
     if (!is.null(exclude)){
-          out <- out & !grepl(exclude, x, ignore.case=ignore.case[2], perl=TRUE)
+          out <- out & !grepl(exclude, text.var, ignore.case=ignore.case[2], perl=TRUE)
     }
     if (!is.null(and)){
-          out <- out & grepl(and, x, ignore.case=ignore.case[3], perl=TRUE)
+          out <- out & grepl(and, text.var, ignore.case=ignore.case[3], perl=TRUE)
     }
     out
 }

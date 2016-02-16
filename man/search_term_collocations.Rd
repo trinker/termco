@@ -4,10 +4,10 @@
 \alias{search_term_collocations}
 \title{Search For Collocations}
 \usage{
-search_term_collocations(x, term, n = 10, ignore.case = TRUE, ...)
+search_term_collocations(text.var, term, n = 10, ignore.case = TRUE, ...)
 }
 \arguments{
-\item{x}{A vector of character strings.}
+\item{text.var}{A vector of character strings.}
 
 \item{term}{A regular expression(s) to search for (uses \code{grep}).}
 

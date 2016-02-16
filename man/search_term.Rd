@@ -5,12 +5,14 @@
 \alias{search_term_which}
 \title{Search For Terms}
 \usage{
-search_term(x, term, exclude = NULL, and = NULL, ignore.case = TRUE, ...)
+search_term(text.var, term, exclude = NULL, and = NULL,
+  ignore.case = TRUE, ...)
 
-search_term_which(x, term, exclude = NULL, and = NULL, ignore.case = TRUE)
+search_term_which(text.var, term, exclude = NULL, and = NULL,
+  ignore.case = TRUE)
 }
 \arguments{
-\item{x}{A vector of character strings.}
+\item{text.var}{A vector of character strings.}
 
 \item{term}{A regular expression to search for (uses \code{grep}).}
 

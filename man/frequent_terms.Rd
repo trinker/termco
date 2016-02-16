@@ -5,15 +5,15 @@
 \alias{frequent_terms}
 \title{N Most Frequent Terms}
 \usage{
-frequent_terms(x, n = 20, stopwords = tm::stopwords("en"),
+frequent_terms(text.var, n = 20, stopwords = tm::stopwords("en"),
   min.freq = NULL, min.char = 4, max.char = Inf, stem = FALSE,
   language = "porter", strip = TRUE, strip.regex = "[^a-z' ]",
   alphabetical = FALSE, ...)
 
-all_words(x, stopwords = NULL, min.char = 0, ...)
+all_words(text.var, stopwords = NULL, min.char = 0, ...)
 }
 \arguments{
-\item{x}{A vector of character strings.}
+\item{text.var}{A vector of character strings.}
 
 \item{n}{The number of rows to print.  If integer selects the frequency at
 the nth row and prints all rows >= that value.  If proportional (less than 0)

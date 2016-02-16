@@ -1195,18 +1195,19 @@ These are useful, but the `plot` method provides a visual view of the
 co-occurrences of tags.
 
 In this particular case the plot combo is not complex because of the
-limited number of regex tags. As the number of tags increases the plot
-increases in complexity. The network plot on the left shows the strength
-of relationships between tags, while the plot on the right shows the
-average number of other tags that co-occur with each regex tag. The
-unconnected nodes and shorter bars represent the tags that provide the
-best discriminatory power, whereas the other tags have the potential to
-be redundant.
+limited number of regex tags (i.e., the tags don't coverage much text
+and what they do doesn't overlap). As the number of tags increases the
+plot increases in complexity. The network plot on the left shows the
+strength of relationships between tags, while the plot on the right
+shows the average number of other tags that co-occur with each regex
+tag. The unconnected nodes and shorter bars represent the tags that
+provide the best discriminatory power, whereas the other tags have the
+potential to be redundant.
 
     tag_co_occurrence(model) %>%
         plot()
 
-![](inst/figure/impr_disc-2.png)
+![](inst/figure/impr_disc-1.png)
 
 Categorizing/Tagging
 --------------------
@@ -1233,7 +1234,7 @@ may be returned) as well as a `table` and plot of the counts. Use
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            124             17            232
+    ##              6            128             17            228
 
     classify(model) %>%
         unlist() %>%

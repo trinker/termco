@@ -4,12 +4,12 @@
 \alias{ngram_collocations}
 \title{Ngram Collocations}
 \usage{
-ngram_collocations(x, n = 20, gram.length = 2,
+ngram_collocations(text.var, n = 20, gram.length = 2,
   stopwords = tm::stopwords("en"), min.char = 4, max.char = Inf,
   order.by = "frequency", stem = FALSE, language = "porter", ...)
 }
 \arguments{
-\item{x}{A vector of character strings.}
+\item{text.var}{A vector of character strings.}
 
 \item{n}{The number of rows to include.}
 

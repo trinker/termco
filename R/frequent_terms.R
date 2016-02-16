@@ -2,7 +2,7 @@
 #'
 #' \code{frequent_terms} - Find a list of the n most frequent terms.
 #'
-#' @param x A vector of character strings.
+#' @param text.var A vector of character strings.
 #' @param n The number of rows to print.  If integer selects the frequency at
 #' the nth row and prints all rows >= that value.  If proportional (less than 0)
 #' the frequency value for the nth\% row is selected and prints all rows >= that
@@ -55,22 +55,22 @@
 #'
 #' ## Cumulative Percent Plot
 #' plot_cum_percent(frequent_terms(presidential_debates_2012[["dialogue"]]))
-frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.freq = NULL,
+frequent_terms <- function(text.var, n = 20, stopwords = tm::stopwords("en"), min.freq = NULL,
     min.char = 4, max.char = Inf, stem = FALSE, language = "porter", strip = TRUE,
     strip.regex = "[^a-z' ]", alphabetical = FALSE, ...) {
 
-    if (is.data.frame(x)) stop("`x` is a `data.frame`; please pass a vector")
+    if (is.data.frame(text.var)) stop("`text.var` is a `data.frame`; please pass a vector")
 
-    x <- stringi::stri_trans_tolower(x)
+    text.var <- stringi::stri_trans_tolower(text.var)
 
     ## remove nonascii characters
-    x <- iconv(x, "latin1", "ASCII", sub = "")
+    text.var <- iconv(text.var, "latin1", "ASCII", sub = "")
 
     ## regex strip of non-word/space characters
-    if (isTRUE(strip)) x <- gsub(strip.regex, " ", x)
+    if (isTRUE(strip)) text.var <- gsub(strip.regex, " ", text.var)
 
-    y <- unlist(stringi::stri_extract_all_words(x))
-    n.words <- sum(stringi::stri_count_words(x), na.rm = TRUE)
+    y <- unlist(stringi::stri_extract_all_words(text.var))
+    n.words <- sum(stringi::stri_count_words(text.var), na.rm = TRUE)
 
     ## stemming
     if (isTRUE(stem)) {
@@ -127,8 +127,8 @@ frequent_terms <- function(x, n = 20, stopwords = tm::stopwords("en"), min.freq 
 #' \code{all_words} - Find a list of all terms used.
 #' @rdname frequent_terms
 #' @export
-all_words <- function(x, stopwords = NULL, min.char = 0, ...) {
-    frequent_terms(x, stopwords = stopwords, min.char = min.char, min.freq = 1)
+all_words <- function(text.var, stopwords = NULL, min.char = 0, ...) {
+    frequent_terms(text.var, stopwords = stopwords, min.char = min.char, min.freq = 1)
 }
 
 #' Prints a frequent_terms Object

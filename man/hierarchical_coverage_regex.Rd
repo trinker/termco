@@ -4,11 +4,11 @@
 \alias{hierarchical_coverage_regex}
 \title{Hierarchical Coverage of Regexes}
 \usage{
-hierarchical_coverage_regex(x, term.list, ignore.case = TRUE, sort = FALSE,
-  verbose = TRUE, ...)
+hierarchical_coverage_regex(text.var, term.list, ignore.case = TRUE,
+  sort = FALSE, verbose = TRUE, ...)
 }
 \arguments{
-\item{x}{A text vector (vector of strings).}
+\item{text.var}{A text vector (vector of strings).}
 
 \item{term.list}{A list of named character vectors to match against \code{x}.}
 

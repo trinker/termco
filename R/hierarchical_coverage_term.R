@@ -3,7 +3,7 @@
 #' The unique coverage of a text vector by a term after partitioning out the
 #' elements matched by previous terms.
 #'
-#' @param x A text vector (vector of strings).
+#' @param text.var A text vector (vector of strings).
 #' @param terms A vector of regular expressions to match against \code{x}.
 #' @param bound logical.  If \code{TRUE} the terms are bound with boundary
 #' markers to ensure \code{"read"} matches \code{"read"} but not \code{"ready"}).
@@ -31,7 +31,7 @@
 #' (out2 <- hierarchical_coverage_term(x, frequent_terms(x, 30)[[1]]))
 #' plot(out2, use.terms = TRUE)
 #' plot(out2, use.terms = TRUE, mark.one = TRUE)
-hierarchical_coverage_term <- function(x, terms, bound = TRUE, ignore.case = TRUE,
+hierarchical_coverage_term <- function(text.var, terms, bound = TRUE, ignore.case = TRUE,
     sort = FALSE, ...){
 
     unique <- cumulative <- NULL
@@ -40,9 +40,9 @@ hierarchical_coverage_term <- function(x, terms, bound = TRUE, ignore.case = TRU
     ic <- ifelse(ignore.case, "(?i)", "")
     if (bound) terms <- sprintf("%s(?<=^|[^a-z'])(%s)(?=$|[^a-z'])", ic, terms)
 
-    stopifnot(is.atomic(x))
+    stopifnot(is.atomic(text.var))
 
-    nx <- length(x)
+    nx <- length(text.var)
     nt <- length(terms)
     i <- 1
 
@@ -50,8 +50,8 @@ hierarchical_coverage_term <- function(x, terms, bound = TRUE, ignore.case = TRU
 
     while (sum(coverage) < 1 & i <= nt){
 
-        covterm <- grepl(terms[i], x, perl = TRUE, ignore.case = ignore.case)
-        x <- x[!covterm]
+        covterm <- grepl(terms[i], text.var, perl = TRUE, ignore.case = ignore.case)
+        text.var <- text.var[!covterm]
         coverage[i] <- sum(covterm)/nx
         i <- i + 1
 
@@ -61,7 +61,7 @@ hierarchical_coverage_term <- function(x, terms, bound = TRUE, ignore.case = TRU
     if (isTRUE(sort)) out <- dplyr::arrange(out, dplyr::desc(unique))
     out <- dplyr::mutate(out, cumulative = cumsum(unique))
     class(out) <- c("hierarchical_coverage_term", "data.frame")
-    attributes(out)[["remaining"]] <- x
+    attributes(out)[["remaining"]] <- text.var
     out
 }
 

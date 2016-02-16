@@ -4,7 +4,7 @@
 #' to provide stopword, min/max characters, and stemming with a generic \code{plot}
 #' function.
 #'
-#' @param x A vector of character strings.
+#' @param text.var A vector of character strings.
 #' @param n The number of rows to include.
 #' @param gram.length The length of ngram to generate (2-3).
 #' @param stopwords A vector of stopwords to exclude.
@@ -39,7 +39,7 @@
 #' plot(ngram_collocations(x, n = 40))
 #' plot(ngram_collocations(x, order.by = "dice"))
 #' plot(ngram_collocations(x, gram.length = 3))
-ngram_collocations <- function(x, n = 20, gram.length = 2,
+ngram_collocations <- function(text.var, n = 20, gram.length = 2,
     stopwords = tm::stopwords("en"), min.char = 4,
     max.char = Inf, order.by = "frequency", stem = FALSE, language = "porter", ...) {
 
@@ -54,17 +54,17 @@ ngram_collocations <- function(x, n = 20, gram.length = 2,
 
     ## stemming
     if (isTRUE(stem)) {
-        x <- stringi::stri_split_regex(x, "[[:space:]]|(?!')(?=[[:punct:]])")
-        lens <- sapply(x, length)
-        x <- SnowballC::wordStem(unlist(x), language = language)
+        text.var <- stringi::stri_split_regex(text.var, "[[:space:]]|(?!')(?=[[:punct:]])")
+        lens <- sapply(text.var, length)
+        text.var <- SnowballC::wordStem(unlist(text.var), language = language)
         if (! is.null(stopwords)) stopwords <- SnowballC::wordStem(stopwords, language = language)
         starts <- c(1, utils::head(cumsum(lens), -1) + 1)
-        x <- sapply(Map(function(s, e) {x[s:e]}, starts, c(starts[-1] - 1, length(x))), paste, collapse = " ")
+        text.var <- sapply(Map(function(s, e) {text.var[s:e]}, starts, c(starts[-1] - 1, length(text.var))), paste, collapse = " ")
 
     }
 
     ## use quanteda to calculate collocations
-    y <- quanteda::collocations(x, size=gram.length, n=200000, method = "all", ...)
+    y <- quanteda::collocations(text.var, size=gram.length, n=200000, method = "all", ...)
     y[["keeps"]] <- rowSums(!is.na(y)) > 0
     y <- y[which(keeps), ][, keeps := NULL]
 

@@ -3,7 +3,7 @@
 #' The unique coverage of a text vector by a regex after partitioning out the
 #' elements matched by previous regexes.
 #'
-#' @param x A text vector (vector of strings).
+#' @param text.var A text vector (vector of strings).
 #' @param term.list A list of named character vectors to match against \code{x}.
 #' @param ignore.case logical.  Should case be ignored in matching the
 #' \code{terms} against \code{x}?
@@ -37,10 +37,10 @@
 #'
 #' # Use unnamed vectors for `term.list` too
 #' hierarchical_coverage_regex(sam_i_am, unlist(regs, use.names = FALSE), ignore.case=FALSE)
-hierarchical_coverage_regex <- function(x, term.list, ignore.case = TRUE,
+hierarchical_coverage_regex <- function(text.var, term.list, ignore.case = TRUE,
     sort = FALSE, verbose = TRUE, ...){
 
-    stopifnot(is.atomic(x))
+    stopifnot(is.atomic(text.var))
 
     unique_prop <- unique_n <- unique <- cumulative <- NULL
     original <- terms
@@ -55,14 +55,14 @@ hierarchical_coverage_regex <- function(x, term.list, ignore.case = TRUE,
     if (anyNA(names(term.list))) names(term.list)[is.na(names(term.list))] <- "-"
 
 
-    orig_nx <- length(x)
+    orig_nx <- length(text.var)
     n <- coverage <- vector(mode="numeric", length=length(term.list))
     N <- NA
 
     for(i in seq_along(term.list)){
-        N <- length(x)
-        x <- grep_return_null(term.list[[i]], x, ignore.case = ignore.case)
-        n[i] <- (N - length(x))
+        N <- length(text.var)
+        text.var <- grep_return_null(term.list[[i]], text.var, ignore.case = ignore.case)
+        n[i] <- (N - length(text.var))
         coverage[i] <- n[i]/orig_nx
         if (isTRUE(verbose)) {
             cat(sprintf("%s of %s", i, length(term.list)), "\n"); flush.console()
@@ -83,11 +83,11 @@ hierarchical_coverage_regex <- function(x, term.list, ignore.case = TRUE,
 
     class(out) <- c("hierarchical_coverage_regex", "data.frame")
 
-    attributes(out)[["remaining"]] <- x
-    attributes(out)[["prop_covered"]] <- (orig_nx - length(x))/orig_nx
-    attributes(out)[["prop_uncovered"]] <- (length(x))/orig_nx
-    attributes(out)[["n_covered"]] <- orig_nx - length(x)
-    attributes(out)[["n_uncovered"]] <- length(x)
+    attributes(out)[["remaining"]] <- text.var
+    attributes(out)[["prop_covered"]] <- (orig_nx - length(text.var))/orig_nx
+    attributes(out)[["prop_uncovered"]] <- (length(text.var))/orig_nx
+    attributes(out)[["n_covered"]] <- orig_nx - length(text.var)
+    attributes(out)[["n_uncovered"]] <- length(text.var)
     attributes(out)[["n_original"]] <- orig_nx
 
     out
