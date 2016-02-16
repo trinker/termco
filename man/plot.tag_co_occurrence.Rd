@@ -8,8 +8,9 @@
   node.weight = 8, edge.color = "gray80", node.color = "orange",
   bar.color = node.color, font.color = "gray55",
   bar.font.color = ifelse(bar, "gray96", bar.color),
-  background.color = NULL, bar.font.size = TRUE, digits = 1,
-  min.edge.cutoff = 0.15, plot.widths = c(0.65, 0.35), bar = TRUE, ...)
+  background.color = NULL, bar.font.size = TRUE, node.font.size = 0.8,
+  digits = 1, min.edge.cutoff = 0.15, plot.widths = c(0.65, 0.35),
+  bar = TRUE, ...)
 }
 \arguments{
 \item{x}{A tag_co_occurrence object.}
@@ -35,6 +36,8 @@ network graph, otherwise the adjacency matrix is used.}
 
 \item{bar.font.size}{A font size for the bar/dotplot (mean co-occurrences).
 Default tries to calculate based on number of bars.}
+
+\item{node.font.size}{The \code{vertex.label.cex} for the node labels.}
 
 \item{digits}{The number of digits to print for bar/dotplot font (mean
 co-occurrences).}

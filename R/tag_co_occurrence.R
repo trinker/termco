@@ -122,6 +122,7 @@ tag_co_occurrence <- function(x, ...){
 #' @param background.color The plot background color.
 #' @param bar.font.size A font size for the bar/dotplot (mean co-occurrences).
 #' Default tries to calculate based on number of bars.
+#' @param node.font.size The \code{vertex.label.cex} for the node labels.
 #' @param digits The number of digits to print for bar/dotplot font (mean
 #' co-occurrences).
 #' @param min.edge.cutoff A minimum value to use as a cut-off in the network plot.
@@ -142,7 +143,7 @@ tag_co_occurrence <- function(x, ...){
 plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=8,
     edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
     bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
-    bar.font.size = TRUE, digits = 1, min.edge.cutoff = .15,
+    bar.font.size = TRUE, node.font.size = .8, digits = 1, min.edge.cutoff = .15,
     plot.widths = c(.65, .35), bar = TRUE, ...){
 
     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]
@@ -214,7 +215,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
         vertex.color = node.color,
         vertex.label.family = "sans",
         vertex.label.font = 1,
-        vertex.label.cex = .8,
+        vertex.label.cex = node.font.size,
         edge.color = edge.color,
         vertex.frame.color = NA,
         vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
