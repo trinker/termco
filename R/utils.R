@@ -156,3 +156,5 @@ spacer <- function(x){
     mc <- max(nchar(x))
     paste0(sapply(mc - sapply(x, nchar), function(y) paste(rep(" ", y), collapse = "")), x)
 }
+
+constrain <- function(x, lower, upper) ifelse(x < lower, lower, ifelse(x > upper, upper, x))

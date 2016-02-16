@@ -131,7 +131,8 @@ print.hierarchical_coverage_regex <- function(x, ...){
 #' @param \ldots ignored.
 #' @method plot hierarchical_coverage_regex
 #' @export
-plot.hierarchical_coverage_regex <- function(x, use.names = nrow(x) <= 30, mark.one = FALSE, sort = FALSE, ...){
+plot.hierarchical_coverage_regex <- function(x, use.names = nrow(x) <= 30,
+    mark.one = FALSE, sort = FALSE, ...){
 
     unique_prop <- unique_n <- NULL
     if (isTRUE(sort)) {

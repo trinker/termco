@@ -42,7 +42,7 @@
 #' plot(x, bar = FALSE)
 #'
 #' ## Example 2
-#' regs2 <- frequent_terms(presidential_debates_2012[["dialogue"]], n=40)[[1]]
+#' regs2 <- frequent_terms(presidential_debates_2012[["dialogue"]], n=50)[[1]]
 #' regs2 <- setNames(as.list(regs2), regs2)
 #'
 #' model2 <- with(presidential_debates_2012,
@@ -52,8 +52,12 @@
 #' x2 <- tag_co_occurrence(model2)
 #' plot(x2)
 #' plot(x2, bar = FALSE, min.edge.cutoff = .13)
+#' plot(x2, bar = FALSE, min.edge.cutoff = .18, node.color = "#ead453")
 #' plot(x2, node.weight = 3)
 #' plot(x2, edge.weight = 20, node.weight = 5)
+#'
+#' plot(x2, edge.color = "gray80", node.color = "grey50", font.color = "white",
+#'     background.color = "black")
 #'
 #' ## Small Number of Tags Example
 #' plot(tag_co_occurrence(markers), node.weight = 30)
@@ -113,6 +117,7 @@ tag_co_occurrence <- function(x, ...){
 #' @param bar.color A color for the bar fill; defaults to \code{node.color}.
 #' @param font.color A color for the node and axis text.
 #' @param bar.font.color A color for the bar/dotplot (mean co-occurrences).
+#' @param background.color The plot background color.
 #' @param bar.font.size A font size for the bar/dotplot (mean co-occurrences).
 #' Default tries to calculate based on number of bars.
 #' @param digits The number of digits to print for bar/dotplot font (mean
@@ -127,15 +132,20 @@ tag_co_occurrence <- function(x, ...){
 #' @param \ldots Other arguments passed to \code{\link[igraph]{plot.igraph}}.
 #' @method plot tag_co_occurrence
 #' @export
+#' @export plot.tag_co_occurrence
 plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=8,
     edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
-    bar.font.color = ifelse(bar, "gray96", bar.color), bar.font.size = TRUE, digits = 1,
-    min.edge.cutoff = .15, plot.widths = c(.65, .35), bar = TRUE, ...){
+    bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
+    bar.font.size = TRUE, digits = 1, min.edge.cutoff = .15,
+    plot.widths = c(.65, .35), bar = TRUE, ...){
 
     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]
     x[["ave_tag"]][["tag"]] <- factor(x[["ave_tag"]][["tag"]], levels=rev(x[["ave_tag"]][["tag"]]))
 
-    if (isTRUE(bar.font.size)) bar.font.size <- round((1/length(x[["ave_tag"]][["tag"]])) * 100)
+    if (isTRUE(bar.font.size)) {
+        bar.font.size <- constrain(round((1/length(x[["ave_tag"]][["tag"]])) * 100), 2.5, 9)
+
+    }
 
     ave_tags_plot <- ggplot2::ggplot(x[["ave_tag"]], ggplot2::aes_string(x="tag")) +
         {if (isTRUE(bar)) {
@@ -161,6 +171,12 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
              ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
         }}
 
+    if (!is.null(background.color)){
+        ave_tags_plot <- ave_tags_plot +
+            ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color))
+    }
+
+
     if (isTRUE(cor)){
         mat <- x[["min_max_adjacency"]]
     } else {
@@ -172,13 +188,20 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
     #igraph::V(graph)$node.size <- minmax_scale(x[["node_size"]]) + 1
 
     #Create figure window and layout
-    graphics::plot.new()
-    grid::grid.newpage()
-    grid::pushViewport(grid::viewport(layout = grid::grid.layout(1, ncol=2, widths = grid::unit(plot.widths, "npc"))))
+    widths <- 100*round(plot.widths/sum(plot.widths), 2)
+
 
     #Draw base plot
-    grid::pushViewport(grid::viewport(layout.pos.col = 1, width = grid::unit(.8, "npc")))
-    graphics::par(fig = gridBase::gridFIG(), mar=c(1, 1, 1, 1), new = TRUE)
+    if (!is.null(background.color)){
+        graphics::plot.new()
+        graphics::par(mar=c(1, 1, 1, 1), new = TRUE, bg=background.color)
+        graphics::layout(matrix(c(rep(1, widths[1]), rep(2, widths[2])), nrow = 1,  byrow = TRUE))
+    } else {
+        graphics::layout(matrix(c(rep(1, widths[1]), rep(2, widths[2])), nrow = 1,  byrow = TRUE))
+        graphics::plot.new()
+        graphics::par(mar=c(1, 1, 1, 1), new = TRUE)
+
+    }
 
     igraph::plot.igraph(
         igraph::delete.edges(graph, igraph::E(graph)[ weight < min.edge.cutoff]),
@@ -192,15 +215,12 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
         vertex.label.color = font.color, ...
     )
 
-    grid::popViewport()
-
     #Draw ggplot
-    grid::pushViewport(grid::viewport(layout.pos.col = 2, width = grid::unit(.2, "npc")))
-    print(ave_tags_plot, newpage = FALSE)
-    grid::popViewport()
+    graphics::plot.new()
+    vps <- gridBase::baseViewports()
+    print(ave_tags_plot, vp = grid::vpStack(vps$figure, vps$plot))
 
 }
-
 
 
 

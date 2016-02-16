@@ -52,7 +52,7 @@ plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
 plot(x, bar = FALSE)
 
 ## Example 2
-regs2 <- frequent_terms(presidential_debates_2012[["dialogue"]], n=40)[[1]]
+regs2 <- frequent_terms(presidential_debates_2012[["dialogue"]], n=50)[[1]]
 regs2 <- setNames(as.list(regs2), regs2)
 
 model2 <- with(presidential_debates_2012,
@@ -62,8 +62,12 @@ model2 <- with(presidential_debates_2012,
 x2 <- tag_co_occurrence(model2)
 plot(x2)
 plot(x2, bar = FALSE, min.edge.cutoff = .13)
+plot(x2, bar = FALSE, min.edge.cutoff = .18, node.color = "#ead453")
 plot(x2, node.weight = 3)
 plot(x2, edge.weight = 20, node.weight = 5)
+
+plot(x2, edge.color = "gray80", node.color = "grey50", font.color = "white",
+    background.color = "black")
 
 ## Small Number of Tags Example
 plot(tag_co_occurrence(markers), node.weight = 30)
