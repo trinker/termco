@@ -35,6 +35,8 @@
 #' barplot(sort(x[["node_size"]], TRUE), las=2)
 #' barplot(setNames(x[["ave_tag"]][[2]], x[["ave_tag"]][[1]]), las=2)
 #'
+#' ## Note. Restart the graphics device between plot calls if working
+#' ##       interactively. See `?plot.tag_co_occurrence` for details.
 #' plot(x)
 #' plot(x, cor=FALSE)
 #' plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")
@@ -130,6 +132,10 @@ tag_co_occurrence <- function(x, ...){
 #' @param bar logical.  If \code{TRUE} a bar plot is used as the second plot,
 #' otherwise a dotplot is used.
 #' @param \ldots Other arguments passed to \code{\link[igraph]{plot.igraph}}.
+#' @note The \code{\link[graphics]{par}} function is called in this function.
+#' This will globally reset the graphics device resulting in odd plots in
+#' the next call to \code{plot}.  If working interactively, restart the graphics
+#' device before plotting again.
 #' @method plot tag_co_occurrence
 #' @export
 #' @export plot.tag_co_occurrence

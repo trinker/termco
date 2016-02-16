@@ -45,6 +45,8 @@ heatmap(x[["min_max_adjacency"]])
 barplot(sort(x[["node_size"]], TRUE), las=2)
 barplot(setNames(x[["ave_tag"]][[2]], x[["ave_tag"]][[1]]), las=2)
 
+## Note. Restart the graphics device between plot calls if working
+##       interactively. See `?plot.tag_co_occurrence` for details.
 plot(x)
 plot(x, cor=FALSE)
 plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")

@@ -54,4 +54,10 @@ otherwise a dotplot is used.}
 \description{
 Plots a tag_co_occurrence object
 }
+\note{
+The \code{\link[graphics]{par}} function is called in this function.
+This will globally reset the graphics device resulting in odd plots in
+the next call to \code{plot}.  If working interactively, restart the graphics
+device before plotting again.
+}
 
