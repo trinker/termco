@@ -10,7 +10,7 @@
   bar.font.color = ifelse(bar, "gray96", bar.color),
   background.color = NULL, bar.font.size = TRUE, node.font.size = 0.8,
   digits = 1, min.edge.cutoff = 0.15, plot.widths = c(0.65, 0.35),
-  bar = TRUE, ...)
+  bar = TRUE, type = "both", ...)
 }
 \arguments{
 \item{x}{A tag_co_occurrence object.}
@@ -51,6 +51,10 @@ corresponding to the relative width of the network and  bar/dotplot.}
 
 \item{bar}{logical.  If \code{TRUE} a bar plot is used as the second plot,
 otherwise a dotplot is used.}
+
+\item{type}{The graph type (network & bar/dotplot).  Choices are:
+\code{"bar"}, \code{"network"}, or \code{"both"} corresponding to the graph
+type to print.}
 
 \item{\ldots}{Other arguments passed to \code{\link[igraph]{plot.igraph}}.}
 }

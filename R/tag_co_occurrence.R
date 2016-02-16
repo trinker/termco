@@ -132,6 +132,9 @@ tag_co_occurrence <- function(x, ...){
 #' corresponding to the relative width of the network and  bar/dotplot.
 #' @param bar logical.  If \code{TRUE} a bar plot is used as the second plot,
 #' otherwise a dotplot is used.
+#' @param type The graph type (network & bar/dotplot).  Choices are:
+#' \code{"bar"}, \code{"network"}, or \code{"both"} corresponding to the graph
+#' type to print.
 #' @param \ldots Other arguments passed to \code{\link[igraph]{plot.igraph}}.
 #' @note The \code{\link[graphics]{par}} function is called in this function.
 #' This will globally reset the graphics device resulting in odd plots in
@@ -144,7 +147,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
     edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
     bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
     bar.font.size = TRUE, node.font.size = .8, digits = 1, min.edge.cutoff = .15,
-    plot.widths = c(.65, .35), bar = TRUE, ...){
+    plot.widths = c(.65, .35), bar = TRUE, type = "both", ...){
 
     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]
     x[["ave_tag"]][["tag"]] <- factor(x[["ave_tag"]][["tag"]], levels=rev(x[["ave_tag"]][["tag"]]))
@@ -183,6 +186,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
             ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color))
     }
 
+    if (type == "bar") print(ave_tags_plot); return(invisible(ave_tags_plot))
 
     if (isTRUE(cor)){
         mat <- x[["min_max_adjacency"]]
@@ -197,6 +201,28 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
     #Create figure window and layout
     widths <- 100*round(plot.widths/sum(plot.widths), 2)
 
+    if (type == "network") {
+
+        if (!is.null(background.color)){
+            graphics::par(mar=c(1, 1, 1, 1), new = TRUE, bg=background.color)
+        } else {
+            graphics::par(mar=c(1, 1, 1, 1), new = TRUE)
+
+        }
+        igraph::plot.igraph(
+            igraph::delete.edges(graph, igraph::E(graph)[ weight < min.edge.cutoff]),
+            vertex.color = node.color,
+            vertex.label.family = "sans",
+            vertex.label.font = 1,
+            vertex.label.cex = node.font.size,
+            edge.color = edge.color,
+            vertex.frame.color = NA,
+            vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
+            vertex.label.color = font.color, ...
+        )
+        return(invisible(graph))
+
+    }
 
     #Draw base plot
     if (!is.null(background.color)){
@@ -227,6 +253,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
     vps <- gridBase::baseViewports()
     print(ave_tags_plot, vp = grid::vpStack(vps$figure, vps$plot))
 
+    return(invisible(graph, ave_tags_plot))
 }
 
 
