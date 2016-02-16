@@ -1191,17 +1191,19 @@ highlighting the distribution of the number of tags is useful, it only
 indicates if there is a problem, not where the problem lies. The
 `tag_co_occurrence` function produces a list of `data.frame` and
 `matrices` that aide in understanding how to improve discrimination.
-These are useful, but the `plot` method provides a visual view of the
-co-occurrences of tags.
+This list is useful, but the `plot` method provides an improved visual
+view of the co-occurrences of tags.
 
-In this particular case the plot combo is not complex because of the
-limited number of regex tags. As the number of tags increases the plot
-increases in complexity. The network plot on the left shows the strength
-of relationships between tags, while the plot on the right shows the
-average number of other tags that co-occur with each regex tag. The
-unconnected nodes and shorter bars represent the tags that provide the
-best discriminatory power, whereas the other tags have the potential to
-be redundant.
+The network plot on the left shows the strength of relationships between
+tags, while the plot on the right shows the average number of other tags
+that co-occur with each regex tag. In this particular case the plot
+combo is not complex because of the limited number of regex tags. Note
+that the edge strength is relative to all other edges. The strength has
+to be considered in the context of the average number of other tags that
+co-occur with each regex tag bar/dot plot on the right. As the number of
+tags increases the plot increases in complexity. The unconnected nodes
+and shorter bars represent the tags that provide the best discriminatory
+power, whereas the other tags have the potential to be redundant.
 
     tag_co_occurrence(model) %>%
         plot()
