@@ -186,7 +186,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
             ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color))
     }
 
-    if (type == "bar") print(ave_tags_plot); return(invisible(ave_tags_plot))
+    if (type == "bar") print(ave_tags_plot)#; return(invisible(ave_tags_plot))
 
     if (isTRUE(cor)){
         mat <- x[["min_max_adjacency"]]
@@ -220,40 +220,41 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
             vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
             vertex.label.color = font.color, ...
         )
-        return(invisible(graph))
+        #return(invisible(graph))
 
     }
 
-    #Draw base plot
-    if (!is.null(background.color)){
-        graphics::plot.new()
-        graphics::par(mar=c(1, 1, 1, 1), new = TRUE, bg=background.color)
-        graphics::layout(matrix(c(rep(1, widths[1]), rep(2, widths[2])), nrow = 1,  byrow = TRUE))
-    } else {
-        graphics::layout(matrix(c(rep(1, widths[1]), rep(2, widths[2])), nrow = 1,  byrow = TRUE))
-        graphics::plot.new()
-        graphics::par(mar=c(1, 1, 1, 1), new = TRUE)
+    if (type == "both") {
+        #Draw base plot
+        if (!is.null(background.color)){
+            graphics::plot.new()
+            graphics::par(mar=c(1, 1, 1, 1), new = TRUE, bg=background.color)
+            graphics::layout(matrix(c(rep(1, widths[1]), rep(2, widths[2])), nrow = 1,  byrow = TRUE))
+        } else {
+            graphics::layout(matrix(c(rep(1, widths[1]), rep(2, widths[2])), nrow = 1,  byrow = TRUE))
+            graphics::plot.new()
+            graphics::par(mar=c(1, 1, 1, 1), new = TRUE)
 
+        }
+
+        igraph::plot.igraph(
+            igraph::delete.edges(graph, igraph::E(graph)[ weight < min.edge.cutoff]),
+            vertex.color = node.color,
+            vertex.label.family = "sans",
+            vertex.label.font = 1,
+            vertex.label.cex = node.font.size,
+            edge.color = edge.color,
+            vertex.frame.color = NA,
+            vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
+            vertex.label.color = font.color, ...
+        )
+
+        #Draw ggplot
+        graphics::plot.new()
+        vps <- gridBase::baseViewports()
+        print(ave_tags_plot, vp = grid::vpStack(vps$figure, vps$plot))
     }
-
-    igraph::plot.igraph(
-        igraph::delete.edges(graph, igraph::E(graph)[ weight < min.edge.cutoff]),
-        vertex.color = node.color,
-        vertex.label.family = "sans",
-        vertex.label.font = 1,
-        vertex.label.cex = node.font.size,
-        edge.color = edge.color,
-        vertex.frame.color = NA,
-        vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
-        vertex.label.color = font.color, ...
-    )
-
-    #Draw ggplot
-    graphics::plot.new()
-    vps <- gridBase::baseViewports()
-    print(ave_tags_plot, vp = grid::vpStack(vps$figure, vps$plot))
-
-    return(invisible(graph, ave_tags_plot))
+    #return(invisible(graph, ave_tags_plot))
 }
 
 
