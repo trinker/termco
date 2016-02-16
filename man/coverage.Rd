@@ -12,7 +12,7 @@ coverage(x, ...)
 \item{\ldots}{Ignored.}
 }
 \value{
-\code{termc_count} - Returns a proportion of elements covered by the search.
+\code{term_count} - Returns a proportion of elements covered by the search.
 
 \code{coverage.term_count} - Returns a list:
 \item{not}{A logical vector of all rows not covered (row sums equal zero)}
@@ -20,6 +20,10 @@ coverage(x, ...)
 \item{coverage}{The percentage rate of \deqn{\frac{covered}{not + covered}}{covered/(not + covered)}}
 \item{n_covered}{The row sums of the unique terms}
 \item{total_terms}{The row sums of the terms}
+\item{hierarchical_covered*}{A hierarchical list (matching the \code{term.list} structure) of logical vectors of all rows covered (row sums greater than zero)}
+\item{hierarchical_n_covered*}{A hierarchical vector (matching the \code{term.list} structure) of the row sums of the unique terms}
+\item{hierarchical_coverage*}{A hierarchical vector (matching the \code{term.list} structure) of the percentage rate of \deqn{\frac{covered}{not + covered}}{covered/(not + covered)}}
+*\emph{Only applies to \code{term_count} output that was generated with a hierarchical \code{term.list}}
 }
 \description{
 \code{coverage} - Get coverage of a logical vector, \code{term_count}, or \code{search_term} object.

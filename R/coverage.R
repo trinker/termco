@@ -9,13 +9,17 @@
 #' location of non-covered rows for easy extraction.
 #'
 #' @export
-#' @return \code{termc_count} - Returns a proportion of elements covered by the search.
+#' @return \code{term_count} - Returns a proportion of elements covered by the search.
 #' @return \code{coverage.term_count} - Returns a list:
 #' \item{not}{A logical vector of all rows not covered (row sums equal zero)}
 #' \item{covered}{A logical vector of all rows covered (row sums greater than zero)}
 #' \item{coverage}{The percentage rate of \deqn{\frac{covered}{not + covered}}{covered/(not + covered)}}
 #' \item{n_covered}{The row sums of the unique terms}
 #' \item{total_terms}{The row sums of the terms}
+#' \item{hierarchical_covered*}{A hierarchical list (matching the \code{term.list} structure) of logical vectors of all rows covered (row sums greater than zero)}
+#' \item{hierarchical_n_covered*}{A hierarchical vector (matching the \code{term.list} structure) of the row sums of the unique terms}
+#' \item{hierarchical_coverage*}{A hierarchical vector (matching the \code{term.list} structure) of the percentage rate of \deqn{\frac{covered}{not + covered}}{covered/(not + covered)}}
+#' *\emph{Only applies to \code{term_count} output that was generated with a hierarchical \code{term.list}}
 #' @export
 #' @keywords coverage
 #' @examples
@@ -113,7 +117,7 @@ coverage.hierarchical_term_count <- function(x, ...){
 
     cover <- coverage.term_count(x)
 
-    cover[["hierarchical_covered"]] <- n_increased
+    cover[["hierarchical_covered"]] <- increased
     cover[["hierarchical_n_covered"]] <- n_increased
     cover[["hierarchical_coverage"]] <- n_increased/nrow(x)
 
