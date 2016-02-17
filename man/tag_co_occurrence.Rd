@@ -14,7 +14,7 @@ tag_co_occurrence(x, ...)
 \value{
 Returns a list of:
 \item{ave_tag}{A 2 column data.frame of tags and the average number of other tags that co-occur with it.}
-\item{min_max_cor}{A min-max scaled correlation matrix between tags; diagonals set to 0.}
+\item{cor}{A min-max scaled correlation matrix between tags; diagonals set to 0.}
 \item{min_max_adjacency}{A min-max scaled adjacency matrix between tags; diagonals set to 0.}
 \item{node_size}{The diagonals from the adjacency matrix; the number of times a tag occurred.}
 }
@@ -40,7 +40,7 @@ setNames(
     lapply(names(x), function(a) {if(is.matrix(x[[a]])){ round(x[[a]], 2)} else { x[[a]] }}),
     names(x)
 )
-heatmap(x[["min_max_cor"]])
+heatmap(x[["cor"]])
 heatmap(x[["min_max_adjacency"]])
 barplot(sort(x[["node_size"]], TRUE), las=2)
 barplot(setNames(x[["ave_tag"]][[2]], x[["ave_tag"]][[1]]), las=2)
