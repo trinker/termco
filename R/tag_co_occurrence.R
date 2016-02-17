@@ -146,7 +146,7 @@ tag_co_occurrence <- function(x, ...){
 plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=8,
     edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
     bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
-    bar.font.size = TRUE, node.font.size = .8, digits = 1, min.edge.cutoff = .15,
+    bar.font.size = TRUE, node.font.size = 1.08, digits = 1, min.edge.cutoff = .15,
     plot.widths = c(.65, .35), bar = TRUE, type = "both", ...){
 
     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]

@@ -8,7 +8,7 @@
   node.weight = 8, edge.color = "gray80", node.color = "orange",
   bar.color = node.color, font.color = "gray55",
   bar.font.color = ifelse(bar, "gray96", bar.color),
-  background.color = NULL, bar.font.size = TRUE, node.font.size = 0.8,
+  background.color = NULL, bar.font.size = TRUE, node.font.size = 1.08,
   digits = 1, min.edge.cutoff = 0.15, plot.widths = c(0.65, 0.35),
   bar = TRUE, type = "both", ...)
 }
