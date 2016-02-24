@@ -60,6 +60,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `coverage`                   | modeling     | Coverage for `term_count` or `search_term` object |
 | `uncovered`/`get_uncovered`  | modeling     | Get the uncovered text from a model               |
 | `tag_co_occurrence`          | modeling     | Explor co-occurrence of tags from a model         |
+| `validate_model`/`assign_validation_task` | modeling | Human validation of a `term_count` model |
 | `as_count`                   | convert      | Strip pretty printing from `term_count` object    |
 | `as_terms`                   | convert      | Convert a count matrix to list of term vectors    |
 | `weight`                     | convert      | Weight a `term_count` object proportion/percent   |
@@ -472,6 +473,8 @@ classify(model) %>%
 
 ## Accuracy
 
+### Pre Coded Data
+
 The user may be interested in testing the accuracy of the model against a known, human coded sample.  The `accuracy` function allows the researcher to test a model's accuracy.  In the example below I randomly generate "known human coded tagged" vector.  Obviously, this is for demonstration purposes.  The model outputs a pretty printing of a list. The printing contains: 
 
 | Printed    |  Description                                          | Accessed |
@@ -521,6 +524,30 @@ fake_known2[multi] <- lapply(fake_known2[multi], sample)
 accuracy(mod2, fake_known2)
 ```
 
+### Post Coding Data
+
+It is often useful to validate a model via human evaluation; checking that text is being tagged as expected.  The `validate_model` provides an interactive interface for a single evaluator to sample n tags and corresponding texts and assess the accuracy of the tag to the text.  The `assign_validation_task` generates an external file(s) for n coders for redundancy of code assessments.  This may be of use in [Mechanical Turk](https://www.mturk.com/mturk/welcome) type applications.  The example below demonstrates `validate_model`'s `print`/`summary` and `plot` outputs.
+
+```{r, eval = FALSE}
+validated <- model %>%
+    validate_model()
+```
+
+```{r, results='hide'}
+data(validated)
+```
+
+
+After `validate_model` has been run the `print`/`summary` and `plot` provides an accuracy of each tag and a confidence level (note that the confidence band is highly affected by the number of samples per tag).
+
+```{r}
+validated
+plot(validated)
+```
+
+
 These examples give guidance on how to use the tools in the **termco** package to build an expert rules, regular expression text classification model.
+
+
 
 

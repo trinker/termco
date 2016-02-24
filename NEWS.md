@@ -17,7 +17,6 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-
 termco 0.2.0
 ----------------------------------------------------------------
 
@@ -28,6 +27,17 @@ termco 0.2.0
 **MINOR FEATURES**
 
 IMPROVEMENTS
+
+**CHANGES**
+
+
+termco 0.2.0
+----------------------------------------------------------------
+
+**NEW FEATURES**
+
+* `validate_model` and `assign_validation_task` added to allow for human
+  assessment of how accurate a model is functioning.
 
 **CHANGES**
 

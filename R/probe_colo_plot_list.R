@@ -20,7 +20,7 @@
 #' setting \code{options(termco.copy2clip = TRUE)}.
 #' @param ldots A string (starting with a comma) of additional arguments to
 #' include in the \code{frequent_terms} function of the list of function calls.
-#' @return \code[Vprobe_colo_plot_list} - Returns a string with the concatenated
+#' @return \code{Vprobe_colo_plot_list} - Returns a string with the concatenated
 #' function calls.  The print method separates the concatenated string into new
 #' line function calls.  If \code{copy2clip = TRUE} the calls are easily pasted
 #' for use in exploration of the terms in the text data set.

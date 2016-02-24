@@ -37,6 +37,12 @@ include in the \code{frequent_terms} function of the list of function calls.}
 
 \item{\ldots}{Other arguments passed to frequent terms.}
 }
+\value{
+\code{Vprobe_colo_plot_list} - Returns a string with the concatenated
+function calls.  The print method separates the concatenated string into new
+line function calls.  If \code{copy2clip = TRUE} the calls are easily pasted
+for use in exploration of the terms in the text data set.
+}
 \description{
 \code{probe_colo_plot_list} - The task of determining the regexes used to
 feed a \code{term_count} object's \code{term.list} requires careful

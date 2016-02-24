@@ -68,3 +68,21 @@ NULL
 NULL
 
 
+
+
+#' A Simulated \code{validate_model} Output
+#'
+#' A dataset containing similated \code{validate_model} output.
+#'
+#' @details
+#' \itemize{
+#'   \item tag. The tag.
+#'   \item correct. Dummy coded if the tag correctly assessed the text.
+#' }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name validated
+#' @usage data(validated)
+#' @format A data frame with 65 rows and 2 variables
+NULL

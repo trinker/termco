@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.2.0-orange.svg"><img src="https://img.shields.io/badge/Version-0.2.0-orange.svg" alt="Version"/></a>
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.3.0-orange.svg"><img src="https://img.shields.io/badge/Version-0.3.0-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
@@ -49,6 +49,8 @@ Table of Contents
         -   [[Improving Discrimination](#improving-discrimination)](#[improving-discrimination](#improving-discrimination))
     -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
     -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
+        -   [[Pre Coded Data](#pre-coded-data)](#[pre-coded-data](#pre-coded-data))
+        -   [[Post Coding Data](#post-coding-data)](#[post-coding-data](#post-coding-data))
 
 Functions
 ============
@@ -160,56 +162,61 @@ their description:
 <td align="left">Explor co-occurrence of tags from a model</td>
 </tr>
 <tr class="odd">
+<td align="left"><code>validate_model</code>/<code>assign_validation_task</code></td>
+<td align="left">modeling</td>
+<td align="left">Human validation of a <code>term_count</code> model</td>
+</tr>
+<tr class="even">
 <td align="left"><code>as_count</code></td>
 <td align="left">convert</td>
 <td align="left">Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>as_terms</code></td>
 <td align="left">convert</td>
 <td align="left">Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>weight</code></td>
 <td align="left">convert</td>
 <td align="left">Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_ca</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_counts</code></td>
 <td align="left">plot</td>
 <td align="left">Horizontal bar plot of group counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_freq</code></td>
 <td align="left">plot</td>
 <td align="left">Vertical bar plot of frequencies of counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_cum_percent</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_colo_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term_collocations</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_colo_plot_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_colo_plot</code></td>
 <td align="left">probe</td>
 <td align="left">Plot <code>probe_colo_plot_list</code> directly</td>
@@ -1246,6 +1253,8 @@ may be returned) as well as a `table` and plot of the counts. Use
 Accuracy
 --------
 
+### Pre Coded Data
+
 The user may be interested in testing the accuracy of the model against
 a known, human coded sample. The `accuracy` function allows the
 researcher to test a model's accuracy. In the example below I randomly
@@ -1355,6 +1364,47 @@ count for that text element; order for ties is broken randomly).
     ## Ordered:   99.4%
     ## Adjusted:  99.7%
     ## Unordered: 100.0%
+
+### Post Coding Data
+
+It is often useful to validate a model via human evaluation; checking
+that text is being tagged as expected. The `validate_model` provides an
+interactive interface for a single evaluator to sample n tags and
+corresponding texts and assess the accuracy of the tag to the text. The
+`assign_validation_task` generates an external file(s) for n coders for
+redundancy of code assessments. This may be of use in [Mechanical
+Turk](https://www.mturk.com/mturk/welcome) type applications. The
+example below demonstrates `validate_model`'s `print`/`summary` and
+`plot` outputs.
+
+    validated <- model %>%
+        validate_model()
+
+    data(validated)
+
+After `validate_model` has been run the `print`/`summary` and `plot`
+provides an accuracy of each tag and a confidence level (note that the
+confidence band is highly affected by the number of samples per tag).
+
+    validated
+
+    ## -------
+    ## Overall:
+    ## -------
+    ##    accuracy  n  se lower upper
+    ## 1:    84.6% 65 .04 75.8% 93.4%
+    ## 
+    ## 
+    ## ---------------
+    ## Individual tags:
+    ## ---------------
+    ##               tag accuracy  n  se lower  upper
+    ## 1: response_cries    94.7% 19 .05 84.7% 100.0%
+    ## 2:  justification    85.0% 20 .08 69.4% 100.0%
+    ## 3:  back_channels    83.3%  6 .15 53.5% 100.0%
+    ## 4:        summons    75.0% 20 .10 56.0%  94.0%
+
+    plot(validated)
 
 These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification

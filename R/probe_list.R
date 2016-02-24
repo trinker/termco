@@ -21,7 +21,7 @@
 #' @export
 #' @family probe functions
 #' @examples
-#' probe_list(c("thank", "\\bthe\"", "ee"), "sam_i_am")
+#' probe_list(c("thank", "\\bthe", "ee"), "sam_i_am")
 #'
 #' txt <- presidential_debates_2012[["dialogue"]]
 #' terms <- frequent_terms(txt)[["term"]]

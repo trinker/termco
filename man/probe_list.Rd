@@ -31,6 +31,17 @@ The task of determining the regexes used to feed a \code{term_count} object's
 function generates a list of function calls for \code{search_term} with a
 user predefined data set and term list.
 }
+\examples{
+probe_list(c("thank", "\\\\bthe", "ee"), "sam_i_am")
+
+txt <- presidential_debates_2012[["dialogue"]]
+terms <- frequent_terms(txt)[["term"]]
+probe_list(terms, "txt")
+
+\dontrun{
+probe_list(terms, "txt", copy2clip = TRUE)
+}
+}
 \seealso{
 Other probe functions: \code{\link{probe_colo_list}},
   \code{\link{probe_colo_plot_list}}
