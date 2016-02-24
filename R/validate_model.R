@@ -182,7 +182,8 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
         ggplot2::theme_bw() +
         ggplot2::scale_color_manual(values=c("blue", "grey60")) +
         ggplot2::scale_shape_manual(values=c(18, 15)) +
-        ggplot2::scale_size_manual(values=c(4, 3))
+        ggplot2::scale_size_manual(values=c(4, 3)) +
+        ggplot2::theme(legend.position="none")
 }
 
 #' Manual Assessment of a Model
