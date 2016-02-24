@@ -485,7 +485,7 @@ validated <- model %>%
     validate_model()
 ```
 
-```{r,  results='hide'}
+```{r, echo=FALSE, results='hide'}
 data(validated)
 ```
 

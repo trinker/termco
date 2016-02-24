@@ -533,7 +533,7 @@ validated <- model %>%
     validate_model()
 ```
 
-```{r, results='hide'}
+```{r, results='hide', echo=FALSE}
 data(validated)
 ```
 

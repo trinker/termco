@@ -1380,8 +1380,6 @@ example below demonstrates `validate_model`'s `print`/`summary` and
     validated <- model %>%
         validate_model()
 
-    data(validated)
-
 After `validate_model` has been run the `print`/`summary` and `plot`
 provides an accuracy of each tag and a confidence level (note that the
 confidence band is highly affected by the number of samples per tag).
@@ -1405,6 +1403,8 @@ confidence band is highly affected by the number of samples per tag).
     ## 4:        summons    75.0% 20 .10 56.0%  94.0%
 
     plot(validated)
+
+![](inst/figure/unnamed-chunk-40-1.png)
 
 These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification

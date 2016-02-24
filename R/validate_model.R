@@ -169,7 +169,7 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
         overall := factor(ifelse(tag == 'Model', 'Overall', 'Tags'), levels = c('Overall', 'Tags'))][]
 
 
-    tags <- ggplot2::ggplot(dat2, ggplot2::aes_string(x = 'accuracy', y = 'tag',
+    ggplot2::ggplot(dat2, ggplot2::aes_string(x = 'accuracy', y = 'tag',
         xmin = 'lower', xmax = 'upper')) +
         ggplot2::geom_vline(xintercept = .5, linetype='dashed', size = .9, color='blue', alpha = .2) +
         ggplot2::geom_errorbarh(size = size, height = height,  ggplot2::aes_string(color='overall')) +
