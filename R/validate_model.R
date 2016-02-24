@@ -122,7 +122,7 @@ print.summary.validate_model <- function(x, digits = 1, ...){
 
     cat("\n\n")
     cat(paste0(paste(rep("-", 15), collapse=""), "\n"))
-    cat("Individual tags:\n")
+    cat("Individual Tags:\n")
     cat(paste0(paste(rep("-", 15), collapse=""), "\n"))
     print(data.table::data.table(x)[, 'accuracy' := pp(100*accuracy, digits = digits)][,
         'lower' := pp(100*lower, digits = digits)][,
@@ -178,7 +178,7 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
             limits = c(min(0, min(dat[['lower']])), max(1, max(dat[['upper']]))),
             breaks = c(0, .25, .5, .75, 1)) +
         ggplot2::facet_grid(overall~., scales='free', space='free') +
-        ggplot2::labs(x = "Accuracy", y = "Tag", title="Model Tagging Accuracy") +
+        ggplot2::labs(x = "Accuracy", y = NULL, title="Model Tagging Accuracy") +
         ggplot2::theme_bw() +
         ggplot2::scale_color_manual(values=c("blue", "grey60")) +
         ggplot2::scale_shape_manual(values=c(18, 15)) +

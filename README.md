@@ -1394,7 +1394,7 @@ confidence band is highly affected by the number of samples per tag).
     ## 
     ## 
     ## ---------------
-    ## Individual tags:
+    ## Individual Tags:
     ## ---------------
     ##               tag accuracy  n  se lower  upper
     ## 1: response_cries    94.7% 19 .05 84.7% 100.0%
