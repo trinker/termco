@@ -11,6 +11,7 @@
 #' @return Returns a list of:
 #' \item{ave_tag}{A 2 column data.frame of tags and the average number of other tags that co-occur with it.}
 #' \item{cor}{A min-max scaled correlation matrix between tags; diagonals set to 0.}
+#' \item{adjacency}{An adjacency matrix between tags.}
 #' \item{min_max_adjacency}{A min-max scaled adjacency matrix between tags; diagonals set to 0.}
 #' \item{node_size}{The diagonals from the adjacency matrix; the number of times a tag occurred.}
 #' @export
@@ -74,7 +75,7 @@ tag_co_occurrence <- function(x, ...){
     node_size <- diag(adjmat)
     diag(adjmat) <- 0
 
-    adjmat <- minmax_scale(adjmat)
+    min_max_adjmat <- minmax_scale(adjmat)
 
     cc <- cor(as.matrix(x[, attributes(x)[["term.vars"]]]))
     diag(cc) <- 0
@@ -82,7 +83,7 @@ tag_co_occurrence <- function(x, ...){
     diag(cc) <- 0
 
     tags <- textshape::bind_list(classify(x, Inf), "id", "tag")[,
-        tag := ifelse(is.na(tag), "<<no tag>>", tag)]
+                                                                tag := ifelse(is.na(tag), "<<no tag>>", tag)]
     data.table::setkey(tags, "tag")
 
     tags2 <- data.table::copy(tags)
@@ -98,7 +99,7 @@ tag_co_occurrence <- function(x, ...){
     })), "tag", "ave")[order(-ave)][, tag := factor(tag, levels=tag)][]
 
     out <- list(ave_tag = data.frame(ave_tags, stringsAsFactors = FALSE),
-        cor = cc, min_max_adjacency = adjmat, node_size = node_size)
+                cor = cc, adjacency = adjmat, min_max_adjacency = min_max_adjmat, node_size = node_size)
     class(out) <- "tag_co_occurrence"
     out
 
@@ -144,10 +145,10 @@ tag_co_occurrence <- function(x, ...){
 #' @export
 #' @export plot.tag_co_occurrence
 plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=8,
-    edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
-    bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
-    bar.font.size = TRUE, node.font.size = 1.08, digits = 1, min.edge.cutoff = .15,
-    plot.widths = c(.65, .35), bar = TRUE, type = "both", ...){
+                                   edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
+                                   bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
+                                   bar.font.size = TRUE, node.font.size = 1.08, digits = 1, min.edge.cutoff = .15,
+                                   plot.widths = c(.65, .35), bar = TRUE, type = "both", ...){
 
     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]
     x[["ave_tag"]][["tag"]] <- factor(x[["ave_tag"]][["tag"]], levels=rev(x[["ave_tag"]][["tag"]]))
@@ -157,11 +158,11 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
     }
 
     ave_tags_plot <- ggplot2::ggplot(x[["ave_tag"]], ggplot2::aes_string(x="tag")) +
-        {if (isTRUE(bar)) {
-            ggplot2::geom_bar(stat = "identity", ggplot2::aes_string(y='ave'), fill=bar.color)
-        } else {
-            ggplot2::geom_point(stat = "identity", ggplot2::aes_string(y='ave'), size = 2, color=bar.color)
-        }} +
+    {if (isTRUE(bar)) {
+        ggplot2::geom_bar(stat = "identity", ggplot2::aes_string(y='ave'), fill=bar.color)
+    } else {
+        ggplot2::geom_point(stat = "identity", ggplot2::aes_string(y='ave'), size = 2, color=bar.color)
+    }} +
         ggplot2::coord_flip() +
         ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, max(x[["ave_tag"]][["ave"]]) * 1.01)) +
         ggplot2::geom_text(ggplot2::aes(label=f(ave, digits), y=.02), color=bar.font.color, size=bar.font.size, hjust=0) +
@@ -175,9 +176,9 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
             axis.title = ggplot2::element_text(color = font.color, size=12)
         ) +
         {if (isTRUE(bar)) {
-             ggplot2::theme(panel.grid.major = ggplot2::element_blank())
-         } else {
-             ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
+            ggplot2::theme(panel.grid.major = ggplot2::element_blank())
+        } else {
+            ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
         }}
 
     if (!is.null(background.color)){
