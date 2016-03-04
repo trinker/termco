@@ -189,9 +189,9 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
     if (type == "bar") print(ave_tags_plot)#; return(invisible(ave_tags_plot))
 
     if (isTRUE(cor)){
-        mat <- x[["min_max_adjacency"]]
-    } else {
         mat <- x[["cor"]]
+    } else {
+        mat <- x[["min_max_adjacency"]]
     }
 
     graph <- igraph::graph.adjacency(mat, weighted=TRUE, mode="lower")
