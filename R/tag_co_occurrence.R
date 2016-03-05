@@ -44,6 +44,57 @@
 #' plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
 #' plot(x, bar = FALSE)
 #'
+#' \dontrun{
+#' ##===============================================
+#' ## Interactive chord diagram and network graph of
+#' ## tag co-occurrence
+#' ##===============================================
+#'
+#' ## Load Required Add-on Packages
+#' if (!require("pacman")) install.packages("pacman")
+#' pacman::p_load(igraph, qrage)
+#' pacman::p_load_gh("mattflor/chorddiag", "trinker/textshape")
+#'
+#' ## Matrix Manipulation Function
+#' remove_diags <- function(mat, rm.lower = FALSE, order = TRUE, ...) {
+#'     diag(mat) <- 0
+#'     if (isTRUE(rm.lower)) mat[lower.tri(mat)] <- 0
+#'     if (order) {
+#'         ord <- order(rowSums(mat))
+#'         mat <- mat[ord, ord]
+#'     }
+#'     mat
+#' }
+#'
+#' ##--------------
+#' ## Chord Diagram
+#' ##--------------
+#' chorddiag::chorddiag(
+#'     remove_diags(x[["adjacency"]]),
+#'     margin = 150,
+#'     showTicks =FALSE,
+#'     groupnamePadding = 5,
+#'     groupThickness = .05,
+#'     chordedgeColor = NA
+#' )
+#'
+#' ##--------------
+#' ## Network Graph
+#' ##--------------
+#' graph <- igraph::graph.adjacency(
+#'     remove_diags(x[["adjacency"]], order=FALSE),
+#'     weighted = TRUE
+#' )
+#'
+#' linkdf <- stats::setNames(get.data.frame(graph), c("source", "target", "value"))
+#'
+#' qrage::qrage(
+#'     links = linkdf,
+#'     nodeValue = textshape::bind_vector(x[['node_size']]),
+#'     cut = 0.1
+#' )
+#' }
+#'
 #' ## Example 2
 #' regs2 <- frequent_terms(presidential_debates_2012[["dialogue"]], n=50)[[1]]
 #' regs2 <- setNames(as.list(regs2), regs2)

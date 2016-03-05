@@ -15,6 +15,7 @@ tag_co_occurrence(x, ...)
 Returns a list of:
 \item{ave_tag}{A 2 column data.frame of tags and the average number of other tags that co-occur with it.}
 \item{cor}{A min-max scaled correlation matrix between tags; diagonals set to 0.}
+\item{adjacency}{An adjacency matrix between tags.}
 \item{min_max_adjacency}{A min-max scaled adjacency matrix between tags; diagonals set to 0.}
 \item{node_size}{The diagonals from the adjacency matrix; the number of times a tag occurred.}
 }
