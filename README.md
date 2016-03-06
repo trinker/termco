@@ -574,7 +574,7 @@ are additional observations.
     ## |...
 
 The training set can be accessed via `pres_deb_split$train`; likewise,
-the test set can be accessed by way of `pres_deb_split$train`.
+the test set can be accessed by way of `pres_deb_split$test`.
 
 Here I show splitting by integer.
 
