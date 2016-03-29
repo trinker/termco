@@ -26,31 +26,31 @@ substrings.
 Table of Contents
 ============
 
--   [[Functions](#functions)](#[functions](#functions))
--   [[Installation](#installation)](#[installation](#installation))
--   [[Contact](#contact)](#[contact](#contact))
--   [[Examples](#examples)](#[examples](#examples))
-    -   [[Load the Tools/Data](#load-the-toolsdata)](#[load-the-toolsdata](#load-the-toolsdata))
-    -   [[Build Counts Dataframe](#build-counts-dataframe)](#[build-counts-dataframe](#build-counts-dataframe))
-    -   [[Printing](#printing)](#[printing](#printing))
-    -   [[Plotting](#plotting)](#[plotting](#plotting))
-    -   [[Ngram Collocations](#ngram-collocations)](#[ngram-collocations](#ngram-collocations))
-        -   [[Collocation Plotting](#collocation-plotting)](#[collocation-plotting](#collocation-plotting))
--   [[Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)](#[building-an-expert-rules-regex-classifier-model](#building-an-expert-rules-regex-classifier-model))
-    -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
-    -   [[Splitting Data](#splitting-data)](#[splitting-data](#splitting-data))
-    -   [[Understanding Term Use](#understanding-term-use)](#[understanding-term-use](#understanding-term-use))
-        -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
-        -   [[View Most Used Words in Context](#view-most-used-words-in-context)](#[view-most-used-words-in-context](#view-most-used-words-in-context))
-    -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
-    -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
-    -   [[Improving the Model](#improving-the-model)](#[improving-the-model](#improving-the-model))
-        -   [[Improving Coverage](#improving-coverage)](#[improving-coverage](#improving-coverage))
-        -   [[Improving Discrimination](#improving-discrimination)](#[improving-discrimination](#improving-discrimination))
-    -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
-    -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
-        -   [[Pre Coded Data](#pre-coded-data)](#[pre-coded-data](#pre-coded-data))
-        -   [[Post Coding Data](#post-coding-data)](#[post-coding-data](#post-coding-data))
+-   [Functions](#functions)
+-   [Installation](#installation)
+-   [Contact](#contact)
+-   [Examples](#examples)
+    -   [Load the Tools/Data](#load-the-toolsdata)
+    -   [Build Counts Dataframe](#build-counts-dataframe)
+    -   [Printing](#printing)
+    -   [Plotting](#plotting)
+    -   [Ngram Collocations](#ngram-collocations)
+        -   [Collocation Plotting](#collocation-plotting)
+-   [Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)
+    -   [Load the Tools/Data](#load-the-toolsdata-1)
+    -   [Splitting Data](#splitting-data)
+    -   [Understanding Term Use](#understanding-term-use)
+        -   [View Most Used Words](#view-most-used-words)
+        -   [View Most Used Words in Context](#view-most-used-words-in-context)
+    -   [Building the Model](#building-the-model)
+    -   [Testing the Model](#testing-the-model)
+    -   [Improving the Model](#improving-the-model)
+        -   [Improving Coverage](#improving-coverage)
+        -   [Improving Discrimination](#improving-discrimination)
+    -   [Categorizing/Tagging](#categorizingtagging)
+    -   [Accuracy](#accuracy)
+        -   [Pre Coded Data](#pre-coded-data)
+        -   [Post Coding Data](#post-coding-data)
 
 Functions
 ============
@@ -241,11 +241,10 @@ development version:
 Contact
 =======
 
-You are welcome to: 
-* submit suggestions and bug-reports at: <https://github.com/trinker/termco/issues> 
-* send a pull request on: <https://github.com/trinker/termco/> 
-* compose a friendly e-mail to: <tyler.rinker@gmail.com>
-
+You are welcome to:    
+- submit suggestions and bug-reports at: <https://github.com/trinker/termco/issues>    
+- send a pull request on: <https://github.com/trinker/termco/>    
+- compose a friendly e-mail to: <tyler.rinker@gmail.com>    
 
 Examples
 ========
@@ -280,7 +279,7 @@ Build Counts Dataframe
     ## Source: local data frame [10 x 7]
     ## 
     ##       person   time n.words back_channels justification response_cries
-    ##       (fctr) (fctr)   (int)         (chr)         (chr)          (chr)
+    ##       <fctr> <fctr>   <int>         <chr>         <chr>          <chr>
     ## 1      OBAMA time 1    3599             0      26(.72%)        3(.08%)
     ## 2      OBAMA time 2    7477             0      29(.39%)        2(.03%)
     ## 3      OBAMA time 3    7243       1(.01%)      33(.46%)        1(.01%)
@@ -291,7 +290,7 @@ Build Counts Dataframe
     ## 8     LEHRER time 1     765       3(.39%)             0        3(.39%)
     ## 9   QUESTION time 2     583             0       2(.34%)        2(.34%)
     ## 10 SCHIEFFER time 3    1445             0       6(.42%)              0
-    ## Variables not shown: summons (chr)
+    ## Variables not shown: summons <chr>.
 
 Printing
 --------
@@ -302,7 +301,7 @@ Printing
     ## Source: local data frame [10 x 7]
     ## 
     ##       person   time n.words response_cries back_channels summons
-    ##       (fctr) (fctr)   (int)          (int)         (int)   (int)
+    ##       <fctr> <fctr>   <int>          <int>         <int>   <int>
     ## 1      OBAMA time 1    3599              3             0      43
     ## 2      OBAMA time 2    7477              2             0      42
     ## 3      OBAMA time 3    7243              1             1      58
@@ -313,7 +312,7 @@ Printing
     ## 8     LEHRER time 1     765              3             3       0
     ## 9   QUESTION time 2     583              2             0       0
     ## 10 SCHIEFFER time 3    1445              0             0       2
-    ## Variables not shown: justification (int)
+    ## Variables not shown: justification <int>.
 
     print(counts, zero.replace = "_")
 
@@ -321,7 +320,7 @@ Printing
     ## Source: local data frame [10 x 7]
     ## 
     ##       person   time n.words back_channels justification response_cries
-    ##       (fctr) (fctr)   (int)         (chr)         (chr)          (chr)
+    ##       <fctr> <fctr>   <int>         <chr>         <chr>          <chr>
     ## 1      OBAMA time 1    3599             _      26(.72%)        3(.08%)
     ## 2      OBAMA time 2    7477             _      29(.39%)        2(.03%)
     ## 3      OBAMA time 3    7243       1(.01%)      33(.46%)        1(.01%)
@@ -332,7 +331,7 @@ Printing
     ## 8     LEHRER time 1     765       3(.39%)             _        3(.39%)
     ## 9   QUESTION time 2     583             _       2(.34%)        2(.34%)
     ## 10 SCHIEFFER time 3    1445             _       6(.42%)              _
-    ## Variables not shown: summons (chr)
+    ## Variables not shown: summons <chr>.
 
 Plotting
 --------
@@ -483,11 +482,11 @@ have no outcome to learn from and the data is too large to classify by
 hand. One solution is to use a expert rules, regular expression approach
 that is somewhere between machine learning and hand coding. This is one
 solution for tagging larger, untagged data sets. Additionally, when each
-text element contains larger chunks of text, unsupervised clustering
-type algorithms such as k-means, non-negative matrix factorization,
-[hierarchical clustering](https://github.com/trinker/hclustext), or
-[topic modeling](https://github.com/trinker/topicmodels_learning) may be
-of use for creating clusters that could be interpreted and treated as
+text element contains larger chunks of text, [unsupervised clustering
+type algorithms](https://github.com/trinker/clustext) such as k-means,
+non-negative matrix factorization, hierarchical clustering, or [topic
+modeling](https://github.com/trinker/topicmodels_learning) may be of use
+for creating clusters that could be interpreted and treated as
 categories.
 
 This example section highlights the types of function combinations and
@@ -549,28 +548,28 @@ are additional observations.
     ## Source: local data frame [6 x 5]
     ## 
     ##      person    tot   time      role
-    ##      (fctr)  (chr) (fctr)    (fctr)
+    ##      <fctr>  <chr> <fctr>    <fctr>
     ## 1   CROWLEY  230.2 time 2 moderator
     ## 2 SCHIEFFER   48.1 time 3 moderator
     ## 3    ROMNEY  98.15 time 2 candidate
     ## 4    ROMNEY 173.12 time 2 candidate
     ## 5     OBAMA  102.6 time 2 candidate
     ## 6     OBAMA 120.16 time 2 candidate
-    ## Variables not shown: dialogue (chr)
+    ## Variables not shown: dialogue <chr>.
     ## |...
     ## 
     ## test: n = 728
     ## Source: local data frame [6 x 5]
     ## 
     ##   person   tot   time      role
-    ##   (fctr) (chr) (fctr)    (fctr)
+    ##   <fctr> <chr> <fctr>    <fctr>
     ## 1 LEHRER   1.1 time 1 moderator
     ## 2 ROMNEY   2.2 time 1 candidate
     ## 3 ROMNEY   4.4 time 1 candidate
     ## 4 ROMNEY   4.5 time 1 candidate
     ## 5 ROMNEY   4.7 time 1 candidate
     ## 6 ROMNEY  4.17 time 1 candidate
-    ## Variables not shown: dialogue (chr)
+    ## Variables not shown: dialogue <chr>.
     ## |...
 
 The training set can be accessed via `pres_deb_split$train`; likewise,
@@ -586,28 +585,28 @@ Here I show splitting by integer.
     ## Source: local data frame [6 x 5]
     ## 
     ##   person    tot   time      role
-    ##   (fctr)  (chr) (fctr)    (fctr)
+    ##   <fctr>  <chr> <fctr>    <fctr>
     ## 1  OBAMA  102.4 time 2 candidate
     ## 2 ROMNEY 122.26 time 3 candidate
     ## 3 ROMNEY 166.16 time 3 candidate
     ## 4 ROMNEY 162.18 time 3 candidate
     ## 5  OBAMA   20.3 time 2 candidate
     ## 6 ROMNEY  59.12 time 1 candidate
-    ## Variables not shown: dialogue (chr)
+    ## Variables not shown: dialogue <chr>.
     ## |...
     ## 
     ## test: n = 2812
     ## Source: local data frame [6 x 5]
     ## 
     ##   person   tot   time      role
-    ##   (fctr) (chr) (fctr)    (fctr)
+    ##   <fctr> <chr> <fctr>    <fctr>
     ## 1 LEHRER   1.1 time 1 moderator
     ## 2 LEHRER   1.2 time 1 moderator
     ## 3 ROMNEY   2.1 time 1 candidate
     ## 4 ROMNEY   2.2 time 1 candidate
     ## 5 LEHRER   3.1 time 1 moderator
     ## 6 ROMNEY   4.1 time 1 candidate
-    ## Variables not shown: dialogue (chr)
+    ## Variables not shown: dialogue <chr>.
     ## |...
 
 I could have trained on the training set and tested on the testing set
@@ -839,7 +838,7 @@ of observation which gives the researcher the observation level counts.
     ## Source: local data frame [2,912 x 6]
     ## 
     ##       id n.words response_cries back_channels summons justification
-    ##    (int)   (int)          (int)         (int)   (int)         (int)
+    ##    <int>   <int>          <int>         <int>   <int>         <int>
     ## 1      1      10              0             0       0             0
     ## 2      2       9              1             0       0             0
     ## 3      3      14              0             0       0             0
