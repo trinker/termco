@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.3.0-orange.svg"><img src="https://img.shields.io/badge/Version-0.3.0-orange.svg" alt="Version"/></a>
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.3.1-orange.svg"><img src="https://img.shields.io/badge/Version-0.3.1-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
@@ -26,31 +26,32 @@ substrings.
 Table of Contents
 ============
 
--   [[Functions](#functions)](#[functions](#functions))
--   [[Installation](#installation)](#[installation](#installation))
--   [[Contact](#contact)](#[contact](#contact))
--   [[Examples](#examples)](#[examples](#examples))
-    -   [[Load the Tools/Data](#load-the-toolsdata)](#[load-the-toolsdata](#load-the-toolsdata))
-    -   [[Build Counts Dataframe](#build-counts-dataframe)](#[build-counts-dataframe](#build-counts-dataframe))
-    -   [[Printing](#printing)](#[printing](#printing))
-    -   [[Plotting](#plotting)](#[plotting](#plotting))
-    -   [[Ngram Collocations](#ngram-collocations)](#[ngram-collocations](#ngram-collocations))
-        -   [[Collocation Plotting](#collocation-plotting)](#[collocation-plotting](#collocation-plotting))
--   [[Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)](#[building-an-expert-rules-regex-classifier-model](#building-an-expert-rules-regex-classifier-model))
-    -   [[Load the Tools/Data](#load-the-toolsdata-1)](#[load-the-toolsdata](#load-the-toolsdata-1))
-    -   [[Splitting Data](#splitting-data)](#[splitting-data](#splitting-data))
-    -   [[Understanding Term Use](#understanding-term-use)](#[understanding-term-use](#understanding-term-use))
-        -   [[View Most Used Words](#view-most-used-words)](#[view-most-used-words](#view-most-used-words))
-        -   [[View Most Used Words in Context](#view-most-used-words-in-context)](#[view-most-used-words-in-context](#view-most-used-words-in-context))
-    -   [[Building the Model](#building-the-model)](#[building-the-model](#building-the-model))
-    -   [[Testing the Model](#testing-the-model)](#[testing-the-model](#testing-the-model))
-    -   [[Improving the Model](#improving-the-model)](#[improving-the-model](#improving-the-model))
-        -   [[Improving Coverage](#improving-coverage)](#[improving-coverage](#improving-coverage))
-        -   [[Improving Discrimination](#improving-discrimination)](#[improving-discrimination](#improving-discrimination))
-    -   [[Categorizing/Tagging](#categorizingtagging)](#[categorizingtagging](#categorizingtagging))
-    -   [[Accuracy](#accuracy)](#[accuracy](#accuracy))
-        -   [[Pre Coded Data](#pre-coded-data)](#[pre-coded-data](#pre-coded-data))
-        -   [[Post Coding Data](#post-coding-data)](#[post-coding-data](#post-coding-data))
+-   [Functions](#functions)
+-   [Installation](#installation)
+-   [Contact](#contact)
+-   [Examples](#examples)
+    -   [Load the Tools/Data](#load-the-toolsdata)
+    -   [Build Counts Dataframe](#build-counts-dataframe)
+    -   [Printing](#printing)
+    -   [Plotting](#plotting)
+    -   [Ngram Collocations](#ngram-collocations)
+        -   [Collocation Plotting](#collocation-plotting)
+-   [Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)
+    -   [Load the Tools/Data](#load-the-toolsdata-1)
+    -   [Splitting Data](#splitting-data)
+    -   [Understanding Term Use](#understanding-term-use)
+        -   [View Most Used Words](#view-most-used-words)
+        -   [View Most Used Words in Context](#view-most-used-words-in-context)
+    -   [View Important Words](#view-important-words)
+    -   [Building the Model](#building-the-model)
+    -   [Testing the Model](#testing-the-model)
+    -   [Improving the Model](#improving-the-model)
+        -   [Improving Coverage](#improving-coverage)
+        -   [Improving Discrimination](#improving-discrimination)
+    -   [Categorizing/Tagging](#categorizingtagging)
+    -   [Accuracy](#accuracy)
+        -   [Pre Coded Data](#pre-coded-data)
+        -   [Post Coding Data](#post-coding-data)
 
 Functions
 ============
@@ -67,11 +68,11 @@ function generate lists of function calls or plots for given search
 terms. The table below describes the functions, category of use, and
 their description:
 
-<table style="width:136%;">
+<table>
 <colgroup>
-<col width="43%" />
-<col width="20%" />
-<col width="72%" />
+<col width="31%" />
+<col width="15%" />
+<col width="53%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -92,131 +93,136 @@ their description:
 <td align="left">Frequent terms</td>
 </tr>
 <tr class="odd">
+<td align="left"><code>important_terms</code></td>
+<td align="left">count</td>
+<td align="left">Important terms</td>
+</tr>
+<tr class="even">
 <td align="left"><code>hierarchical_coverage_term</code></td>
 <td align="left">count</td>
 <td align="left">Unique coverage of a text vector by terms</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>hierarchical_coverage_regex</code></td>
 <td align="left">count</td>
 <td align="left">Unique coverage of a text vector by regex</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>ngram_collocations</code></td>
 <td align="left">count</td>
 <td align="left">Weighted frequent ngram (2 &amp; 3) collocations</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>word_count</code></td>
 <td align="left">count</td>
 <td align="left">Count words</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>colo</code></td>
 <td align="left">search</td>
 <td align="left">Regex output to find term collocations</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>search_term</code></td>
 <td align="left">search</td>
 <td align="left">Search for regex terms</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>search_term_collocations</code></td>
 <td align="left">search</td>
 <td align="left">Wrapper for <code>search_term</code> + <code>frequent_terms</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>classification_project</code></td>
 <td align="left">modeling</td>
 <td align="left">Make a classification modeling project template</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_data</code></td>
 <td align="left">modeling</td>
 <td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>accuracy</code></td>
 <td align="left">modeling</td>
 <td align="left">Check accuracy of model against human coder</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>classify</code></td>
 <td align="left">modeling</td>
 <td align="left">Assign n tags to text from a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>coverage</code></td>
 <td align="left">modeling</td>
 <td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
 <td align="left">modeling</td>
 <td align="left">Get the uncovered text from a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>tag_co_occurrence</code></td>
 <td align="left">modeling</td>
 <td align="left">Explor co-occurrence of tags from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>validate_model</code>/<code>assign_validation_task</code></td>
 <td align="left">modeling</td>
 <td align="left">Human validation of a <code>term_count</code> model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>as_count</code></td>
 <td align="left">convert</td>
 <td align="left">Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>as_terms</code></td>
 <td align="left">convert</td>
 <td align="left">Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>weight</code></td>
 <td align="left">convert</td>
 <td align="left">Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_ca</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_counts</code></td>
 <td align="left">plot</td>
 <td align="left">Horizontal bar plot of group counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_freq</code></td>
 <td align="left">plot</td>
 <td align="left">Vertical bar plot of frequencies of counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_cum_percent</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_colo_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term_collocations</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_colo_plot_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_colo_plot</code></td>
 <td align="left">probe</td>
 <td align="left">Plot <code>probe_colo_plot_list</code> directly</td>
@@ -241,10 +247,10 @@ development version:
 Contact
 =======
 
-You are welcome to: 
-* submit suggestions and bug-reports at: <https://github.com/trinker/termco/issues> 
-* send a pull request on: <https://github.com/trinker/termco/> 
-* compose a friendly e-mail to: <tyler.rinker@gmail.com>
+You are welcome to:    
+- submit suggestions and bug-reports at: <https://github.com/trinker/termco/issues>    
+- send a pull request on: <https://github.com/trinker/termco/>    
+- compose a friendly e-mail to: <tyler.rinker@gmail.com>    
 
 
 Examples
@@ -813,6 +819,31 @@ plot for each term.
         unlist() %>%
         probe_colo_plot("presidential_debates_2012$dialogue") 
 
+View Important Words
+--------------------
+
+It may also be useful to view top
+[min-max](http://stats.stackexchange.com/a/70807/7482) scaled tf-idf
+weighted terms to allow the more information rich terms to bubble to the
+top. The `important_terms` function allows the user to do exactly this.
+The function works similar to `term_count` but with an information
+weight.
+
+    presidential_debates_2012 %>%
+        with(important_terms(dialogue, 10))
+
+    ##         term    tf_idf
+    ## 1   governor 1.0000000
+    ## 2      right 0.8061417
+    ## 3      going 0.7180599
+    ## 4  president 0.6906233
+    ## 5        get 0.6435831
+    ## 6       want 0.6361092
+    ## 7       said 0.6349331
+    ## 8      thank 0.5509088
+    ## 9        one 0.5338552
+    ## 10      well 0.5163518
+
 Building the Model
 ------------------
 
@@ -891,7 +922,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-22-1.png)
+![](inst/figure/unnamed-chunk-23-1.png)
 
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
@@ -902,7 +933,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-23-1.png)
+![](inst/figure/unnamed-chunk-24-1.png)
 
 Improving the Model
 -------------------
@@ -1248,7 +1279,7 @@ may be returned) as well as a `table` and plot of the counts. Use
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-34-1.png)
+![](inst/figure/unnamed-chunk-35-1.png)
 
 Accuracy
 --------
@@ -1262,11 +1293,11 @@ generate "known human coded tagged" vector. Obviously, this is for
 demonstration purposes. The model outputs a pretty printing of a list.
 The printing contains:
 
-<table style="width:111%;">
+<table>
 <colgroup>
-<col width="29%" />
-<col width="66%" />
-<col width="15%" />
+<col width="26%" />
+<col width="60%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1404,7 +1435,7 @@ confidence band is highly affected by the number of samples per tag).
 
     plot(validated)
 
-![](inst/figure/unnamed-chunk-40-1.png)
+![](inst/figure/unnamed-chunk-41-1.png)
 
 These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification

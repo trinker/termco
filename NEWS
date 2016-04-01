@@ -17,12 +17,15 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-termco 0.2.0
+termco 0.3.0-
 ----------------------------------------------------------------
 
 BUG FIXES
 
 NEW FEATURES
+
+* `important_terms` added to compliment `frequent_terms` allowing tf-idf
+  weighted terms to rise to the top.
 
 MINOR FEATURES
 
