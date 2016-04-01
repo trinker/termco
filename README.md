@@ -42,7 +42,7 @@ Table of Contents
     -   [Understanding Term Use](#understanding-term-use)
         -   [View Most Used Words](#view-most-used-words)
         -   [View Most Used Words in Context](#view-most-used-words-in-context)
-    -   [View Important Words](#view-important-words)
+        -   [View Important Words](#view-important-words)
     -   [Building the Model](#building-the-model)
     -   [Testing the Model](#testing-the-model)
     -   [Improving the Model](#improving-the-model)
@@ -819,8 +819,7 @@ plot for each term.
         unlist() %>%
         probe_colo_plot("presidential_debates_2012$dialogue") 
 
-View Important Words
---------------------
+### View Important Words
 
 It may also be useful to view top
 [min-max](http://stats.stackexchange.com/a/70807/7482) scaled tf-idf

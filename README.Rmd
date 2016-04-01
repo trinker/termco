@@ -311,7 +311,7 @@ presidential_debates_2012 %>%
     probe_colo_plot("presidential_debates_2012$dialogue") 
 ```
 
-## View Important Words
+### View Important Words
 
 It may also be useful to view top [min-max](http://stats.stackexchange.com/a/70807/7482) scaled tf-idf weighted terms to allow the more information rich terms to bubble to the top.  The `important_terms` function allows the user to do exactly this.  The function works similar to `term_count` but with an information weight.
 
