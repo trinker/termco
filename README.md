@@ -489,11 +489,11 @@ have no outcome to learn from and the data is too large to classify by
 hand. One solution is to use a expert rules, regular expression approach
 that is somewhere between machine learning and hand coding. This is one
 solution for tagging larger, untagged data sets. Additionally, when each
-text element contains larger chunks of text, unsupervised clustering
-type algorithms such as k-means, non-negative matrix factorization,
-[hierarchical clustering](https://github.com/trinker/hclustext), or
-[topic modeling](https://github.com/trinker/topicmodels_learning) may be
-of use for creating clusters that could be interpreted and treated as
+text element contains larger chunks of text, [unsupervised clustering
+type algorithms](https://github.com/trinker/clustext) such as k-means,
+non-negative matrix factorization, hierarchical clustering, or [topic
+modeling](https://github.com/trinker/topicmodels_learning) may be of use
+for creating clusters that could be interpreted and treated as
 categories.
 
 This example section highlights the types of function combinations and
