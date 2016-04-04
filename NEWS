@@ -22,6 +22,9 @@ termco 0.3.0-
 
 BUG FIXES
 
+* `colo` returned list rather than string if a single term was passed.  Spotted
+  by Steve Simpson.  See issue #12.
+
 NEW FEATURES
 
 * `important_terms` added to compliment `frequent_terms` allowing tf-idf
