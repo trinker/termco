@@ -17,16 +17,28 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-termco 0.2.0
+termco 0.3.0-
 ----------------------------------------------------------------
 
 **BUG FIXES**
 
+* `colo` returned list rather than string if a single term was passed.  Spotted
+  by Steve Simpson.  See <a href="https://github.com/trinker/termco/issues/12">issue #12</a>.
+
+* `term_count` did not handle hierarchical `term.list` correctly do=ue to a
+  reordering done by **data.table** (when `group.vars` not `= TRUE`).  This
+  has been corrected.
+
+* Column ordering was not respected by `print.term_count`.
+
 **NEW FEATURES**
+
+* `important_terms` added to compliment `frequent_terms` allowing tf-idf
+  weighted terms to rise to the top.
 
 **MINOR FEATURES**
 
-IMPROVEMENTS
+**IMPROVEMENTS**
 
 **CHANGES**
 
@@ -84,7 +96,7 @@ termco 0.1.0
 
 * `plot_freq` picks up a `size` argument.
 
-IMPROVEMENTS
+**IMPROVEMENTS**
 
 * `term_count` now can be used in a hierarchical fashion.  A list of regexes can
   be passed and counted and then a second (or more) pass can be taken wit a new

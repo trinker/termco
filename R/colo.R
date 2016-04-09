@@ -27,7 +27,7 @@
 colo <- function(..., not=NULL, copy2clip = getOption("termco.copy2clip")) {
     if (is.null(copy2clip)) copy2clip <- FALSE
     if (is.null(not)){
-          if (length(substitute(...())) == 1) return(substitute(...()))
+          if (length(substitute(...())) == 1) return(substitute(...())[[1]])
     	  cooc(..., copy2clip = copy2clip)
     } else {
     	  cooc_not(..., not=not, copy2clip = copy2clip)
