@@ -1,7 +1,7 @@
 ---
 title: "termco Introduction"
 author: "Tyler Rinker"
-date: "2015-09-27"
+date: "2016-04-09"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}

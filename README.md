@@ -361,7 +361,7 @@ Plotting
 Ngram Collocations
 ------------------
 
-**termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda)
+**termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda) package
 to examine important ngram collocations. **quanteda**'s `collocation`
 function provides measures of: `"G2"`, `"X2"`, `"pmi"`, and `"dice"` to
 examine the strength of relationship between ngrams. **termco** adds
