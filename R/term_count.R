@@ -95,8 +95,8 @@
 #'
 #' coverage(x)
 term_count <- function(text.var, grouping.var = NULL, term.list,
-    ignore.case = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
-    group.names, ...){
+                       ignore.case = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
+                       group.names, ...){
 
     amodel <- FALSE
     if(is.null(grouping.var)) {
@@ -105,8 +105,8 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         if (is.list(grouping.var)) {
             m <- unlist(as.character(substitute(grouping.var))[-1])
             G <- sapply(strsplit(m, "$", fixed=TRUE), function(x) {
-                    x[length(x)]
-                }
+                x[length(x)]
+            }
             )
         } else {
             if (isTRUE(grouping.var)) {
@@ -122,7 +122,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         grouping <- rep("all", length(text.var))
     } else {
         if (isTRUE(grouping.var)) {
-                grouping <- seq_along(text.var)
+            grouping <- seq_along(text.var)
         } else {
             if (is.list(grouping.var) & length(grouping.var)>1) {
                 grouping <- grouping.var
@@ -140,8 +140,16 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     DF[G] <- grouping
     DF['n.words'] <- stringi::stri_count_words(text.var)
 
+    DF <- data.table::setkeyv(data.table::data.table(DF), G)
+
+    ## check for hierarchical terms
     list_list <- FALSE
     if (is.list(term.list[[1]]) && length(term.list) > 1 && all(sapply(term.list, is.list))) {
+
+        ## make sure for hierarchical terms that each observation is also a group
+        if(nrow(DF) != nrow(unique(DF[,G, with=FALSE]))) {
+            stop("In order to run nested `term.list` then `grouping.var` must place every observation in its own group.")
+        }
 
         list_list <- TRUE
 
@@ -156,8 +164,8 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
             if (i == 1){
                 counts <- data.table::setkeyv(
                     data.table::copy(data.table::setDT(DF))[inds, ][,
-                        names(term.list[[i]]):= lapply(term.list[[i]], countfun,
-                        text.var, ignore.case = ignore.case), ][, 'text.var':=NULL],
+                                                                    names(term.list[[i]]):= lapply(term.list[[i]], countfun,
+                                                                                                   text.var, ignore.case = ignore.case), ][, 'text.var':=NULL],
                     G
                 )
             } else {
@@ -165,9 +173,9 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
                 counts <- merge(
                     counts,
                     data.table::setkeyv(data.table::copy(data.table::setDT(DF))[inds, ][,
-                        names(term.list[[i]]):= lapply(term.list[[i]], countfun,
-                        text.var, ignore.case = ignore.case), ][, 'text.var':=NULL][,
-                            'n.words' := NULL], G),
+                                                                                        names(term.list[[i]]):= lapply(term.list[[i]], countfun,
+                                                                                                                       text.var, ignore.case = ignore.case), ][, 'text.var':=NULL][,
+                                                                                                                                                                                   'n.words' := NULL], G),
                     all=TRUE
                 )
 
@@ -187,7 +195,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         term.list <- term_lister_check(term.list, G)
 
         counts <- data.table::setDT(DF)[, names(term.list):= lapply(term.list, countfun,
-            text.var, ignore.case = ignore.case), ][, text.var:=NULL]
+                                                                    text.var, ignore.case = ignore.case), ][, text.var:=NULL]
 
         out <- counts[,lapply(.SD, sum, na.rm = TRUE), keyby = G]
     }
@@ -216,6 +224,28 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     attributes(out)[["model"]] <- amodel
     if(isTRUE(list_list)) attributes(out)[["hierarchical_terms"]] <- lapply(term.list, names)
     out
+}
+
+
+na.replace <- function(v, value=0) { v[is.na(v)] <- value; v }
+mymerge <-  function(x, y) merge(x, y, all=TRUE)
+
+
+term_lister_check <- function(term.list, G){
+    if(any(G %in% names(term.list))) stop("`grouping` names cannot be used as `term.list` names")
+
+    nms <- names(term.list)
+    names(term.list)[sapply(nms, identical, "")] <- make.names(seq_len(length(nms[sapply(nms,
+                                                                                         identical, "")])))
+
+    if (!is.list(term.list)) {
+        warning("Expecting a named list for `term.list`; coercing to list.")
+        term.list <- as.list(term.list)
+        if (is.null(names(term.list))) term.list <- stats::setNames(term.list, term.list)
+    } else {
+        term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
+    }
+    term.list
 }
 
 na.replace <- function(v, value=0) { v[is.na(v)] <- value; v }
@@ -258,11 +288,13 @@ term_lister_check <- function(term.list, G){
 #' @method print term_count
 #' @export
 print.term_count <- function(x, digits = 2, weight = "percent",
-    zero.replace = "0", pretty = getOption("termco_pretty"), ...) {
+                             zero.replace = "0", pretty = getOption("termco_pretty"), ...) {
 
     n.words <- count <- NULL
     if (is.null(pretty)) pretty <- TRUE
     if (weight == "count") pretty <- FALSE
+
+    print_order <- c(attributes(x)[['group.vars']], 'n.words', attributes(x)[['term.vars']])
 
     val <- validate_term_count(x)
     if (!isTRUE(val)) {
@@ -291,7 +323,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 
         tall <- tidyr::gather_(x, "term", "count", termcols)
         tall_weighted <- dplyr::mutate(tall, count = comb(count, n.words, digits = digits,
-            zero.replace = zero.replace, weight = weight))
+                                                          zero.replace = zero.replace, weight = weight))
 
         x <- tidyr::spread_(tall_weighted, "term", "count")
     }
@@ -300,7 +332,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
     class(x) <- class(x)[!class(x) %in% "term_count"]
     cat(sprintf("Coverage: %s%%", 100 * round(coverage, 4)), "\n")
 
-    print(x)
+    print(x[, print_order])
 
     ask <- getOption("termco_pretty_ask")
     if(is.null(ask)){
@@ -309,19 +341,20 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 
     if(ask && ptime > .61 && interactive()){
         message(paste0(paste(rep("=", 70), collapse = ""), "\n"),
-            "\nYour `term_count` object is larger and is taking a while to print.\n",
-            "You can reduce this time by using `as_count` or setting:\n\n`options(termco_pretty = FALSE)`\n\n",
-            "Would you like to globally set `options(termco_pretty = FALSE)` now?\n")
+                "\nYour `term_count` object is larger and is taking a while to print.\n",
+                "You can reduce this time by using `as_count` or setting:\n\n`options(termco_pretty = FALSE)`\n\n",
+                "Would you like to globally set `options(termco_pretty = FALSE)` now?\n")
         ans <- utils::menu(c("Yes", "No", "Not Now"))
         switch(ans,
-            `1` = {options(termco_pretty = FALSE)
+               `1` = {options(termco_pretty = FALSE)
                    options(termco_pretty_ask = FALSE)},
-            `2` = {options(termco_pretty_ask = FALSE)},
-            `3` = {options(termco_pretty_ask = TRUE)}
+               `2` = {options(termco_pretty_ask = FALSE)},
+               `3` = {options(termco_pretty_ask = TRUE)}
         )
     }
 
 }
+
 
 
 

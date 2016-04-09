@@ -25,6 +25,12 @@ BUG FIXES
 * `colo` returned list rather than string if a single term was passed.  Spotted
   by Steve Simpson.  See issue #12.
 
+* `term_count` did not handle hierarchical `term.list` correctly do=ue to a
+  reordering done by **data.table** (when `group.vars` not `= TRUE`).  This
+  has been corrected.
+
+* Column ordering was not respected by `print.term_count`.
+
 NEW FEATURES
 
 * `important_terms` added to compliment `frequent_terms` allowing tf-idf
