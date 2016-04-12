@@ -36,6 +36,9 @@ termco 0.3.0-
 * `important_terms` added to compliment `frequent_terms` allowing tf-idf
   weighted terms to rise to the top.
 
+* `collapse_tags` added to combine tags/columns from `term_count` object without
+  stripping the `term_count` class and attributes.
+
 **MINOR FEATURES**
 
 **IMPROVEMENTS**

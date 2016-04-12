@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.3.2-orange.svg"><img src="https://img.shields.io/badge/Version-0.3.2-orange.svg" alt="Version"/></a>
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.3.3-orange.svg"><img src="https://img.shields.io/badge/Version-0.3.3-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
@@ -68,11 +68,11 @@ function generate lists of function calls or plots for given search
 terms. The table below describes the functions, category of use, and
 their description:
 
-<table>
+<table style="width:136%;">
 <colgroup>
-<col width="31%" />
-<col width="15%" />
-<col width="53%" />
+<col width="43%" />
+<col width="20%" />
+<col width="72%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -255,7 +255,6 @@ You are welcome to:
 - send a pull request on: <https://github.com/trinker/termco/>    
 - compose a friendly e-mail to: <tyler.rinker@gmail.com>    
 
-
 Examples
 ========
 
@@ -288,19 +287,19 @@ Build Counts Dataframe
     ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
     ## 
-    ##       person   time n.words back_channels justification response_cries
-    ##       (fctr) (fctr)   (int)         (chr)         (chr)          (chr)
-    ## 1      OBAMA time 1    3599             0      26(.72%)        3(.08%)
-    ## 2      OBAMA time 2    7477             0      29(.39%)        2(.03%)
-    ## 3      OBAMA time 3    7243       1(.01%)      33(.46%)        1(.01%)
-    ## 4     ROMNEY time 1    4085             0       8(.20%)              0
-    ## 5     ROMNEY time 2    7536       3(.04%)      20(.27%)        1(.01%)
-    ## 6     ROMNEY time 3    8303             0      19(.23%)        5(.06%)
-    ## 7    CROWLEY time 2    1672             0      12(.72%)        2(.12%)
-    ## 8     LEHRER time 1     765       3(.39%)             0        3(.39%)
-    ## 9   QUESTION time 2     583             0       2(.34%)        2(.34%)
-    ## 10 SCHIEFFER time 3    1445             0       6(.42%)              0
-    ## Variables not shown: summons (chr)
+    ##       person   time n.words response_cries back_channels   summons
+    ##       (fctr) (fctr)   (int)          (chr)         (chr)     (chr)
+    ## 1      OBAMA time 1    3599        3(.08%)             0 43(1.19%)
+    ## 2      OBAMA time 2    7477        2(.03%)             0  42(.56%)
+    ## 3      OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
+    ## 4     ROMNEY time 1    4085              0             0  27(.66%)
+    ## 5     ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
+    ## 6     ROMNEY time 3    8303        5(.06%)             0 84(1.01%)
+    ## 7    CROWLEY time 2    1672        2(.12%)             0   4(.24%)
+    ## 8     LEHRER time 1     765        3(.39%)       3(.39%)         0
+    ## 9   QUESTION time 2     583        2(.34%)             0         0
+    ## 10 SCHIEFFER time 3    1445              0             0   2(.14%)
+    ## Variables not shown: justification (chr)
 
 Printing
 --------
@@ -329,19 +328,19 @@ Printing
     ## Coverage: 100% 
     ## Source: local data frame [10 x 7]
     ## 
-    ##       person   time n.words back_channels justification response_cries
-    ##       (fctr) (fctr)   (int)         (chr)         (chr)          (chr)
-    ## 1      OBAMA time 1    3599             _      26(.72%)        3(.08%)
-    ## 2      OBAMA time 2    7477             _      29(.39%)        2(.03%)
-    ## 3      OBAMA time 3    7243       1(.01%)      33(.46%)        1(.01%)
-    ## 4     ROMNEY time 1    4085             _       8(.20%)              _
-    ## 5     ROMNEY time 2    7536       3(.04%)      20(.27%)        1(.01%)
-    ## 6     ROMNEY time 3    8303             _      19(.23%)        5(.06%)
-    ## 7    CROWLEY time 2    1672             _      12(.72%)        2(.12%)
-    ## 8     LEHRER time 1     765       3(.39%)             _        3(.39%)
-    ## 9   QUESTION time 2     583             _       2(.34%)        2(.34%)
-    ## 10 SCHIEFFER time 3    1445             _       6(.42%)              _
-    ## Variables not shown: summons (chr)
+    ##       person   time n.words response_cries back_channels   summons
+    ##       (fctr) (fctr)   (int)          (chr)         (chr)     (chr)
+    ## 1      OBAMA time 1    3599        3(.08%)             _ 43(1.19%)
+    ## 2      OBAMA time 2    7477        2(.03%)             _  42(.56%)
+    ## 3      OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
+    ## 4     ROMNEY time 1    4085              _             _  27(.66%)
+    ## 5     ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
+    ## 6     ROMNEY time 3    8303        5(.06%)             _ 84(1.01%)
+    ## 7    CROWLEY time 2    1672        2(.12%)             _   4(.24%)
+    ## 8     LEHRER time 1     765        3(.39%)       3(.39%)         _
+    ## 9   QUESTION time 2     583        2(.34%)             _         _
+    ## 10 SCHIEFFER time 3    1445              _             _   2(.14%)
+    ## Variables not shown: justification (chr)
 
 Plotting
 --------
@@ -361,12 +360,13 @@ Plotting
 Ngram Collocations
 ------------------
 
-**termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda) package
-to examine important ngram collocations. **quanteda**'s `collocation`
-function provides measures of: `"G2"`, `"X2"`, `"pmi"`, and `"dice"` to
-examine the strength of relationship between ngrams. **termco** adds
-stopword removal, min/max character filtering, and stemming to
-**quanteda**'s `collocation` as well as a generic `plot` method.
+**termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda)
+package to examine important ngram collocations. **quanteda**'s
+`collocation` function provides measures of: `"G2"`, `"X2"`, `"pmi"`,
+and `"dice"` to examine the strength of relationship between ngrams.
+**termco** adds stopword removal, min/max character filtering, and
+stemming to **quanteda**'s `collocation` as well as a generic `plot`
+method.
 
     x <- presidential_debates_2012[["dialogue"]]
 
@@ -1295,11 +1295,11 @@ generate "known human coded tagged" vector. Obviously, this is for
 demonstration purposes. The model outputs a pretty printing of a list.
 The printing contains:
 
-<table>
+<table style="width:111%;">
 <colgroup>
-<col width="26%" />
-<col width="60%" />
-<col width="13%" />
+<col width="29%" />
+<col width="66%" />
+<col width="15%" />
 </colgroup>
 <thead>
 <tr class="header">
