@@ -9,8 +9,8 @@ collapse_tags(x, mapping, ...)
 \arguments{
 \item{x}{A \code{term_count} object.}
 
-\item{mapping}{A list of named vectors where the vector names are the collapsed 
-column names and the vectors are the names of the columns to collapse.  Setting 
+\item{mapping}{A list of named vectors where the vector names are the collapsed
+column names and the vectors are the names of the columns to collapse.  Setting
 a column name to \code{NULL} deletes these columns from the output.}
 
 \item{\ldots}{ignored.}
@@ -19,7 +19,7 @@ a column name to \code{NULL} deletes these columns from the output.}
 Returns a \code{term_count} object.
 }
 \description{
-Collapse (sum) tags/columns of a \code{term_count} object or remove columns 
+Collapse (sum) tags/columns of a \code{term_count} object or remove columns
 without changing termco class.
 }
 \examples{

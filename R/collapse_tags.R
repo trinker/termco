@@ -1,11 +1,11 @@
 #' Collapse \code{term_count} Tags
-#' 
-#' Collapse (sum) tags/columns of a \code{term_count} object or remove columns 
+#'
+#' Collapse (sum) tags/columns of a \code{term_count} object or remove columns
 #' without changing termco class.
-#' 
+#'
 #' @param x A \code{term_count} object.
-#' @param mapping A list of named vectors where the vector names are the collapsed 
-#' column names and the vectors are the names of the columns to collapse.  Setting 
+#' @param mapping A list of named vectors where the vector names are the collapsed
+#' column names and the vectors are the names of the columns to collapse.  Setting
 #' a column name to \code{NULL} deletes these columns from the output.
 #' @param \ldots ignored.
 #' @return Returns a \code{term_count} object.
@@ -15,7 +15,7 @@
 #'     babbling = c('response_cries', 'back_channels'), #combines these columns
 #'     NULL = 'justification'                           #remove this column(s)
 #' )
-#' 
+#'
 #' data(markers); markers
 #' collapse_tags(markers, mapping)
 collapse_tags <- function(x, mapping, ...){
@@ -35,13 +35,18 @@ collapse_tags <- function(x, mapping, ...){
         mapping <- mapping[excluder(names(mapping), "NULL")]
     }
 
+    ## remove one to one mapping
+    if(any(names(mapping) == names(mapping))) {
+        mapping <- mapping[names(mapping) != names(mapping)]
+    }
+
     ## combine columns
     if (length(mapping) > 0){
-        collapses <- paste(Map(function(x, y){paste0(x, " = sum(", paste(y, collapse=", "), 
+        collapses <- paste(Map(function(x, y){paste0(x, " = sum(", paste(y, collapse=", "),
             ")")}, names(mapping), mapping), collapse=", ")
         x <- eval(parse(text=paste0("dplyr::mutate(dplyr::rowwise(x), ", collapses, ")")))
 
-        ## change term.vars attribute and remove columns    
+        ## change term.vars attribute and remove columns
         removes <- unlist(mapping, use.names=FALSE)
         x <- x[excluder(colnames(x), removes)]
         y[["term.vars"]] <- c(excluder(y[["term.vars"]], removes), names(mapping))
@@ -55,7 +60,7 @@ collapse_tags <- function(x, mapping, ...){
     }
 
     x
-    
+
 }
 
 excluder <- function(x, y){
@@ -69,7 +74,7 @@ validate_mapping <- function(mapping, x, ...){
     matches <- !unlist(mapping) %in% attributes(x)[["term.vars"]]
     if (any(matches)) {
         wrong_terms <- paste(unlist(mapping)[matches], collapse=", ")
-        stop(paste0("The following column(s) listed in `mapping` were not found in the attribute `term.vars` from `x`:\n\n  - ", 
+        stop(paste0("The following column(s) listed in `mapping` were not found in the attribute `term.vars` from `x`:\n\n  - ",
             wrong_terms, "\n\nPlease remove from `mapping` or correct the typo."))
     }
     return(invisible(TRUE))

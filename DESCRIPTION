@@ -1,6 +1,6 @@
 Package: termco
 Title: Regular Expression Counts of Terms and Substrings
-Version: 0.3.3
+Version: 0.3.4
 Authors@R: c(person("Tyler", "Rinker", email =
         "tyler.rinker@gmail.com", role = c("aut", "cre")))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
@@ -11,7 +11,7 @@ Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, gofastr,
         grid, gridBase, gridExtra, igraph, quanteda, slam, SnowballC,
         stringi, textshape, tidyr, tm, utils, wordcloud
 Suggests: knitr, rmarkdown, qdapRegex, rgl, testthat
-Date: 2016-04-11
+Date: 2016-04-13
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
