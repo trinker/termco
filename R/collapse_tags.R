@@ -36,8 +36,8 @@ collapse_tags <- function(x, mapping, ...){
     }
 
     ## remove one to one mapping
-    if(any(names(mapping) == names(mapping))) {
-        mapping <- mapping[names(mapping) != names(mapping)]
+    if (any(names(mapping) == mapping)) {
+        mapping <- mapping[names(mapping) != mapping]
     }
 
     ## combine columns
