@@ -5,7 +5,7 @@
 \title{Horizontal Bar Plot of Group Counts}
 \usage{
 plot_counts(x, n = NULL, percent = TRUE, item.name = "Terms",
-  rev = FALSE, ...)
+  rev = FALSE, drop = TRUE, ...)
 }
 \arguments{
 \item{x}{A vector or list of elements.}
@@ -20,6 +20,9 @@ Otherwise, the x axis is counts.}
 element in the vector/list).}
 
 \item{rev}{logical.  If \code{TRUE} the bars go from least to greatest.}
+
+\item{drop}{logical.  If \code{FALSE} and \code{x} is an \code{as_terms} object
+created from a \code{term_count} object, then unfound terms will not be dropped.}
 
 \item{\ldots}{ignored.}
 }

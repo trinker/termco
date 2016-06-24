@@ -17,7 +17,7 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-termco 0.3.0-
+termco 0.3.0 -
 ----------------------------------------------------------------
 
 **BUG FIXES**
@@ -40,6 +40,10 @@ termco 0.3.0-
   stripping the `term_count` class and attributes.
 
 **MINOR FEATURES**
+
+* `plot_counts` picks up a `drop` argument to enable terms not found (if `x` is
+  a `as_terms` object created from a `term_count` object) to be retained in the
+  bar plot.  Suggested by Steve Simpson.  See <a href="https://github.com/trinker/termco/issues/18">issue #18</a>.
 
 **IMPROVEMENTS**
 

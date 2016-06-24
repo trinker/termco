@@ -11,10 +11,8 @@ Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, gofastr,
         grid, gridBase, gridExtra, igraph, quanteda, slam, SnowballC,
         stringi, textshape, tidyr, tm, utils, wordcloud
 Suggests: knitr, rmarkdown, qdapRegex, rgl, testthat
-Remotes:
-  trinker/textshape,
-  trinker/gofastr
-Date: 2016-04-29
+Remotes: trinker/textshape, trinker/gofastr
+Date: 2016-06-24
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

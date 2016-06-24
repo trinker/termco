@@ -10,6 +10,8 @@
 #' @param item.name The name of the variable that contains the groups (different
 #' element in the vector/list).
 #' @param rev logical.  If \code{TRUE} the bars go from least to greatest.
+#' @param drop logical.  If \code{FALSE} and \code{x} is an \code{as_terms} object
+#' created from a \code{term_count} object, then unfound terms will not be dropped.
 #' @param \ldots ignored.
 #' @return \pkg{ggplot2} object.
 #' @export
@@ -53,18 +55,28 @@
 #'     as_terms() %>%
 #'     plot_counts(percent=FALSE, item.name = "Tags")
 plot_counts <- function(x, n = NULL, percent = TRUE, item.name = "Terms",
-    rev= FALSE, ...){
+    rev= FALSE, drop = TRUE, ...){
     if (isTRUE(percent)){
-       plot_counts_percent(x = x, n = n, item.name = item.name, rev = rev, ...)
+       plot_counts_percent(x = x, n = n, item.name = item.name, rev = rev, , drop = drop, ...)
     } else {
-       plot_counts_count(x = x, n = n, item.name = item.name, rev = rev, ...)
+       plot_counts_count(x = x, n = n, item.name = item.name, rev = rev, , drop = drop, ...)
     }
 }
 
 
-plot_counts_percent <- function(x, n = NULL, item.name = "Terms", rev= FALSE, ...){
+plot_counts_percent <- function(x, n = NULL, item.name = "Terms", rev= FALSE, drop = TRUE, ...){
 
     Terms <- Prop <- Frequency <- Counts <- NULL
+
+    if(!isTRUE(drop) && is.null(attributes(x)[['term.vars']])) {
+        warning("Not derived from `term_count` object; `drop = FALSE` ignored")
+    }
+
+    if (!isTRUE(drop) && !is.null(attributes(x)[['term.vars']])){
+        term.vars <- attributes(x)[['term.vars']]
+    } else {
+        term.vars <- NULL
+    }
 
     if (is.list(x)){
         x <- unlist(x)
@@ -79,6 +91,19 @@ plot_counts_percent <- function(x, n = NULL, item.name = "Terms", rev= FALSE, ..
             Terms = factor(Terms, levels = Terms),
             Prop = Frequency/sum(y)
          )
+
+    if (!is.null(term.vars)){
+
+        if(any(!term.vars %in% dat[["Terms"]])){
+            Terms <- rev(term.vars[!term.vars %in% dat[["Terms"]]])
+            dat <- dplyr::bind_rows(
+                dplyr::data_frame(Terms = Terms, Frequency = rep(0, length(Terms)), Prop = Frequency),
+                dat
+            ) %>%
+                dplyr::mutate(Terms = factor(Terms, levels = Terms))
+        }
+    }
+
 
     if (!is.null(n)){
         dat <- dplyr::top_n(dat, n)
@@ -101,9 +126,19 @@ plot_counts_percent <- function(x, n = NULL, item.name = "Terms", rev= FALSE, ..
 
 
 
-plot_counts_count <- function(x, n = NULL, item.name = "Terms", rev= FALSE, ...){
+plot_counts_count <- function(x, n = NULL, item.name = "Terms", rev= FALSE, drop = TRUE, ...){
 
     Terms <- Prop <- Frequency <- Counts <- NULL
+
+    if(!isTRUE(drop) && is.null(attributes(x)[['term.vars']])) {
+        warning("Not derived from `term_count` object; `drop = FALSE` ignored")
+    }
+
+    if (!isTRUE(drop) && !is.null(attributes(x)[['term.vars']])){
+        term.vars <- attributes(x)[['term.vars']]
+    } else {
+        term.vars <- NULL
+    }
 
     if (is.list(x)){
         x <- unlist(x)
@@ -117,6 +152,19 @@ plot_counts_count <- function(x, n = NULL, item.name = "Terms", rev= FALSE, ...)
         dplyr::mutate(
             Terms = factor(Terms, levels = Terms)
          )
+
+    if (!is.null(term.vars)){
+
+        if(any(!term.vars %in% dat[["Terms"]])){
+            Terms <- rev(term.vars[!term.vars %in% dat[["Terms"]]])
+            dat <- dplyr::bind_rows(
+                dplyr::data_frame(Terms = Terms, Frequency = rep(0, length(Terms))),
+                dat
+            ) %>%
+                dplyr::mutate(Terms = factor(Terms, levels = Terms))
+        }
+    }
+
 
     if (!is.null(n)){
         dat <- dplyr::top_n(dat, n)
