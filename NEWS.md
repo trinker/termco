@@ -25,7 +25,7 @@ termco 0.3.0 -
 * `colo` returned list rather than string if a single term was passed.  Spotted
   by Steve Simpson.  See <a href="https://github.com/trinker/termco/issues/12">issue #12</a>.
 
-* `term_count` did not handle hierarchical `term.list` correctly do=ue to a
+* `term_count` did not handle hierarchical `term.list` correctly due to a
   reordering done by **data.table** (when `group.vars` not `= TRUE`).  This
   has been corrected.
 
