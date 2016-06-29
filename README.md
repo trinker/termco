@@ -620,7 +620,7 @@ Here I show splitting by integer.
     ## |...
 
 I could have trained on the training set and tested on the testing set
-in the following examples around modeling but have chosen not too for
+in the following examples around modeling but have chosen not to for
 simplicity.
 
 Understanding Term Use

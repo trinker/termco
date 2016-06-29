@@ -224,7 +224,7 @@ set.seed(112)
 (pres_deb_split <- split_data(presidential_debates_2012, 100))
 ```
 
-I could have trained on the training set and tested on the testing set in the following examples around modeling but have chosen not too for simplicity.
+I could have trained on the training set and tested on the testing set in the following examples around modeling but have chosen not to for simplicity.
 
 ## Understanding Term Use
 
