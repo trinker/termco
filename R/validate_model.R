@@ -210,7 +210,7 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
 assign_validation_task <- function(x, n=20, checks = 1, coders = "coder",
     out = NULL, as.list = TRUE, ...){
 
-    index <- variable <- correct <- NULL
+    text <- index <- variable <- correct <- NULL
 
     if (!attributes(x)[["model"]]) {
         stop("`x` does not appear to be a 'model'; use `grouping.var =TRUE` in `term_count` to create a model")
@@ -225,7 +225,7 @@ assign_validation_task <- function(x, n=20, checks = 1, coders = "coder",
         sample(x, ifelse(length(x) <= n, length(x), n))
     }), "tag", "index")
 
-    dat <- data.table::data.table(items, setNames(data.frame(do.call(rbind, lapply(seq_len(nrow(items)), function(i) {
+    dat <- data.table::data.table(items, stats::setNames(data.frame(do.call(rbind, lapply(seq_len(nrow(items)), function(i) {
         sample(coders, checks)
     })), stringsAsFactors = FALSE), paste0("check_", seq_len(checks))))
 
@@ -246,10 +246,10 @@ assign_validation_task <- function(x, n=20, checks = 1, coders = "coder",
              dir.create(out)
              if (isTRUE(as.list)) {
                  invisible(Map(function(x, y){
-                     write.csv(x, file = file.path(out, sprintf("%s.csv", y)), row.names=FALSE)
+                     utils::write.csv(x, file = file.path(out, sprintf("%s.csv", y)), row.names=FALSE)
                  }, dat, names(dat)))
              } else {
-                 write.csv(dat, file = file.path(out, "codes.csv"), row.names=FALSE)
+                 utils::write.csv(dat, file = file.path(out, "codes.csv"), row.names=FALSE)
              }
         }
     } else {

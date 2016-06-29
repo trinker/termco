@@ -20,7 +20,7 @@ classification_project <- function (path = "new", open = is.global(2)){
     if (path == Sys.getenv("R_HOME")) stop("path can not be `R_HOME`")
     if (file.exists(path)) {
         message(paste0("\"", path, "\" already exists:\nDo you want to overwrite?\n"))
-        ans <- menu(c("Yes", "No"))
+        ans <- utils::menu(c("Yes", "No"))
         if (ans == "2") {
             stop("project aborted")
         } else {

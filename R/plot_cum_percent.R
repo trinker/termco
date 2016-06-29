@@ -10,7 +10,7 @@
 #' plot_cum_percent(frequent_terms(presidential_debates_2012[["dialogue"]]))
 plot_cum_percent <- function(x, rotate.term = TRUE,  ...){
 
-    term <- NULL
+    frequency <- term <- NULL
 
     out <- x %>%
         dplyr::mutate(

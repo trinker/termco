@@ -79,10 +79,10 @@ probe_colo_plot <- function(terms, data, file = "Rplots.pdf", width = 5.5, heigh
 
     terms <- stringi::stri_escape_unicode(terms)
 
-    pdf(file=file, width = width, height = height)
+    grDevices::pdf(file=file, width = width, height = height)
     for(i in terms){
-       print(plot(search_term_collocations(data, i, ...)) + ggplot2::ggtitle(i))
+       print(graphics::plot(search_term_collocations(data, i, ...)) + ggplot2::ggtitle(i))
        Sys.sleep(1)
     }
-    dev.off()
+    grDevices::dev.off()
 }

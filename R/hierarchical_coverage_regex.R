@@ -43,7 +43,7 @@ hierarchical_coverage_regex <- function(text.var, term.list, ignore.case = TRUE,
     stopifnot(is.atomic(text.var))
 
     unique_prop <- unique_n <- unique <- cumulative <- NULL
-    original <- terms
+    #original <- term  #removed 6/29 appears to not do anything
 
     if (!is.list(term.list)) {
         term.list <- as.list(term.list)
@@ -65,7 +65,7 @@ hierarchical_coverage_regex <- function(text.var, term.list, ignore.case = TRUE,
         n[i] <- (N - length(text.var))
         coverage[i] <- n[i]/orig_nx
         if (isTRUE(verbose)) {
-            cat(sprintf("%s of %s", i, length(term.list)), "\n"); flush.console()
+            cat(sprintf("%s of %s", i, length(term.list)), "\n"); utils::flush.console()
             if (i == length(term.list)) cat("\n\n\n")
         }
     }
