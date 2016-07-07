@@ -31,6 +31,9 @@ BUG FIXES
 
 * Column ordering was not respected by `print.term_count`.
 
+* `colo` did not copy to the clip board when `copy2clip` was `TRUE` and a single
+  expressionwas passed to `...`.
+
 NEW FEATURES
 
 * `important_terms` added to compliment `frequent_terms` allowing tf-idf
@@ -46,6 +49,11 @@ MINOR FEATURES
   bar plot.  Suggested by Steve Simpson.  See issue #18.
 
 IMPROVEMENTS
+
+* `colo` automatically adds a group parenthesis around `...` regexes to protect
+  the grouping explicitly.  This is useful when a regex used or pipes (`|`).
+  This would create an unitended expression that was overly agressive (see #20).
+
 
 CHANGES
 

@@ -155,7 +155,7 @@ print.frequent_terms <- function(x, n, ...){
 
     out2 <- x <- x[x[["frequency"]] >= x[["frequency"]][n], ]
 
-
+    #x <- as.data.frame(x, stringsAsFactors = FALSE)
     rownames(x) <- 1:nrow(x)
     print(as.matrix(x), justify = "left", quote=FALSE)
 

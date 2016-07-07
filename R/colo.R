@@ -22,22 +22,31 @@
 #'
 #' search_term(sam_i_am, colo("^i\\b", "like"))
 #' search_term(sam_i_am, colo("^i\\b", "like", "not"))
-#' search_term(sam_i_am, colo("^i\\b", "like", not="not")
+#' search_term(sam_i_am, colo("^i\\b", "like|not"))
+#' search_term(sam_i_am, colo("^i\\b", "like", not="not"))
 #' }
 colo <- function(..., not=NULL, copy2clip = getOption("termco.copy2clip")) {
     if (is.null(copy2clip)) copy2clip <- FALSE
     if (is.null(not)){
-          if (length(substitute(...())) == 1) return(substitute(...())[[1]])
+          if (length(substitute(...())) == 1) {
+              if (isTRUE(copy2clip)) {
+                  clipr::write_clip(substitute(...())[[1]])
+              }
+              return(substitute(...())[[1]])
+          }
     	  cooc(..., copy2clip = copy2clip)
     } else {
     	  cooc_not(..., not=not, copy2clip = copy2clip)
     }
 }
 
+
 cooc <- function(..., copy2clip){
+
     x <- substitute(...())
+
     if (length(x) == 2) {
-        z <- sprintf("(%s.*%s|%s.*%s)", x[1], x[2], x[2], x[1])
+        z <- sprintf("((%s.*%s)|(%s.*%s))", x[1], x[2], x[2], x[1])
     } else {
         z <- paste0("^", paste(sprintf("(?=.*%s)", x), collapse=""))
     }
@@ -52,7 +61,7 @@ cooc <- function(..., copy2clip){
 
 cooc_not <- function(..., not, copy2clip){
     x <- substitute(...())
-    z <- paste0(sprintf("^(?!.*%s)", not), paste(sprintf("(?=.*%s)", x), collapse=""))
+    z <- paste0(sprintf("^(?!.*%s)", not), paste(sprintf("(?=.*(%s))", x), collapse=""))
     if (copy2clip) {
         z2 <- paste0("\"", z, "\"")
         clipr::write_clip(gsub("\\", "\\\\", z2, fixed=TRUE))

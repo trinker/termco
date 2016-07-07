@@ -31,6 +31,7 @@ plot_ca <- function(x, D3 = TRUE, ...){
     val <- validate_term_count(x)
     if (!isTRUE(val)) stop("Not a termco object")
     y <- x[, attributes(x)[["term.vars"]], drop =FALSE]
+    y <- as.data.frame(y, stringsAsFactors = FALSE)
     rownames(y) <- paste2(x[, attributes(x)[["group.vars"]], drop =FALSE])
     fit <- ca::ca(y)
     if (!isTRUE(D3)) {

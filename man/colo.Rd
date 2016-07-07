@@ -33,7 +33,8 @@ colo('overall', 'course', not="instructor")
 
 search_term(sam_i_am, colo("^i\\\\b", "like"))
 search_term(sam_i_am, colo("^i\\\\b", "like", "not"))
-search_term(sam_i_am, colo("^i\\\\b", "like", not="not")
+search_term(sam_i_am, colo("^i\\\\b", "like|not"))
+search_term(sam_i_am, colo("^i\\\\b", "like", not="not"))
 }
 }
 \keyword{collocate}
