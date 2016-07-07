@@ -48,7 +48,7 @@ collapse_tags <- function(x, mapping, ...){
 
         ## change term.vars attribute and remove columns
         removes <- unlist(mapping, use.names=FALSE)
-        x <- x[excluder(colnames(x), removes)]
+        x <- x[excluder(colnames(x), excluder(removes, names(mapping)))]
         y[["term.vars"]] <- c(excluder(y[["term.vars"]], removes), names(mapping))
     }
 
@@ -60,8 +60,8 @@ collapse_tags <- function(x, mapping, ...){
     }
 
     x
-
 }
+
 
 excluder <- function(x, y){
     x[!x %in% y]

@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.3.3-orange.svg"><img src="https://img.shields.io/badge/Version-0.3.3-orange.svg" alt="Version"/></a>
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.3.5-orange.svg"><img src="https://img.shields.io/badge/Version-0.3.5-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
@@ -68,164 +68,164 @@ function generate lists of function calls or plots for given search
 terms. The table below describes the functions, category of use, and
 their description:
 
-<table style="width:136%;">
+<table>
 <colgroup>
-<col width="43%" />
-<col width="20%" />
-<col width="72%" />
+<col width="31%" />
+<col width="15%" />
+<col width="53%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Function</th>
-<th align="left">Use Category</th>
-<th align="left">Description</th>
+<th>Function</th>
+<th>Use Category</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>term_count</code></td>
-<td align="left">count</td>
-<td align="left">Count regex term occurrence; modeling</td>
+<td><code>term_count</code></td>
+<td>count</td>
+<td>Count regex term occurrence; modeling</td>
 </tr>
 <tr class="even">
-<td align="left"><code>frequent_terms</code>/<code>all_words</code></td>
-<td align="left">count</td>
-<td align="left">Frequent terms</td>
+<td><code>frequent_terms</code>/<code>all_words</code></td>
+<td>count</td>
+<td>Frequent terms</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>important_terms</code></td>
-<td align="left">count</td>
-<td align="left">Important terms</td>
+<td><code>important_terms</code></td>
+<td>count</td>
+<td>Important terms</td>
 </tr>
 <tr class="even">
-<td align="left"><code>hierarchical_coverage_term</code></td>
-<td align="left">count</td>
-<td align="left">Unique coverage of a text vector by terms</td>
+<td><code>hierarchical_coverage_term</code></td>
+<td>count</td>
+<td>Unique coverage of a text vector by terms</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>hierarchical_coverage_regex</code></td>
-<td align="left">count</td>
-<td align="left">Unique coverage of a text vector by regex</td>
+<td><code>hierarchical_coverage_regex</code></td>
+<td>count</td>
+<td>Unique coverage of a text vector by regex</td>
 </tr>
 <tr class="even">
-<td align="left"><code>ngram_collocations</code></td>
-<td align="left">count</td>
-<td align="left">Weighted frequent ngram (2 &amp; 3) collocations</td>
+<td><code>ngram_collocations</code></td>
+<td>count</td>
+<td>Weighted frequent ngram (2 &amp; 3) collocations</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>word_count</code></td>
-<td align="left">count</td>
-<td align="left">Count words</td>
+<td><code>word_count</code></td>
+<td>count</td>
+<td>Count words</td>
 </tr>
 <tr class="even">
-<td align="left"><code>colo</code></td>
-<td align="left">search</td>
-<td align="left">Regex output to find term collocations</td>
+<td><code>colo</code></td>
+<td>search</td>
+<td>Regex output to find term collocations</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>search_term</code></td>
-<td align="left">search</td>
-<td align="left">Search for regex terms</td>
+<td><code>search_term</code></td>
+<td>search</td>
+<td>Search for regex terms</td>
 </tr>
 <tr class="even">
-<td align="left"><code>search_term_collocations</code></td>
-<td align="left">search</td>
-<td align="left">Wrapper for <code>search_term</code> + <code>frequent_terms</code></td>
+<td><code>search_term_collocations</code></td>
+<td>search</td>
+<td>Wrapper for <code>search_term</code> + <code>frequent_terms</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><code>classification_project</code></td>
-<td align="left">modeling</td>
-<td align="left">Make a classification modeling project template</td>
+<td><code>classification_project</code></td>
+<td>modeling</td>
+<td>Make a classification modeling project template</td>
 </tr>
 <tr class="even">
-<td align="left"><code>split_data</code></td>
-<td align="left">modeling</td>
-<td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
+<td><code>split_data</code></td>
+<td>modeling</td>
+<td>Split data into <code>train</code> &amp; <code>test</code> sets</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>accuracy</code></td>
-<td align="left">modeling</td>
-<td align="left">Check accuracy of model against human coder</td>
+<td><code>accuracy</code></td>
+<td>modeling</td>
+<td>Check accuracy of model against human coder</td>
 </tr>
 <tr class="even">
-<td align="left"><code>classify</code></td>
-<td align="left">modeling</td>
-<td align="left">Assign n tags to text from a model</td>
+<td><code>classify</code></td>
+<td>modeling</td>
+<td>Assign n tags to text from a model</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>coverage</code></td>
-<td align="left">modeling</td>
-<td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
+<td><code>coverage</code></td>
+<td>modeling</td>
+<td>Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
 <tr class="even">
-<td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
-<td align="left">modeling</td>
-<td align="left">Get the uncovered text from a model</td>
+<td><code>uncovered</code>/<code>get_uncovered</code></td>
+<td>modeling</td>
+<td>Get the uncovered text from a model</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>tag_co_occurrence</code></td>
-<td align="left">modeling</td>
-<td align="left">Explor co-occurrence of tags from a model</td>
+<td><code>tag_co_occurrence</code></td>
+<td>modeling</td>
+<td>Explor co-occurrence of tags from a model</td>
 </tr>
 <tr class="even">
-<td align="left"><code>validate_model</code>/<code>assign_validation_task</code></td>
-<td align="left">modeling</td>
-<td align="left">Human validation of a <code>term_count</code> model</td>
+<td><code>validate_model</code>/<code>assign_validation_task</code></td>
+<td>modeling</td>
+<td>Human validation of a <code>term_count</code> model</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>as_count</code></td>
-<td align="left">convert</td>
-<td align="left">Strip pretty printing from <code>term_count</code> object</td>
+<td><code>as_count</code></td>
+<td>convert</td>
+<td>Strip pretty printing from <code>term_count</code> object</td>
 </tr>
 <tr class="even">
-<td align="left"><code>as_terms</code></td>
-<td align="left">convert</td>
-<td align="left">Convert a count matrix to list of term vectors</td>
+<td><code>as_terms</code></td>
+<td>convert</td>
+<td>Convert a count matrix to list of term vectors</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>weight</code></td>
-<td align="left">convert</td>
-<td align="left">Weight a <code>term_count</code> object proportion/percent</td>
+<td><code>weight</code></td>
+<td>convert</td>
+<td>Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
 <tr class="even">
-<td align="left"><code>plot_ca</code></td>
-<td align="left">plot</td>
-<td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
+<td><code>plot_ca</code></td>
+<td>plot</td>
+<td>Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>plot_counts</code></td>
-<td align="left">plot</td>
-<td align="left">Horizontal bar plot of group counts</td>
+<td><code>plot_counts</code></td>
+<td>plot</td>
+<td>Horizontal bar plot of group counts</td>
 </tr>
 <tr class="even">
-<td align="left"><code>plot_freq</code></td>
-<td align="left">plot</td>
-<td align="left">Vertical bar plot of frequencies of counts</td>
+<td><code>plot_freq</code></td>
+<td>plot</td>
+<td>Vertical bar plot of frequencies of counts</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>plot_cum_percent</code></td>
-<td align="left">plot</td>
-<td align="left">Plot <code>frequent_terms</code> object as cumulative percent</td>
+<td><code>plot_cum_percent</code></td>
+<td>plot</td>
+<td>Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
 <tr class="even">
-<td align="left"><code>probe_list</code></td>
-<td align="left">probe</td>
-<td align="left">Generate list of <code>search_term</code> function calls</td>
+<td><code>probe_list</code></td>
+<td>probe</td>
+<td>Generate list of <code>search_term</code> function calls</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>probe_colo_list</code></td>
-<td align="left">probe</td>
-<td align="left">Generate list of <code>search_term_collocations</code> function calls</td>
+<td><code>probe_colo_list</code></td>
+<td>probe</td>
+<td>Generate list of <code>search_term_collocations</code> function calls</td>
 </tr>
 <tr class="even">
-<td align="left"><code>probe_colo_plot_list</code></td>
-<td align="left">probe</td>
-<td align="left">Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
+<td><code>probe_colo_plot_list</code></td>
+<td>probe</td>
+<td>Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>probe_colo_plot</code></td>
-<td align="left">probe</td>
-<td align="left">Plot <code>probe_colo_plot_list</code> directly</td>
+<td><code>probe_colo_plot</code></td>
+<td>probe</td>
+<td>Plot <code>probe_colo_plot_list</code> directly</td>
 </tr>
 </tbody>
 </table>
@@ -254,6 +254,7 @@ You are welcome to:
 - submit suggestions and bug-reports at: <https://github.com/trinker/termco/issues>    
 - send a pull request on: <https://github.com/trinker/termco/>    
 - compose a friendly e-mail to: <tyler.rinker@gmail.com>    
+
 
 Examples
 ========
@@ -288,7 +289,7 @@ Build Counts Dataframe
     ## Source: local data frame [10 x 7]
     ## 
     ##       person   time n.words response_cries back_channels   summons
-    ##       (fctr) (fctr)   (int)          (chr)         (chr)     (chr)
+    ##       <fctr> <fctr>   <int>          <chr>         <chr>     <chr>
     ## 1      OBAMA time 1    3599        3(.08%)             0 43(1.19%)
     ## 2      OBAMA time 2    7477        2(.03%)             0  42(.56%)
     ## 3      OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
@@ -299,7 +300,7 @@ Build Counts Dataframe
     ## 8     LEHRER time 1     765        3(.39%)       3(.39%)         0
     ## 9   QUESTION time 2     583        2(.34%)             0         0
     ## 10 SCHIEFFER time 3    1445              0             0   2(.14%)
-    ## Variables not shown: justification (chr)
+    ## Variables not shown: justification <chr>.
 
 Printing
 --------
@@ -310,7 +311,7 @@ Printing
     ## Source: local data frame [10 x 7]
     ## 
     ##       person   time n.words response_cries back_channels summons
-    ##       (fctr) (fctr)   (int)          (int)         (int)   (int)
+    ##       <fctr> <fctr>   <int>          <int>         <int>   <int>
     ## 1      OBAMA time 1    3599              3             0      43
     ## 2      OBAMA time 2    7477              2             0      42
     ## 3      OBAMA time 3    7243              1             1      58
@@ -321,7 +322,7 @@ Printing
     ## 8     LEHRER time 1     765              3             3       0
     ## 9   QUESTION time 2     583              2             0       0
     ## 10 SCHIEFFER time 3    1445              0             0       2
-    ## Variables not shown: justification (int)
+    ## Variables not shown: justification <int>.
 
     print(counts, zero.replace = "_")
 
@@ -329,7 +330,7 @@ Printing
     ## Source: local data frame [10 x 7]
     ## 
     ##       person   time n.words response_cries back_channels   summons
-    ##       (fctr) (fctr)   (int)          (chr)         (chr)     (chr)
+    ##       <fctr> <fctr>   <int>          <chr>         <chr>     <chr>
     ## 1      OBAMA time 1    3599        3(.08%)             _ 43(1.19%)
     ## 2      OBAMA time 2    7477        2(.03%)             _  42(.56%)
     ## 3      OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
@@ -340,7 +341,7 @@ Printing
     ## 8     LEHRER time 1     765        3(.39%)       3(.39%)         _
     ## 9   QUESTION time 2     583        2(.34%)             _         _
     ## 10 SCHIEFFER time 3    1445              _             _   2(.14%)
-    ## Variables not shown: justification (chr)
+    ## Variables not shown: justification <chr>.
 
 Plotting
 --------
@@ -558,28 +559,28 @@ are additional observations.
     ## Source: local data frame [6 x 5]
     ## 
     ##      person    tot   time      role
-    ##      (fctr)  (chr) (fctr)    (fctr)
+    ##      <fctr>  <chr> <fctr>    <fctr>
     ## 1   CROWLEY  230.2 time 2 moderator
     ## 2 SCHIEFFER   48.1 time 3 moderator
     ## 3    ROMNEY  98.15 time 2 candidate
     ## 4    ROMNEY 173.12 time 2 candidate
     ## 5     OBAMA  102.6 time 2 candidate
     ## 6     OBAMA 120.16 time 2 candidate
-    ## Variables not shown: dialogue (chr)
+    ## Variables not shown: dialogue <chr>.
     ## |...
     ## 
     ## test: n = 728
     ## Source: local data frame [6 x 5]
     ## 
     ##   person   tot   time      role
-    ##   (fctr) (chr) (fctr)    (fctr)
+    ##   <fctr> <chr> <fctr>    <fctr>
     ## 1 LEHRER   1.1 time 1 moderator
     ## 2 ROMNEY   2.2 time 1 candidate
     ## 3 ROMNEY   4.4 time 1 candidate
     ## 4 ROMNEY   4.5 time 1 candidate
     ## 5 ROMNEY   4.7 time 1 candidate
     ## 6 ROMNEY  4.17 time 1 candidate
-    ## Variables not shown: dialogue (chr)
+    ## Variables not shown: dialogue <chr>.
     ## |...
 
 The training set can be accessed via `pres_deb_split$train`; likewise,
@@ -595,28 +596,28 @@ Here I show splitting by integer.
     ## Source: local data frame [6 x 5]
     ## 
     ##   person    tot   time      role
-    ##   (fctr)  (chr) (fctr)    (fctr)
+    ##   <fctr>  <chr> <fctr>    <fctr>
     ## 1  OBAMA  102.4 time 2 candidate
     ## 2 ROMNEY 122.26 time 3 candidate
     ## 3 ROMNEY 166.16 time 3 candidate
     ## 4 ROMNEY 162.18 time 3 candidate
     ## 5  OBAMA   20.3 time 2 candidate
     ## 6 ROMNEY  59.12 time 1 candidate
-    ## Variables not shown: dialogue (chr)
+    ## Variables not shown: dialogue <chr>.
     ## |...
     ## 
     ## test: n = 2812
     ## Source: local data frame [6 x 5]
     ## 
     ##   person   tot   time      role
-    ##   (fctr) (chr) (fctr)    (fctr)
+    ##   <fctr> <chr> <fctr>    <fctr>
     ## 1 LEHRER   1.1 time 1 moderator
     ## 2 LEHRER   1.2 time 1 moderator
     ## 3 ROMNEY   2.1 time 1 candidate
     ## 4 ROMNEY   2.2 time 1 candidate
     ## 5 LEHRER   3.1 time 1 moderator
     ## 6 ROMNEY   4.1 time 1 candidate
-    ## Variables not shown: dialogue (chr)
+    ## Variables not shown: dialogue <chr>.
     ## |...
 
 I could have trained on the training set and tested on the testing set
@@ -872,7 +873,7 @@ of observation which gives the researcher the observation level counts.
     ## Source: local data frame [2,912 x 6]
     ## 
     ##       id n.words response_cries back_channels summons justification
-    ##    (int)   (int)          (int)         (int)   (int)         (int)
+    ##    <int>   <int>          <int>         <int>   <int>         <int>
     ## 1      1      10              0             0       0             0
     ## 2      2       9              1             0       0             0
     ## 3      3      14              0             0       0             0
@@ -1295,44 +1296,44 @@ generate "known human coded tagged" vector. Obviously, this is for
 demonstration purposes. The model outputs a pretty printing of a list.
 The printing contains:
 
-<table style="width:111%;">
+<table>
 <colgroup>
-<col width="29%" />
-<col width="66%" />
-<col width="15%" />
+<col width="26%" />
+<col width="60%" />
+<col width="13%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Printed</th>
-<th align="left">Description</th>
-<th align="left">Accessed</th>
+<th>Printed</th>
+<th>Description</th>
+<th>Accessed</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><strong>N</strong></td>
-<td align="left">The number of text elements (<code>N</code>)</td>
-<td align="left"></td>
+<td><strong>N</strong></td>
+<td>The number of text elements (<code>N</code>)</td>
+<td></td>
 </tr>
 <tr class="even">
-<td align="left"><strong>Exact</strong></td>
-<td align="left">Perfect one to one correspondence between whole vectors in <code>tagged</code> &amp; <code>known</code></td>
-<td align="left"><code>$exact</code></td>
+<td><strong>Exact</strong></td>
+<td>Perfect one to one correspondence between whole vectors in <code>tagged</code> &amp; <code>known</code></td>
+<td><code>$exact</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><strong>Ordered</strong></td>
-<td align="left">Proportion of the elements in <code>tagged</code> matching <code>known</code> exactly; order matters</td>
-<td align="left"><code>$ordered</code></td>
+<td><strong>Ordered</strong></td>
+<td>Proportion of the elements in <code>tagged</code> matching <code>known</code> exactly; order matters</td>
+<td><code>$ordered</code></td>
 </tr>
 <tr class="even">
-<td align="left"><strong>Adjusted</strong></td>
-<td align="left">An adjusted mean score of <strong>Ordered</strong> and <strong>unordered</strong></td>
-<td align="left"><code>$adjusted</code></td>
+<td><strong>Adjusted</strong></td>
+<td>An adjusted mean score of <strong>Ordered</strong> and <strong>unordered</strong></td>
+<td><code>$adjusted</code></td>
 </tr>
 <tr class="odd">
-<td align="left"><strong>Unordered</strong></td>
-<td align="left">Proportion of the elements in <code>tagged</code> matching <code>known</code> regardless of order</td>
-<td align="left"><code>$unordered</code></td>
+<td><strong>Unordered</strong></td>
+<td>Proportion of the elements in <code>tagged</code> matching <code>known</code> regardless of order</td>
+<td><code>$unordered</code></td>
 </tr>
 </tbody>
 </table>
