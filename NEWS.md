@@ -17,7 +17,27 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-termco 0.3.0 -
+termco 0.4.0 -
+----------------------------------------------------------------
+
+**BUG FIXES**
+
+**NEW FEATURES**
+
+* `term_cols` & `group_cols` added to quickly grab just term or grouping
+  variable columns.
+
+* `as_dtm` & `as_tdm` added to convert a `term_count` object into a
+  `tm::DocumentTermMatrix` or `tm::TermDocumentMatrix` object.
+
+**MINOR FEATURES**
+
+**IMPROVEMENTS**
+
+**CHANGES**
+
+
+termco 0.3.0 - 0.3.6
 ----------------------------------------------------------------
 
 **BUG FIXES**
@@ -32,7 +52,7 @@ termco 0.3.0 -
 * Column ordering was not respected by `print.term_count`.
 
 * `colo` did not copy to the clip board when `copy2clip` was `TRUE` and a single
-  expressionwas passed to `...`.
+  expression was passed to `...`.
 
 **NEW FEATURES**
 
@@ -52,10 +72,9 @@ termco 0.3.0 -
 
 * `colo` automatically adds a group parenthesis around `...` regexes to protect
   the grouping explicitly.  This is useful when a regex used or pipes (`|`).
-  This would create an unitended expression that was overly agressive (see #20).
+  This would create an unintended expression that was overly aggressive (see #20).
 
 
-**CHANGES**
 
 
 termco 0.2.0
@@ -103,7 +122,7 @@ termco 0.1.0
 
 * `tag_co_occurrence` added to explore tag co-occurrences.
 
-* `search_term_collocations`   added as a conveinence wrapper for `search_term`
+* `search_term_collocations`   added as a convenience wrapper for `search_term`
   + `frequent_terms`. (Thanks to Steve Simpson)
 
 

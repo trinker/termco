@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.3.6-orange.svg"><img src="https://img.shields.io/badge/Version-0.3.6-orange.svg" alt="Version"/></a>
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.4.0-orange.svg"><img src="https://img.shields.io/badge/Version-0.4.0-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
@@ -138,91 +138,96 @@ their description:
 <td>Make a classification modeling project template</td>
 </tr>
 <tr class="even">
+<td>`<code>as_dtm</code>/<code>as_tdm</code></td>
+<td>modeling</td>
+<td>Coerce <code>term_count</code> object into <code>tm::DocumentTermMatrix</code>/<code>tm::TermDocumentMatrix</code></td>
+</tr>
+<tr class="odd">
 <td><code>split_data</code></td>
 <td>modeling</td>
 <td>Split data into <code>train</code> &amp; <code>test</code> sets</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>accuracy</code></td>
 <td>modeling</td>
 <td>Check accuracy of model against human coder</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>classify</code></td>
 <td>modeling</td>
 <td>Assign n tags to text from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>coverage</code></td>
 <td>modeling</td>
 <td>Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>uncovered</code>/<code>get_uncovered</code></td>
 <td>modeling</td>
 <td>Get the uncovered text from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>tag_co_occurrence</code></td>
 <td>modeling</td>
 <td>Explor co-occurrence of tags from a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>validate_model</code>/<code>assign_validation_task</code></td>
 <td>modeling</td>
 <td>Human validation of a <code>term_count</code> model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>as_count</code></td>
 <td>convert</td>
 <td>Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>as_terms</code></td>
 <td>convert</td>
 <td>Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>weight</code></td>
 <td>convert</td>
 <td>Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>plot_ca</code></td>
 <td>plot</td>
 <td>Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>plot_counts</code></td>
 <td>plot</td>
 <td>Horizontal bar plot of group counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>plot_freq</code></td>
 <td>plot</td>
 <td>Vertical bar plot of frequencies of counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>plot_cum_percent</code></td>
 <td>plot</td>
 <td>Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>probe_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>probe_colo_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term_collocations</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>probe_colo_plot_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>probe_colo_plot</code></td>
 <td>probe</td>
 <td>Plot <code>probe_colo_plot_list</code> directly</td>
@@ -1047,7 +1052,7 @@ Here is the regex produced.
 
     colo("\\bright", "(people|course)")
 
-    ## [1] "((\\bright).*((people|course))|((people|course)).*(\\bright))"
+    ## [1] "((\\bright.*(people|course))|((people|course).*\\bright))"
 
 This is extremely powerful when used inside of `search_term` as the text
 containing this regular expression will be returned along with the

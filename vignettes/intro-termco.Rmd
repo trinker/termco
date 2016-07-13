@@ -40,6 +40,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 |------------------------------|--------------|---------------------------------------------------|
 | `term_count`                 | count        | Count regex term occurrence; modeling             |
 | `frequent_terms`/`all_words` | count        | Frequent terms                                    |
+| `important_terms`            | count        | Important terms                                   |
 | `hierarchical_coverage_term` | count        | Unique coverage of a text vector by terms         |
 | `hierarchical_coverage_regex`| count        | Unique coverage of a text vector by regex         |
 | `ngram_collocations`         | count        | Weighted frequent ngram (2 & 3) collocations      |
@@ -48,6 +49,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `search_term`                | search       | Search for regex terms                            |
 | `search_term_collocations`   | search       | Wrapper for `search_term` + `frequent_terms`      |
 | `classification_project`     | modeling     | Make a classification modeling project template   |
+| ``as_dtm`/`as_tdm`           | modeling     | Coerce `term_count` object into `tm::DocumentTermMatrix`/`tm::TermDocumentMatrix` |
 | `split_data`                 | modeling     | Split data into `train` & `test` sets             |
 | `accuracy`                   | modeling     | Check accuracy of model against human coder       |
 | `classify`                   | modeling     | Assign n tags to text from a model                |
@@ -63,17 +65,41 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `plot_freq`                  | plot         | Vertical bar plot of frequencies of counts        |
 | `plot_cum_percent`           | plot         | Plot `frequent_terms` object as cumulative percent |
 | `probe_list`                 | probe        | Generate list of `search_term` function calls     |
-| `probe_colo_list`            | probe        | Generate list of `search_term` + `frequent_terms` function calls |
-| `probe_colo_plot_list`       | probe        | Generate list of `search_term` + `frequent_terms` + `plot` function calls |
+| `probe_colo_list`            | probe        | Generate list of `search_term_collocations` function calls |
+| `probe_colo_plot_list`       | probe        | Generate list of `search_term_collocationss` + `plot` function calls |
 | `probe_colo_plot`            | probe        | Plot `probe_colo_plot_list` directly              |
 
+# Installation
+
+To download the development version of **termco**:
+
+Download the [zip ball](https://github.com/trinker/termco/zipball/master) or [tar ball](https://github.com/trinker/termco/tarball/master), decompress and run `R CMD INSTALL` on it, or use the **pacman** package to install the development version:
+
+```r
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load_gh(
+    "trinker/gofastr",
+    "trinker/termco"
+)
+```
+
+# Contact
+
+You are welcome to:
+* submit suggestions and bug-reports at: <https://github.com/trinker/termco/issues>
+* send a pull request on: <https://github.com/trinker/termco/>
+* compose a friendly e-mail to: <tyler.rinker@gmail.com>
+
+# Examples
 
 The following examples demonstrate some of the functionality of **termco**.
 
 ## Load the Tools/Data
 
-```{r}
-library(dplyr); library(ggplot2); library(termco)
+```{r, message=FALSE}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dplyr, ggplot2, termco)
+
 data(presidential_debates_2012)
 ```
 
@@ -112,9 +138,32 @@ plot_ca(counts, FALSE)
 ```
 
 
-# Building an Expert Rules, Regex Classifier Model
+## Ngram Collocations    
 
-Machine learning models of classification are great when you have known tags to train with because the model scales.  Qualitative, expert based human coding is terrific for when you have no tagged data. However, when you have a larger, untagged data set the machine learning approaches have no outcome to learn from and the data is too large to classify by hand.  One solution is to use a expert rules, regular expression approach that is somewhere between machine learning and hand coding.  This is one solution for tagging larger, untagged data sets. Additionally, when each text element contains larger chunks of text, unsupervised clustering type algorithms such as k-means, non-negative matrix factorization, [hierarchical clustering](https://github.com/trinker/hclustext), or [topic modeling](https://github.com/trinker/topicmodels_learning) may be of use.
+**termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda) package to examine important ngram collocations.  **quanteda**'s `collocation` function provides measures of: `"G2"`, `"X2"`, `"pmi"`, and `"dice"` to examine the strength of relationship between ngrams.  **termco** adds stopword removal, min/max character filtering, and stemming to **quanteda**'s `collocation` as well as a generic `plot` method.
+
+```{r}
+x <- presidential_debates_2012[["dialogue"]]
+
+ngram_collocations(x)
+ngram_collocations(x, gram.length = 3)
+ngram_collocations(x, order.by = "dice")
+```
+
+
+### Collocation Plotting
+
+```{r, fig.width=10}
+plot(ngram_collocations(x))
+plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
+plot(ngram_collocations(x, gram.length = 3))
+plot(ngram_collocations(x, order.by = "dice"))
+```
+
+
+# Building an Expert Rules, Regex Classifier Model    
+
+Machine learning models of classification are great when you have known tags to train with because the model scales.  Qualitative, expert based human coding is terrific for when you have no tagged data. However, when you have a larger, untagged data set the machine learning approaches have no outcome to learn from and the data is too large to classify by hand.  One solution is to use a expert rules, regular expression approach that is somewhere between machine learning and hand coding.  This is one solution for tagging larger, untagged data sets. Additionally, when each text element contains larger chunks of text, [unsupervised clustering type algorithms](https://github.com/trinker/clustext) such as k-means, non-negative matrix factorization, hierarchical clustering, or [topic modeling](https://github.com/trinker/topicmodels_learning) may be of use for creating clusters that could be interpreted and treated as categories.
 
 This example section highlights the types of function combinations and order for a typical expert rules classification.  This task typically involves the combined use of available literature, close examinations of term usage within text, and researcher experience.  Building a classifier model requires the researcher to build a list of regular expressions that map to a category or tag.  Below I outline minimal work flow for classification.
 
@@ -134,15 +183,18 @@ template
     +---reports
     \---scripts
             01_data_cleaning.R
-```      
-
+            02_classification.R
+```
 
 ## Load the Tools/Data
 
-```{r}
-library(dplyr); library(ggplot2); library(termco)
+```{r, message=FALSE}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dplyr, ggplot2, termco)
+
 data(presidential_debates_2012)
 ```
+
 
 ## Splitting Data
 
@@ -167,13 +219,13 @@ set.seed(112)
 (pres_deb_split <- split_data(presidential_debates_2012, 100))
 ```
 
-I could have trained on the training set and tested on the testing set in the following examples around modeling but have chosen not too for simplicity.
+I could have trained on the training set and tested on the testing set in the following examples around modeling but have chosen not to for simplicity.
 
 ## Understanding Term Use
 
 In order to build the named list of regular expressions that map to a category/tag the researcher must understand the terms (particularly information salient terms) in context.  The understanding of term use helps the researcher to begin to build a mental model of the topics being used in a fashion similar to qualitative coding techniques.  Broad categories will begin to coalesce as word use is elucidated.  It forms the initial names of the "named list of regular expressions".  Of course building the regular expressions in the regex model building step will allow the researcher to see new ways in which terms are used as well as new important terms.  This in turn will reshape, remove, and add names to the "named list of regular expressions".  This recursive process is captured in the model below.
 
-<img src="model2.png" width="300" alt="model">  
+<img src="inst/figure/model2.png" width="400" alt="model">  
 
 
 ### View Most Used Words
@@ -257,9 +309,17 @@ presidential_debates_2012 %>%
     probe_colo_plot("presidential_debates_2012$dialogue") 
 ```
 
+### View Important Words
+
+It may also be useful to view top [min-max](http://stats.stackexchange.com/a/70807/7482) scaled tf-idf weighted terms to allow the more information rich terms to bubble to the top.  The `important_terms` function allows the user to do exactly this.  The function works similar to `term_count` but with an information weight.
+
+```{r}
+presidential_debates_2012 %>%
+    with(important_terms(dialogue, 10))
+```
+
 
 ## Building the Model
-
 
 To build a model the researcher created a named list of regular expressions that map to a category/tag.  This is fed to the `term_count` function.  `term_count` allows for aggregation by grouping variables but for building the model we usually want to get observation level counts.  Set `grouping.var = TRUE` to generate an `id` column of 1 through number of observation which gives the researcher the observation level counts.
 
@@ -329,7 +389,6 @@ untagged %>%
 
 We may see a common term such as the word *right* and want to see what other terms collocate with it.  Using a regular expression that searches for multiple terms can improve a model's accuracy and ability to discriminate.  Using `search_term` in combination with `frequent_terms` can be a powerful way to see which words tend to collocate.  Here I pass a regex for *right* (`\\bright`) to `search_term`.  This pulls up the text that contains this term.  I then use `frequent_terms` to see what words frequently occur with the word *right*.  We notice the word *people* tends to occur with *right*.
 
-
 ```{r}
 untagged %>%
     search_term("\\bright") %>%
@@ -342,7 +401,6 @@ The `search_term_collocations` function provides a convenient wrapper for `searc
 untagged %>%
     search_term_collocations("\\bright", n=10)
 ```
-
 
 This is an exploratory act.  Finding the right combination of features that occur together requires lots of recursive noticing, trialling, testing, reading, interpreting, and deciding.  After we noticed that the terms *people* and *course* appear with the term *right* above we will want to see these text elements.  We can use a grouped-or expression with `colo` to build a regular expression that will search for any text elements that contain these two terms anywhere.  `colo` is more powerful than initially shown here; I demonstrate further functionality below.  Here is the regex produced.
 
@@ -367,7 +425,7 @@ search_term(untagged, "right course")
 Based on the `frequent_terms` output above, the word *jobs* also seems important.  Again, we use the `search_term` + `frequent_terms` combo to extract words collocating with *jobs*.
 
 ```{r}
-search_term(untagged, colo("jobs", "overseas")) 
+search_term_collocations(untagged, "jobs", n=15)
 ```
 
 As stated above, `colo` is a powerful search tool as it can take multiple regular expressions as well as allowing for multiple negations (i.e., find x but not if y).  To include multiple negations use a grouped-or regex as shown below.
@@ -391,7 +449,6 @@ search_term(untagged, colo("jobs", "overseas"))
 
 The researcher uses an iterative process to continue to build the regular expression list.  The `term_count` function builds the matrix of counts to further test the model.  The use of (a) `coverage`, (b) `as_terms` + `plot_counts`, and &#40;c) `as_terms` + `freq_counts` will allow for continued testing of model functioning.  
 
-
 ### Improving Discrimination
 
 It is often desirable to improve discrimination.  While the bar plot highlighting the distribution of the number of tags is useful, it only indicates if there is a problem, not where the problem lies.  The `tag_co_occurrence` function produces a list of `data.frame` and `matrices` that aide in understanding how to improve discrimination.  This list is useful, but the `plot` method provides an improved visual view of the co-occurrences of tags.
@@ -405,7 +462,6 @@ tag_co_occurrence(model) %>%
 
 
 ## Categorizing/Tagging
-
 
 The `classify` function enables the researcher to apply $n$ tags to each text element.  Depending on the text and the regular expression list's ability, multiple tags may be applied to a text.  The `n` argument allows the maximum number of tags to be set though the function does not guarantee this many (or any) tags will be assigned.
 
@@ -485,7 +541,7 @@ validated <- model %>%
     validate_model()
 ```
 
-```{r, echo=FALSE, results='hide'}
+```{r, results='hide', echo=FALSE}
 data(validated)
 ```
 
@@ -499,5 +555,7 @@ plot(validated)
 
 
 These examples give guidance on how to use the tools in the **termco** package to build an expert rules, regular expression text classification model.
+
+
 
 

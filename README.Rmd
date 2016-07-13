@@ -55,6 +55,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `search_term`                | search       | Search for regex terms                            |
 | `search_term_collocations`   | search       | Wrapper for `search_term` + `frequent_terms`      |
 | `classification_project`     | modeling     | Make a classification modeling project template   |
+| ``as_dtm`/`as_tdm`           | modeling     | Coerce `term_count` object into `tm::DocumentTermMatrix`/`tm::TermDocumentMatrix` |
 | `split_data`                 | modeling     | Split data into `train` & `test` sets             |
 | `accuracy`                   | modeling     | Check accuracy of model against human coder       |
 | `classify`                   | modeling     | Assign n tags to text from a model                |
