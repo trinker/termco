@@ -27,6 +27,13 @@ as_dtm.term_count <- function(x, weighting = tm::weightTf, ...){
 }
 
 #' @export
+#' @method as_dtm tbl_df
+as_dtm.tbl_df <- function(x, weighting = tm::weightTf, ...){
+    tm::as.DocumentTermMatrix(slam::as.simple_triplet_matrix(as.matrix(x)), weighting = weighting)
+}
+
+
+#' @export
 #' @rdname as_dtm
 as_tdm <- function(x, weighting = tm::weightTf, ...){
     UseMethod('as_tdm')
@@ -40,4 +47,10 @@ as_tdm.term_count <- function(x, weighting = tm::weightTf, ...){
     tm::as.TermDocumentMatrix(slam::as.simple_triplet_matrix(t(y)), weighting = weighting)
 }
 
+#' @export
+#' @method as_tdm tbl_df
+as_tdm.tbl_df <- function(x, weighting = tm::weightTf, ...){
 
+    tm::as.TermDocumentMatrix(slam::as.simple_triplet_matrix(as.matrix(x)), weighting = weighting)
+
+}
