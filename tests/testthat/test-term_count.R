@@ -68,7 +68,7 @@ test_that("term_count produces expected output when two grouping variable is sup
 
 })
 
-test_that("term_count prints pretty",{
+test_that("term_count prints when not pretty",{
 
     discoure_markers <- list(
         response_cries = c("oh", "ah", "aha", "ouch", "yuk"),
@@ -81,24 +81,13 @@ test_that("term_count prints pretty",{
         term_count(dialogue, list(person, time), discoure_markers)
     )
 
+
+    output <- capture.output(print(markers3, pretty = FALSE))
+
     expect_true(
-        all.equal(
-            capture.output(print(markers3, pretty = FALSE)),
-            c(
-                "Coverage: 100% ", "# A tibble: 10 x 7", "      person   time n.words response_cries back_channels summons justification",
-                "      <fctr> <fctr>   <int>          <int>         <int>   <int>         <int>",
-                "1      OBAMA time 1    3599              4             0      43            26",
-                "2      OBAMA time 2    7477              2             0      42            29",
-                "3      OBAMA time 3    7243              4             1      58            33",
-                "4     ROMNEY time 1    4085              1             0      27             8",
-                "5     ROMNEY time 2    7536              6             3      49            20",
-                "6     ROMNEY time 3    8303              8             0      84            19",
-                "7    CROWLEY time 2    1672              2             0       4            12",
-                "8     LEHRER time 1     765              6             3       0             0",
-                "9   QUESTION time 2     583              2             0       0             2",
-                "10 SCHIEFFER time 3    1445              0             0       2             6"
-            )
-        )
+        length(output) > 12 &
+            grepl("Coverage: 100%", output[1]) &
+            grepl("10\\s+SCHIEFFER\\s+time\\s+3\\s+1445\\s+0\\s+0\\s+2\\s+6", utils::tail(output, 1))
     )
 
 })
