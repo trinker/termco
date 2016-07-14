@@ -4,7 +4,7 @@
 \alias{classify}
 \title{Classify Rows of a Count Matrix}
 \usage{
-classify(x, n = 1, ties.method = "probability", ...)
+classify(x, n = 1, ties.method = "probability", seed = NULL, ...)
 }
 \arguments{
 \item{x}{A \code{term_count} or count \code{\link[base]{matrix}}/\code{\link[base]{data.frame}}.}
@@ -16,9 +16,11 @@ for specifying how ties are handled; "probability" by default.  This utilizes
 the probability distributions from all tags (regardless of strength/counts of
 tags) to randomly \code{\link[base]{sample}} with probabilties to break ties.
 Note that this can lead to different results each time \code{classify} is run.
-Use \code{\link[base]{set.seed}} to make results reproducible.  The other
-methods use \code{\link[base]{max.col}} for tie breaking.  See
+Use \code{seed} to make results reproducible.  The other methods
+use \code{\link[base]{max.col}} for tie breaking.  See
 \code{\link[base]{max.col}} for a description of those arguments.}
+
+\item{seed}{A seed to use in the sample to make the results reproducible.}
 
 \item{\ldots}{ignored.}
 }

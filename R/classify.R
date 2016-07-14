@@ -9,9 +9,10 @@
 #' the probability distributions from all tags (regardless of strength/counts of
 #' tags) to randomly \code{\link[base]{sample}} with probabilties to break ties.
 #' Note that this can lead to different results each time \code{classify} is run.
-#' Use \code{\link[base]{set.seed}} to make results reproducible.  The other
-#' methods use \code{\link[base]{max.col}} for tie breaking.  See
+#' Use \code{seed} to make results reproducible.  The other methods
+#' use \code{\link[base]{max.col}} for tie breaking.  See
 #' \code{\link[base]{max.col}} for a description of those arguments.
+#' @param seed A seed to use in the sample to make the results reproducible.
 #' @param \ldots ignored.
 #' @return Returns a single \code{\link[base]{vector}} or \code{\link[base]{list}}
 #' of ordered vectors of predicted classifications; order by term frequency.
@@ -52,7 +53,7 @@
 #'     with(., term_count(dialogue, TRUE, discoure_markers)) %>%
 #'     {.[!uncovered(.), -c(1:2)]} %>%
 #'     classify()
-classify <- function(x, n = 1, ties.method = "probability", ...) {
+classify <- function(x, n = 1, ties.method = "probability", seed = NULL, ...) {
 
     val <- validate_term_count(x)
     if (isTRUE(val)) {
@@ -73,6 +74,7 @@ classify <- function(x, n = 1, ties.method = "probability", ...) {
                     out <- pot_tag
                 } else {
                     props <- probs[match(pot_tag, names(probs))]
+                    if (!is.null(seed)) set.seed(seed)
                     out <- sample(names(props), 1, prob = props)
                 }
 
@@ -80,6 +82,7 @@ classify <- function(x, n = 1, ties.method = "probability", ...) {
 
         } else {
 
+            if (!is.null(seed)) set.seed(seed)
             out <- colnames(x)[max.col(x, ties.method = ties.method)]
 
         }
@@ -107,6 +110,8 @@ classify <- function(x, n = 1, ties.method = "probability", ...) {
                     back <- names(pot_tag[pot_tag == min_val])
 
                     props <- probs[match(back, names(probs))]
+
+                    if (!is.null(seed)) set.seed(seed)
                     out <- c(front, sample(names(props), min(n - length(front), length(props)), prob = props))
                 }
                 out
@@ -121,6 +126,7 @@ classify <- function(x, n = 1, ties.method = "probability", ...) {
                     out <- names(pot_tag)
                 } else {
 
+                    if (!is.null(seed)) set.seed(seed)
                     out <- names(sort(rank(y[y > 0], ties.method = ties.method), TRUE))
                     out <- out[seq_len(min(length(out), n))]
                 }
