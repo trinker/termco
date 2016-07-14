@@ -30,6 +30,9 @@ NEW FEATURES
 * `as_dtm` & `as_tdm` added to convert a `term_count` object into a
   `tm::DocumentTermMatrix` or `tm::TermDocumentMatrix` object.
 
+* `update_names` added to allow for safe renaming of a `term_count` object's
+  columns while also updating its attributes as well.
+
 MINOR FEATURES
 
 IMPROVEMENTS
