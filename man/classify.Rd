@@ -4,15 +4,21 @@
 \alias{classify}
 \title{Classify Rows of a Count Matrix}
 \usage{
-classify(x, n = 1, ties.method = "random", ...)
+classify(x, n = 1, ties.method = "probability", ...)
 }
 \arguments{
 \item{x}{A \code{term_count} or count \code{\link[base]{matrix}}/\code{\link[base]{data.frame}}.}
 
 \item{n}{The number of classifications per row to return.}
 
-\item{ties.method}{Either \code{c("random", "first", "last")} for specifying
-how ties are handled; "random" by default.  See \code{\link[base]{max.col}}.}
+\item{ties.method}{Either \code{c("probability", "random", "first", "last")}
+for specifying how ties are handled; "probability" by default.  This utilizes
+the probability distributions from all tags (regardless of strength/counts of
+tags) to randomly \code{\link[base]{sample}} with probabilties to break ties.
+Note that this can lead to different results each time \code{classify} is run.
+Use \code{\link[base]{set.seed}} to make results reproducible.  The other
+methods use \code{\link[base]{max.col}} for tie breaking.  See
+\code{\link[base]{max.col}} for a description of those arguments.}
 
 \item{\ldots}{ignored.}
 }
@@ -25,12 +31,6 @@ Ties default to random order.
 Use a count matrix to classify the rows, based on the frequencies in the cells.
 }
 \examples{
-set.seed(10)
-(x <- data.frame(matrix(sample(c(0, 0, 0, 1, 2, 3), 24, TRUE), ncol=3)))
-classify(x)
-classify(x, n=3)
-
-## Example
 library(dplyr)
 data(presidential_debates_2012)
 
@@ -44,6 +44,16 @@ discoure_markers <- list(
 presidential_debates_2012 \%>\%
     with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
     classify()
+
+presidential_debates_2012 \%>\%
+    with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
+    classify() \%>\%
+    plot()
+
+presidential_debates_2012 \%>\%
+    with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
+    classify() \%>\%
+    plot(rm.na=FALSE)
 
 presidential_debates_2012 \%>\%
     with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%

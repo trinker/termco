@@ -37,6 +37,10 @@ termco 0.4.0 -
 
 **IMPROVEMENTS**
 
+* `classify` picks up a new default `ties.method` type of `"probabilities"`.
+  This used the probability distribution from all tags assigned to randomly
+  break ties based on that distribution.
+
 **CHANGES**
 
 

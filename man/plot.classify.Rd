@@ -4,10 +4,12 @@
 \alias{plot.classify}
 \title{Plots a plot.classify Object}
 \usage{
-\method{plot}{classify}(x, ...)
+\method{plot}{classify}(x, rm.na = TRUE, ...)
 }
 \arguments{
 \item{x}{A classify object.}
+
+\item{rm.na}{logical.  If \code{TRUE} unclassified \code{NA} values are not displayed.}
 
 \item{\ldots}{Other arguments passed to \code{\link[termco]{plot_counts}}.}
 }
