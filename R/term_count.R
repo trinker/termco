@@ -94,11 +94,30 @@
 #' )
 #'
 #' coverage(x)
+#'
+#' ## Auto mapping hierarchical terms w/ duplicate names
+#' trpl_list <- list(
+#'     list(
+#'         response_cries = c("\\boh", "\\bah", "\\baha", "\\bouch", "yuk"),
+#'         back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+#'         summons = "hey",
+#'         justification = "because"
+#'     ),
+#'     list(summons ='the'),
+#'     list(summons = 'it', justification = 'ed\\s')
+#' )
+#'
+#' (x2 <- with(presidential_debates_2012, term_count(dialogue, TRUE, trpl_list)))
+#'
+#' ## get the pre-collapse hierarchical coverage
+#' attributes(x2)[['pre_collapse_coverage']]
 term_count <- function(text.var, grouping.var = NULL, term.list,
-                       ignore.case = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
-                       group.names, ...){
+    ignore.case = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
+     group.names, ...){
 
     amodel <- FALSE
+    auto_map <- FALSE
+
     if(is.null(grouping.var)) {
         G <- "all"
     } else {
@@ -146,6 +165,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     list_list <- FALSE
     if (is.list(term.list[[1]]) && length(term.list) > 1 && all(sapply(term.list, is.list))) {
 
+
         ## make sure for hierarchical terms that each observation is also a group
         if(nrow(DF) != nrow(unique(DF[,G, with=FALSE]))) {
             stop("In order to run nested `term.list` then `grouping.var` must place every observation in its own group.")
@@ -157,6 +177,40 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         #inds  <- vector(mode = "list", length = length(term.list))
         term.list <- lapply(term.list, term_lister_check, G)
 
+        ## Auto create a map for same named term lists and
+        ## add ending number to distinguish
+        term.nms <- lapply(term.list, names)
+        term.lens <- sapply(term.nms, length)
+        term.nms <- unlist(term.nms)
+
+        if (any(duplicated(term.nms))){
+
+            map <- as.list(unique(term.nms))
+            names(map) <- unique(term.nms)
+
+            for(i in names(map)){
+                suffix <- seq_len(sum(term.nms == i))
+                if (length(suffix) == 1) {
+                    replacements <- i
+                    map[i] <- NULL
+                } else {
+                    replacements <- paste(i, seq_len(sum(term.nms == i)), sep = "_")
+                    map[[i]] <- paste(i, seq_len(sum(term.nms == i)), sep = "_")
+                }
+                term.nms[term.nms == i] <- replacements
+            }
+
+            term.list <- Map(function(x, y) {
+                names(x) <- y
+                x
+            }, term.list, split(term.nms, rep(seq_along(term.lens), term.lens)))
+
+            auto_map <- TRUE
+
+        }
+
+
+
         inds <- seq_along(text.var)
 
         for (i in seq_along(term.list)){
@@ -164,8 +218,8 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
             if (i == 1){
                 counts <- data.table::setkeyv(
                     data.table::copy(data.table::setDT(DF))[inds, ][,
-                                                                    names(term.list[[i]]):= lapply(term.list[[i]], countfun,
-                                                                                                   text.var, ignore.case = ignore.case), ][, 'text.var':=NULL],
+                        names(term.list[[i]]):= lapply(term.list[[i]], countfun,
+                        text.var, ignore.case = ignore.case), ][, 'text.var':=NULL],
                     G
                 )
             } else {
@@ -173,9 +227,9 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
                 counts <- merge(
                     counts,
                     data.table::setkeyv(data.table::copy(data.table::setDT(DF))[inds, ][,
-                                                                                        names(term.list[[i]]):= lapply(term.list[[i]], countfun,
-                                                                                                                       text.var, ignore.case = ignore.case), ][, 'text.var':=NULL][,
-                                                                                                                                                                                   'n.words' := NULL], G),
+                        names(term.list[[i]]):= lapply(term.list[[i]], countfun,
+                        text.var, ignore.case = ignore.case), ][, 'text.var':=NULL][,
+                        'n.words' := NULL], G),
                     all=TRUE
                 )
 
@@ -195,7 +249,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         term.list <- term_lister_check(term.list, G)
 
         counts <- data.table::setDT(DF)[, names(term.list):= lapply(term.list, countfun,
-                                                                    text.var, ignore.case = ignore.case), ][, text.var:=NULL]
+            text.var, ignore.case = ignore.case), ][, text.var:=NULL]
 
         out <- counts[,lapply(.SD, sum, na.rm = TRUE), keyby = G]
     }
@@ -223,6 +277,12 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     attributes(out)[["text.var"]] <- text
     attributes(out)[["model"]] <- amodel
     if(isTRUE(list_list)) attributes(out)[["hierarchical_terms"]] <- lapply(term.list, names)
+
+    if (isTRUE(auto_map)){
+        message("Collapsing duplicate `term.list` columns.")
+        out <- collapse_tags(out, map, ...)
+    }
+
     out
 }
 
@@ -236,7 +296,7 @@ term_lister_check <- function(term.list, G){
 
     nms <- names(term.list)
     names(term.list)[sapply(nms, identical, "")] <- make.names(seq_len(length(nms[sapply(nms,
-                                                                                         identical, "")])))
+        identical, "")])))
 
     if (!is.list(term.list)) {
         warning("Expecting a named list for `term.list`; coercing to list.")
@@ -288,7 +348,7 @@ term_lister_check <- function(term.list, G){
 #' @method print term_count
 #' @export
 print.term_count <- function(x, digits = 2, weight = "percent",
-                             zero.replace = "0", pretty = getOption("termco_pretty"), ...) {
+    zero.replace = "0", pretty = getOption("termco_pretty"), ...) {
 
     n.words <- count <- NULL
     if (is.null(pretty)) pretty <- TRUE
@@ -323,7 +383,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 
         tall <- tidyr::gather_(x, "term", "count", termcols)
         tall_weighted <- dplyr::mutate(tall, count = comb(count, n.words, digits = digits,
-                                                          zero.replace = zero.replace, weight = weight))
+            zero.replace = zero.replace, weight = weight))
 
         x <- tidyr::spread_(tall_weighted, "term", "count")
     }

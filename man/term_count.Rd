@@ -110,6 +110,23 @@ x <- with(presidential_debates_2012,
 )
 
 coverage(x)
+
+## Auto mapping hierarchical terms w/ duplicate names
+trpl_list <- list(
+    list(
+        response_cries = c("\\\\boh", "\\\\bah", "\\\\baha", "\\\\bouch", "yuk"),
+        back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+        summons = "hey",
+        justification = "because"
+    ),
+    list(summons ='the'),
+    list(summons = 'it', justification = 'ed\\\\s')
+)
+
+(x2 <- with(presidential_debates_2012, term_count(dialogue, TRUE, trpl_list)))
+
+## get the pre-collapse hierarchical coverage
+attributes(x2)[['pre_collapse_coverage']]
 }
 \keyword{substring}
 \keyword{term}

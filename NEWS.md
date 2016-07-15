@@ -41,6 +41,11 @@ termco 0.4.0 -
   This used the probability distribution from all tags assigned to randomly
   break ties based on that distribution.
 
+* `term_count` gets an auto-collapse feature for hierarchical `term.list`s with
+  duplicate names.  A message is printed telling the user this is happening.  To
+  get the hierarchical coverage use `attributes(x2)[['pre_collapse_coverage']]`.
+
+
 **CHANGES**
 
 

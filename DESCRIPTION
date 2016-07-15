@@ -1,6 +1,6 @@
 Package: termco
 Title: Regular Expression Counts of Terms and Substrings
-Version: 0.4.1
+Version: 0.4.2
 Authors@R: c(person("Tyler", "Rinker", email =
         "tyler.rinker@gmail.com", role = c("aut", "cre")))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
@@ -9,7 +9,7 @@ Description: A small suite of functions used to count terms and
 Depends: R (>= 3.2.1)
 Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, gofastr,
         graphics, grDevices, grid, gridBase, gridExtra, igraph,
-        quanteda, slam, SnowballC, stats, stringi, textshape, tidyr,
+        methods, quanteda, slam, SnowballC, stats, stringi, textshape, tidyr,
         tm, utils, wordcloud
 Suggests: knitr, rmarkdown, qdapRegex, rgl, testthat
 Remotes: trinker/textshape, trinker/gofastr

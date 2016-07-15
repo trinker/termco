@@ -23,6 +23,12 @@ collapse_tags <- function(x, mapping, ...){
     validate_term_count(x, TRUE)
     validate_mapping(mapping, x)
 
+    if (methods::is(x, 'hierarchical_term_count')){
+        cov <- coverage(x)
+    } else {
+        cov <- NULL
+    }
+
     ## remove class
     x <- rm_class(x, "hierarchical_term_count")
     y <- attributes(x)
@@ -59,6 +65,10 @@ collapse_tags <- function(x, mapping, ...){
         attributes(x)[[names(y)[i]]] <- y[[i]]
     }
 
+    if (!is.null(cov)) {
+        class(x) <- c("collapsed_hierarchical_term_count", class(x))
+        attributes(x)[['pre_collapse_coverage']] <- cov
+    }
     x
 }
 
