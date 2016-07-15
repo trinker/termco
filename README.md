@@ -2,8 +2,6 @@ termco   [![Follow](https://img.shields.io/twitter/follow/tylerrinker.svg?style=
 ============
 
 
-    ## Warning: package 'dplyr' was built under R version 3.3.1
-
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
