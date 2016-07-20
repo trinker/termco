@@ -6,7 +6,7 @@ output:
     toc: true      
 ---
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 desc <- suppressWarnings(readLines("DESCRIPTION"))
 regex <- "(^Version:\\s+)(\\d+\\.\\d+\\.\\d+)"
 loc <- grep(regex, desc)
@@ -16,7 +16,7 @@ library(dplyr);library(termco);library(knitr)
 ````
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 knit_hooks$set(htmlcap = function(before, options, envir) {
   if(!before) {
     paste('<p class="caption"><b><em>',options$htmlcap,"</em></b></p>",sep="")
@@ -102,7 +102,7 @@ The following examples demonstrate some of the functionality of **termco**.
 
 ## Load the Tools/Data
 
-```{r, message=FALSE}
+```{r, message=FALSE, warning=FALSE}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(dplyr, ggplot2, termco)
 
@@ -165,6 +165,28 @@ plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
 plot(ngram_collocations(x, gram.length = 3))
 plot(ngram_collocations(x, order.by = "dice"))
 ```
+
+## Converting to Document Term Matrix
+
+Regular expression counts can be useful features in machine learning models.  The **tm** package's `DocumentTermMatrix` is a popular data structure for machine learning in **R**.  The `as_dtm` and `as_tdm` functions are useful for coercing the count `data.table` structure of a `term_count` object into a `DocumentTermMatrix`/`TermDocumentMatrix`.  The result can be combined with token/word only `DocumentTermMatrix` structures using `cbind` & `rbind`.
+
+```{r}
+as_dtm(markers)
+cosine_distance <- function (x, ...) {
+    x <- t(slam::as.simple_triplet_matrix(x))
+    stats::as.dist(1 - slam::crossprod_simple_triplet_matrix(x)/(sqrt(slam::col_sums(x^2) %*% 
+        t(slam::col_sums(x^2)))))
+}
+
+
+mod <- hclust(cosine_distance(as_dtm(markers)))
+plot(mod)
+rect.hclust(mod, k = 5, border = "red")
+
+(clusters <- cutree(mod, 5))
+```
+
+
 
 
 # Building an Expert Rules, Regex Classifier Model    

@@ -9,11 +9,11 @@ Description: A small suite of functions used to count terms and
 Depends: R (>= 3.2.1)
 Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, gofastr,
         graphics, grDevices, grid, gridBase, gridExtra, igraph,
-        methods, quanteda, slam, SnowballC, stats, stringi, textshape, tidyr,
-        tm, utils, wordcloud
+        methods, quanteda, slam, SnowballC, stats, stringi, textshape,
+        tidyr, tm, utils, wordcloud
 Suggests: knitr, rmarkdown, qdapRegex, rgl, testthat
 Remotes: trinker/textshape, trinker/gofastr
-Date: 2016-07-14
+Date: 2016-07-19
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

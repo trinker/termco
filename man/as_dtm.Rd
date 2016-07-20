@@ -26,6 +26,19 @@ Convenience functions to convert a \code{term_count} object into either a \code{
 as_dtm(markers)
 as_dtm(markers,weighting = tm::weightTfIdf)
 as_tdm(markers)
+
+cosine_distance <- function (x, ...) {
+    x <- t(slam::as.simple_triplet_matrix(x))
+    stats::as.dist(1 - slam::crossprod_simple_triplet_matrix(x)/(sqrt(slam::col_sums(x^2) \%*\%
+        t(slam::col_sums(x^2)))))
+}
+
+
+mod <- hclust(cosine_distance(as_dtm(markers)))
+plot(mod)
+rect.hclust(mod, k = 5, border = "red")
+
+(clusters <- cutree(mod, 5))
 }
 \keyword{documenttermmatrix,}
 \keyword{termdocumentmatrix}

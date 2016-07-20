@@ -36,6 +36,7 @@ Table of Contents
     -   [Plotting](#plotting)
     -   [Ngram Collocations](#ngram-collocations)
         -   [Collocation Plotting](#collocation-plotting)
+    -   [Converting to Document Term Matrix](#converting-to-document-term-matrix)
 -   [Building an Expert Rules, Regex Classifier Model](#building-an-expert-rules-regex-classifier-model)
     -   [Load the Tools/Data](#load-the-toolsdata-1)
     -   [Splitting Data](#splitting-data)
@@ -483,6 +484,47 @@ method.
 
 ![](inst/figure/unnamed-chunk-8-4.png)
 
+Converting to Document Term Matrix
+----------------------------------
+
+Regular expression counts can be useful features in machine learning
+models. The **tm** package's `DocumentTermMatrix` is a popular data
+structure for machine learning in **R**. The `as_dtm` and `as_tdm`
+functions are useful for coercing the count `data.table` structure of a
+`term_count` object into a `DocumentTermMatrix`/`TermDocumentMatrix`.
+The result can be combined with token/word only `DocumentTermMatrix`
+structures using `cbind` & `rbind`.
+
+    as_dtm(markers)
+
+    ## <<DocumentTermMatrix (documents: 10, terms: 4)>>
+    ## Non-/sparse entries: 27/13
+    ## Sparsity           : 32%
+    ## Maximal term length: 14
+    ## Weighting          : term frequency (tf)
+
+    cosine_distance <- function (x, ...) {
+        x <- t(slam::as.simple_triplet_matrix(x))
+        stats::as.dist(1 - slam::crossprod_simple_triplet_matrix(x)/(sqrt(slam::col_sums(x^2) %*% 
+            t(slam::col_sums(x^2)))))
+    }
+
+
+    mod <- hclust(cosine_distance(as_dtm(markers)))
+    plot(mod)
+    rect.hclust(mod, k = 5, border = "red")
+
+![](inst/figure/unnamed-chunk-9-1.png)
+
+    (clusters <- cutree(mod, 5))
+
+    ##     OBAMA.time 1     OBAMA.time 2     OBAMA.time 3    ROMNEY.time 1 
+    ##                1                1                1                2 
+    ##    ROMNEY.time 2    ROMNEY.time 3   CROWLEY.time 2    LEHRER.time 1 
+    ##                2                2                3                4 
+    ##  QUESTION.time 2 SCHIEFFER.time 3 
+    ##                5                3
+
 Building an Expert Rules, Regex Classifier Model
 ================================================
 
@@ -677,7 +719,7 @@ least frequent n terms but can be rearranged alphabetically.
         with(frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](inst/figure/unnamed-chunk-13-1.png)
+![](inst/figure/unnamed-chunk-14-1.png)
 
 A cumulative percent can give a different view of the term usage. The
 `plot_cum_percent` function converts a `frequent_terms` output into a
@@ -688,7 +730,7 @@ give insight into the frequently occurring ngrams.
         with(frequent_terms(dialogue, 40)) %>%
         plot_cum_percent()
 
-![](inst/figure/unnamed-chunk-14-1.png)
+![](inst/figure/unnamed-chunk-15-1.png)
 
 It may also be helpful to view the unique contribution of terms on the
 coverage excluding all elements from the match vector that were
@@ -740,7 +782,7 @@ unique coverage of terms.
         with(hierarchical_coverage_term(dialogue, terms)) %>%
         plot(use.terms = TRUE)
 
-![](inst/figure/unnamed-chunk-15-1.png)
+![](inst/figure/unnamed-chunk-16-1.png)
 
 ### View Most Used Words in Context
 
@@ -921,7 +963,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-23-1.png)
+![](inst/figure/unnamed-chunk-24-1.png)
 
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
@@ -932,7 +974,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-24-1.png)
+![](inst/figure/unnamed-chunk-25-1.png)
 
 Improving the Model
 -------------------
@@ -1278,7 +1320,7 @@ may be returned) as well as a `table` and plot of the counts. Use
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-35-1.png)
+![](inst/figure/unnamed-chunk-36-1.png)
 
 Accuracy
 --------
@@ -1434,7 +1476,7 @@ confidence band is highly affected by the number of samples per tag).
 
     plot(validated)
 
-![](inst/figure/unnamed-chunk-41-1.png)
+![](inst/figure/unnamed-chunk-42-1.png)
 
 These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification
