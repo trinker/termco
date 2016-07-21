@@ -48,6 +48,12 @@ termco 0.4.0 -
 
 **CHANGES**
 
+* `plot.tag_co_occurrence` uses a bubble-dotplot for the right hand graph rather
+  than the older bar plot.  This allows for tag size to be displayed in addition
+  to average number of other tags to determine if the tag co-occurrence is a
+  meaningful number of tags to give additional attention to.  Use `tag = TRUE`
+  for the old behavior.
+
 
 termco 0.3.0 - 0.3.6
 ----------------------------------------------------------------

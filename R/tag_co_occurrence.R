@@ -42,7 +42,7 @@
 #' plot(x, cor=FALSE)
 #' plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")
 #' plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
-#' plot(x, bar = FALSE)
+#' plot(x, bar = TRUE)
 #'
 #' \dontrun{
 #' ##===============================================
@@ -183,7 +183,7 @@ tag_co_occurrence <- function(x, ...){
 #' @param plot.widths A vector of proportions of length 2 and totalling 1
 #' corresponding to the relative width of the network and  bar/dotplot.
 #' @param bar logical.  If \code{TRUE} a bar plot is used as the second plot,
-#' otherwise a dotplot is used.
+#' otherwise a bubble-dotplot is used.
 #' @param type The graph type (network & bar/dotplot).  Choices are:
 #' \code{"bar"}, \code{"network"}, or \code{"both"} corresponding to the graph
 #' type to print.
@@ -199,7 +199,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
     edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
     bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
     bar.font.size = TRUE, node.font.size = 1.08, digits = 1, min.edge.cutoff = .15,
-    plot.widths = c(.65, .35), bar = TRUE, type = "both", ...){
+    plot.widths = c(.65, .35), bar = FALSE, type = "both", ...){
 
     ave <- NULL
 
@@ -210,14 +210,16 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
         bar.font.size <- constrain(round((1/length(x[["ave_tag"]][["tag"]])) * 100), 2.5, 9)
     }
 
+    x[["ave_tag"]][["n"]] <- x[["node_size"]][match(x[["ave_tag"]][['tag']], names(x[["node_size"]]))]
+
     ave_tags_plot <- ggplot2::ggplot(x[["ave_tag"]], ggplot2::aes_string(x="tag")) +
     {if (isTRUE(bar)) {
         ggplot2::geom_bar(stat = "identity", ggplot2::aes_string(y='ave'), fill=bar.color)
     } else {
-        ggplot2::geom_point(stat = "identity", ggplot2::aes_string(y='ave'), size = 2, color=bar.color)
+        ggplot2::geom_point(stat = "identity", ggplot2::aes_string(y='ave', size = 'n'), color=bar.color)
     }} +
         ggplot2::coord_flip() +
-        ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, max(x[["ave_tag"]][["ave"]]) * 1.01)) +
+        ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, max(x[["ave_tag"]][["ave"]]) * ifelse(bar, 1.01, 1.05))) +
         ggplot2::geom_text(ggplot2::aes(label=f(ave, digits), y=.02), color=bar.font.color, size=bar.font.size, hjust=0) +
         ggplot2::labs(y = "Average Number of\nCo-Occurring Other Tags", x=NULL) +
         ggplot2::theme_minimal() +
@@ -226,7 +228,10 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
         ggplot2::theme(
             panel.grid.minor = ggplot2::element_blank(),
             axis.text = ggplot2::element_text(color = font.color),
-            axis.title = ggplot2::element_text(color = font.color, size=12)
+            axis.title = ggplot2::element_text(color = font.color, size=12),
+            legend.position = 'bottom',
+            legend.text = ggplot2::element_text(color = font.color, size=10),
+            legend.title = ggplot2::element_text(color = font.color, size=10)
         ) +
         {if (isTRUE(bar)) {
             ggplot2::theme(panel.grid.major = ggplot2::element_blank())

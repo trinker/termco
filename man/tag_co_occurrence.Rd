@@ -52,7 +52,7 @@ plot(x)
 plot(x, cor=FALSE)
 plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")
 plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
-plot(x, bar = FALSE)
+plot(x, bar = TRUE)
 
 \dontrun{
 ##===============================================
