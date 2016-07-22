@@ -81,7 +81,9 @@ accuracy <- function(x, known){
 #' @export
 print.accuracy <- function(x, digits = 3, ...){
 
-    cat(sprintf("N:              %s\n\n", x[["N"]]))
+    n <- pn(x[["N"]])
+
+    cat(paste0("N:", paste(rep(" ", 15 + digits -nchar(n)), collapse = ""), n, "\n\n"))
     cat(        "Macro-Averaged: \n")
     cat(paste(
         paste0(c("  Accuracy:     ",

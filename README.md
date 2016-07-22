@@ -399,27 +399,48 @@ method.
 
     ngram_collocations(x, gram.length = 3)
 
-    ##        term1  term2      term3 frequency        G2         X2       pmi        dice
-    ##  1:     last   four      years        27  927.5627   593.7586  6.377042 0.002176279
-    ##  2: governor romney       says         8  875.0792 19728.7724  9.192229 0.004634994
-    ##  3: governor romney       said         6  835.9895   613.9352  5.791032 0.001558846
-    ##  4:     also   make       sure         3 1245.9453  1057.2660  6.452585 0.001951220
-    ##  5:     will   make       sure         3 1237.9291  6818.4983  8.130076 0.004415011
-    ##  6: governor romney      talks         3  826.7321 21685.5103  8.882568 0.006802721
-    ##  7: governor romney       just         3  820.2948  3166.0495  7.988257 0.001568627
-    ##  8: governor romney     talked         2  825.0387   384.9124  5.440897 0.001520913
-    ##  9:     make   sure      folks         1 1218.0546  2346.2809  7.700575 0.002290951
-    ## 10:     make   sure      small         1 1217.8131   616.7290  6.243899 0.002100840
-    ## 11:     make   sure       take         1 1217.1423   197.0394  4.460263 0.001367989
-    ## 12: governor romney criticized         1  812.2985   793.3167  6.278270 0.001749781
-    ## 13: governor romney      feels         1  812.2985 22172.2798  8.616865 0.008403361
-    ## 14: governor romney  indicates         1  812.2985 83098.9284 11.324915 0.002398082
-    ## 15: governor romney     stands         1  812.2985  3841.8656  8.189421 0.002277904
-    ## 16: governor romney   there'll         1  812.2985  2618.9923  7.140483 0.003898635
-    ## 17: governor romney     thinks         1  812.2985   177.0220  4.262242 0.001490313
-    ## 18: governor romney     agrees         1  809.5322   328.0611  5.683008 0.002070393
-    ## 19: governor romney      keeps         1  807.3197   287.3948  4.117056 0.001512859
-    ## 20: governor romney      maybe         1  807.3197   252.7850  5.525823 0.002036660
+    ##        term1  term2      term3 frequency        G2         X2       pmi
+    ##  1:     last   four      years        27  927.5627   593.7586  6.377042
+    ##  2: governor romney       says         8  875.0792 19728.7724  9.192229
+    ##  3: governor romney       said         6  835.9895   613.9352  5.791032
+    ##  4:     also   make       sure         3 1245.9453  1057.2660  6.452585
+    ##  5:     will   make       sure         3 1237.9291  6818.4983  8.130076
+    ##  6: governor romney      talks         3  826.7321 21685.5103  8.882568
+    ##  7: governor romney       just         3  820.2948  3166.0495  7.988257
+    ##  8: governor romney     talked         2  825.0387   384.9124  5.440897
+    ##  9:     make   sure      folks         1 1218.0546  2346.2809  7.700575
+    ## 10:     make   sure      small         1 1217.8131   616.7290  6.243899
+    ## 11:     make   sure       take         1 1217.1423   197.0394  4.460263
+    ## 12: governor romney criticized         1  812.2985   793.3167  6.278270
+    ## 13: governor romney      feels         1  812.2985 22172.2798  8.616865
+    ## 14: governor romney  indicates         1  812.2985 83098.9284 11.324915
+    ## 15: governor romney     stands         1  812.2985  3841.8656  8.189421
+    ## 16: governor romney   there'll         1  812.2985  2618.9923  7.140483
+    ## 17: governor romney     thinks         1  812.2985   177.0220  4.262242
+    ## 18: governor romney     agrees         1  809.5322   328.0611  5.683008
+    ## 19: governor romney      keeps         1  807.3197   287.3948  4.117056
+    ## 20: governor romney      maybe         1  807.3197   252.7850  5.525823
+    ##            dice
+    ##  1: 0.002176279
+    ##  2: 0.004634994
+    ##  3: 0.001558846
+    ##  4: 0.001951220
+    ##  5: 0.004415011
+    ##  6: 0.006802721
+    ##  7: 0.001568627
+    ##  8: 0.001520913
+    ##  9: 0.002290951
+    ## 10: 0.002100840
+    ## 11: 0.001367989
+    ## 12: 0.001749781
+    ## 13: 0.008403361
+    ## 14: 0.002398082
+    ## 15: 0.002277904
+    ## 16: 0.003898635
+    ## 17: 0.001490313
+    ## 18: 0.002070393
+    ## 19: 0.001512859
+    ## 20: 0.002036660
 
     ngram_collocations(x, order.by = "dice")
 
@@ -497,10 +518,12 @@ structures using `cbind` & `rbind`.
 
     (clusters <- cutree(mod, 5))
 
-    ##     OBAMA.time 1     OBAMA.time 2     OBAMA.time 3    ROMNEY.time 1    ROMNEY.time 2 
-    ##                1                1                1                2                2 
-    ##    ROMNEY.time 3   CROWLEY.time 2    LEHRER.time 1  QUESTION.time 2 SCHIEFFER.time 3 
-    ##                2                3                4                5                3
+    ##     OBAMA.time 1     OBAMA.time 2     OBAMA.time 3    ROMNEY.time 1 
+    ##                1                1                1                2 
+    ##    ROMNEY.time 2    ROMNEY.time 3   CROWLEY.time 2    LEHRER.time 1 
+    ##                2                2                3                4 
+    ##  QUESTION.time 2 SCHIEFFER.time 3 
+    ##                5                3
 
 Building an Expert Rules, Regex Classifier Model
 ================================================
@@ -1282,8 +1305,8 @@ may be returned) as well as a `table` and plot of the counts. Use
     classify(model) %>%
         head()
 
-    ## [1] NA               "response_cries" NA               NA               "response_cries"
-    ## [6] NA
+    ## [1] NA               "response_cries" NA               NA              
+    ## [5] "response_cries" NA
 
     classify(model) %>%
         unlist() %>%
@@ -1325,7 +1348,7 @@ scores behave:
     tagged <- list(1:3, 3, 4, 5:4, c(2, 4:3), 5, integer(0))
     accuracy(tagged, known)
 
-    ## N:              7
+    ## N:                 7
     ## 
     ## Macro-Averaged: 
     ##   Accuracy:     .952
@@ -1350,7 +1373,7 @@ Below we create fake "known" tags to test `accuracy` with real data
 
     accuracy(mod1, fake_known)
 
-    ## N:              2912
+    ## N:             2,912
     ## 
     ## Macro-Averaged: 
     ##   Accuracy:     .966
@@ -1376,7 +1399,7 @@ classification. Let's see how this affects performance.
 
     accuracy(mod2, fake_known2)
 
-    ## N:              2912
+    ## N:             2,912
     ## 
     ## Macro-Averaged: 
     ##   Accuracy:     1.000
