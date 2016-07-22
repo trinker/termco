@@ -85,19 +85,22 @@ print.accuracy <- function(x, digits = 3, ...){
 
     cat(paste0("N:", paste(rep(" ", 15 + digits -nchar(n)), collapse = ""), n, "\n\n"))
     cat(        "Macro-Averaged: \n")
+
+    filler1 <- ifelse(nchar(digit_format(x[['macro_averaged']], digits)) - 1 - digits == 0, " ", "")
+    filler2 <- ifelse(nchar(digit_format(x[['micro_averaged']], digits)) - 1 - digits == 0, " ", "")
     cat(paste(
-        paste0(c("  Accuracy:     ",
-                 "  Precision:    ",
-                 "  Recall:       "),
-        digit_format(x[['macro_averaged']], digits)
+        paste0(c("  Accuracy:    ",
+                 "  Precision:   ",
+                 "  Recall:      "),
+        filler1, digit_format(x[['macro_averaged']], digits)
     ), collapse="\n"))
     cat("\n")
     cat(        "\nMicro-Averaged: \n")
     cat(paste(
-        paste0(c("  Accuracy:     ",
-                 "  Precision:    ",
-                 "  Recall:       "),
-        digit_format(x[['micro_averaged']], digits)
+        paste0(c("  Accuracy:    ",
+                 "  Precision:   ",
+                 "  Recall:      "),
+        filler2, digit_format(x[['micro_averaged']], digits)
     ), collapse="\n"))
     cat("\n")
 }
