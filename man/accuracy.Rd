@@ -13,18 +13,17 @@ accuracy(x, known)
 \item{known}{The known expert coded \code{\link[base]{list}}/\code{\link[base]{vector}} of outcomes.}
 }
 \value{
-Returns a list of five elements:
-\item{exact.in}{A numeric vector between 0-1 (0 no match; 1 perfect match) comparing \code{x} to \code{known} for exact matching.}
-\item{any.in}{A numeric vector between 0-1 (0 no match; 1 perfect match) comparing \code{x} to \code{known} for non-location specific matching (\code{\%in\%} is used).  This ignores the differences in length between \code{x} and \code{known}.}
-\item{logical.in}{A logical version of \code{exact} with \code{TRUE} being equal to 1 and all else being \code{FALSE}.  This can be used to locate perfect and/or non matches.}
-\item{exact}{The proportion of the vector of tags in \code{x} matching \code{known} exactly.}
-\item{ordered}{The proportion of the elements of tags in \code{x} matching \code{known} exactly (order matters).}
-\item{adjusted}{An adjusted mean score of \code{ordered} and \code{unordered}.}
-\item{unordered}{The proportion of the elements of tags in \code{x} matching \code{known} exactly regardless of order.}
+Returns a list of seven elements:
+\item{N}{The number of elements being assessed}
+\item{confusion_matrix}{A list of confusion matrices for each tag}
+\item{tag_accuracy}{A tag named vector of accuracies computed from the confusion matrices; (tp + tn)/(tp + tn + fp + fn)}
+\item{tag_precision}{A tag named vector of precisions computed from the confusion matrices; tp/(tp + fp)}
+\item{tag_recall}{A tag named vector of accuracies computed from the confusion matrices; tp/(tp + fn)}
+\item{macro_averaged}{Macro averaged accuracy, precision, and recall; computed accuracy, precision, and recall for each confusion matrix and average}
+\item{micro_averaged}{Micro averaged accuracy, precision, and recall; add the confusion amtrices and compute accuracy, precision, and recall}
 }
 \description{
-Check a model's tagging/categorizing accuracy against known expert coded
-outcomes.
+Get accuracy, precision, and recall for multi-class, multi-tag, predictions.
 }
 \examples{
 known <- list(1:3, 3, NA, 4:5, 2:4, 5, integer(0))
@@ -63,7 +62,12 @@ fake_known2 <- mod2
 set.seed(30)
 fake_known2[sample(1:length(fake_known2), 500)] <- c("random noise", "back_channels")
 
-accuracy(mod2, fake_known2)
+(myacc <- accuracy(mod2, fake_known2))
+myacc$confusion_matrix
+myacc$tag_accuracy
+}
+\references{
+https://www.youtube.com/watch?v=OwwdYHWRB5E&index=31&list=PL6397E4B26D00A269
 }
 \keyword{accuracy}
 \keyword{fit}

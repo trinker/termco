@@ -511,17 +511,9 @@ classify(model) %>%
 
 ### Pre Coded Data
 
-The user may be interested in testing the accuracy of the model against a known, human coded sample.  The `accuracy` function allows the researcher to test a model's accuracy.  In the example below I randomly generate "known human coded tagged" vector.  Obviously, this is for demonstration purposes.  The model outputs a pretty printing of a list. The printing contains: 
+The user may be interested in testing the accuracy of the model against a known, human coded sample.  The `accuracy` function allows the researcher to test a model's accuracy, precision, and recall using macro and micro averages of the confusion matrices for each tag as outlined by [Dan Jurafsky & Chris Manning](https://www.youtube.com/watch?v=OwwdYHWRB5E&index=31&list=PL6397E4B26D00A269).  In the example below I randomly generate "known human coded tagged" vector.  Obviously, this is for demonstration purposes.  The model outputs a pretty printing of a list. 
 
-| Printed    |  Description                                          | Accessed |
-|--------------------|-----------------------------------------------|----------|
-|  **N**     |The number of text elements (`N`)                      |          |
-| **Exact**  | Perfect one to one correspondence between whole vectors in `tagged` & `known` | `$exact` |
-| **Ordered** | Proportion of the elements in `tagged` matching `known` exactly; order matters | `$ordered` |
-| **Adjusted** | An adjusted mean score of **Ordered** and **unordered** | `$adjusted` |
-| **Unordered** | Proportion of the elements in `tagged` matching `known` regardless of order | `$unordered` |
-
-Note that if classify is constrained to `n = 1` then all scores will be identical.  If a larger, known tagging is available the user may want to strongly consider machine learning models (see: [**RTextTools**](https://cran.r-project.org/package=RTextTools)).
+If a larger, known tagging is available the user may want to strongly consider machine learning models (see: [**RTextTools**](https://cran.r-project.org/package=RTextTools)).
 
 This minimal example will provide insight into the way the accuracy scores behave:
 
@@ -545,7 +537,7 @@ fake_known[sample(1:length(fake_known), 300)] <- "random noise"
 accuracy(mod1, fake_known)
 ```
 
-In this model we allow for `n = 3` tags to be assigned in the classification.  This enables the potential for a (in this case *slightly*) better a **Adjusted** value.  The adjusted value up-weights based on correctly applying a tag regardless of the position of that tag (`classify` gives higher preference to tags that have a higher term count for that text element; order for ties is broken randomly).
+In this model we allow for `n = 3` tags to be assigned in the classification.  Let's see how this affects performance.
 
 ```{r}
 mod2 <- presidential_debates_2012 %>%

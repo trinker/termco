@@ -4,10 +4,12 @@
 \alias{print.accuracy}
 \title{Prints an accuracy Object}
 \usage{
-\method{print}{accuracy}(x, ...)
+\method{print}{accuracy}(x, digits = 3, ...)
 }
 \arguments{
 \item{x}{The accuracy object.}
+
+\item{digits}{The number of digits to print.}
 
 \item{\ldots}{ignored}
 }

@@ -45,6 +45,10 @@ IMPROVEMENTS
   duplicate names.  A message is printed telling the user this is happening.  To
   get the hierarchical coverage use `attributes(x2)[['pre_collapse_coverage']]`.
 
+* `accuracy` now uses standard model evaluation measures of macro/micro averaged
+  accuracy, precision, and recall as outlined by Dan Jurafsky & Chris Manning.
+  See https://www.youtube.com/watch?v=OwwdYHWRB5E&index=31&list=PL6397E4B26D00A269
+  for details on the methods.
 
 CHANGES
 
@@ -53,6 +57,7 @@ CHANGES
   to average number of other tags to determine if the tag co-occurrence is a
   meaningful number of tags to give additional attention to.  Use `tag = TRUE`
   for the old behavior.
+
 
 
 termco 0.3.0 - 0.3.6

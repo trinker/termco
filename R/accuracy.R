@@ -1,20 +1,20 @@
 #' Model Accuracy
 #'
-#' Check a model's tagging/categorizing accuracy against known expert coded
-#' outcomes.
+#' Get accuracy, precision, and recall for multi-class, multi-tag, predictions.
 #'
 #' @param x The model classification \code{\link[base]{list}}/\code{\link[base]{vector}}
 #' (typically the results of \code{classify}).
 #' @param known The known expert coded \code{\link[base]{list}}/\code{\link[base]{vector}} of outcomes.
-#' @return Returns a list of five elements:
-#' \item{exact.in}{A numeric vector between 0-1 (0 no match; 1 perfect match) comparing \code{x} to \code{known} for exact matching.}
-#' \item{any.in}{A numeric vector between 0-1 (0 no match; 1 perfect match) comparing \code{x} to \code{known} for non-location specific matching (\code{\%in\%} is used).  This ignores the differences in length between \code{x} and \code{known}.}
-#' \item{logical.in}{A logical version of \code{exact} with \code{TRUE} being equal to 1 and all else being \code{FALSE}.  This can be used to locate perfect and/or non matches.}
-#' \item{exact}{The proportion of the vector of tags in \code{x} matching \code{known} exactly.}
-#' \item{ordered}{The proportion of the elements of tags in \code{x} matching \code{known} exactly (order matters).}
-#' \item{adjusted}{An adjusted mean score of \code{ordered} and \code{unordered}.}
-#' \item{unordered}{The proportion of the elements of tags in \code{x} matching \code{known} exactly regardless of order.}
+#' @return Returns a list of seven elements:
+#' \item{N}{The number of elements being assessed}
+#' \item{confusion_matrix}{A list of confusion matrices for each tag}
+#' \item{tag_accuracy}{A tag named vector of accuracies computed from the confusion matrices; (tp + tn)/(tp + tn + fp + fn)}
+#' \item{tag_precision}{A tag named vector of precisions computed from the confusion matrices; tp/(tp + fp)}
+#' \item{tag_recall}{A tag named vector of accuracies computed from the confusion matrices; tp/(tp + fn)}
+#' \item{macro_averaged}{Macro averaged accuracy, precision, and recall; computed accuracy, precision, and recall for each confusion matrix and average}
+#' \item{micro_averaged}{Micro averaged accuracy, precision, and recall; add the confusion amtrices and compute accuracy, precision, and recall}
 #' @keywords accuracy model fit
+#' @references https://www.youtube.com/watch?v=OwwdYHWRB5E&index=31&list=PL6397E4B26D00A269
 #' @export
 #' @examples
 #' known <- list(1:3, 3, NA, 4:5, 2:4, 5, integer(0))
@@ -53,7 +53,9 @@
 #' set.seed(30)
 #' fake_known2[sample(1:length(fake_known2), 500)] <- c("random noise", "back_channels")
 #'
-#' accuracy(mod2, fake_known2)
+#' (myacc <- accuracy(mod2, fake_known2))
+#' myacc$confusion_matrix
+#' myacc$tag_accuracy
 accuracy <- function(x, known){
 
     stopifnot(length(x) == length(known))
@@ -62,16 +64,7 @@ accuracy <- function(x, known){
     if (!is.list(known)) known <- as.list(known)
     x <- lapply(x, function(a) sapply(a, function(b) {b[is.na(b)] <- "No_Code_Given"; b}))
     known <- lapply(known, function(a) sapply(a, function(b) {b[is.na(b)] <- "No_Code_Given"; b}))
-
-    out <- acc_test(x, known)
-    logic <- out[["exact"]] == 1
-    propcor <- sum(logic, na.rm = TRUE)/length(logic)
-    ordered_out <- sum(out[["exact"]],na.rm = TRUE)/length(out[["exact"]])
-    unordered_out <- sum(out[["any.in"]],na.rm = TRUE)/length(out[["any.in"]])
-    score <- mean(c(ordered_out, unordered_out), na.rm = TRUE)
-    out <- list(exact.in = unname(out[[1]]), any.in = unname(out[[2]]),
-        logical.in = logic, exact = propcor, ordered = ordered_out,
-        unordered =unordered_out, adjusted = score)
+    out <- evaluation(x, known)
     class(out) <- "accuracy"
     out
 
@@ -82,59 +75,88 @@ accuracy <- function(x, known){
 #' Prints an accuracy object
 #'
 #' @param x The accuracy object.
+#' @param digits The number of digits to print.
 #' @param \ldots ignored
 #' @method print accuracy
 #' @export
-print.accuracy <- function(x, ...){
-    cat(sprintf("N:         %s\n", length(x[["logical.in"]])))
-    cat(sprintf("Exact:     %s%%\n", digit_format(100*x[["exact"]], 1)))
-    cat(sprintf("Ordered:   %s%%\n", digit_format(100*x[["ordered"]], 1)))
-    cat(sprintf("Adjusted:  %s%%\n", digit_format(100*x[["adjusted"]], 1)))
-    cat(sprintf("Unordered: %s%%\n", digit_format(100*x[["unordered"]], 1)))
+print.accuracy <- function(x, digits = 3, ...){
+
+    cat(sprintf("N:              %s\n\n", x[["N"]]))
+    cat(        "Macro-Averaged: \n")
+    cat(paste(
+        paste0(c("  Accuracy:     ",
+                 "  Precision:    ",
+                 "  Recall:       "),
+        digit_format(x[['macro_averaged']], digits)
+    ), collapse="\n"))
+    cat("\n")
+    cat(        "\nMicro-Averaged: \n")
+    cat(paste(
+        paste0(c("  Accuracy:     ",
+                 "  Precision:    ",
+                 "  Recall:       "),
+        digit_format(x[['micro_averaged']], digits)
+    ), collapse="\n"))
+    cat("\n")
 }
 
-acc_test <- function(x, y){
+confusion_matrices <- function(pred, actual){
 
-    out <- unlist(Map(function(a, b){dists(a, b)}, x, y))
-    out2 <- unlist(Map(function(a, b){dists2(a, b)}, x, y))
-    #1-(((1 - (1/(1 + exp(out)))) * 2) - 1)
-    list(exact = out, any.in = out2)
+    classes <- sort(unique(unlist(actual, pred)))
+    cm <- matrix(rep(0, 4), ncol=2, dimnames = list(c('Pred-1', 'Pred-0'), c('Actual-1', 'Actual-0')))
+
+    stats::setNames(lapply(classes, function(x){
+
+        vals <- table(paste0(
+            as.numeric(sapply(pred, function(y) x %in% y)),
+            as.numeric(sapply(actual, function(y) x %in% y))
+        ))
+
+        try(cm[1, 1] <- vals[names(vals) == '11'], silent=TRUE)
+        try(cm[1, 2] <- vals[names(vals) == '10'], silent=TRUE)
+        try(cm[2, 1] <- vals[names(vals) == '01'], silent=TRUE)
+        try(cm[2, 2] <- vals[names(vals) == '00'], silent=TRUE)
+
+        cm
+    }), classes)
 }
 
 
 
-dists <- function(x, y) {
+evaluation <- function(pred, actual){
 
-    #nas <- unlist(lapply(list(x, y), function(z){
-    #    any(sapply(z, is.na))
-    #}))
+    out <- list()
+    precision <- function(x) {out <- x[1,1]/sum(x[1,]); ifelse(is.nan(out), 0, out)}
+    recall <- function(x) {out <- x[1,1]/sum(x[, 1]); ifelse(is.nan(out), 0, out)}
 
-    #if(isTRUE(all(nas))) return(1)
-    #if(isTRUE(any(nas))) return(0)
-#if (any(is.na(y))) browser()
-    suppressWarnings(sum(x == y)/(.5*(length(x) + length(y))))
+    out[['N']] <- length(pred)
+    cm <- out[['confusion_matrix']] <- confusion_matrices(pred, actual)
+
+    out[['tag_accuracy']] <- unlist(lapply(cm, function(x){
+            sum(diag(x))/sum(x)
+        }))
+
+    out[['tag_precision']] <- unlist(lapply(cm, function(x){
+            precision(x)
+        }))
+
+    out[['tag_recall']] <- unlist(lapply(cm, function(x){
+            recall(x)
+        }))
+
+    out[['macro_averaged']] <- list(
+        accuracy = mean(out[['tag_accuracy']]),
+        precision = mean(out[['tag_precision']]),
+        recall = mean(out[['tag_recall']])
+    )
+
+    summed_cm <- Reduce(`+`, cm)
+
+    out[['micro_averaged']] <- list(
+        accuracy = sum(diag(summed_cm))/sum(summed_cm),
+        precision = precision(summed_cm),
+        recall = recall(summed_cm)
+    )
+
+    out
 }
-
-dists2 <- function(x, y) {
-
-    #nas <- unlist(lapply(list(x, y), function(z){
-    #    any(sapply(z, is.na))
-    #}))
-
-    #if(isTRUE(all(nas))) return(1)
-    #if(isTRUE(any(nas))) return(0)
-
-    sum(x %in% y)/(.5*(length(x) + length(y)))
-}
-
-
-
-
-
-
-
-
-
-
-
-

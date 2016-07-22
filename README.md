@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.4.2-orange.svg"><img src="https://img.shields.io/badge/Version-0.4.2-orange.svg" alt="Version"/></a>
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.4.3-orange.svg"><img src="https://img.shields.io/badge/Version-0.4.3-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
@@ -399,48 +399,27 @@ method.
 
     ngram_collocations(x, gram.length = 3)
 
-    ##        term1  term2      term3 frequency        G2         X2       pmi
-    ##  1:     last   four      years        27  927.5627   593.7586  6.377042
-    ##  2: governor romney       says         8  875.0792 19728.7724  9.192229
-    ##  3: governor romney       said         6  835.9895   613.9352  5.791032
-    ##  4:     also   make       sure         3 1245.9453  1057.2660  6.452585
-    ##  5:     will   make       sure         3 1237.9291  6818.4983  8.130076
-    ##  6: governor romney      talks         3  826.7321 21685.5103  8.882568
-    ##  7: governor romney       just         3  820.2948  3166.0495  7.988257
-    ##  8: governor romney     talked         2  825.0387   384.9124  5.440897
-    ##  9:     make   sure      folks         1 1218.0546  2346.2809  7.700575
-    ## 10:     make   sure      small         1 1217.8131   616.7290  6.243899
-    ## 11:     make   sure       take         1 1217.1423   197.0394  4.460263
-    ## 12: governor romney criticized         1  812.2985   793.3167  6.278270
-    ## 13: governor romney      feels         1  812.2985 22172.2798  8.616865
-    ## 14: governor romney  indicates         1  812.2985 83098.9284 11.324915
-    ## 15: governor romney     stands         1  812.2985  3841.8656  8.189421
-    ## 16: governor romney   there'll         1  812.2985  2618.9923  7.140483
-    ## 17: governor romney     thinks         1  812.2985   177.0220  4.262242
-    ## 18: governor romney     agrees         1  809.5322   328.0611  5.683008
-    ## 19: governor romney      keeps         1  807.3197   287.3948  4.117056
-    ## 20: governor romney      maybe         1  807.3197   252.7850  5.525823
-    ##            dice
-    ##  1: 0.002176279
-    ##  2: 0.004634994
-    ##  3: 0.001558846
-    ##  4: 0.001951220
-    ##  5: 0.004415011
-    ##  6: 0.006802721
-    ##  7: 0.001568627
-    ##  8: 0.001520913
-    ##  9: 0.002290951
-    ## 10: 0.002100840
-    ## 11: 0.001367989
-    ## 12: 0.001749781
-    ## 13: 0.008403361
-    ## 14: 0.002398082
-    ## 15: 0.002277904
-    ## 16: 0.003898635
-    ## 17: 0.001490313
-    ## 18: 0.002070393
-    ## 19: 0.001512859
-    ## 20: 0.002036660
+    ##        term1  term2      term3 frequency        G2         X2       pmi        dice
+    ##  1:     last   four      years        27  927.5627   593.7586  6.377042 0.002176279
+    ##  2: governor romney       says         8  875.0792 19728.7724  9.192229 0.004634994
+    ##  3: governor romney       said         6  835.9895   613.9352  5.791032 0.001558846
+    ##  4:     also   make       sure         3 1245.9453  1057.2660  6.452585 0.001951220
+    ##  5:     will   make       sure         3 1237.9291  6818.4983  8.130076 0.004415011
+    ##  6: governor romney      talks         3  826.7321 21685.5103  8.882568 0.006802721
+    ##  7: governor romney       just         3  820.2948  3166.0495  7.988257 0.001568627
+    ##  8: governor romney     talked         2  825.0387   384.9124  5.440897 0.001520913
+    ##  9:     make   sure      folks         1 1218.0546  2346.2809  7.700575 0.002290951
+    ## 10:     make   sure      small         1 1217.8131   616.7290  6.243899 0.002100840
+    ## 11:     make   sure       take         1 1217.1423   197.0394  4.460263 0.001367989
+    ## 12: governor romney criticized         1  812.2985   793.3167  6.278270 0.001749781
+    ## 13: governor romney      feels         1  812.2985 22172.2798  8.616865 0.008403361
+    ## 14: governor romney  indicates         1  812.2985 83098.9284 11.324915 0.002398082
+    ## 15: governor romney     stands         1  812.2985  3841.8656  8.189421 0.002277904
+    ## 16: governor romney   there'll         1  812.2985  2618.9923  7.140483 0.003898635
+    ## 17: governor romney     thinks         1  812.2985   177.0220  4.262242 0.001490313
+    ## 18: governor romney     agrees         1  809.5322   328.0611  5.683008 0.002070393
+    ## 19: governor romney      keeps         1  807.3197   287.3948  4.117056 0.001512859
+    ## 20: governor romney      maybe         1  807.3197   252.7850  5.525823 0.002036660
 
     ngram_collocations(x, order.by = "dice")
 
@@ -518,12 +497,10 @@ structures using `cbind` & `rbind`.
 
     (clusters <- cutree(mod, 5))
 
-    ##     OBAMA.time 1     OBAMA.time 2     OBAMA.time 3    ROMNEY.time 1 
-    ##                1                1                1                2 
-    ##    ROMNEY.time 2    ROMNEY.time 3   CROWLEY.time 2    LEHRER.time 1 
-    ##                2                2                3                4 
-    ##  QUESTION.time 2 SCHIEFFER.time 3 
-    ##                5                3
+    ##     OBAMA.time 1     OBAMA.time 2     OBAMA.time 3    ROMNEY.time 1    ROMNEY.time 2 
+    ##                1                1                1                2                2 
+    ##    ROMNEY.time 3   CROWLEY.time 2    LEHRER.time 1  QUESTION.time 2 SCHIEFFER.time 3 
+    ##                2                3                4                5                3
 
 Building an Expert Rules, Regex Classifier Model
 ================================================
@@ -1305,8 +1282,8 @@ may be returned) as well as a `table` and plot of the counts. Use
     classify(model) %>%
         head()
 
-    ## [1] NA               "response_cries" NA               NA              
-    ## [5] "response_cries" NA
+    ## [1] NA               "response_cries" NA               NA               "response_cries"
+    ## [6] NA
 
     classify(model) %>%
         unlist() %>%
@@ -1329,56 +1306,16 @@ Accuracy
 
 The user may be interested in testing the accuracy of the model against
 a known, human coded sample. The `accuracy` function allows the
-researcher to test a model's accuracy. In the example below I randomly
-generate "known human coded tagged" vector. Obviously, this is for
-demonstration purposes. The model outputs a pretty printing of a list.
-The printing contains:
+researcher to test a model's accuracy, precision, and recall using macro
+and micro averages of the confusion matrices for each tag as outlined by
+[Dan Jurafsky & Chris
+Manning](https://www.youtube.com/watch?v=OwwdYHWRB5E&index=31&list=PL6397E4B26D00A269).
+In the example below I randomly generate "known human coded tagged"
+vector. Obviously, this is for demonstration purposes. The model outputs
+a pretty printing of a list.
 
-<table style="width:111%;">
-<colgroup>
-<col width="29%" />
-<col width="66%" />
-<col width="15%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Printed</th>
-<th align="left">Description</th>
-<th align="left">Accessed</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><strong>N</strong></td>
-<td align="left">The number of text elements (<code>N</code>)</td>
-<td align="left"></td>
-</tr>
-<tr class="even">
-<td align="left"><strong>Exact</strong></td>
-<td align="left">Perfect one to one correspondence between whole vectors in <code>tagged</code> &amp; <code>known</code></td>
-<td align="left"><code>$exact</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><strong>Ordered</strong></td>
-<td align="left">Proportion of the elements in <code>tagged</code> matching <code>known</code> exactly; order matters</td>
-<td align="left"><code>$ordered</code></td>
-</tr>
-<tr class="even">
-<td align="left"><strong>Adjusted</strong></td>
-<td align="left">An adjusted mean score of <strong>Ordered</strong> and <strong>unordered</strong></td>
-<td align="left"><code>$adjusted</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><strong>Unordered</strong></td>
-<td align="left">Proportion of the elements in <code>tagged</code> matching <code>known</code> regardless of order</td>
-<td align="left"><code>$unordered</code></td>
-</tr>
-</tbody>
-</table>
-
-Note that if classify is constrained to `n = 1` then all scores will be
-identical. If a larger, known tagging is available the user may want to
-strongly consider machine learning models (see:
+If a larger, known tagging is available the user may want to strongly
+consider machine learning models (see:
 [**RTextTools**](https://cran.r-project.org/package=RTextTools)).
 
 This minimal example will provide insight into the way the accuracy
@@ -1388,11 +1325,17 @@ scores behave:
     tagged <- list(1:3, 3, 4, 5:4, c(2, 4:3), 5, integer(0))
     accuracy(tagged, known)
 
-    ## N:         7
-    ## Exact:     42.9%
-    ## Ordered:   47.6%
-    ## Adjusted:  59.5%
-    ## Unordered: 71.4%
+    ## N:              7
+    ## 
+    ## Macro-Averaged: 
+    ##   Accuracy:     .952
+    ##   Precision:    .778
+    ##   Recall:       .833
+    ## 
+    ## Micro-Averaged: 
+    ##   Accuracy:     .952
+    ##   Precision:    .909
+    ##   Recall:       .909
 
 Below we create fake "known" tags to test `accuracy` with real data
 (though the comparison is fabricated).
@@ -1407,18 +1350,20 @@ Below we create fake "known" tags to test `accuracy` with real data
 
     accuracy(mod1, fake_known)
 
-    ## N:         2912
-    ## Exact:     89.7%
-    ## Ordered:   89.7%
-    ## Adjusted:  89.7%
-    ## Unordered: 89.7%
+    ## N:              2912
+    ## 
+    ## Macro-Averaged: 
+    ##   Accuracy:     .966
+    ##   Precision:    .753
+    ##   Recall:       .833
+    ## 
+    ## Micro-Averaged: 
+    ##   Accuracy:     .966
+    ##   Precision:    .897
+    ##   Recall:       .897
 
 In this model we allow for `n = 3` tags to be assigned in the
-classification. This enables the potential for a (in this case
-*slightly*) better a **Adjusted** value. The adjusted value up-weights
-based on correctly applying a tag regardless of the position of that tag
-(`classify` gives higher preference to tags that have a higher term
-count for that text element; order for ties is broken randomly).
+classification. Let's see how this affects performance.
 
     mod2 <- presidential_debates_2012 %>%
         with(term_count(dialogue, TRUE, discoure_markers)) %>%
@@ -1431,11 +1376,17 @@ count for that text element; order for ties is broken randomly).
 
     accuracy(mod2, fake_known2)
 
-    ## N:         2912
-    ## Exact:     99.4%
-    ## Ordered:   99.4%
-    ## Adjusted:  99.7%
-    ## Unordered: 100.0%
+    ## N:              2912
+    ## 
+    ## Macro-Averaged: 
+    ##   Accuracy:     1.000
+    ##   Precision:    1.000
+    ##   Recall:       1.000
+    ## 
+    ## Micro-Averaged: 
+    ##   Accuracy:     1.000
+    ##   Precision:    1.000
+    ##   Recall:       1.000
 
 ### Post Coding Data
 
