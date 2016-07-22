@@ -528,20 +528,6 @@ fake_known[sample(1:length(fake_known), 300)] <- "random noise"
 accuracy(mod1, fake_known)
 ```
 
-In this model we allow for `n = 3` tags to be assigned in the classification.  Let's see how this affects performance.
-
-```{r}
-mod2 <- presidential_debates_2012 %>%
-    with(term_count(dialogue, TRUE, discoure_markers)) %>%
-    classify(n = 3)
-
-fake_known2 <- mod2
-multi <- sapply(fake_known2, length) > 1
-set.seed(1)
-fake_known2[multi] <- lapply(fake_known2[multi], sample)
-
-accuracy(mod2, fake_known2)
-```
 
 ### Post Coding Data
 

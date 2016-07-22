@@ -1385,32 +1385,6 @@ Below we create fake "known" tags to test `accuracy` with real data
     ##   Precision:    .897
     ##   Recall:       .897
 
-In this model we allow for `n = 3` tags to be assigned in the
-classification. Let's see how this affects performance.
-
-    mod2 <- presidential_debates_2012 %>%
-        with(term_count(dialogue, TRUE, discoure_markers)) %>%
-        classify(n = 3)
-
-    fake_known2 <- mod2
-    multi <- sapply(fake_known2, length) > 1
-    set.seed(1)
-    fake_known2[multi] <- lapply(fake_known2[multi], sample)
-
-    accuracy(mod2, fake_known2)
-
-    ## N:             2,912
-    ## 
-    ## Macro-Averaged: 
-    ##   Accuracy:     1.000
-    ##   Precision:    1.000
-    ##   Recall:       1.000
-    ## 
-    ## Micro-Averaged: 
-    ##   Accuracy:     1.000
-    ##   Precision:    1.000
-    ##   Recall:       1.000
-
 ### Post Coding Data
 
 It is often useful to validate a model via human evaluation; checking
@@ -1450,7 +1424,7 @@ confidence band is highly affected by the number of samples per tag).
 
     plot(validated)
 
-![](inst/figure/unnamed-chunk-42-1.png)
+![](inst/figure/unnamed-chunk-41-1.png)
 
 These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification
