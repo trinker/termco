@@ -51,7 +51,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `classification_project`     | modeling     | Make a classification modeling project template   |
 | ``as_dtm`/`as_tdm`           | modeling     | Coerce `term_count` object into `tm::DocumentTermMatrix`/`tm::TermDocumentMatrix` |
 | `split_data`                 | modeling     | Split data into `train` & `test` sets             |
-| `accuracy`                   | modeling     | Check accuracy of model against human coder       |
+| `evaluate`                   | modeling     | Check accuracy of model against human coder       |
 | `classify`                   | modeling     | Assign n tags to text from a model                |
 | `coverage`                   | modeling     | Coverage for `term_count` or `search_term` object |
 | `uncovered`/`get_uncovered`  | modeling     | Get the uncovered text from a model               |
@@ -498,23 +498,23 @@ classify(model) %>%
 ```
 
 
-## Accuracy
+## Evaluation: Accuracy
 
 ### Pre Coded Data
 
-The user may be interested in testing the accuracy of the model against a known, human coded sample.  The `accuracy` function allows the researcher to test a model's accuracy, precision, and recall using macro and micro averages of the confusion matrices for each tag as outlined by [Dan Jurafsky & Chris Manning](https://www.youtube.com/watch?v=OwwdYHWRB5E&index=31&list=PL6397E4B26D00A269).  In the example below I randomly generate "known human coded tagged" vector.  Obviously, this is for demonstration purposes.  The model outputs a pretty printing of a list. 
+The user may be interested in testing the accuracy of the model against a known, human coded sample.  The `evaluate` function allows the researcher to test a model's accuracy, precision, and recall using macro and micro averages of the confusion matrices for each tag as outlined by [Dan Jurafsky & Chris Manning](https://www.youtube.com/watch?v=OwwdYHWRB5E&index=31&list=PL6397E4B26D00A269).  In the example below I randomly generate "known human coded tagged" vector.  Obviously, this is for demonstration purposes.  The model outputs a pretty printing of a list. 
 
 If a larger, known tagging is available the user may want to strongly consider machine learning models (see: [**RTextTools**](https://cran.r-project.org/package=RTextTools)).
 
-This minimal example will provide insight into the way the accuracy scores behave:
+This minimal example will provide insight into the way the evaluate scores behave:
 
 ```{r}
 known <- list(1:3, 3, NA, 4:5, 2:4, 5, integer(0))
 tagged <- list(1:3, 3, 4, 5:4, c(2, 4:3), 5, integer(0))
-accuracy(tagged, known)
+evaluate(tagged, known)
 ```
 
-Below we create fake "known" tags to test `accuracy` with real data (though the comparison is fabricated).
+Below we create fake "known" tags to test `evaluate` with real data (though the comparison is fabricated).
 
 ```{r}
 mod1 <- presidential_debates_2012 %>%
@@ -525,7 +525,7 @@ fake_known <- mod1
 set.seed(1)
 fake_known[sample(1:length(fake_known), 300)] <- "random noise"
 
-accuracy(mod1, fake_known)
+evaluate(mod1, fake_known)
 ```
 
 

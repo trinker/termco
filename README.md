@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.4.3-orange.svg"><img src="https://img.shields.io/badge/Version-0.4.3-orange.svg" alt="Version"/></a>
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.5.0-orange.svg"><img src="https://img.shields.io/badge/Version-0.5.0-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
@@ -50,7 +50,7 @@ Table of Contents
         -   [Improving Coverage](#improving-coverage)
         -   [Improving Discrimination](#improving-discrimination)
     -   [Categorizing/Tagging](#categorizingtagging)
-    -   [Accuracy](#accuracy)
+    -   [Evaluation: Accuracy](#evaluation-accuracy)
         -   [Pre Coded Data](#pre-coded-data)
         -   [Post Coding Data](#post-coding-data)
 
@@ -149,7 +149,7 @@ their description:
 <td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
 </tr>
 <tr class="even">
-<td align="left"><code>accuracy</code></td>
+<td align="left"><code>evaluate</code></td>
 <td align="left">modeling</td>
 <td align="left">Check accuracy of model against human coder</td>
 </tr>
@@ -1322,13 +1322,13 @@ may be returned) as well as a `table` and plot of the counts. Use
 
 ![](inst/figure/unnamed-chunk-36-1.png)
 
-Accuracy
---------
+Evaluation: Accuracy
+--------------------
 
 ### Pre Coded Data
 
 The user may be interested in testing the accuracy of the model against
-a known, human coded sample. The `accuracy` function allows the
+a known, human coded sample. The `evaluate` function allows the
 researcher to test a model's accuracy, precision, and recall using macro
 and micro averages of the confusion matrices for each tag as outlined by
 [Dan Jurafsky & Chris
@@ -1341,26 +1341,42 @@ If a larger, known tagging is available the user may want to strongly
 consider machine learning models (see:
 [**RTextTools**](https://cran.r-project.org/package=RTextTools)).
 
-This minimal example will provide insight into the way the accuracy
+This minimal example will provide insight into the way the evaluate
 scores behave:
 
     known <- list(1:3, 3, NA, 4:5, 2:4, 5, integer(0))
     tagged <- list(1:3, 3, 4, 5:4, c(2, 4:3), 5, integer(0))
-    accuracy(tagged, known)
+    evaluate(tagged, known)
 
+    ## ----------------------------------------------- 
+    ## Tag Level Measures
+    ## ----------------------------------------------- 
+    ##           tag precision recall F_score accuracy
+    ##             1     1.000  1.000   1.000    1.000
+    ##             2     1.000  1.000   1.000    1.000
+    ##             3     1.000  1.000   1.000    1.000
+    ##             4      .667  1.000    .800     .857
+    ##             5     1.000  1.000   1.000    1.000
+    ## No_Code_Given      .000   .000    .000     .857
+    ## 
+    ## ---------------------- 
+    ## Summary Measures
+    ## ---------------------- 
     ## N:                 7
     ## 
-    ## Macro-Averaged: 
+    ## Macro-Averaged  
     ##   Accuracy:     .952
+    ##   F-score:      .800
     ##   Precision:    .778
     ##   Recall:       .833
     ## 
-    ## Micro-Averaged: 
+    ## Micro-Averaged  
     ##   Accuracy:     .952
+    ##   F-score:      .909
     ##   Precision:    .909
     ##   Recall:       .909
 
-Below we create fake "known" tags to test `accuracy` with real data
+Below we create fake "known" tags to test `evaluate` with real data
 (though the comparison is fabricated).
 
     mod1 <- presidential_debates_2012 %>%
@@ -1371,17 +1387,33 @@ Below we create fake "known" tags to test `accuracy` with real data
     set.seed(1)
     fake_known[sample(1:length(fake_known), 300)] <- "random noise"
 
-    accuracy(mod1, fake_known)
+    evaluate(mod1, fake_known)
 
+    ## ------------------------------------------------ 
+    ## Tag Level Measures
+    ## ------------------------------------------------ 
+    ##            tag precision recall F_score accuracy
+    ##  back_channels     1.000  1.000   1.000    1.000
+    ##  justification      .900  1.000    .947     .996
+    ##  No_Code_Given      .896  1.000    .945     .909
+    ##   random noise      .000   .000    .000     .897
+    ## response_cries      .812  1.000    .897     .999
+    ##        summons      .911  1.000    .954     .993
+    ## 
+    ## ---------------------- 
+    ## Summary Measures
+    ## ---------------------- 
     ## N:             2,912
     ## 
-    ## Macro-Averaged: 
+    ## Macro-Averaged  
     ##   Accuracy:     .966
+    ##   F-score:      .790
     ##   Precision:    .753
     ##   Recall:       .833
     ## 
-    ## Micro-Averaged: 
+    ## Micro-Averaged  
     ##   Accuracy:     .966
+    ##   F-score:      .897
     ##   Precision:    .897
     ##   Recall:       .897
 

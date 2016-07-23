@@ -86,7 +86,7 @@ validate_model <- function(x, n = 20, width = 50, ...){
 #' @export
 summary.validate_model <- function(object, adjust.discrete = FALSE, ordered = TRUE, ...){
 
-    tag <- NULL
+    tag <- accuracy <- NULL
 
     dat <- data.table::setDT(data.table::copy(object))
     out <- textshape::bind_list(invisible(lapply(split(dat[[2]], dat[[1]]),
@@ -109,6 +109,8 @@ summary.validate_model <- function(object, adjust.discrete = FALSE, ordered = TR
 #' @method print summary.validate_model
 #' @export
 print.summary.validate_model <- function(x, digits = 1, ...){
+
+    accuracy <- NULL
 
     lower <- upper <- se <- tag <- NULL
     cat(paste0(paste(rep("-", 7), collapse=""), "\n"))

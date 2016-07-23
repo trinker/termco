@@ -17,10 +17,24 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 
-termco 0.4.0 -
+
+termco 0.5.0 -
 ----------------------------------------------------------------
 
 BUG FIXES
+
+NEW FEATURES
+
+MINOR FEATURES
+
+IMPROVEMENTS
+
+CHANGES
+
+
+
+termco 0.4.0 - 0.4.3
+----------------------------------------------------------------
 
 NEW FEATURES
 
@@ -32,8 +46,6 @@ NEW FEATURES
 
 * `update_names` added to allow for safe renaming of a `term_count` object's
   columns while also updating its attributes as well.
-
-MINOR FEATURES
 
 IMPROVEMENTS
 
@@ -57,6 +69,8 @@ CHANGES
   to average number of other tags to determine if the tag co-occurrence is a
   meaningful number of tags to give additional attention to.  Use `tag = TRUE`
   for the old behavior.
+
+* `accuracy` was renamed to `evaluate` to be more informative as well as a verb.
 
 
 
