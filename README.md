@@ -1359,9 +1359,9 @@ scores behave:
     ##             5     1.000  1.000   1.000    1.000
     ## No_Code_Given      .000   .000    .000     .857
     ## 
-    ## ---------------------- 
+    ## -------------------- 
     ## Summary Measures
-    ## ---------------------- 
+    ## -------------------- 
     ## N:                 7
     ## 
     ## Macro-Averaged  
@@ -1400,9 +1400,9 @@ Below we create fake "known" tags to test `evaluate` with real data
     ## response_cries      .812  1.000    .897     .999
     ##        summons      .911  1.000    .954     .993
     ## 
-    ## ---------------------- 
+    ## -------------------- 
     ## Summary Measures
-    ## ---------------------- 
+    ## -------------------- 
     ## N:             2,912
     ## 
     ## Macro-Averaged  

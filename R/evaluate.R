@@ -92,7 +92,7 @@ print.evaluate <- function(x, digits = 3, ...){
 
     n <- pn(x[["N"]])
     ner <- paste0("N:", paste(rep(" ", 15 + digits -nchar(n)), collapse = ""), n, "\n\n")
-    bar2 <- paste(rep("-", nchar(ner)), collapse="")
+    bar2 <- paste(rep("-", nchar(ner)-2), collapse="")
     cat(bar2, "\n")
     cat("Summary Measures\n")
     cat(bar2, "\n")
