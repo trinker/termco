@@ -13,7 +13,7 @@ Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, gofastr,
         tidyr, tm, utils, wordcloud
 Suggests: knitr, rmarkdown, qdapRegex, rgl, testthat
 Remotes: trinker/textshape, trinker/gofastr
-Date: 2016-07-22
+Date: 2016-07-30
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

@@ -42,19 +42,25 @@ important_terms <- function (text.var, n = 20, stopwords = tm::stopwords("en"),
         dtm <- gofastr::q_dtm(text.var)
     }
 
-    if (!is.null(stopwords)) dtm <- gofastr::remove_stopwords(dtm, stopwords = stopwords, stem = stem, ...)
+    dots <- any(names(list(...)) %in% names(formals(gofastr::remove_stopwords))[-1])
+
+    if (!is.null(stopwords) | dots) {
+        dtm <- gofastr::remove_stopwords(dtm, stopwords = stopwords, stem = stem, ...)
+    }
 
     dtm <- suppressWarnings(tm::weightTfIdf(dtm))
 
     sorted <- sort(minmax_scale(slam::col_sums(dtm)/nrow(dtm)), TRUE)
     out <- data.frame(term = names(sorted), tf_idf = unlist(sorted, use.names=FALSE),
-                      stringsAsFactors = FALSE, row.names=NULL)
+        stringsAsFactors = FALSE, row.names=NULL)
 
     class(out) <- c("important_terms", class(out))
     attributes(out)[["n"]] <- n
     out
 
 }
+
+
 
 #' Prints an important_terms Object
 #'

@@ -149,8 +149,10 @@ grep_return_null <- function(pattern, x, ignore.case = TRUE){
 
 
 minmax_scale <- function(x) {
+	if(max(x) - min(x) == 0) return(stats::setNames(rep(1, length(x)), names(x)))
     (x - min(x))/(max(x) - min(x))
 }
+
 
 spacer <- function(x){
     mc <- max(nchar(x))
