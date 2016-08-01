@@ -61,7 +61,7 @@ cooc <- function(..., copy2clip){
 
 cooc_not <- function(..., not, copy2clip){
     x <- substitute(...())
-    z <- paste0(sprintf("^(?!.*%s)", not), paste(sprintf("(?=.*(%s))", x), collapse=""))
+    z <- paste0(sprintf("^(?!.*(%s))", not), paste(sprintf("(?=.*(%s))", x), collapse=""))
     if (copy2clip) {
         z2 <- paste0("\"", z, "\"")
         clipr::write_clip(gsub("\\", "\\\\", z2, fixed=TRUE))
