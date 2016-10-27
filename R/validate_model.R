@@ -8,11 +8,15 @@
 #' @param n The number of samples to take from each regex tag assignment.  Tags
 #' with less than \code{n} will use the full number available.
 #' @param width The width of the text display.
-#' @param \ldots ignored.
+#' @param tags The number of classifications per row/element to allow.  Ties are
+#' broken probabilistically by default.
+#' @param \ldots Other arguments passed to \code{\link[termco]{classify}}.
 #' @return \code{validate_model} - Returns a \code{data.frame} of the class
 #' \code{'validate_model'}.  Note that the pretty print is a tag summarized
 #' version of the model accuracy standard error, and confidence intervals.
 #' @keywords validate
+#' @note This function assigns tags using the \code{\link[termco]{classify}}
+#' function.  One element may recieve multiple tags.
 #' @export
 #' @rdname validate_model
 #' @examples
@@ -43,7 +47,7 @@
 #'     coders = c('fred', 'jade', 'sally', 'jim', 'shelly'), as.list = FALSE,
 #'     out='testing2')
 #' }
-validate_model <- function(x, n = 20, width = 50, ...){
+validate_model <- function(x, n = 20, width = 50, tags = 1, ...){
 
     if (!'term_count' %in% class(x)) {
         stop("`x` does not appear to be a 'term_count' object")
@@ -53,7 +57,14 @@ validate_model <- function(x, n = 20, width = 50, ...){
     }
 
     text.var <- attributes(x)[["text.var"]][["text.var"]]
-    potentials <- apply(x[, attributes(x)[["term.vars"]], drop = FALSE], 2, function(x) which(x > 0))
+
+    assigned_tags <- classify(x, n = tags, ...)
+    potentials <- lapply(attributes(x)[["term.vars"]], function(x) {
+        which(  unlist(lapply(assigned_tags, function(y) x %in% y)))
+    })
+    names(potentials) <- attributes(x)[["term.vars"]]
+    # changed to include classify on 10/27/2016
+    # potentials <- apply(x[, attributes(x)[["term.vars"]], drop = FALSE], 2, function(x) which(x > 0))
 
     items <- textshape::bind_list(lapply(potentials, function(x){
         sample(x, ifelse(length(x) <= n, length(x), n))
