@@ -139,7 +139,7 @@ their description:
 <td align="left">Make a classification modeling project template</td>
 </tr>
 <tr class="even">
-<td align="left">`<code>as_dtm</code>/<code>as_tdm</code></td>
+<td align="left"><code>as_dtm</code>/<code>as_tdm</code></td>
 <td align="left">modeling</td>
 <td align="left">Coerce <code>term_count</code> object into <code>tm::DocumentTermMatrix</code>/<code>tm::TermDocumentMatrix</code></td>
 </tr>
