@@ -5,7 +5,7 @@
 \alias{validate_model}
 \title{Manual Assessment of a Model}
 \usage{
-validate_model(x, n = 20, width = 50, ...)
+validate_model(x, n = 20, width = 50, tags = 1, ...)
 
 assign_validation_task(x, n = 20, checks = 1, coders = "coder",
   out = NULL, as.list = TRUE, ...)
@@ -19,6 +19,9 @@ with less than \code{n} will use the full number available.}
 
 \item{width}{The width of the text display.}
 
+\item{tags}{The number of classifications per row/element to allow.  Ties are
+broken probabilistically by default.}
+
 \item{checks}{The number of coders needed per tag assignment.}
 
 \item{coders}{A vector of coders to assign tasks to.}
@@ -28,7 +31,7 @@ with less than \code{n} will use the full number available.}
 \item{as.list}{logical.  Should the assignments be dsplayed as a list of
 \code{data.frame} or as a single \code{data.frame}?}
 
-\item{\ldots}{ignored.}
+\item{\ldots}{Other arguments passed to \code{\link[termco]{classify}}.}
 }
 \value{
 \code{validate_model} - Returns a \code{data.frame} of the class
@@ -51,6 +54,10 @@ interaction to assess the model.
 \code{assign_validation_task} - Create human assignments to assess how well a
 model is functioning.  The coder can use the \code{correct} column to assess
 how well the \code{tag} fits the \code{text} columns.
+}
+\note{
+This function assigns tags using the \code{\link[termco]{classify}}
+function.  One element may recieve multiple tags.
 }
 \examples{
 \dontrun{

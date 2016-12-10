@@ -29,6 +29,8 @@ termco 0.5.0 -
 
 **IMPROVEMENTS**
 
+* `validate_model` now uses `classify` before validating to assign tags.
+
 **CHANGES**
 
 

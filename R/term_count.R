@@ -194,8 +194,8 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
                     replacements <- i
                     map[i] <- NULL
                 } else {
-                    replacements <- paste(i, seq_len(sum(term.nms == i)), sep = "_")
-                    map[[i]] <- paste(i, seq_len(sum(term.nms == i)), sep = "_")
+                    replacements <- paste(i, seq_len(sum(term.nms == i)), sep = "__")
+                    map[[i]] <- paste(i, seq_len(sum(term.nms == i)), sep = "__")
                 }
                 term.nms[term.nms == i] <- replacements
             }
@@ -260,6 +260,9 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     count <- new.env(hash=FALSE)
     count[["count"]] <- counts
 
+    regex <- new.env(hash=FALSE)
+    regex[["term.list"]] <- term.list
+
     out <- dplyr::tbl_df(out)
     class(out) <- c("term_count", class(out))
 
@@ -271,11 +274,14 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     } else {
         attributes(out)[["term.vars"]] <- names(term.list)
     }
+
     attributes(out)[["weight"]] <- "count"
     attributes(out)[["pretty"]] <- pretty
     attributes(out)[["counts"]] <- count
     attributes(out)[["text.var"]] <- text
     attributes(out)[["model"]] <- amodel
+    attributes(out)[["regex"]] <- regex
+
     if(isTRUE(list_list)) attributes(out)[["hierarchical_terms"]] <- lapply(term.list, names)
 
     if (isTRUE(auto_map)){

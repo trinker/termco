@@ -29,6 +29,8 @@ MINOR FEATURES
 
 IMPROVEMENTS
 
+* `validate_model` now uses `classify` before validating to assign tags.
+
 CHANGES
 
 
