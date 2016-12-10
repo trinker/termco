@@ -1332,18 +1332,16 @@ Evaluation: Accuracy
 
 ### Pre Coded Data
 
-The user may be interested in testing the accuracy of the model against
-a known, human coded sample. The `evaluate` function allows the
-researcher to test a model's accuracy, precision, and recall using macro
-and micro averages of the confusion matrices for each tag as outlined by
-[Dan Jurafsky & Chris
+The `evaluate` function is a more formal method of evaluation than
+`validate_model`. The `evaluate` function yields a test a model's
+accuracy, precision, and recall using macro and micro averages of the
+confusion matrices for each tag as outlined by [Dan Jurafsky & Chris
 Manning](https://www.youtube.com/watch?v=OwwdYHWRB5E&index=31&list=PL6397E4B26D00A269).
-In the example below I randomly generate "known human coded tagged"
-vector. Obviously, this is for demonstration purposes. The model outputs
-a pretty printing of a list.
-
-If a larger, known tagging is available the user may want to strongly
-consider machine learning models (see:
+The function requires a known, human coded sample. In the example below
+I randomly generate "known human coded tagged" vector. Obviously, this
+is for demonstration purposes. The model outputs a pretty printing of a
+list. Note that if a larger, known tagging set of data is available the
+user may want to strongly consider machine learning models (see:
 [**RTextTools**](https://cran.r-project.org/package=RTextTools)).
 
 This minimal example will provide insight into the way the evaluate
@@ -1424,12 +1422,15 @@ Below we create fake "known" tags to test `evaluate` with real data
 
 ### Post Coding Data
 
-It is often useful to validate a model via human evaluation; checking
-that text is being tagged as expected. The `validate_model` provides an
-interactive interface for a single evaluator to sample n tags and
-corresponding texts and assess the accuracy of the tag to the text. The
-`assign_validation_task` generates an external file(s) for n coders for
-redundancy of code assessments. This may be of use in [Mechanical
+It is often useful to less formally, validate a model via human
+evaluation; checking that text is being tagged as expected. This
+approach is more formative and less rigorous than `evaluate`, intended
+to be used to assess model functioning in order to improve it. The
+`validate_model` provides an interactive interface for a single
+evaluator to sample n tags and corresponding texts and assess the
+accuracy of the tag to the text. The `assign_validation_task` generates
+an external file(s) for n coders for redundancy of code assessments.
+This may be of use in [Mechanical
 Turk](https://www.mturk.com/mturk/welcome) type applications. The
 example below demonstrates `validate_model`'s `print`/`summary` and
 `plot` outputs.

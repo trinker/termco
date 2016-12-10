@@ -47,6 +47,11 @@ important_terms(x, n=899)
 important_terms(x, n=.1)
 important_terms(x, min.char = 7)
 important_terms(x, min.char = 6, stem=TRUE)
+
+plot(important_terms(x))
+plot(important_terms(x, n = .02))
+plot(important_terms(x, n = 40))
+plot(important_terms(x, n = 100), as.cloud = TRUE)
 }
 \keyword{important}
 

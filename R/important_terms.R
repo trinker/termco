@@ -29,6 +29,11 @@
 #' important_terms(x, n=.1)
 #' important_terms(x, min.char = 7)
 #' important_terms(x, min.char = 6, stem=TRUE)
+#'
+#' plot(important_terms(x))
+#' plot(important_terms(x, n = .02))
+#' plot(important_terms(x, n = 40))
+#' plot(important_terms(x, n = 100), as.cloud = TRUE)
 important_terms <- function (text.var, n = 20, stopwords = tm::stopwords("en"),
     stem = FALSE, language = "porter", strip = TRUE, strip.regex = "[^A-Za-z' ]",
     ...) {
@@ -81,4 +86,68 @@ print.important_terms <- function(x, n = NULL, ...){
     x <- rm_class(x, 'important_terms')
     print(x[x[['tf_idf']] >= x[n, 'tf_idf'], ] )
 }
+
+
+
+
+
+#' Plots a important_terms Object
+#'
+#' Plots a important_terms object.
+#'
+#' @param x The \code{important_terms} object.
+#' @param n The number of rows to plot.  If integer selects the frequency at
+#' the nth row and plots all rows >= that value.  If proportional (less than 0)
+#' the frequency value for the nth\% row is selected and plots all rows >= that
+#' value.
+#' @param as.cloud logical.  If \code{TRUE} a wordcloud will be plotted rather
+#' than a bar plot.
+#' @param random.order logical.  Should the words be place randomly around the
+#' cloud or if \code{FALSE} the more frequent words are in the center of the cloud.
+#' @param rot.per The precentage of rotated words.
+#' @param \ldots Other arguments passed to \code{\link[wordcloud]{wordcloud}}.
+#' @method plot important_terms
+#' @export
+plot.important_terms <- function(x, n, as.cloud = FALSE, random.order = FALSE,
+    rot.per = 0, ...){
+
+    if (missing(n)) n <- attributes(x)[["n"]]
+
+    if (n < 1) {
+        n <- round(n * nrow(x), 0)
+    }
+
+    x <- x[x[["tf_idf"]] >= x[["tf_idf"]][n], ]
+
+    if (isTRUE(as.cloud)) {
+        wordcloud::wordcloud(x[[1]], x[[2]], random.order = random.order,
+            rot.per = rot.per, ...)
+    } else {
+
+        x[["term"]] <- factor(x[["term"]], levels=rev(x[["term"]]))
+
+        ggplot2::ggplot(x, ggplot2::aes_string(x='term', weight='tf_idf')) +
+            ggplot2::geom_bar() +
+            ggplot2::coord_flip() +
+            ggplot2::ylab("TF-IDF") +
+            ggplot2::xlab("Terms") +
+    	      ggplot2::scale_y_continuous(expand = c(0, 0),
+    	          labels = function(x) format(x, big.mark = ",", scientific = FALSE, trim = TRUE),
+    	          limits = c(0, 1.02 * x[1, "tf_idf"])) +
+            ggplot2::theme_bw() +
+            ggplot2::theme(
+            panel.grid.major.y = ggplot2::element_blank(),
+            #legend.position="bottom",
+            legend.title = ggplot2::element_blank(),
+            panel.border = ggplot2::element_blank(),
+            axis.line = ggplot2::element_line(color="grey70")
+        )
+    }
+
+}
+
+
+
+
+
 

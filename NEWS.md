@@ -27,7 +27,11 @@ termco 0.5.0 -
 
 * `get_text` added to extract the original text associated with particular tags.
 
+
 **MINOR FEATURES**
+
+* `important_terms` picks up a plot method corresponding to the `frequent_terms`
+  plot method.
 
 **IMPROVEMENTS**
 
