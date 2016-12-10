@@ -12,7 +12,7 @@ get_text(x, ...)
 \arguments{
 \item{x}{A \code{\link[termco]{term_count}} object.}
 
-\item{\ldots}{ignored.}
+\item{\ldots}{\code{\link[termco]{term_count}} tags.}
 }
 \value{
 Returns a vector or list of text strings.

@@ -4,7 +4,7 @@
 #' \code{\link[termco]{term_count}} object.
 #'
 #' @param x A \code{\link[termco]{term_count}} object.
-#' @param \ldots ignored.
+#' @param \ldots \code{\link[termco]{term_count}} tags.
 #' @return Returns a vector or list of text strings.
 #' @export
 #' @rdname get_text
