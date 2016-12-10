@@ -25,6 +25,8 @@ termco 0.5.0 -
 
 **NEW FEATURES**
 
+* `get_text` added to extract the original text associated with particular tags.
+
 **MINOR FEATURES**
 
 **IMPROVEMENTS**

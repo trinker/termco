@@ -25,6 +25,8 @@ BUG FIXES
 
 NEW FEATURES
 
+* `get_text` added to extract the original text associated with particular tags.
+
 MINOR FEATURES
 
 IMPROVEMENTS
