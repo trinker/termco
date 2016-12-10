@@ -13,7 +13,7 @@ Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](http
 </p>
 <img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
-**termco** is A small suite of functions used to count and find terms
+**termco** is a small suite of functions used to count and find terms
 and substrings in strings. The tools can be used to build an expert
 rules, regular expression based text classification model. The package
 wraps the
@@ -159,76 +159,81 @@ their description:
 <td align="left">Assign n tags to text from a model</td>
 </tr>
 <tr class="even">
+<td align="left"><code>get_text</code></td>
+<td align="left">modeling</td>
+<td align="left">Get the original text for model tags</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>coverage</code></td>
 <td align="left">modeling</td>
 <td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
 <td align="left">modeling</td>
 <td align="left">Get the uncovered text from a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>tag_co_occurrence</code></td>
 <td align="left">modeling</td>
 <td align="left">Explor co-occurrence of tags from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>validate_model</code>/<code>assign_validation_task</code></td>
 <td align="left">modeling</td>
 <td align="left">Human validation of a <code>term_count</code> model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>as_count</code></td>
 <td align="left">convert</td>
 <td align="left">Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>as_terms</code></td>
 <td align="left">convert</td>
 <td align="left">Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>weight</code></td>
 <td align="left">convert</td>
 <td align="left">Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_ca</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_counts</code></td>
 <td align="left">plot</td>
 <td align="left">Horizontal bar plot of group counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>plot_freq</code></td>
 <td align="left">plot</td>
 <td align="left">Vertical bar plot of frequencies of counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>plot_cum_percent</code></td>
 <td align="left">plot</td>
 <td align="left">Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_colo_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term_collocations</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>probe_colo_plot_list</code></td>
 <td align="left">probe</td>
 <td align="left">Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>probe_colo_plot</code></td>
 <td align="left">probe</td>
 <td align="left">Plot <code>probe_colo_plot_list</code> directly</td>
@@ -291,7 +296,7 @@ Build Counts Dataframe
     counts
 
     ## Coverage: 100% 
-    ## # A tibble: 10 x 7
+    ## # A tibble: 10 × 7
     ##       person   time n.words response_cries back_channels   summons
     ##       <fctr> <fctr>   <int>          <chr>         <chr>     <chr>
     ## 1      OBAMA time 1    3599        3(.08%)             0 43(1.19%)
@@ -312,7 +317,7 @@ Printing
     print(counts, pretty = FALSE)
 
     ## Coverage: 100% 
-    ## # A tibble: 10 x 7
+    ## # A tibble: 10 × 7
     ##       person   time n.words response_cries back_channels summons
     ##       <fctr> <fctr>   <int>          <int>         <int>   <int>
     ## 1      OBAMA time 1    3599              3             0      43
@@ -330,7 +335,7 @@ Printing
     print(counts, zero.replace = "_")
 
     ## Coverage: 100% 
-    ## # A tibble: 10 x 7
+    ## # A tibble: 10 × 7
     ##       person   time n.words response_cries back_channels   summons
     ##       <fctr> <fctr>   <int>          <chr>         <chr>     <chr>
     ## 1      OBAMA time 1    3599        3(.08%)             _ 43(1.19%)
@@ -376,95 +381,95 @@ method.
     ngram_collocations(x)
 
     ##        term1      term2 frequency        G2        X2      pmi      dice
-    ##  1:     make       sure       127 1255.7464 17863.555 4.950589 0.6827957
-    ##  2: governor     romney       105 1243.1213 26609.589 5.536256 0.8366534
-    ##  3:     four      years        63  657.9166 13958.627 5.404176 0.6057692
-    ##  4:   mister  president        61  624.0201 10919.771 5.191794 0.4784314
-    ##  5:   united     states        31  419.0626 22357.342 6.581534 0.7654321
-    ##  6:   middle      class        30  366.4590 13952.244 6.143693 0.5714286
-    ##  7:     last       four        27  253.2193  5140.805 5.255692 0.3698630
-    ##  8:   middle       east        26  336.9210 13708.214 6.268856 0.5360825
-    ##  9:   health       care        26  316.6088 13870.101 6.280845 0.6046512
-    ## 10: american     people        26  193.3048  2053.071 4.387020 0.1984733
-    ## 11:    small businesses        22  261.3451 11324.690 6.245445 0.5500000
-    ## 12:   making       sure        19  149.6092  1899.705 4.619457 0.1890547
-    ## 13:     dodd      frank        15  264.6986 37479.000 7.823486 1.0000000
-    ## 14:  federal government        15  149.7619  3973.231 5.584196 0.3061224
-    ## 15: governor   romney's        13  146.3850  3443.705 5.582776 0.1688312
-    ## 16:    small   business        13  143.2552  5501.534 6.050709 0.3768116
-    ## 17:  private     sector        11  162.2122 16424.353 7.309030 0.6285714
-    ## 18: national   security        11  136.0638  7834.623 6.569857 0.4313725
-    ## 19:     wall     street         9  161.5139 33730.200 8.228951 0.9473684
-    ## 20:     food     stamps         9  157.5844 30663.000 8.133641 0.9000000
+    ##  1:     make       sure       127 1274.7419 19255.047 5.025291 0.6827957
+    ##  2: governor     romney       105 1258.8293 28675.983 5.610959 0.8366534
+    ##  3:     four      years        63  667.3310 15045.063 5.478879 0.6057692
+    ##  4:   mister  president        61  629.2543 11462.157 5.240109 0.4692308
+    ##  5:   united     states        31  421.4984 23579.173 6.634730 0.7560976
+    ##  6:   middle      class        30  370.9423 15036.048 6.218395 0.5714286
+    ##  7:     last       four        27  251.0508  5034.434 5.235084 0.3506494
+    ##  8:   middle       east        26  340.8068 14772.750 6.343559 0.5360825
+    ##  9:   health       care        26  320.4936 14947.477 6.355548 0.6046512
+    ## 10: american     people        26  195.2853  2139.654 4.427656 0.1933086
+    ## 11:    small businesses        22  264.6317 12204.609 6.320147 0.5500000
+    ## 12:   making       sure        19  152.4348  2049.194 4.694159 0.1890547
+    ## 13:     dodd      frank        15  266.9402 40386.000 7.898188 1.0000000
+    ## 14:  federal government        15  150.9879  4156.282 5.629045 0.3000000
+    ## 15: governor   romney's        13  148.3276  3711.727 5.657479 0.1688312
+    ## 16:    small   business        13  145.1962  5929.481 6.125411 0.3768116
+    ## 17:   middle     income        13  137.7277  4353.608 5.817465 0.2795699
+    ## 18:  private     sector        11  163.8559 17698.799 7.383733 0.6285714
+    ## 19:     wall     street         9  162.8587 36346.500 8.303653 0.9473684
+    ## 20:     food     stamps         9  158.9293 33041.454 8.208343 0.9000000
 
     ngram_collocations(x, gram.length = 3)
 
-    ##        term1  term2      term3 frequency        G2         X2       pmi
-    ##  1:     last   four      years        27  927.5627   593.7586  6.377042
-    ##  2: governor romney       says         8  875.0792 19728.7724  9.192229
-    ##  3: governor romney       said         6  835.9895   613.9352  5.791032
-    ##  4:     also   make       sure         3 1245.9453  1057.2660  6.452585
-    ##  5:     will   make       sure         3 1237.9291  6818.4983  8.130076
-    ##  6: governor romney      talks         3  826.7321 21685.5103  8.882568
-    ##  7: governor romney       just         3  820.2948  3166.0495  7.988257
-    ##  8: governor romney     talked         2  825.0387   384.9124  5.440897
-    ##  9:     make   sure      folks         1 1218.0546  2346.2809  7.700575
-    ## 10:     make   sure      small         1 1217.8131   616.7290  6.243899
-    ## 11:     make   sure       take         1 1217.1423   197.0394  4.460263
-    ## 12: governor romney criticized         1  812.2985   793.3167  6.278270
-    ## 13: governor romney      feels         1  812.2985 22172.2798  8.616865
-    ## 14: governor romney  indicates         1  812.2985 83098.9284 11.324915
-    ## 15: governor romney     stands         1  812.2985  3841.8656  8.189421
-    ## 16: governor romney   there'll         1  812.2985  2618.9923  7.140483
-    ## 17: governor romney     thinks         1  812.2985   177.0220  4.262242
-    ## 18: governor romney     agrees         1  809.5322   328.0611  5.683008
-    ## 19: governor romney      keeps         1  807.3197   287.3948  4.117056
-    ## 20: governor romney      maybe         1  807.3197   252.7850  5.525823
-    ##            dice
-    ##  1: 0.002176279
-    ##  2: 0.004634994
-    ##  3: 0.001558846
-    ##  4: 0.001951220
-    ##  5: 0.004415011
-    ##  6: 0.006802721
-    ##  7: 0.001568627
-    ##  8: 0.001520913
-    ##  9: 0.002290951
-    ## 10: 0.002100840
-    ## 11: 0.001367989
-    ## 12: 0.001749781
-    ## 13: 0.008403361
-    ## 14: 0.002398082
-    ## 15: 0.002277904
-    ## 16: 0.003898635
-    ## 17: 0.001490313
-    ## 18: 0.002070393
-    ## 19: 0.001512859
-    ## 20: 0.002036660
+    ##        term1    term2  term3 frequency        G2          X2       pmi
+    ##  1:     last     four  years        27  944.1660  1119.16819  5.857686
+    ##  2: governor   romney   says         8  885.7894   308.55635  3.777901
+    ##  3: governor   romney   said         6  843.1408   120.97011  2.755612
+    ##  4:     also     make   sure         3 1264.8641   425.84142  5.491442
+    ##  5:     will     make   sure         3 1257.6380   285.37920  5.143135
+    ##  6: governor   romney  talks         3  837.3864   206.96838  5.004811
+    ##  7: governor   romney talked         2  834.6748 41352.74182 10.628829
+    ##  8:     make     sure  folks         1 1237.4903  7478.53105  8.911870
+    ##  9:     make     sure  small         1 1237.2435  1181.20508  6.969434
+    ## 10:     make     sure   take         1 1236.5061    36.53827  3.198426
+    ## 11:  suspect governor romney         1  962.9573  4610.24137  7.718389
+    ## 12:   advice governor romney         1  961.9173 85075.62066 11.349375
+    ## 13:  nothing governor romney         1  961.2443 23537.61734  9.368373
+    ## 14:    heard governor romney         1  960.7454 34127.98803 10.433084
+    ## 15:     hear governor romney         1  960.3492   926.94116  6.521061
+    ## 16:    think governor romney         1  958.6054  5625.50950  8.604957
+    ## 17:  support governor romney         1  958.3397   559.13519  5.944697
+    ## 18:    thank governor romney         1  958.0053  1749.47325  6.900209
+    ## 19:  believe governor romney         1  956.6248  4367.39446  8.342593
+    ## 20:   romney governor romney         1  955.8070   815.59627  4.046093
+    ##             dice
+    ##  1: 0.0018814675
+    ##  2: 0.0010863661
+    ##  3: 0.0005719188
+    ##  4: 0.0019065777
+    ##  5: 0.0017793594
+    ##  6: 0.0017421603
+    ##  7: 0.0022935780
+    ##  8: 0.0021299255
+    ##  9: 0.0015197568
+    ## 10: 0.0014903130
+    ## 11: 0.0040241449
+    ## 12: 0.0023668639
+    ## 13: 0.0045871560
+    ## 14: 0.0023584906
+    ## 15: 0.0015515904
+    ## 16: 0.0022935780
+    ## 17: 0.0019900498
+    ## 18: 0.0021810251
+    ## 19: 0.0022857143
+    ## 20: 0.0009398496
 
     ngram_collocations(x, order.by = "dice")
 
     ##        term1      term2 frequency        G2        X2      pmi      dice
-    ##  1:     dodd      frank        15  264.6986 37479.000 7.823486 1.0000000
-    ##  2:     wall     street         9  161.5139 33730.200 8.228951 0.9473684
-    ##  3:     food     stamps         9  157.5844 30663.000 8.133641 0.9000000
-    ##  4: governor     romney       105 1243.1213 26609.589 5.536256 0.8366534
-    ##  5:   united     states        31  419.0626 22357.342 6.581534 0.7654321
-    ##  6:     make       sure       127 1255.7464 17863.555 4.950589 0.6827957
-    ##  7:  private     sector        11  162.2122 16424.353 7.309030 0.6285714
-    ##  8:     four      years        63  657.9166 13958.627 5.404176 0.6057692
-    ##  9:   health       care        26  316.6088 13870.101 6.280845 0.6046512
-    ## 10:   middle      class        30  366.4590 13952.244 6.143693 0.5714286
-    ## 11:    small businesses        22  261.3451 11324.690 6.245445 0.5500000
-    ## 12:   middle       east        26  336.9210 13708.214 6.268856 0.5360825
-    ## 13:   mister  president        61  624.0201 10919.771 5.191794 0.4784314
-    ## 14: national   security        11  136.0638  7834.623 6.569857 0.4313725
-    ## 15:    small   business        13  143.2552  5501.534 6.050709 0.3768116
-    ## 16:     last       four        27  253.2193  5140.805 5.255692 0.3698630
-    ## 17:  federal government        15  149.7619  3973.231 5.584196 0.3061224
-    ## 18: american     people        26  193.3048  2053.071 4.387020 0.1984733
-    ## 19:   making       sure        19  149.6092  1899.705 4.619457 0.1890547
-    ## 20: governor   romney's        13  146.3850  3443.705 5.582776 0.1688312
+    ##  1:     dodd      frank        15  266.9402 40386.000 7.898188 1.0000000
+    ##  2:     wall     street         9  162.8587 36346.500 8.303653 0.9473684
+    ##  3:     food     stamps         9  158.9293 33041.454 8.208343 0.9000000
+    ##  4: governor     romney       105 1258.8293 28675.983 5.610959 0.8366534
+    ##  5:   united     states        31  421.4984 23579.173 6.634730 0.7560976
+    ##  6:     make       sure       127 1274.7419 19255.047 5.025291 0.6827957
+    ##  7:  private     sector        11  163.8559 17698.799 7.383733 0.6285714
+    ##  8:     four      years        63  667.3310 15045.063 5.478879 0.6057692
+    ##  9:   health       care        26  320.4936 14947.477 6.355548 0.6046512
+    ## 10:   middle      class        30  370.9423 15036.048 6.218395 0.5714286
+    ## 11:    small businesses        22  264.6317 12204.609 6.320147 0.5500000
+    ## 12:   middle       east        26  340.8068 14772.750 6.343559 0.5360825
+    ## 13:   mister  president        61  629.2543 11462.157 5.240109 0.4692308
+    ## 14:    small   business        13  145.1962  5929.481 6.125411 0.3768116
+    ## 15:     last       four        27  251.0508  5034.434 5.235084 0.3506494
+    ## 16:  federal government        15  150.9879  4156.282 5.629045 0.3000000
+    ## 17:   middle     income        13  137.7277  4353.608 5.817465 0.2795699
+    ## 18: american     people        26  195.2853  2139.654 4.427656 0.1933086
+    ## 19:   making       sure        19  152.4348  2049.194 4.694159 0.1890547
+    ## 20: governor   romney's        13  148.3276  3711.727 5.657479 0.1688312
 
 ### Collocation Plotting
 
@@ -599,7 +604,7 @@ are additional observations.
     ## split_data:
     ## 
     ## train: n = 2184
-    ## # A tibble: 6 x 5
+    ## # A tibble: 6 × 5
     ##      person    tot   time      role
     ##      <fctr>  <chr> <fctr>    <fctr>
     ## 1   CROWLEY  230.2 time 2 moderator
@@ -612,7 +617,7 @@ are additional observations.
     ## |...
     ## 
     ## test: n = 728
-    ## # A tibble: 6 x 5
+    ## # A tibble: 6 × 5
     ##   person   tot   time      role
     ##   <fctr> <chr> <fctr>    <fctr>
     ## 1 LEHRER   1.1 time 1 moderator
@@ -634,7 +639,7 @@ Here I show splitting by integer.
     ## split_data:
     ## 
     ## train: n = 100
-    ## # A tibble: 6 x 5
+    ## # A tibble: 6 × 5
     ##   person    tot   time      role
     ##   <fctr>  <chr> <fctr>    <fctr>
     ## 1  OBAMA  102.4 time 2 candidate
@@ -647,7 +652,7 @@ Here I show splitting by integer.
     ## |...
     ## 
     ## test: n = 2812
-    ## # A tibble: 6 x 5
+    ## # A tibble: 6 × 5
     ##   person   tot   time      role
     ##   <fctr> <chr> <fctr>    <fctr>
     ## 1 LEHRER   1.1 time 1 moderator
@@ -909,7 +914,7 @@ of observation which gives the researcher the observation level counts.
     model
 
     ## Coverage: 13.02% 
-    ## # A tibble: 2,912 x 6
+    ## # A tibble: 2,912 × 6
     ##       id n.words response_cries back_channels summons justification
     ##    <int>   <int>          <int>         <int>   <int>         <int>
     ## 1      1      10              0             0       0             0

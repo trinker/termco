@@ -59,6 +59,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `split_data`                 | modeling     | Split data into `train` & `test` sets             |
 | `evaluate`                   | modeling     | Check accuracy of model against human coder       |
 | `classify`                   | modeling     | Assign n tags to text from a model                |
+| `get_text`                   | modeling     | Get the original text for model tags              |
 | `coverage`                   | modeling     | Coverage for `term_count` or `search_term` object |
 | `uncovered`/`get_uncovered`  | modeling     | Get the uncovered text from a model               |
 | `tag_co_occurrence`          | modeling     | Explor co-occurrence of tags from a model         |
