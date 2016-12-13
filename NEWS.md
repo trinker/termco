@@ -18,7 +18,7 @@ And constructed with the following guidelines:
 
 
 
-termco 0.5.0 -
+termco 0.5.0 - 0.5.1
 ----------------------------------------------------------------
 
 **BUG FIXES**
@@ -27,6 +27,8 @@ termco 0.5.0 -
 
 * `get_text` added to extract the original text associated with particular tags.
 
+* `frequent_terms_co_occurrence` added to view the co-occurrence between frequent
+  terms.  A combination of `frequent_terms` and `tag_co_occurrence`.
 
 **MINOR FEATURES**
 
@@ -36,6 +38,11 @@ termco 0.5.0 -
 **IMPROVEMENTS**
 
 * `validate_model` now uses `classify` before validating to assign tags.
+
+* `tag_co_occurrence` used a grid + base plotting approach that required
+  restarting the graphics device between plots.  This dependency has been
+  replaces with a dependency on **ggnetwork** for plotting networks as grid
+  objects.
 
 **CHANGES**
 

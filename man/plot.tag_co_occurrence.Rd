@@ -4,12 +4,12 @@
 \alias{plot.tag_co_occurrence}
 \title{Plots a tag_co_occurrence Object}
 \usage{
-\method{plot}{tag_co_occurrence}(x, cor = FALSE, edge.weight = 8,
-  node.weight = 8, edge.color = "gray80", node.color = "orange",
+\method{plot}{tag_co_occurrence}(x, cor = FALSE, edge.weight = 5,
+  node.weight = 5, edge.color = "gray80", node.color = "orange",
   bar.color = node.color, font.color = "gray55",
   bar.font.color = ifelse(bar, "gray96", bar.color),
-  background.color = NULL, bar.font.size = TRUE, node.font.size = 1.08,
-  digits = 1, min.edge.cutoff = 0.15, plot.widths = c(0.65, 0.35),
+  background.color = NULL, bar.font.size = TRUE, node.font.size = 3,
+  digits = 1, min.edge.cutoff = 0.15, plot.widths = c(0.6, 0.4),
   bar = FALSE, type = "both", ...)
 }
 \arguments{
@@ -37,13 +37,13 @@ network graph, otherwise the adjacency matrix is used.}
 \item{bar.font.size}{A font size for the bar/dotplot (mean co-occurrences).
 Default tries to calculate based on number of bars.}
 
-\item{node.font.size}{The \code{vertex.label.cex} for the node labels.}
+\item{node.font.size}{The size for the node labels.}
 
 \item{digits}{The number of digits to print for bar/dotplot font (mean
 co-occurrences).}
 
 \item{min.edge.cutoff}{A minimum value to use as a cut-off in the network plot.
-If a value in the correlation/adjacency matrix is below this value, not egde
+If a value in the correlation/adjacency matrix is below this value, no edge
 will be plotted for the tag (node) connection.}
 
 \item{plot.widths}{A vector of proportions of length 2 and totalling 1
@@ -56,15 +56,12 @@ otherwise a bubble-dotplot is used.}
 \code{"bar"}, \code{"network"}, or \code{"both"} corresponding to the graph
 type to print.}
 
-\item{\ldots}{Other arguments passed to \code{\link[igraph]{plot.igraph}}.}
+\item{\ldots}{ignored.}
+}
+\value{
+Invisibly returns the network and dotplot/bar plot as a list.
 }
 \description{
 Plots a tag_co_occurrence object
-}
-\note{
-The \code{\link[graphics]{par}} function is called in this function.
-This will globally reset the graphics device resulting in odd plots in
-the next call to \code{plot}.  If working interactively, restart the graphics
-device before plotting again.
 }
 

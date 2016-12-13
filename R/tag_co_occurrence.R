@@ -36,8 +36,6 @@
 #' barplot(sort(x[["node_size"]], TRUE), las=2)
 #' barplot(setNames(x[["ave_tag"]][[2]], x[["ave_tag"]][[1]]), las=2)
 #'
-#' ## Note. Restart the graphics device between plot calls if working
-#' ##       interactively. See `?plot.tag_co_occurrence` for details.
 #' plot(x)
 #' plot(x, cor=FALSE)
 #' plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")
@@ -114,7 +112,7 @@
 #'     background.color = "black")
 #'
 #' ## Small Number of Tags Example
-#' plot(tag_co_occurrence(markers), node.weight = 30)
+#' plot(tag_co_occurrence(markers), node.weight = 5, min.edge.cutoff = .08)
 tag_co_occurrence <- function(x, ...){
 
     ave <- tag <- NULL
@@ -134,7 +132,7 @@ tag_co_occurrence <- function(x, ...){
     diag(cc) <- 0
 
     tags <- textshape::bind_list(classify(x, Inf), "id", "tag")[,
-                                                                tag := ifelse(is.na(tag), "<<no tag>>", tag)]
+        tag := ifelse(is.na(tag), "<<no tag>>", tag)]
     data.table::setkey(tags, "tag")
 
     tags2 <- data.table::copy(tags)
@@ -174,11 +172,11 @@ tag_co_occurrence <- function(x, ...){
 #' @param background.color The plot background color.
 #' @param bar.font.size A font size for the bar/dotplot (mean co-occurrences).
 #' Default tries to calculate based on number of bars.
-#' @param node.font.size The \code{vertex.label.cex} for the node labels.
+#' @param node.font.size The size for the node labels.
 #' @param digits The number of digits to print for bar/dotplot font (mean
 #' co-occurrences).
 #' @param min.edge.cutoff A minimum value to use as a cut-off in the network plot.
-#' If a value in the correlation/adjacency matrix is below this value, not egde
+#' If a value in the correlation/adjacency matrix is below this value, no edge
 #' will be plotted for the tag (node) connection.
 #' @param plot.widths A vector of proportions of length 2 and totalling 1
 #' corresponding to the relative width of the network and  bar/dotplot.
@@ -187,21 +185,19 @@ tag_co_occurrence <- function(x, ...){
 #' @param type The graph type (network & bar/dotplot).  Choices are:
 #' \code{"bar"}, \code{"network"}, or \code{"both"} corresponding to the graph
 #' type to print.
-#' @param \ldots Other arguments passed to \code{\link[igraph]{plot.igraph}}.
-#' @note The \code{\link[graphics]{par}} function is called in this function.
-#' This will globally reset the graphics device resulting in odd plots in
-#' the next call to \code{plot}.  If working interactively, restart the graphics
-#' device before plotting again.
+#' @param \ldots ignored.
+#' @return Invisibly returns the network and dotplot/bar plot as a list.
 #' @method plot tag_co_occurrence
 #' @export
 #' @export plot.tag_co_occurrence
-plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=8,
+plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=5,
     edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
     bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
-    bar.font.size = TRUE, node.font.size = 1.08, digits = 1, min.edge.cutoff = .15,
-    plot.widths = c(.65, .35), bar = FALSE, type = "both", ...){
+    bar.font.size = TRUE, node.font.size = 3, digits = 1, min.edge.cutoff = .15,
+    plot.widths = c(.6, .4), bar = FALSE, type = "both", ...){
 
     ave <- NULL
+    Stat <- ggplot2::Stat
 
     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]
     x[["ave_tag"]][["tag"]] <- factor(x[["ave_tag"]][["tag"]], levels=rev(x[["ave_tag"]][["tag"]]))
@@ -212,6 +208,9 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
 
     x[["ave_tag"]][["n"]] <- x[["node_size"]][match(x[["ave_tag"]][['tag']], names(x[["node_size"]]))]
 
+    #======================================================================
+
+    ## create the bar -or- dot plot
     ave_tags_plot <- ggplot2::ggplot(x[["ave_tag"]], ggplot2::aes_string(x="tag")) +
     {if (isTRUE(bar)) {
         ggplot2::geom_bar(stat = "identity", ggplot2::aes_string(y='ave'), fill=bar.color)
@@ -220,7 +219,8 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
     }} +
         ggplot2::coord_flip() +
         ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, max(x[["ave_tag"]][["ave"]]) * ifelse(bar, 1.01, 1.05))) +
-        ggplot2::geom_text(ggplot2::aes(label=f(ave, digits), y=.02), color=bar.font.color, size=bar.font.size, hjust=0) +
+        ggplot2::geom_text(ggplot2::aes(label=f(ave, digits), y=.02),
+            color=bar.font.color, size=bar.font.size, hjust=0) +
         ggplot2::labs(y = "Average Number of\nCo-Occurring Other Tags", x=NULL) +
         ggplot2::theme_minimal() +
         ggplot2::annotate("segment", x=-Inf, xend=Inf, y=-Inf, yend=-Inf, color = font.color)+
@@ -239,13 +239,9 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
             ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
         }}
 
-    if (!is.null(background.color)){
-        ave_tags_plot <- ave_tags_plot +
-            ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color))
-    }
+    #======================================================================
 
-    if (type == "bar") print(ave_tags_plot)#; return(invisible(ave_tags_plot))
-
+    ## create igraph object
     if (isTRUE(cor)){
         mat <- x[["cor"]]
     } else {
@@ -254,66 +250,167 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=
 
     graph <- igraph::graph.adjacency(mat, weighted=TRUE, mode="lower")
     igraph::E(graph)$width  <- igraph::E(graph)$weight * edge.weight
-    #igraph::V(graph)$node.size <- minmax_scale(x[["node_size"]]) + 1
+    net <- igraph::as.undirected(igraph::delete.edges(graph, igraph::E(graph)[weight < min.edge.cutoff]))
+    idat <- try(ggnetwork::ggnetwork(net), TRUE)
+    if (inherits(idat, 'try-error')) stop("`min.edge.cutoff`, is set too high for the strength of the connections in the adjacency matrix.")
 
-    #Create figure window and layout
-    widths <- 100*round(plot.widths/sum(plot.widths), 2)
+    idat[['weight']][seq_along(x[["node_size"]])] <- node.weight*general_rescale(x[["node_size"]], .5, 5)
 
-    if (type == "network") {
+    netplot <- ggplot2::ggplot(idat, ggplot2::aes(x = x, y = y,
+            xend = xend, yend = yend)) +
+        ggnetwork::geom_edges(color = edge.color, ggplot2::aes(size = width)) +
+        ggnetwork::geom_nodes(color = node.color, ggplot2::aes(size = weight*node.weight)) +
+        ggnetwork::geom_nodetext(ggplot2::aes(label = vertex.names),
+            size = node.font.size, color = font.color) +
+        ggplot2::theme_minimal() +
+        ggplot2::theme(
+            legend.position = 'none',
+            panel.grid = ggplot2::element_blank(),
+            axis.text = ggplot2::element_blank(),
+            axis.title = ggplot2::element_blank()
+        ) +
+        ggplot2::scale_size(range = c(.5, 10))
 
-        if (!is.null(background.color)){
-            graphics::par(mar=c(1, 1, 1, 1), new = TRUE, bg=background.color)
-        } else {
-            graphics::par(mar=c(1, 1, 1, 1), new = TRUE)
+    if (!is.null(background.color)){
+        ave_tags_plot <- ave_tags_plot +
+            ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color))
 
-        }
-        igraph::plot.igraph(
-            igraph::delete.edges(graph, igraph::E(graph)[ weight < min.edge.cutoff]),
-            vertex.color = node.color,
-            vertex.label.family = "sans",
-            vertex.label.font = 1,
-            vertex.label.cex = node.font.size,
-            edge.color = edge.color,
-            vertex.frame.color = NA,
-            vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
-            vertex.label.color = font.color, ...
-        )
-        #return(invisible(graph))
-
+        netplot <- netplot +
+            ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color))
     }
 
-    if (type == "both") {
-        #Draw base plot
-        if (!is.null(background.color)){
-            graphics::plot.new()
-            graphics::par(mar=c(1, 1, 1, 1), new = TRUE, bg=background.color)
-            graphics::layout(matrix(c(rep(1, widths[1]), rep(2, widths[2])), nrow = 1,  byrow = TRUE))
-        } else {
-            graphics::layout(matrix(c(rep(1, widths[1]), rep(2, widths[2])), nrow = 1,  byrow = TRUE))
-            graphics::plot.new()
-            graphics::par(mar=c(1, 1, 1, 1), new = TRUE)
+    #======================================================================
 
-        }
+    if (type == "bar") print(ave_tags_plot)
+    if (type == "network") print(netplot)
+    if (type == "both") gridExtra::grid.arrange(netplot, ave_tags_plot, ncol=2,
+        widths = plot.widths)
 
-        igraph::plot.igraph(
-            igraph::delete.edges(graph, igraph::E(graph)[ weight < min.edge.cutoff]),
-            vertex.color = node.color,
-            vertex.label.family = "sans",
-            vertex.label.font = 1,
-            vertex.label.cex = node.font.size,
-            edge.color = edge.color,
-            vertex.frame.color = NA,
-            vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
-            vertex.label.color = font.color, ...
-        )
-
-        #Draw ggplot
-        graphics::plot.new()
-        vps <- gridBase::baseViewports()
-        print(ave_tags_plot, vp = grid::vpStack(vps$figure, vps$plot))
-    }
-    #return(invisible(graph, ave_tags_plot))
+    return(invisible(list(network = netplot, ave_tags_plot = ave_tags_plot)))
 }
+
+
+
+
+# plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=8,
+#     edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
+#     bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
+#     bar.font.size = TRUE, node.font.size = 1.08, digits = 1, min.edge.cutoff = .15,
+#     plot.widths = c(.65, .35), bar = FALSE, type = "both", ...){
+#
+#     ave <- NULL
+#
+#     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]
+#     x[["ave_tag"]][["tag"]] <- factor(x[["ave_tag"]][["tag"]], levels=rev(x[["ave_tag"]][["tag"]]))
+#
+#     if (isTRUE(bar.font.size)) {
+#         bar.font.size <- constrain(round((1/length(x[["ave_tag"]][["tag"]])) * 100), 2.5, 9)
+#     }
+#
+#     x[["ave_tag"]][["n"]] <- x[["node_size"]][match(x[["ave_tag"]][['tag']], names(x[["node_size"]]))]
+#
+#     ave_tags_plot <- ggplot2::ggplot(x[["ave_tag"]], ggplot2::aes_string(x="tag")) +
+#     {if (isTRUE(bar)) {
+#         ggplot2::geom_bar(stat = "identity", ggplot2::aes_string(y='ave'), fill=bar.color)
+#     } else {
+#         ggplot2::geom_point(stat = "identity", ggplot2::aes_string(y='ave', size = 'n'), color=bar.color)
+#     }} +
+#         ggplot2::coord_flip() +
+#         ggplot2::scale_y_continuous(expand = c(0, 0), limits = c(0, max(x[["ave_tag"]][["ave"]]) * ifelse(bar, 1.01, 1.05))) +
+#         ggplot2::geom_text(ggplot2::aes(label=f(ave, digits), y=.02), color=bar.font.color, size=bar.font.size, hjust=0) +
+#         ggplot2::labs(y = "Average Number of\nCo-Occurring Other Tags", x=NULL) +
+#         ggplot2::theme_minimal() +
+#         ggplot2::annotate("segment", x=-Inf, xend=Inf, y=-Inf, yend=-Inf, color = font.color)+
+#         ggplot2::annotate("segment", x=-Inf, xend=-Inf, y=-Inf, yend=Inf, color = font.color) +
+#         ggplot2::theme(
+#             panel.grid.minor = ggplot2::element_blank(),
+#             axis.text = ggplot2::element_text(color = font.color),
+#             axis.title = ggplot2::element_text(color = font.color, size=12),
+#             legend.position = 'bottom',
+#             legend.text = ggplot2::element_text(color = font.color, size=10),
+#             legend.title = ggplot2::element_text(color = font.color, size=10)
+#         ) +
+#         {if (isTRUE(bar)) {
+#             ggplot2::theme(panel.grid.major = ggplot2::element_blank())
+#         } else {
+#             ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
+#         }}
+#
+#     if (!is.null(background.color)){
+#         ave_tags_plot <- ave_tags_plot +
+#             ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color))
+#     }
+#
+#     if (type == "bar") print(ave_tags_plot)#; return(invisible(ave_tags_plot))
+#
+#     if (isTRUE(cor)){
+#         mat <- x[["cor"]]
+#     } else {
+#         mat <- x[["min_max_adjacency"]]
+#     }
+#
+#     graph <- igraph::graph.adjacency(mat, weighted=TRUE, mode="lower")
+#     igraph::E(graph)$width  <- igraph::E(graph)$weight * edge.weight
+#     #igraph::V(graph)$node.size <- minmax_scale(x[["node_size"]]) + 1
+#
+#     #Create figure window and layout
+#     widths <- 100*round(plot.widths/sum(plot.widths), 2)
+#
+#     if (type == "network") {
+#
+#         if (!is.null(background.color)){
+#             graphics::par(mar=c(1, 1, 1, 1), new = TRUE, bg=background.color)
+#         } else {
+#             graphics::par(mar=c(1, 1, 1, 1), new = TRUE)
+#
+#         }
+#         igraph::plot.igraph(
+#             igraph::delete.edges(graph, igraph::E(graph)[ weight < min.edge.cutoff]),
+#             vertex.color = node.color,
+#             vertex.label.family = "sans",
+#             vertex.label.font = 1,
+#             vertex.label.cex = node.font.size,
+#             edge.color = edge.color,
+#             vertex.frame.color = NA,
+#             vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
+#             vertex.label.color = font.color, ...
+#         )
+#         #return(invisible(graph))
+#
+#     }
+#
+#     if (type == "both") {
+#         #Draw base plot
+#         if (!is.null(background.color)){
+#             graphics::plot.new()
+#             graphics::par(mar=c(1, 1, 1, 1), new = TRUE, bg=background.color)
+#             graphics::layout(matrix(c(rep(1, widths[1]), rep(2, widths[2])), nrow = 1,  byrow = TRUE))
+#         } else {
+#             graphics::layout(matrix(c(rep(1, widths[1]), rep(2, widths[2])), nrow = 1,  byrow = TRUE))
+#             graphics::plot.new()
+#             graphics::par(mar=c(1, 1, 1, 1), new = TRUE)
+#
+#         }
+#
+#         igraph::plot.igraph(
+#             igraph::delete.edges(graph, igraph::E(graph)[ weight < min.edge.cutoff]),
+#             vertex.color = node.color,
+#             vertex.label.family = "sans",
+#             vertex.label.font = 1,
+#             vertex.label.cex = node.font.size,
+#             edge.color = edge.color,
+#             vertex.frame.color = NA,
+#             vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
+#             vertex.label.color = font.color, ...
+#         )
+#
+#         #Draw ggplot
+#         graphics::plot.new()
+#         vps <- gridBase::baseViewports()
+#         print(ave_tags_plot, vp = grid::vpStack(vps$figure, vps$plot))
+#     }
+#     #return(invisible(graph, ave_tags_plot))
+# }
 
 
 

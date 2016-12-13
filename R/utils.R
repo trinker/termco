@@ -147,6 +147,14 @@ grep_return_null <- function(pattern, x, ignore.case = TRUE){
     x[!stringi::stri_detect_regex(x, pattern, opts_regex = stringi::stri_opts_regex(case_insensitive = ignore.case))]
 }
 
+general_rescale <- function(x, lower, upper){
+
+    rng <-  range(x, na.rm = TRUE, finite = TRUE)
+    if (diff(rng) == 0) return(stats::setNames(rep(upper, length(x)), names(x)))
+    (x - rng[1])/diff(rng) * diff(range(c(lower, upper))) + lower
+
+}
+
 
 minmax_scale <- function(x) {
 	if(max(x) - min(x) == 0) return(stats::setNames(rep(1, length(x)), names(x)))
