@@ -17,6 +17,7 @@
 #' @export
 #' @author Steve T. Simpson and Tyler Rinker <tyler.rinker@@gmail.com>.
 #' @examples
+#' \dontrun{
 #' ## Example 1
 #' regs <- frequent_terms(presidential_debates_2012[["dialogue"]])[[1]]
 #' regs <- setNames(as.list(regs), regs)
@@ -42,7 +43,6 @@
 #' plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
 #' plot(x, bar = TRUE)
 #'
-#' \dontrun{
 #' ##===============================================
 #' ## Interactive chord diagram and network graph of
 #' ## tag co-occurrence
@@ -88,7 +88,7 @@
 #'
 #' qrage::qrage(
 #'     links = linkdf,
-#'     nodeValue = textshape::bind_vector(x[['node_size']]),
+#'     nodeValue = textshape::tidy_vector(x[['node_size']]),
 #'     cut = 0.1
 #' )
 #' }
@@ -131,14 +131,14 @@ tag_co_occurrence <- function(x, ...){
     cc <- minmax_scale(cc)
     diag(cc) <- 0
 
-    tags <- textshape::bind_list(classify(x, Inf), "id", "tag")[,
+    tags <- textshape::tidy_list(classify(x, Inf), "id", "tag")[,
         tag := ifelse(is.na(tag), "<<no tag>>", tag)]
     data.table::setkey(tags, "tag")
 
     tags2 <- data.table::copy(tags)
     data.table::setkey(tags2, "id")
 
-    ave_tags <- textshape::bind_vector(unlist(lapply(unique(tags[["tag"]]), function(x){
+    ave_tags <- textshape::tidy_vector(unlist(lapply(unique(tags[["tag"]]), function(x){
         .N <- n <- NULL
         tag <- data.table::data.table(tag=x)
         ids <- data.table::data.table(id=tags[tag][["id"]])
@@ -196,7 +196,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=
     bar.font.size = TRUE, node.font.size = 3, digits = 1, min.edge.cutoff = .15,
     plot.widths = c(.6, .4), bar = FALSE, type = "both", ...){
 
-    ave <- NULL
+    ave <- y <- width <- vertex.names <- xend <- yend <- NULL
     Stat <- ggplot2::Stat
 
     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]
@@ -252,6 +252,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=
     igraph::E(graph)$width  <- igraph::E(graph)$weight * edge.weight
     net <- igraph::as.undirected(igraph::delete.edges(graph, igraph::E(graph)[weight < min.edge.cutoff]))
     idat <- try(ggnetwork::ggnetwork(net), TRUE)
+
     if (inherits(idat, 'try-error')) stop("`min.edge.cutoff`, is set too high for the strength of the connections in the adjacency matrix.")
 
     idat[['weight']][seq_along(x[["node_size"]])] <- node.weight*general_rescale(x[["node_size"]], .5, 5)

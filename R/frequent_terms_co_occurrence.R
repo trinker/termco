@@ -10,6 +10,7 @@
 #' @return Returns a \code{\link[termco]{tag_co_occurrence}} object from frequent terms.
 #' @export
 #' @examples
+#' \dontrun{
 #' frequent_terms_co_occurrence(presidential_debates_2012[["dialogue"]])
 #' frequent_terms_co_occurrence(presidential_debates_2012[["dialogue"]], bound = FALSE)
 #'
@@ -18,7 +19,6 @@
 #' plot(x, min.edge.cutoff = .1, node.color = "gold")
 #' plot(x, min.edge.cutoff = .075, node.color = "#1CDB4F")
 #'
-#' \dontrun{
 #' ## Load Required Add-on Packages
 #' if (!require("pacman")) install.packages("pacman")
 #' pacman::p_load(igraph, qrage)
@@ -93,7 +93,7 @@
 #'
 #' qrage::qrage(
 #'     links = linkdf,
-#'     nodeValue = textshape::bind_vector(x[['node_size']]),
+#'     nodeValue = textshape::tidy_vector(x[['node_size']]),
 #'     cut = 0.1
 #' )
 #' }
@@ -123,6 +123,6 @@ frequent_terms_co_occurrence <- function(x, bound = TRUE, ...){
 #' @export
 print.frequent_terms_co_occurrence <- function(x, ...){
 
-    plot(x, ...)
+    graphics::plot(x, ...)
 
 }

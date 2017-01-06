@@ -66,7 +66,7 @@ validate_model <- function(x, n = 20, width = 50, tags = 1, ...){
     # changed to include classify on 10/27/2016
     # potentials <- apply(x[, attributes(x)[["term.vars"]], drop = FALSE], 2, function(x) which(x > 0))
 
-    items <- textshape::bind_list(lapply(potentials, function(x){
+    items <- textshape::tidy_list(lapply(potentials, function(x){
         sample(x, ifelse(length(x) <= n, length(x), n))
     }), "tag", "index")
 
@@ -100,7 +100,7 @@ summary.validate_model <- function(object, adjust.discrete = FALSE, ordered = TR
     tag <- accuracy <- NULL
 
     dat <- data.table::setDT(data.table::copy(object))
-    out <- textshape::bind_list(invisible(lapply(split(dat[[2]], dat[[1]]),
+    out <- textshape::tidy_list(invisible(lapply(split(dat[[2]], dat[[1]]),
         proportion_confidence, adjust.discrete = adjust.discrete)), 'tag')
     if (isTRUE(ordered)) out <- out[order(-accuracy, na.last=TRUE)]
     out <- out[, 'tag' := factor(tag, levels = tag)][]
@@ -234,7 +234,7 @@ assign_validation_task <- function(x, n=20, checks = 1, coders = "coder",
     text.var <- attributes(x)[["text.var"]][["text.var"]]
     potentials <- apply(x[, attributes(x)[["term.vars"]], drop = FALSE], 2, function(x) which(x > 0))
 
-    items <- textshape::bind_list(lapply(potentials, function(x){
+    items <- textshape::tidy_list(lapply(potentials, function(x){
         sample(x, ifelse(length(x) <= n, length(x), n))
     }), "tag", "index")
 

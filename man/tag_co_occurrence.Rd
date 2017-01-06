@@ -27,6 +27,7 @@ the regex tags.  This can provide information regarding the discriminatory
 power of each regex that corresponds to a tag.
 }
 \examples{
+\dontrun{
 ## Example 1
 regs <- frequent_terms(presidential_debates_2012[["dialogue"]])[[1]]
 regs <- setNames(as.list(regs), regs)
@@ -52,7 +53,6 @@ plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")
 plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
 plot(x, bar = TRUE)
 
-\dontrun{
 ##===============================================
 ## Interactive chord diagram and network graph of
 ## tag co-occurrence
@@ -98,7 +98,7 @@ linkdf <- stats::setNames(get.data.frame(graph), c("source", "target", "value"))
 
 qrage::qrage(
     links = linkdf,
-    nodeValue = textshape::bind_vector(x[['node_size']]),
+    nodeValue = textshape::tidy_vector(x[['node_size']]),
     cut = 0.1
 )
 }

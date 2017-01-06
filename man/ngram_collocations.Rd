@@ -43,6 +43,7 @@ to provide stopword, min/max characters, and stemming with a generic \code{plot}
 function.
 }
 \examples{
+\dontrun{
 x <- presidential_debates_2012[["dialogue"]]
 
 ngram_collocations(x)
@@ -56,6 +57,7 @@ plot(ngram_collocations(x))
 plot(ngram_collocations(x, n = 40))
 plot(ngram_collocations(x, order.by = "dice"))
 plot(ngram_collocations(x, gram.length = 3))
+}
 }
 \seealso{
 \code{\link[quanteda]{collocations}}

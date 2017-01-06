@@ -26,6 +26,7 @@
 #' @seealso \code{\link[quanteda]{collocations}}
 #' @export
 #' @examples
+#' \dontrun{
 #' x <- presidential_debates_2012[["dialogue"]]
 #'
 #' ngram_collocations(x)
@@ -39,6 +40,7 @@
 #' plot(ngram_collocations(x, n = 40))
 #' plot(ngram_collocations(x, order.by = "dice"))
 #' plot(ngram_collocations(x, gram.length = 3))
+#' }
 ngram_collocations <- function(text.var, n = 20, gram.length = 2,
     stopwords = tm::stopwords("en"), min.char = 4,
     max.char = Inf, order.by = "frequency", stem = FALSE, language = "porter", ...) {
