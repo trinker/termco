@@ -487,7 +487,7 @@ It is often desirable to improve discrimination.  While the bar plot highlightin
 The network plot on the left shows the strength of relationships between tags, while the plot on the right shows the average number of other tags that co-occur with each regex tag.  In this particular case the plot combo is not complex because of the limited number of regex tags.  Note that the edge strength is relative to all other edges.  The strength has to be considered in the context of the average number of other tags that co-occur with each regex tag bar/dot plot on the right.  As the number of tags increases the plot increases in complexity.  The unconnected nodes and shorter bars represent the tags that provide the best discriminatory power, whereas the other tags have the potential to be redundant.
 
 ```{r, impr_disc, fig.width=8}
-tag_co_occurrence(model, min.edge.cutoff = .00) %>%
+tag_co_occurrence(model) %>%
     plot()
 ````
 

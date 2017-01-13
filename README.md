@@ -1299,7 +1299,7 @@ tags increases the plot increases in complexity. The unconnected nodes
 and shorter bars represent the tags that provide the best discriminatory
 power, whereas the other tags have the potential to be redundant.
 
-    tag_co_occurrence(model, min.edge.cutoff = .00) %>%
+    tag_co_occurrence(model) %>%
         plot()
 
 ![](inst/figure/impr_disc-1.png)
