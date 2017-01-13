@@ -197,7 +197,6 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=
     plot.widths = c(.6, .4), bar = FALSE, type = "both", ...){
 
     ave <- y <- width <- vertex.names <- xend <- yend <- NULL
-    Stat <- ggplot2::Stat
 
     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]
     x[["ave_tag"]][["tag"]] <- factor(x[["ave_tag"]][["tag"]], levels=rev(x[["ave_tag"]][["tag"]]))

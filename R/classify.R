@@ -21,6 +21,7 @@
 #' @export
 #' @seealso \code{\link[base]{max.col}}
 #' @examples
+#' \dontrun{
 #' library(dplyr)
 #' data(presidential_debates_2012)
 #'
@@ -53,6 +54,7 @@
 #'     with(., term_count(dialogue, TRUE, discoure_markers)) %>%
 #'     {.[!uncovered(.), -c(1:2)]} %>%
 #'     classify()
+#' }
 classify <- function(x, n = 1, ties.method = "probability", seed = NULL, ...) {
 
     val <- validate_term_count(x)

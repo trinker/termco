@@ -1,20 +1,20 @@
 Package: termco
-Title: Regular Expression Counts of Terms and Substrings
+Title: Counts of Terms and Substrings
 Version: 0.5.1
-Authors@R: c(person("Tyler", "Rinker", email =
-        "tyler.rinker@gmail.com", role = c("aut", "cre")))
+Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), person("Steven",
+            "Simpson", role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
-Description: A small suite of functions used to count terms and
-        substrings in strings.
+Description: A small suite of functions used to count terms and substrings in strings.
 Depends: R (>= 3.2.1)
-Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, ggnetwork,
-        gofastr, graphics, grDevices, grid, gridExtra, igraph, methods,
-        quanteda, slam, SnowballC, stats, stringi, textshape, tidyr,
-        tm, utils, wordcloud
+Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, ggnetwork, gofastr, graphics, grDevices, grid,
+            gridExtra, igraph, methods, quanteda, slam, SnowballC, stats, stringi, textshape, tidyr, tm, utils,
+            wordcloud
 Suggests: intergraph, knitr, rmarkdown, qdapRegex, rgl, testthat
-Date: 2017-01-05
+Date: 2017-01-12
 License: MIT + file LICENSE
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
 RoxygenNote: 5.0.1
 ByteCompile: true
+BugReports: https://github.com/trinker/termco/issues?state=open
+URL: https://github.com/trinker/termco

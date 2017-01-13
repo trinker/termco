@@ -21,6 +21,7 @@
 #' @keywords important
 #' @export
 #' @examples
+#' \dontrun{
 #' x <- presidential_debates_2012[["dialogue"]]
 #'
 #' frequent_terms(x)
@@ -34,6 +35,7 @@
 #' plot(important_terms(x, n = .02))
 #' plot(important_terms(x, n = 40))
 #' plot(important_terms(x, n = 100), as.cloud = TRUE)
+#' }
 important_terms <- function (text.var, n = 20, stopwords = tm::stopwords("en"),
     stem = FALSE, language = "porter", strip = TRUE, strip.regex = "[^A-Za-z' ]",
     ...) {

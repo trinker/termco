@@ -31,6 +31,7 @@
 #' @rdname frequent_terms
 #' @export
 #' @examples
+#' \dontrun{
 #' x <- presidential_debates_2012[["dialogue"]]
 #'
 #' frequent_terms(x)
@@ -55,6 +56,7 @@
 #'
 #' ## Cumulative Percent Plot
 #' plot_cum_percent(frequent_terms(presidential_debates_2012[["dialogue"]]))
+#' }
 frequent_terms <- function(text.var, n = 20, stopwords = tm::stopwords("en"), min.freq = NULL,
     min.char = 4, max.char = Inf, stem = FALSE, language = "porter", strip = TRUE,
     strip.regex = "[^a-z' ]", alphabetical = FALSE, ...) {

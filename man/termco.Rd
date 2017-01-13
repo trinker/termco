@@ -5,7 +5,7 @@
 \alias{package-termco}
 \alias{termco}
 \alias{termco-package}
-\title{Regular Expression Counts of Terms and Substrings}
+\title{Counts of Terms and Substrings}
 \description{
 A small suite of functions used to count terms and substrings in strings.
 }

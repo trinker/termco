@@ -30,6 +30,9 @@ NEW FEATURES
 * `frequent_terms_co_occurrence` added to view the co-occurrence between frequent
   terms.  A combination of `frequent_terms` and `tag_co_occurrence`.
 
+* `term_before`, `term_after`, & `term_first` added to get frequencies of terms
+  relative to other terms or specific locations.
+
 MINOR FEATURES
 
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`

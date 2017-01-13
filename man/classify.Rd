@@ -33,6 +33,7 @@ Ties default to random order.
 Use a count matrix to classify the rows, based on the frequencies in the cells.
 }
 \examples{
+\dontrun{
 library(dplyr)
 data(presidential_debates_2012)
 
@@ -65,6 +66,7 @@ presidential_debates_2012 \%>\%
     with(., term_count(dialogue, TRUE, discoure_markers)) \%>\%
     {.[!uncovered(.), -c(1:2)]} \%>\%
     classify()
+}
 }
 \seealso{
 \code{\link[base]{max.col}}

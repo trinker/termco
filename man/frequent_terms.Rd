@@ -57,6 +57,7 @@ Returns a \code{\link[base]{data.frame}} of terms and frequencies.
 \code{all_words} - Find a list of all terms used.
 }
 \examples{
+\dontrun{
 x <- presidential_debates_2012[["dialogue"]]
 
 frequent_terms(x)
@@ -81,6 +82,7 @@ nrow(z)
 
 ## Cumulative Percent Plot
 plot_cum_percent(frequent_terms(presidential_debates_2012[["dialogue"]]))
+}
 }
 \keyword{frequency}
 \keyword{term}

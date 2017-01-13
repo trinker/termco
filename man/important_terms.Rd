@@ -39,6 +39,7 @@ Returns a \code{\link[base]{data.frame}} of terms and min-max scaled tf-idf weig
 View the top n min-max scaled tf-idf weighted terms in a text.
 }
 \examples{
+\dontrun{
 x <- presidential_debates_2012[["dialogue"]]
 
 frequent_terms(x)
@@ -52,6 +53,7 @@ plot(important_terms(x))
 plot(important_terms(x, n = .02))
 plot(important_terms(x, n = 40))
 plot(important_terms(x, n = 100), as.cloud = TRUE)
+}
 }
 \keyword{important}
 

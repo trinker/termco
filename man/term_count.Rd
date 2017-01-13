@@ -56,6 +56,7 @@ prints.  This is the rate of grouping variables with no term found (i.e.,
 see \code{\link[termco]{coverage}}.
 }
 \examples{
+\dontrun{
 data(presidential_debates_2012)
 
 discoure_markers <- list(
@@ -127,6 +128,7 @@ trpl_list <- list(
 
 ## get the pre-collapse hierarchical coverage
 attributes(x2)[['pre_collapse_coverage']]
+}
 }
 \keyword{substring}
 \keyword{term}

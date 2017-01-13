@@ -40,6 +40,7 @@
 #' @importFrom data.table := .SD
 #' @export
 #' @examples
+#' \dontrun{
 #' data(presidential_debates_2012)
 #'
 #' discoure_markers <- list(
@@ -111,6 +112,7 @@
 #'
 #' ## get the pre-collapse hierarchical coverage
 #' attributes(x2)[['pre_collapse_coverage']]
+#' }
 term_count <- function(text.var, grouping.var = NULL, term.list,
     ignore.case = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
      group.names, ...){
