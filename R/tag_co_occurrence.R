@@ -91,7 +91,6 @@
 #'     nodeValue = textshape::tidy_vector(x[['node_size']]),
 #'     cut = 0.1
 #' )
-#' }
 #'
 #' ## Example 2
 #' regs2 <- frequent_terms(presidential_debates_2012[["dialogue"]], n=50)[[1]]
@@ -113,6 +112,7 @@
 #'
 #' ## Small Number of Tags Example
 #' plot(tag_co_occurrence(markers), node.weight = 5, min.edge.cutoff = .08)
+#' }
 tag_co_occurrence <- function(x, ...){
 
     ave <- tag <- NULL

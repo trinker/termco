@@ -101,7 +101,6 @@ qrage::qrage(
     nodeValue = textshape::tidy_vector(x[['node_size']]),
     cut = 0.1
 )
-}
 
 ## Example 2
 regs2 <- frequent_terms(presidential_debates_2012[["dialogue"]], n=50)[[1]]
@@ -123,6 +122,7 @@ plot(x2, edge.color = "gray80", node.color = "grey50", font.color = "white",
 
 ## Small Number of Tags Example
 plot(tag_co_occurrence(markers), node.weight = 5, min.edge.cutoff = .08)
+}
 }
 \author{
 Steve T. Simpson and Tyler Rinker <tyler.rinker@gmail.com>.

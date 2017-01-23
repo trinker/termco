@@ -78,8 +78,10 @@ validate_model <- function(x, n = 20, width = 50, tags = 1, ...){
     text[["text.var"]] <- text.var
 
     class(out) <- c('validate_model', class(out))
+
     attributes(out)[["text.var"]] <- text
     attributes(out)[["indices"]] <- items[[2]]
+    attributes(out)[['tag.counts']] <- textshape::tidy_table(table(unlist(as_terms(x))), 'tag', 'n', as.tibble = FALSE)
     out
 }
 
@@ -102,11 +104,17 @@ summary.validate_model <- function(object, adjust.discrete = FALSE, ordered = TR
     dat <- data.table::setDT(data.table::copy(object))
     out <- textshape::tidy_list(invisible(lapply(split(dat[[2]], dat[[1]]),
         proportion_confidence, adjust.discrete = adjust.discrete)), 'tag')
+
+    out <- out[attributes(object)[['tag.counts']], on = 'tag']
+    data.table::setcolorder(out, c("tag", "accuracy", "n", "sampled", "se", "lower", "upper"))
+
     if (isTRUE(ordered)) out <- out[order(-accuracy, na.last=TRUE)]
     out <- out[, 'tag' := factor(tag, levels = tag)][]
+
     class(out) <- c('summary.validate_model', class(out))
-    attributes(out)[["overall"]] <- proportion_confidence(dat[["correct"]],
-        adjust.discrete = adjust.discrete)
+    ovrall <- proportion_confidence(dat[["correct"]], adjust.discrete = adjust.discrete)
+    ovrall[['n']] <- sum(attributes(object)[['tag.counts']][['n']], na.rm = TRUE)
+    attributes(out)[["overall"]] <- data.table::setcolorder(ovrall, c("accuracy", "n", "sampled", "se", "lower", "upper"))
     out
 }
 
@@ -182,7 +190,7 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
         overall := factor(ifelse(tag == 'Model', 'Overall', 'Tags'), levels = c('Overall', 'Tags'))][]
 
 
-    ggplot2::ggplot(dat2, ggplot2::aes_string(x = 'accuracy', y = 'tag',
+    plot1 <- ggplot2::ggplot(dat2, ggplot2::aes_string(x = 'accuracy', y = 'tag',
         xmin = 'lower', xmax = 'upper')) +
         ggplot2::geom_vline(xintercept = .5, linetype='dashed', size = .9, color='blue', alpha = .2) +
         ggplot2::geom_errorbarh(size = size, height = height,  ggplot2::aes_string(color='overall')) +
@@ -196,7 +204,23 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
         ggplot2::scale_color_manual(values=c("blue", "grey60")) +
         ggplot2::scale_shape_manual(values=c(18, 15)) +
         ggplot2::scale_size_manual(values=c(4, 3)) +
-        ggplot2::theme(legend.position="none")
+        ggplot2::theme(
+            legend.position="none",
+            strip.text.y = ggplot2::element_text(angle = 0)
+        )
+##NEED TO MERGE LOTS THINKING OF PULLING MODEL OFF SEPARATE AND GRIDEXTRAing IT ALL TOGETHER AGAIN
+     # dat3 <- data.table::copy(dat2)[, 'tag' := factor(tag, levels = c('Model', rev(levels(dat[['tag']]))))][]
+     ggplot2::ggplot(dat2, ggplot2::aes_string(x = 'tag', y = 'n')) +
+        ggplot2::geom_bar(stat = 'identity') +
+        ggplot2::facet_grid(overall~., scales='free', space='free') +
+        ggplot2::labs(x = "Accuracy", y = NULL, title="Tag Counts") +
+        ggplot2::coord_flip(ylim = c(0, ceiling(max(dat2[['n']][-1], na.rm = TRUE)*1.01)), expand = c(0,0)) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(
+            legend.position="none",
+            strip.text.y = ggplot2::element_text(angle = 0)
+        )
+
 }
 
 #' Manual Assessment of a Model
@@ -279,7 +303,7 @@ proportion_confidence_not_20 <- function(x, N){
     n <- length(x)
     Sp <- sqrt((Mx * (1 - Mx))/n) * sqrt(( N - n ) / ( N - 1 ))
     CI <- pm(Mx, (1.96 * Sp))
-    data.frame(accuracy = Mx, n = n, se = Sp, lower = CI[1], upper = CI[2])
+    data.frame(accuracy = Mx, sampled = n, se = Sp, lower = CI[1], upper = CI[2])
 }
 
 proportion_confidence <- function(x, adjust.discrete = TRUE){
@@ -289,7 +313,7 @@ proportion_confidence <- function(x, adjust.discrete = TRUE){
     Sp <- sqrt((Mx * (1 - Mx))/N)
     CI <- pm(Mx, (1.96 * Sp), ifelse(isTRUE(adjust.discrete), .5/N, 0))
     CI <- ifelse(CI > 1, 1, ifelse(CI < 0, 0, CI))
-    data.frame(accuracy = Mx, n = N, se = Sp, lower = CI[1], upper = CI[2])
+    data.frame(accuracy = Mx, sampled = N, se = Sp, lower = CI[1], upper = CI[2])
 }
 
 
