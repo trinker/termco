@@ -45,6 +45,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | Function                     | Use Category |  Description                                      |
 |------------------------------|--------------|---------------------------------------------------|
 | `term_count`                 | count        | Count regex term occurrence; modeling             |
+| `token_count`                | count        | Count fixed token occurrence                      |
 | `frequent_terms`/`all_words` | count        | Frequent terms                                    |
 | `important_terms`            | count        | Important terms                                   |
 | `hierarchical_coverage_term` | count        | Unique coverage of a text vector by terms         |
@@ -68,6 +69,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `validate_model`/`assign_validation_task` | modeling | Human validation of a `term_count` model |
 | `as_count`                   | convert      | Strip pretty printing from `term_count` object    |
 | `as_terms`                   | convert      | Convert a count matrix to list of term vectors    |
+| `as_term_list`               | convert      | Convert a vector of terms into a named term list  |
 | `weight`                     | convert      | Weight a `term_count` object proportion/percent   |
 | `plot_ca`                    | plot         | Plot `term_count` object as 3-D correspondence analysis map  |
 | `plot_counts`                | plot         | Horizontal bar plot of group counts               |
