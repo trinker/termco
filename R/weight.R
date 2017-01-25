@@ -19,6 +19,13 @@
 #'
 #' weight(markers, 'proportion')
 weight <- function(x, weight = "percent", ...){
+    UseMethod('weight')
+}
+
+#' @export
+#' @rdname weight
+#' @method weight term_count
+weight.term_count <- function(x, weight = "percent", ...){
 
     switch(weight,
         percent = propify(x, perc),
@@ -27,3 +34,14 @@ weight <- function(x, weight = "percent", ...){
     )
 }
 
+#' @export
+#' @rdname weight
+#' @method weight token_count
+weight.token_count <- function(x, weight = "percent", ...){
+
+    switch(weight,
+        percent = propify_token(x, perc),
+        proportion = propify_token(x, prop),
+        stop("Select an appropriate weighting method")
+    )
+}

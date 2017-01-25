@@ -46,6 +46,28 @@ propify <- function(x, fun, ...){
     x
 }
 
+propify_token <- function(x, fun, ...){
+
+    validate_token_count(x)
+    termcols <- attributes(x)[["token.vars"]]
+
+    if (attributes(x)[["weight"]] != "count") {
+        x <- attributes(x)[["counts"]]
+    } else {
+        counts <- new.env(FALSE)
+        counts[["term_counts"]] <- as.data.frame(x)
+        attributes(x)[["counts"]] <- counts
+    }
+
+    fun2 <- function(y) fun(y, x[["n.tokens"]])
+
+    dat <- x[termcols]
+    x[termcols] <- lapply(dat, fun2)
+    class(x)[class(x) %in% "token_count"] <- "termco_count_weighted"
+    attributes(x)[["weight"]] <- "proportion"
+    x
+}
+
 prop <- function(a, b) a/b
 perc <- function(a, b) 100*(a/b)
 

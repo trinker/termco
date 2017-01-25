@@ -19,6 +19,9 @@
 #' been stemmed.
 #' @param keep.punctuation logical.  If \code{TRUE} the punctuation marks are
 #' considered as tokens.
+#' @param pretty logical.  If \code{TRUE} pretty printing is used.  Pretty
+#' printing can be turned off globally by setting
+#' \code{options(termco_pretty = FALSE)}.
 #' @param group.names A vector of names that corresponds to group.  Generally
 #' for internal use.
 #' @param \ldots Other arguments passed to \code{\link[gofastr]{q_dtm}}.
@@ -52,7 +55,10 @@
 #'      with(token_count(dialogue, list(person, time), token_list))
 #' }
 token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
-    keep.punctuation = TRUE, group.names, ...) {
+    keep.punctuation = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
+    group.names, ...) {
+
+    amodel <- FALSE
 
     ## check tht token.list is a named list &
     ## tokens are words, numbers or punctuation
@@ -80,6 +86,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
             }
         } else {
             if (isTRUE(grouping.var)) {
+                amodel <- TRUE
                 G <- "id"
             } else {
                 G <- as.character(substitute(grouping.var))
@@ -119,6 +126,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     dtm <- make_dtm(text.var, paste2(DF[G], sep = "___"), removePunct = !keep.punctuation, ...)
 
     nms <- colnames(dtm)
+    n.tokens <- slam::row_sums(dtm)
 
     out <- data.table::as.data.table(data.frame(lapply(token.list, function(x){
         x <- x[x %in% nms]
@@ -126,10 +134,116 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     }), stringsAsFactors = FALSE, check.names = FALSE))
     grpv <- stats::setNames(do.call(rbind.data.frame, strsplit(rownames(dtm), "___")), G)
 
-    out <- data.table::data.table(grpv, out)
+    out <- data.table::data.table(grpv, n.tokens, out)
     class(out) <- c("token_count", "tbl_df", "tbl", "data.frame")
+
+    text <- new.env(hash=FALSE)
+    text[["text.var"]] <- text.var
+
+    regex <- new.env(hash=FALSE)
+    regex[["term.list"]] <- token.list
+
+    attributes(out)[["group.vars"]] <- G
+    attributes(out)[["token.vars"]] <- names(token.list)
+    attributes(out)[["text.var"]] <- text.var
+    attributes(out)[["model"]] <- amodel
+    attributes(out)[["pretty"]] <- pretty
+
+    attributes(out)[["weight"]] <- "count"
+    attributes(out)[["counts"]] <- out
+    attributes(out)[["tokens"]] <- token.list
+
     out
 }
+
+
+#' Prints a token_count Object
+#'
+#' Prints a token_count object.
+#'
+#' @param x The token_count object.
+#' @param digits The number of digits displayed.
+#' @param weight The weight type.  Currently the following are available:
+#' \code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
+#' additional information.
+#' @param zero.replace The value to replace zero count elements with; defaults
+#' to \code{"0"}.
+#' @param pretty logical.  If \code{TRUE} the counts print in a pretty fashion,
+#' combining count and weighted information into a single display.
+#' \code{pretty} printing can be permanently removed with
+#' \code{\link[termco]{as_count}}.
+#' @param \ldots ignored
+#' @method print token_count
+#' @export
+print.token_count <- function(x, digits = 2, weight = "percent",
+    zero.replace = "0", pretty = getOption("termco_pretty"), ...) {
+
+    n.tokens <- count <- NULL
+    if (is.null(pretty)) pretty <- TRUE
+    if (weight == "count") pretty <- FALSE
+
+    print_order <- c(attributes(x)[['group.vars']], 'n.tokens', attributes(x)[['token.vars']])
+
+    val <- validate_token_count(x)
+    if (!isTRUE(val)) {
+
+        termcols <- attributes(x)[["token.vars"]]
+        wrdscol <- any(colnames(x) %in% 'n.tokens')
+
+        if (wrdscol & !is.null(termcols) && any(colnames(x) %in% termcols)) {
+
+            termcols <- colnames(x)[colnames(x) %in% termcols]
+
+        } else {
+
+            return(print(rm_class(x, "token_count")))
+
+        }
+    } else {
+
+        termcols <- attributes(x)[["token.vars"]]
+    }
+
+    coverage <- sum(cov <- rowSums(x[, termcols]) != 0)/length(cov)
+
+    start <- Sys.time()
+    if (is.count(x) & pretty & attributes(x)[["pretty"]]) {
+
+        tall <- tidyr::gather_(x, "term", "count", termcols)
+        tall_weighted <- dplyr::mutate(tall, count = comb(count, n.tokens, digits = digits,
+            zero.replace = zero.replace, weight = weight))
+
+        x <- tidyr::spread_(tall_weighted, "term", "count")
+    }
+    ptime <- difftime(Sys.time(), start)
+
+    class(x) <- class(x)[!class(x) %in% "token_count"]
+    cat(sprintf("Coverage: %s%%", 100 * round(coverage, 4)), "\n")
+
+    print(x[, print_order])
+
+    ask <- getOption("termco_pretty_ask")
+    if(is.null(ask)){
+        ask <- TRUE
+    }
+
+    if(ask && ptime > .61 && interactive()){
+        message(paste0(paste(rep("=", 70), collapse = ""), "\n"),
+                "\nYour `token_count` object is larger and is taking a while to print.\n",
+                "You can reduce this time by using setting:\n\n`options(termco_pretty = FALSE)`\n\n",
+                "Would you like to globally set `options(termco_pretty = FALSE)` now?\n")
+        ans <- utils::menu(c("Yes", "No", "Not Now"))
+        switch(ans,
+               `1` = {options(termco_pretty = FALSE)
+                   options(termco_pretty_ask = FALSE)},
+               `2` = {options(termco_pretty_ask = FALSE)},
+               `3` = {options(termco_pretty_ask = TRUE)}
+        )
+    }
+
+}
+
+
 
 
 token_lister_check <- function(token.list){
@@ -154,4 +268,102 @@ token_lister_check <- function(token.list){
     }
 
     token.list
+}
+
+
+validate_token_count <- function(x, warn = FALSE){
+
+    nms2 <- unlist(list(attributes(x)[["token.vars"]], "n.tokens"))
+    nms <- unlist(list(attributes(x)[["group.vars"]], nms2))
+    check <- all(nms %in% colnames(x)) && all(sapply(x[, nms2], is.numeric))
+    check2 <- all(sapply(c("group.vars", "token.vars", "weight", "pretty"), function(y){
+        !is.null(attributes(x)[[y]])
+    }))
+    check3 <- !any(colnames(x) %in% c(nms2, nms, "n.tokens"))
+    if (!check | !check2 | check3) {
+        if (isTRUE(warn)){
+            warning("Does not appear to be a `token_count` object.\n",
+                "  Has the object or column names been altered/added?",
+                immediate. = TRUE
+            )
+        }
+        return(FALSE)
+    }
+    TRUE
+}
+
+
+#' Plots a token_count object
+#'
+#' Plots a token_count object.
+#'
+#' @param x The token_count object.
+#' @param labels logical.  If \code{TRUE} the cell count values will be included
+#' on the heatmap.
+#' @param low The color to be used for lower values.
+#' @param high The color to be used for higher values.
+#' @param grid The color of the grid (Use \code{NA} to remove the grid).
+#' @param label.color The color to make labels if \code{labels = TRUE}.
+#' @param label.size The size to make labels if \code{labels = TRUE}.
+#' @param label.digits The number of digits to print if labels are printed.
+#' @param weight The weight to apply to the cell values for gradient fill.
+#' Currently the following are available:
+#' \code{"proportion"}, \code{"percent"}, and \code{"count"}.  See
+#' \code{\link[termco]{weight}} for additional information.
+#' @param \ldots ignored
+#' @method plot token_count
+#' @export
+plot.token_count <- function(x, labels = FALSE, low ="white",
+    high = "red", grid = NA, label.color = "grey70", label.size = 3,
+    label.digits = if(weight=="count"){0} else {2}, weight = "percent", ...){
+
+    group <- attributes(x)[["group.vars"]]
+    if (weight == "count") {
+        y <- x
+    } else {
+        y <- weight(x, weight = weight)
+    }
+
+    y[["group.vars"]] <- paste2(y[, group], sep = "_")
+    y[["group.vars"]] <- factor(y[["group.vars"]], levels = rev(y[["group.vars"]]))
+    y <- y[!colnames(y) %in% group]
+    vars <- colnames(y)[!colnames(y) %in% c("group.vars", "n.tokens")]
+    dat <- tidyr::gather_(y, "terms", "values", vars)
+
+    if (isTRUE(labels)){
+        values <- NULL
+        fact <- ifelse(weight == "percent", 100, 1)
+        dat <- dplyr::mutate(dat, labels = values/fact, label.digits)
+    }
+
+    out <- ggplot2::ggplot(dat, ggplot2::aes_string(y = "group.vars", x = "terms", fill = "values")) +
+        ggplot2::theme_bw() +
+        ggplot2::theme(
+            axis.text.x = ggplot2::element_text(angle = 90, vjust = .5, hjust = 1),
+            panel.grid.minor = ggplot2::element_blank(),
+            panel.grid.major = ggplot2::element_blank(),
+            panel.border = ggplot2::element_rect(colour = "grey80"),
+            legend.key.width = grid::unit(.25, 'cm'),
+            legend.key.height = grid::unit(1, 'cm')
+        ) +
+        ggplot2::xlab("Terms Categories") +
+        ggplot2::ylab("Groups") +
+        ggplot2::geom_tile(color = grid)
+
+    if (weight == "percent"){
+        out <- out +
+            ggplot2::scale_fill_gradient(high = high, low = low, name = "Percent",
+                labels = function(x) paste0(x, "%"))
+    } else {
+        out <- out +
+            ggplot2::scale_fill_gradient(high = high, low = low,
+                name = gsub("(\\w)(\\w*)","\\U\\1\\L\\2", weight, perl=TRUE))
+    }
+    if (isTRUE(labels)){
+        out <- out +
+            ggplot2::geom_text(ggplot2::aes_string(label = 'labels'),
+                color = label.color, size = label.size)
+    }
+
+    out
 }

@@ -2,9 +2,15 @@
 % Please edit documentation in R/weight.R
 \name{weight}
 \alias{weight}
+\alias{weight.term_count}
+\alias{weight.token_count}
 \title{Weight Term Counts from \code{term_count}}
 \usage{
 weight(x, weight = "percent", ...)
+
+\method{weight}{term_count}(x, weight = "percent", ...)
+
+\method{weight}{token_count}(x, weight = "percent", ...)
 }
 \arguments{
 \item{x}{A \code{\link[termco]{term_count}} object.}

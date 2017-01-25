@@ -5,7 +5,8 @@
 \title{Count Fixed Tokens}
 \usage{
 token_count(text.var, grouping.var = NULL, token.list, stem = FALSE,
-  keep.punctuation = TRUE, group.names, ...)
+  keep.punctuation = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE,
+  TRUE), group.names, ...)
 }
 \arguments{
 \item{text.var}{The text string variable.}
@@ -25,6 +26,10 @@ been stemmed.}
 
 \item{keep.punctuation}{logical.  If \code{TRUE} the punctuation marks are
 considered as tokens.}
+
+\item{pretty}{logical.  If \code{TRUE} pretty printing is used.  Pretty
+printing can be turned off globally by setting
+\code{options(termco_pretty = FALSE)}.}
 
 \item{group.names}{A vector of names that corresponds to group.  Generally
 for internal use.}
