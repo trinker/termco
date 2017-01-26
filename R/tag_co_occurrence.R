@@ -118,20 +118,24 @@ tag_co_occurrence <- function(x, ...){
     ave <- tag <- NULL
     validate_term_count(x, TRUE)
 
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+    nwords <- ifelse(inherits(x, 'token_count'), "n.tokens", "n.words")
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
     ## tag clustering
-    adjmat <- crossprod(as.matrix(x[, attributes(x)[["term.vars"]]]))
+    adjmat <- crossprod(as.matrix(x[, attributes(x)[[terms]]]))
 
     node_size <- diag(adjmat)
     diag(adjmat) <- 0
 
     min_max_adjmat <- minmax_scale(adjmat)
 
-    cc <- stats::cor(as.matrix(x[, attributes(x)[["term.vars"]]]))
+    cc <- stats::cor(as.matrix(x[, attributes(x)[[terms]]]))
     diag(cc) <- 0
     cc <- minmax_scale(cc)
     diag(cc) <- 0
 
-    tags <- textshape::tidy_list(classify(x, Inf), "id", "tag")[,
+    tags <- textshape::tidy_list(classify(x, Inf), "id", "tag", as.tibble = FALSE)[,
         tag := ifelse(is.na(tag), "<<no tag>>", tag)]
     data.table::setkey(tags, "tag")
 
@@ -145,7 +149,7 @@ tag_co_occurrence <- function(x, ...){
         out <- unlist(tags2[ids][, list(n=.N), by = "id"][, list(ave = mean(n))])
         names(out) <- x
         out
-    })), "tag", "ave")[order(-ave)][, tag := factor(tag, levels=tag)][]
+    })), "tag", "ave", as.tibble = FALSE)[order(-ave)][, tag := factor(tag, levels=tag)][]
 
     out <- list(ave_tag = data.frame(ave_tags, stringsAsFactors = FALSE),
                 cor = cc, adjacency = adjmat, min_max_adjacency = min_max_adjmat, node_size = node_size)

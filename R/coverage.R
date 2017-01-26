@@ -69,10 +69,16 @@ coverage.search_term <- function(x, ...) {
 coverage.term_count <- function(x, ...){
 
     val <- validate_term_count(x)
+
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+    nwords <- ifelse(inherits(x, 'token_count'), "n.tokens", "n.words")
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
+
     if (!isTRUE(val)) {
 
-        termcols <- attributes(x)[["term.vars"]]
-        wrdscol <- any(colnames(x) %in% 'n.words')
+        termcols <- attributes(x)[[terms]]
+        wrdscol <- any(colnames(x) %in% nwords)
 
         if (wrdscol & !is.null(termcols) && any(colnames(x) %in% termcols)) {
 
@@ -80,7 +86,7 @@ coverage.term_count <- function(x, ...){
 
         } else {
 
-            warning("Does not appear to be a `term_count` object.\n",
+            warning(paste0("Does not appear to be a `", type, "_count` object.\n"),
                 "  Has the object or column names been altered?",
                 immediate. = TRUE
             )
@@ -90,7 +96,7 @@ coverage.term_count <- function(x, ...){
         }
     } else {
 
-        termcols <- attributes(x)[["term.vars"]]
+        termcols <- attributes(x)[[terms]]
     }
 
     total_terms <- rowSums(x[, termcols])

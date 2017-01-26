@@ -38,7 +38,9 @@ for internal use.}
 }
 \value{
 Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
-grouping variable.
+grouping variable.  Has all of the same features as a \code{term_count}
+object, meaning functions that work on a \code{term_count} object will
+operate on a a \code{token_count} object as well.
 }
 \description{
 Count the occurrence of tokens within a vector of strings.  This function
@@ -72,6 +74,10 @@ presidential_debates_2012 \%>\%
 
 presidential_debates_2012 \%>\%
      with(token_count(dialogue, list(person, time), token_list))
+
+presidential_debates_2012 \%>\%
+     with(token_count(dialogue, list(person, time), token_list)) \%>\%
+     plot()
 }
 }
 

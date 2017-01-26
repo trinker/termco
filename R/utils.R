@@ -1,15 +1,19 @@
-validate_term_count <- function(x, warn = FALSE){
+validate_term_count <- function(x, warn = FALSE, ...){
 
-    nms2 <- unlist(list(attributes(x)[["term.vars"]], "n.words"))
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+    nwords <- ifelse(inherits(x, 'token_count'), "n.tokens", "n.words")
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
+    nms2 <- unlist(list(attributes(x)[[terms]], nwords))
     nms <- unlist(list(attributes(x)[["group.vars"]], nms2))
     check <- all(nms %in% colnames(x)) && all(sapply(x[, nms2], is.numeric))
-    check2 <- all(sapply(c("group.vars", "term.vars", "weight", "pretty"), function(y){
+    check2 <- all(sapply(c("group.vars", terms, "weight", "pretty"), function(y){
         !is.null(attributes(x)[[y]])
     }))
-    check3 <- !any(colnames(x) %in% c(nms2, nms, "n.words"))
+    check3 <- !any(colnames(x) %in% c(nms2, nms, nwords))
     if (!check | !check2 | check3) {
         if (isTRUE(warn)){
-            warning("Does not appear to be a `term_count` object.\n",
+            warning(paste0("Does not appear to be a `", type, "_count` object.\n"),
                 "  Has the object or column names been altered/added?",
                 immediate. = TRUE
             )

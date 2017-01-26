@@ -28,9 +28,12 @@
 #' plot_ca(markers)
 #' }
 plot_ca <- function(x, D3 = TRUE, ...){
+
     val <- validate_term_count(x)
     if (!isTRUE(val)) stop("Not a termco object")
-    y <- x[, attributes(x)[["term.vars"]], drop =FALSE]
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+
+    y <- x[, attributes(x)[[terms]], drop =FALSE]
     y <- as.data.frame(y, stringsAsFactors = FALSE)
     rownames(y) <- paste2(x[, attributes(x)[["group.vars"]], drop =FALSE])
     fit <- ca::ca(y)

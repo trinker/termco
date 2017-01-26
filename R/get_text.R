@@ -34,6 +34,6 @@ get_text <- function(x, ...){
 #' @rdname get_text
 #' @method get_text term_count
 get_text.term_count <- function(x, ...){
-    attributes(x)[['text.var']][['text.var']][which(classify(x)%in% unlist(...))]
+    attributes(x)[['text.var']][['text.var']][which(classify(x, Inf)%in% unlist(...))] #maybe add more control over classify here
 }
 

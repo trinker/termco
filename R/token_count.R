@@ -26,7 +26,9 @@
 #' for internal use.
 #' @param \ldots Other arguments passed to \code{\link[gofastr]{q_dtm}}.
 #' @return Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
-#' grouping variable.
+#' grouping variable.  Has all of the same features as a \code{term_count}
+#' object, meaning functions that work on a \code{term_count} object will
+#' operate on a a \code{token_count} object as well.
 #' @export
 #' @examples
 #' token_list <- list(
@@ -53,6 +55,10 @@
 #'
 #' presidential_debates_2012 %>%
 #'      with(token_count(dialogue, list(person, time), token_list))
+#'
+#' presidential_debates_2012 %>%
+#'      with(token_count(dialogue, list(person, time), token_list)) %>%
+#'      plot()
 #' }
 token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     keep.punctuation = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
@@ -135,7 +141,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     grpv <- stats::setNames(do.call(rbind.data.frame, strsplit(rownames(dtm), "___")), G)
 
     out <- data.table::data.table(grpv, n.tokens, out)
-    class(out) <- c("token_count", "tbl_df", "tbl", "data.frame")
+    class(out) <- c("token_count", "term_count", "tbl_df", "tbl", "data.frame")
 
     text <- new.env(hash=FALSE)
     text[["text.var"]] <- text.var
@@ -145,7 +151,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
 
     attributes(out)[["group.vars"]] <- G
     attributes(out)[["token.vars"]] <- names(token.list)
-    attributes(out)[["text.var"]] <- text.var
+    attributes(out)[["text.var"]] <- text
     attributes(out)[["model"]] <- amodel
     attributes(out)[["pretty"]] <- pretty
 
@@ -230,7 +236,7 @@ print.token_count <- function(x, digits = 2, weight = "percent",
     if(ask && ptime > .61 && interactive()){
         message(paste0(paste(rep("=", 70), collapse = ""), "\n"),
                 "\nYour `token_count` object is larger and is taking a while to print.\n",
-                "You can reduce this time by using setting:\n\n`options(termco_pretty = FALSE)`\n\n",
+                "You can reduce this time by using `as_count` or setting:\n\n`options(termco_pretty = FALSE)`\n\n",
                 "Would you like to globally set `options(termco_pretty = FALSE)` now?\n")
         ans <- utils::menu(c("Yes", "No", "Not Now"))
         switch(ans,

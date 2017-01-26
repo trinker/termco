@@ -13,10 +13,14 @@
 as_terms <- function(x, names = NULL, ...) {
 
     val <- validate_term_count(x)
+
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+    nwords <- ifelse(inherits(x, 'token_count'), "n.tokens", "n.words")
+
     if (isTRUE(val)) {
-        term.vars <- attributes(x)[["term.vars"]]
+        term.vars <- attributes(x)[[terms]]
         if (is.null(names)) names <- paste2(x[, attributes(x)[["group.vars"]], drop=FALSE], ...)
-        x <- x[, attributes(x)[["term.vars"]], drop=FALSE]
+        x <- x[, attributes(x)[[terms]], drop=FALSE]
     } else {
          if (is.null(names)) names <- rownames(x)
          term.vars <- NULL

@@ -13,9 +13,12 @@
 #' group_cols(markers)
 term_cols <- function(x, ...){
 
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
     y <- validate_term_count(x, FALSE)
-    if (!isTRUE(y)) stop('`x` does not appear to be a valid `term_count` object.  Was the object altered after creation?')
-    x[unlist(attributes(x)[['term.vars']])]
+    if (!isTRUE(y)) stop(paste0('`x` does not appear to be a valid `', type, '_count` object.  Was the object altered after creation?'))
+    x[unlist(attributes(x)[[terms]])]
 
 }
 
@@ -23,8 +26,10 @@ term_cols <- function(x, ...){
 #' @rdname term_cols
 group_cols <- function(x, ...){
 
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
     y <- validate_term_count(x, FALSE)
-    if (!isTRUE(y)) stop('`x` does not appear to be a valid `term_count` object.  Was the object altered after creation?')
+    if (!isTRUE(y)) stop(paste0('`x` does not appear to be a valid `', type, '_count` object.  Was the object altered after creation?'))
     x[unlist(attributes(x)[['group.vars']])]
 
 }

@@ -49,20 +49,23 @@
 #' }
 validate_model <- function(x, n = 20, width = 50, tags = 1, ...){
 
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
     if (!'term_count' %in% class(x)) {
-        stop("`x` does not appear to be a 'term_count' object")
+        stop("`x` does not appear to be a '", type, "_count' object")
     }
     if (!attributes(x)[["model"]]) {
-        stop("`x` does not appear to be a 'model'; use `grouping.var =TRUE` in `term_count` to create a model")
+        stop(paste0("`x` does not appear to be a 'model'; use `grouping.var =TRUE` in `", type, "_count` to create a model"))
     }
 
     text.var <- attributes(x)[["text.var"]][["text.var"]]
 
     assigned_tags <- classify(x, n = tags, ...)
-    potentials <- lapply(attributes(x)[["term.vars"]], function(x) {
+    potentials <- lapply(attributes(x)[[terms]], function(x) {
         which(  unlist(lapply(assigned_tags, function(y) x %in% y)))
     })
-    names(potentials) <- attributes(x)[["term.vars"]]
+    names(potentials) <- attributes(x)[[terms]]
     # changed to include classify on 10/27/2016
     # potentials <- apply(x[, attributes(x)[["term.vars"]], drop = FALSE], 2, function(x) which(x > 0))
 
@@ -249,14 +252,17 @@ assign_validation_task <- function(x, n=20, checks = 1, coders = "coder",
 
     text <- index <- variable <- correct <- NULL
 
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
     if (!attributes(x)[["model"]]) {
-        stop("`x` does not appear to be a 'model'; use `grouping.var =TRUE` in `term_count` to create a model")
+        stop(paste0("`x` does not appear to be a 'model'; use `grouping.var =TRUE` in `", type, "_count` to create a model"))
     }
 
     if (checks > length(coders)) stop("`checks` must be smaller or equal in length to `coders")
 
     text.var <- attributes(x)[["text.var"]][["text.var"]]
-    potentials <- apply(x[, attributes(x)[["term.vars"]], drop = FALSE], 2, function(x) which(x > 0))
+    potentials <- apply(x[, attributes(x)[[terms]], drop = FALSE], 2, function(x) which(x > 0))
 
     items <- textshape::tidy_list(lapply(potentials, function(x){
         sample(x, ifelse(length(x) <= n, length(x), n))
