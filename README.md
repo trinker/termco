@@ -91,7 +91,7 @@ their description:
 <tr class="even">
 <td align="left"><code>token_count</code></td>
 <td align="left">count</td>
-<td align="left">Count fixed token occurrence</td>
+<td align="left">Count fixed token occurrence; modeling</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>frequent_terms</code>/<code>all_words</code></td>
