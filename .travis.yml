@@ -9,6 +9,7 @@ env:
 r_github_packages:
   - jimhester/covr
   - briatte/ggnetwork
+  - kbenoit/quanteda
 
 before_install:
   - sh -e /etc/init.d/xvfb start
