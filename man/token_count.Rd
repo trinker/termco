@@ -19,7 +19,14 @@ used with a \code{seq_along} the \code{text.var}.}
 \item{token.list}{A list of named character vectors of tokens.  Search will
 combine the counts for tokens supplied that are in the same vector.  Tokens
 are defined as  \code{"^([a-z' ]+|[0-9.]+|[[:punct:]]+)$"} and should
-conform to this standard.}
+conform to this standard.  `code{token_count} can be used in a hierarchical
+fashion as well; that is a list of tokens that can be passed and counted and
+then a second (or more) pass can be taken with a new set of tokens on only
+those rows/text elements that were left untagged (count
+\code{\link[base]{rowSums}} is zero).  This is accomplished by passing
+a \code{\link[base]{list}} of \code{\link[base]{list}}s of search tokens.
+See \bold{Examples} for the \strong{hierarchical tokens} section for a
+demonstration.}
 
 \item{stem}{logical.  If \code{TRUE} the search is done after the terms have
 been stemmed.}
@@ -51,7 +58,7 @@ function is faster but less flexible.
 }
 \examples{
 token_list <- list(
-    person = c('sam', 'i')   ,
+    person = c('sam', 'i'),
     place = c('here', 'house'),
     thing = c('boat', 'fox', 'rain', 'mouse', 'box', 'eggs', 'ham'),
     no_like = c('not like')
@@ -79,5 +86,23 @@ presidential_debates_2012 \%>\%
      with(token_count(dialogue, list(person, time), token_list)) \%>\%
      plot()
 }
+
+## hierarchical tokens
+token_list <- list(
+    list(
+        person = c('sam', 'i')
+    ),
+    list(
+        place = c('here', 'house'),
+        thing = c('boat', 'fox', 'rain', 'mouse', 'box', 'eggs', 'ham')
+    ),
+    list(
+        no_like = c('not like'),
+        thing = c('train', 'goat')
+    )
+)
+
+(x <- token_count(sam_i_am, grouping.var = TRUE, token.list = token_list))
+attributes(x)[['pre_collapse_coverage']]
 }
 

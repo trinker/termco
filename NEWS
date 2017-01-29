@@ -36,8 +36,8 @@ NEW FEATURES
 * `token_count` added to count the occurrence of tokens within a vector of
   strings.  This function differs from`term_count` in that `term_count` is
   regex based, allowing for fuzzy matching.  This function only searches for
-  lower cased tokens (words, number sequences, or punctuation).  This counting
-  function is faster but less flexible.
+  lower cased tokens (words, number sequences, or punctuation) providing a well
+  defined counting function that is faster than `term_count` but less flexible.
 
 * `as_term_list` added.  This is a convenience function to convert a vector of
   terms into a named list.

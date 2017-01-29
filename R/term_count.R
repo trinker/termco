@@ -9,8 +9,8 @@
 #' of 1 or more grouping variables.  If \code{TRUE} an \code{id} variable is
 #' used with a \code{seq_along} the \code{text.var}.
 #' @param term.list A list of named character vectors.  `code{term_count} can
-#' be used in a hierarchical fashion as well; that is a list of regexes can be
-#' passed and counted and then a second (or more) pass can be taken wit a new
+#' be used in a hierarchical fashion as well; that is a list of regexes that can
+#' be passed and counted and then a second (or more) pass can be taken with a new
 #' set of regexes on only those rows/text elements that were left untagged
 #' (count \code{\link[base]{rowSums}} is zero).  This is accomplished by passing
 #' a \code{\link[base]{list}} of \code{\link[base]{list}}s of regexes.

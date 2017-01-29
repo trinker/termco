@@ -78,13 +78,20 @@ excluder <- function(x, y){
 }
 
 validate_mapping <- function(mapping, x, ...){
+
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
     if (is.null(names(mapping))) stop(error("Name the vector of columns to collapse within the `mapping` list"))
     if (any(names(mapping) == "")) stop(error("Name all of the vectors of columns to collapse within the `mapping` list"))
     if (any(!unlist(lapply(mapping, is.atomic)))) stop(error("An element within `mapping` is not an atomic vector"))
-    matches <- !unlist(mapping) %in% attributes(x)[["term.vars"]]
+
+    matches <- !unlist(mapping) %in% attributes(x)[[terms]]
+
     if (any(matches)) {
         wrong_terms <- paste(unlist(mapping)[matches], collapse=", ")
-        stop(paste0("The following column(s) listed in `mapping` were not found in the attribute `term.vars` from `x`:\n\n  - ",
+        stop(paste0("The following column(s) listed in `mapping` were not found in the attribute `",
+            type, ".vars` from `x`:\n\n  - ",
             wrong_terms, "\n\nPlease remove from `mapping` or correct the typo."))
     }
     return(invisible(TRUE))

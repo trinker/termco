@@ -14,7 +14,14 @@
 #' @param token.list A list of named character vectors of tokens.  Search will
 #' combine the counts for tokens supplied that are in the same vector.  Tokens
 #' are defined as  \code{"^([a-z' ]+|[0-9.]+|[[:punct:]]+)$"} and should
-#' conform to this standard.
+#' conform to this standard.  `code{token_count} can be used in a hierarchical
+#' fashion as well; that is a list of tokens that can be passed and counted and
+#' then a second (or more) pass can be taken with a new set of tokens on only
+#' those rows/text elements that were left untagged (count
+#' \code{\link[base]{rowSums}} is zero).  This is accomplished by passing
+#' a \code{\link[base]{list}} of \code{\link[base]{list}}s of search tokens.
+#' See \bold{Examples} for the \strong{hierarchical tokens} section for a
+#' demonstration.
 #' @param stem logical.  If \code{TRUE} the search is done after the terms have
 #' been stemmed.
 #' @param keep.punctuation logical.  If \code{TRUE} the punctuation marks are
@@ -32,7 +39,7 @@
 #' @export
 #' @examples
 #' token_list <- list(
-#'     person = c('sam', 'i')   ,
+#'     person = c('sam', 'i'),
 #'     place = c('here', 'house'),
 #'     thing = c('boat', 'fox', 'rain', 'mouse', 'box', 'eggs', 'ham'),
 #'     no_like = c('not like')
@@ -60,22 +67,45 @@
 #'      with(token_count(dialogue, list(person, time), token_list)) %>%
 #'      plot()
 #' }
+#'
+#' ## hierarchical tokens
+#' token_list <- list(
+#'     list(
+#'         person = c('sam', 'i')
+#'     ),
+#'     list(
+#'         place = c('here', 'house'),
+#'         thing = c('boat', 'fox', 'rain', 'mouse', 'box', 'eggs', 'ham')
+#'     ),
+#'     list(
+#'         no_like = c('not like'),
+#'         thing = c('train', 'goat')
+#'     )
+#' )
+#'
+#' (x <- token_count(sam_i_am, grouping.var = TRUE, token.list = token_list))
+#' attributes(x)[['pre_collapse_coverage']]
 token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     keep.punctuation = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
     group.names, ...) {
 
     amodel <- FALSE
+    auto_map <- FALSE
 
-    ## check tht token.list is a named list &
-    ## tokens are words, numbers or punctuation
-    token.list <- token_lister_check(token.list)
+    ## check for hierarchical terms
+    list_list <- FALSE
+    if (is.list(token.list[[1]]) && length(token.list) > 1 && all(sapply(token.list, is.list))) list_list <- TRUE
 
     ## swap out spaces as necessary
     subwrds <- grep(".\\s+.", unlist(token.list), value=TRUE)
     if (length(subwrds > 0)){
         tph <-'termcoplaceholdertermco'
         text.var <- .mgsub(subwrds, gsub("\\s+", tph, subwrds), tolower(text.var), perl=FALSE)
-        token.list <- lapply(token.list, function(x) gsub("\\s+", tph, x))
+        if (list_list) {
+            token.list <- lapply(token.list, function(a) {lapply(a, function(x) gsub("\\s+", tph, x))})
+        } else {
+            token.list <- lapply(token.list, function(x) gsub("\\s+", tph, x))
+        }
     }
 
     if (is.null(grouping.var)) {
@@ -134,14 +164,97 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     nms <- colnames(dtm)
     n.tokens <- slam::row_sums(dtm)
 
-    out <- data.table::as.data.table(data.frame(lapply(token.list, function(x){
-        x <- x[x %in% nms]
-        unname(slam::row_sums(dtm[, x]))
-    }), stringsAsFactors = FALSE, check.names = FALSE))
-    grpv <- stats::setNames(do.call(rbind.data.frame, strsplit(rownames(dtm), "___")), G)
+    ## respond based on hierarchical terms
+    if (list_list) {
 
+        ## make sure for hierarchical terms that each observation is also a group
+        if(nrow(DF) != nrow(unique(DF[,G, drop=FALSE]))) {
+            stop("In order to run nested `token.list` then `grouping.var` must place every observation in its own group.")
+        }
+
+        ## make sure the tokens conform to regex stadards
+        token.list <- lapply(token.list, token_lister_check)
+
+        ## Auto create a map for same named term lists and
+        ## add ending number to distinguish
+        token.nms <- lapply(token.list, names)
+        token.lens <- sapply(token.nms, length)
+        token.nms <- unlist(token.nms)
+
+        if (any(duplicated(token.nms))){
+
+            map <- as.list(unique(token.nms))
+            names(map) <- unique(token.nms)
+
+            for(i in names(map)){
+                suffix <- seq_len(sum(token.nms == i))
+                if (length(suffix) == 1) {
+                    replacements <- i
+                    map[i] <- NULL
+                } else {
+                    replacements <- paste(i, seq_len(sum(token.nms == i)), sep = "__")
+                    map[[i]] <- paste(i, seq_len(sum(token.nms == i)), sep = "__")
+                }
+                token.nms[token.nms == i] <- replacements
+            }
+
+            token.list <- Map(function(x, y) {
+                names(x) <- y
+                x
+            }, token.list, split(token.nms, rep(seq_along(token.lens), token.lens)))
+
+            auto_map <- TRUE
+
+        }
+
+        inds <- seq_along(text.var)
+        out_list <- vector(mode = "list", length = length(token.list))
+
+        for (i in seq_along(token.list)){
+
+            out_list[[i]] <- lapply(token.list[[i]], function(x){
+                x <- x[x %in% nms]
+                unname(slam::row_sums(dtm[, x]))
+            })
+
+            if (length(token.list[[i]]) > 1) {
+                locs <- which(rowSums(do.call(cbind, out_list[[i]])) > 0)
+            } else {
+                locs <- which(out_list[[i]][[1]] > 0)
+            }
+
+            dtm_locs <- !dtm[['i']] %in% locs
+            dtm[['i']] <- dtm[['i']][dtm_locs]
+            dtm[['j']] <- dtm[['j']][dtm_locs]
+            dtm[['v']] <- dtm[['v']][dtm_locs]
+
+        }
+
+
+        out <- data.table::as.data.table(data.frame(
+            do.call(cbind.data.frame, out_list),
+            stringsAsFactors = FALSE,
+            check.names = FALSE
+        ))
+
+    } else {
+
+        ## check tht token.list is a named list &
+        ## tokens are words, numbers or punctuation
+        token.list <- token_lister_check(token.list)
+
+        out <- data.table::as.data.table(data.frame(lapply(token.list, function(x){
+            x <- x[x %in% nms]
+            unname(slam::row_sums(dtm[, x]))
+        }), stringsAsFactors = FALSE, check.names = FALSE))
+
+    }
+
+    grpv <- stats::setNames(do.call(rbind.data.frame, strsplit(rownames(dtm), "___")), G)
     out <- data.table::data.table(grpv, n.tokens, out)
+
     class(out) <- c("token_count", "term_count", "tbl_df", "tbl", "data.frame")
+    if(isTRUE(list_list)) class(out) <- c("hierarchical_term_count", class(out))
 
     text <- new.env(hash=FALSE)
     text[["text.var"]] <- text.var
@@ -150,7 +263,11 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     regex[["term.list"]] <- token.list
 
     attributes(out)[["group.vars"]] <- G
-    attributes(out)[["token.vars"]] <- names(token.list)
+    if (isTRUE(list_list)) {
+        attributes(out)[["token.vars"]] <- unlist(lapply(token.list, names))
+    } else {
+        attributes(out)[["token.vars"]] <- names(token.list)
+    }
     attributes(out)[["text.var"]] <- text
     attributes(out)[["model"]] <- amodel
     attributes(out)[["pretty"]] <- pretty
@@ -158,6 +275,13 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     attributes(out)[["weight"]] <- "count"
     attributes(out)[["counts"]] <- out
     attributes(out)[["tokens"]] <- token.list
+
+    if(isTRUE(list_list)) attributes(out)[["hierarchical_terms"]] <- lapply(token.list, names)
+
+    if (isTRUE(auto_map)){
+        message("Collapsing duplicate `token.list` columns.")
+        out <- collapse_tags(out, map, ...)
+    }
 
     out
 }
