@@ -135,7 +135,7 @@ tag_co_occurrence <- function(x, ...){
     cc <- minmax_scale(cc)
     diag(cc) <- 0
 
-    tags <- textshape::tidy_list(classify(x, Inf), "id", "tag", as.tibble = FALSE)[,
+    tags <- textshape::tidy_list(classify(x, Inf), "id", "tag")[,
         tag := ifelse(is.na(tag), "<<no tag>>", tag)]
     data.table::setkey(tags, "tag")
 

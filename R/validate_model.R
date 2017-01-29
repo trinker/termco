@@ -84,7 +84,7 @@ validate_model <- function(x, n = 20, width = 50, tags = 1, ...){
 
     attributes(out)[["text.var"]] <- text
     attributes(out)[["indices"]] <- items[[2]]
-    attributes(out)[['tag.counts']] <- textshape::tidy_table(table(unlist(as_terms(x))), 'tag', 'n', as.tibble = FALSE)
+    attributes(out)[['tag.counts']] <- textshape::tidy_table(table(unlist(as_terms(x))), 'tag', 'n')
     out
 }
 
