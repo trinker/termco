@@ -9,7 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.5.1-orange.svg"><img src="https://img.shields.io/badge/Version-0.5.1-orange.svg" alt="Version"/></a>
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.5.2-orange.svg"><img src="https://img.shields.io/badge/Version-0.5.2-orange.svg" alt="Version"/></a>
 </p>
 <img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
@@ -89,119 +89,129 @@ their description:
 <td align="left">Count regex term occurrence; modeling</td>
 </tr>
 <tr class="even">
+<td align="left"><code>token_count</code></td>
+<td align="left">count</td>
+<td align="left">Count fixed token occurrence</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>frequent_terms</code>/<code>all_words</code></td>
 <td align="left">count</td>
 <td align="left">Frequent terms</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>important_terms</code></td>
 <td align="left">count</td>
 <td align="left">Important terms</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>hierarchical_coverage_term</code></td>
 <td align="left">count</td>
 <td align="left">Unique coverage of a text vector by terms</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>hierarchical_coverage_regex</code></td>
 <td align="left">count</td>
 <td align="left">Unique coverage of a text vector by regex</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>ngram_collocations</code></td>
 <td align="left">count</td>
 <td align="left">Weighted frequent ngram (2 &amp; 3) collocations</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>word_count</code></td>
 <td align="left">count</td>
 <td align="left">Count words</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>term_before</code>/<code>term_after</code></td>
 <td align="left">count</td>
 <td align="left">Frequency of words before/after a regex term</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>term_first</code></td>
 <td align="left">count</td>
 <td align="left">Frequency of words at the begining of strings</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>colo</code></td>
 <td align="left">search</td>
 <td align="left">Regex output to find term collocations</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>search_term</code></td>
 <td align="left">search</td>
 <td align="left">Search for regex terms</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>search_term_collocations</code></td>
 <td align="left">search</td>
 <td align="left">Wrapper for <code>search_term</code> + <code>frequent_terms</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>classification_project</code></td>
 <td align="left">modeling</td>
 <td align="left">Make a classification modeling project template</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>as_dtm</code>/<code>as_tdm</code></td>
 <td align="left">modeling</td>
 <td align="left">Coerce <code>term_count</code> object into <code>tm::DocumentTermMatrix</code>/<code>tm::TermDocumentMatrix</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>split_data</code></td>
 <td align="left">modeling</td>
 <td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>evaluate</code></td>
 <td align="left">modeling</td>
 <td align="left">Check accuracy of model against human coder</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>classify</code></td>
 <td align="left">modeling</td>
 <td align="left">Assign n tags to text from a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>get_text</code></td>
 <td align="left">modeling</td>
 <td align="left">Get the original text for model tags</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>coverage</code></td>
 <td align="left">modeling</td>
 <td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
 <td align="left">modeling</td>
 <td align="left">Get the uncovered text from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>tag_co_occurrence</code></td>
 <td align="left">modeling</td>
 <td align="left">Explor co-occurrence of tags from a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>validate_model</code>/<code>assign_validation_task</code></td>
 <td align="left">modeling</td>
 <td align="left">Human validation of a <code>term_count</code> model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>as_count</code></td>
 <td align="left">convert</td>
 <td align="left">Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>as_terms</code></td>
 <td align="left">convert</td>
 <td align="left">Convert a count matrix to list of term vectors</td>
+</tr>
+<tr class="even">
+<td align="left"><code>as_term_list</code></td>
+<td align="left">convert</td>
+<td align="left">Convert a vector of terms into a named term list</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>weight</code></td>
@@ -1457,20 +1467,32 @@ confidence band is highly affected by the number of samples per tag).
     ## -------
     ## Overall:
     ## -------
-    ##    accuracy  n  se lower upper
-    ## 1:    84.6% 65 .04 75.8% 93.4%
+    ##    accuracy   n sampled  se lower upper
+    ## 1:    59.6% 484      57 .06 46.9% 72.4%
     ## 
     ## 
     ## ---------------
     ## Individual Tags:
     ## ---------------
-    ##               tag accuracy  n  se lower  upper
-    ## 1: response_cries    94.7% 19 .05 84.7% 100.0%
-    ## 2:  justification    85.0% 20 .08 69.4% 100.0%
-    ## 3:  back_channels    83.3%  6 .15 53.5% 100.0%
-    ## 4:        summons    75.0% 20 .10 56.0%  94.0%
+    ##               tag accuracy   n sampled  se lower  upper
+    ## 1:  back_channels    83.3%   7       6 .15 53.5% 100.0%
+    ## 2: response_cries    72.7%  13      11 .13 46.4%  99.0%
+    ## 3:  justification    55.0% 155      20 .11 33.2%  76.8%
+    ## 4:        summons    50.0% 309      20 .11 28.1%  71.9%
 
     plot(validated)
+
+    ## Warning in if (self$expand) {: the condition has length > 1 and only the
+    ## first element will be used
+
+    ## Warning in if (self$expand) {: the condition has length > 1 and only the
+    ## first element will be used
+
+    ## Warning in if (self$expand) {: the condition has length > 1 and only the
+    ## first element will be used
+
+    ## Warning in if (self$expand) {: the condition has length > 1 and only the
+    ## first element will be used
 
 ![](inst/figure/unnamed-chunk-41-1.png)
 
