@@ -233,7 +233,8 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
         ggplot2::scale_size_manual(values=c(4, 3)) +
         ggplot2::theme(
             legend.position="none",
-            strip.text.y = ggplot2::element_text(angle = 0)
+            strip.text.y = ggplot2::element_text(angle = 0),
+            plot.margin = grid::unit(c(1,1, .5, .5), "lines")
         )
 
      maxy <-c(0, ceiling(max(dat2[dat2[['overall']] == 'Tags', ][['n']],
@@ -249,27 +250,32 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
         ggplot2::theme_bw() +
         ggplot2::theme(
             legend.position="none",
-            strip.text.y = ggplot2::element_text(angle = 0)
+            strip.text.y = ggplot2::element_text(angle = 0),
+            plot.margin = grid::unit(c(1,1, .62, .5), "lines")
         )
 
-    gA <- ggplot2::ggplotGrob(plot1a)
-    gB <- ggplot2::ggplotGrob(plot1b)
-    maxWidth <- grid::unit.pmax(gA$widths[2:5], gB$widths[2:5])
-    gA$widths[2:5] <- as.list(maxWidth)
-    gB$widths[2:5] <- as.list(maxWidth)
-    left_plot <- gridExtra::arrangeGrob(gA, gB, ncol=1, heights = c(.25, .75))
-
-
-    right_plot <- gridExtra::arrangeGrob(
-        ggplot2::ggplot() + ggplot2::theme_minimal(),
-        cntsplot +
+    gA <- ggplot2::ggplotGrob(plot1a + theme(strip.text.y = ggplot2::element_blank(), strip.background = ggplot2::element_blank()))
+    gB <- ggplot2::ggplotGrob(plot1b + theme(strip.text.y = ggplot2::element_blank(), strip.background = ggplot2::element_blank()))
+    gC <- ggplot2::ggplotGrob(cntsplot +
             ggplot2::theme(
                 legend.position="none",
                 strip.text.y = ggplot2::element_blank(),
                 axis.text.y = ggplot2::element_blank(),
                 axis.ticks.y = ggplot2::element_blank(),
                 strip.background = ggplot2::element_blank()
-            ),
+            ))
+    maxWidth <- grid::unit.pmax(gA$widths[2:5], gB$widths[2:5])
+    maxHeight <- grid::unit.pmax(gB$heights[3:6], gC$heights[3:6])
+    gA$widths[2:5] <- as.list(maxWidth)
+    gB$widths[2:5] <- as.list(maxWidth)
+    gB$heights[3:6] <- as.list(maxHeight)
+    gC$heights[3:6] <- as.list(maxHeight)
+    left_plot <- gridExtra::arrangeGrob(gA, gB, ncol=1, heights = c(.25, .75))
+
+
+    right_plot <- gridExtra::arrangeGrob(
+        ggplot2::ggplot() + ggplot2::theme_minimal(),
+        gC,
         ncol = 1,
         heights = c(.25, .75)
     )
