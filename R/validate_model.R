@@ -271,14 +271,14 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
     gB$widths[2:5] <- as.list(maxWidth)
     gB$heights[3:6] <- as.list(maxHeight)
     gC$heights[3:6] <- as.list(maxHeight)
-    left_plot <- gridExtra::arrangeGrob(gA, gB, ncol=1, heights = c(.25, .75))
+    left_plot <- gridExtra::arrangeGrob(gA, gB, ncol=1, heights = c(.15, .85))
 
 
     right_plot <- gridExtra::arrangeGrob(
         ggplot2::ggplot() + ggplot2::theme_minimal(),
         gC,
         ncol = 1,
-        heights = c(.25, .75)
+        heights = c(.15, .85)
     )
 
     outplot <- gridExtra::arrangeGrob(
