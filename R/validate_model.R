@@ -193,8 +193,9 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
         overall := factor(ifelse(tag == 'Model', 'Overall', 'Tags'), levels = c('Overall', 'Tags'))][]
 
 
-    plot1 <- ggplot2::ggplot(dat2, ggplot2::aes_string(x = 'accuracy', y = 'tag',
-        xmin = 'lower', xmax = 'upper')) +
+    plot1a <- ggplot2::ggplot(dat2[dat2[['overall']] != 'Tags', ],
+            ggplot2::aes_string(x = 'accuracy', y = 'tag',
+            xmin = 'lower', xmax = 'upper')) +
         ggplot2::geom_vline(xintercept = .5, linetype='dashed', size = .9, color='blue', alpha = .2) +
         ggplot2::geom_errorbarh(size = size, height = height,  ggplot2::aes_string(color='overall')) +
         ggplot2::geom_point(ggplot2::aes_string(size='overall', shape='overall', color='overall')) +
@@ -202,7 +203,30 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
             limits = c(min(0, min(dat[['lower']])), max(1, max(dat[['upper']]))),
             breaks = c(0, .25, .5, .75, 1)) +
         ggplot2::facet_grid(overall~., scales='free', space='free') +
-        ggplot2::labs(x = "Accuracy", y = NULL, title="Model Tagging Accuracy") +
+        ggplot2::labs(x = "Accuracy", y = NULL, title="Overall Model Tagging Accuracy") +
+        ggplot2::theme_bw() +
+        ggplot2::scale_color_manual(values=c("blue", "grey60")) +
+        ggplot2::scale_shape_manual(values=c(18, 15)) +
+        ggplot2::scale_size_manual(values=c(4, 3)) +
+        ggplot2::theme(
+            legend.position="none",
+            strip.text.y = ggplot2::element_text(angle = 0),
+            axis.ticks.x = ggplot2::element_blank(),
+            axis.text.x = ggplot2::element_blank()
+        ) +
+        ggplot2::xlab(NULL)
+
+    plot1b <- ggplot2::ggplot(dat2[dat2[['overall']] == 'Tags', ],
+            ggplot2::aes_string(x = 'accuracy', y = 'tag',
+            xmin = 'lower', xmax = 'upper')) +
+        ggplot2::geom_vline(xintercept = .5, linetype='dashed', size = .9, color='blue', alpha = .2) +
+        ggplot2::geom_errorbarh(size = size, height = height,  ggplot2::aes_string(color='overall')) +
+        ggplot2::geom_point(ggplot2::aes_string(size='overall', shape='overall', color='overall')) +
+        ggplot2::scale_x_continuous(label=function(x) {paste0(round(x, 2) * 100, "%")},
+            limits = c(min(0, min(dat[['lower']])), max(1, max(dat[['upper']]))),
+            breaks = c(0, .25, .5, .75, 1)) +
+        ggplot2::facet_grid(overall~., scales='free', space='free') +
+        ggplot2::labs(x = "Accuracy", y = NULL, title="Tag Accuracy") +
         ggplot2::theme_bw() +
         ggplot2::scale_color_manual(values=c("blue", "grey60")) +
         ggplot2::scale_shape_manual(values=c(18, 15)) +
@@ -211,20 +235,59 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
             legend.position="none",
             strip.text.y = ggplot2::element_text(angle = 0)
         )
-##NEED TO MERGE LOTS THINKING OF PULLING MODEL OFF SEPARATE AND GRIDEXTRAing IT ALL TOGETHER AGAIN
-     # dat3 <- data.table::copy(dat2)[, 'tag' := factor(tag, levels = c('Model', rev(levels(dat[['tag']]))))][]
-     ggplot2::ggplot(dat2, ggplot2::aes_string(x = 'tag', y = 'n')) +
-        ggplot2::geom_bar(stat = 'identity') +
+
+     maxy <-c(0, ceiling(max(dat2[dat2[['overall']] == 'Tags', ][['n']],
+            na.rm = TRUE))*1.05)
+
+     cntsplot <- ggplot2::ggplot(dat2[dat2[['overall']] == 'Tags', ],
+            ggplot2::aes_string(y = 'tag')) +
+        ggplot2::geom_segment(size = 1, color= 'grey60', ggplot2::aes_string(x = 0, xend = 'n', yend = 'tag')) +
+        ggplot2::geom_point(stat = 'identity', ggplot2::aes_string( x = 'n'), size = 3, color = 'orange') +
         ggplot2::facet_grid(overall~., scales='free', space='free') +
-        ggplot2::labs(x = "Accuracy", y = NULL, title="Tag Counts") +
-        ggplot2::coord_flip(ylim = c(0, ceiling(max(dat2[['n']][-1], na.rm = TRUE)*1.01)), expand = c(0,0)) +
+        ggplot2::labs(y = NULL, x = "Count", title="Tag Counts") +
+        ggplot2::scale_x_continuous(limits = maxy, expand = c(0, 0)) +
         ggplot2::theme_bw() +
         ggplot2::theme(
             legend.position="none",
             strip.text.y = ggplot2::element_text(angle = 0)
         )
 
+    gA <- ggplot2::ggplotGrob(plot1a)
+    gB <- ggplot2::ggplotGrob(plot1b)
+    maxWidth <- grid::unit.pmax(gA$widths[2:5], gB$widths[2:5])
+    gA$widths[2:5] <- as.list(maxWidth)
+    gB$widths[2:5] <- as.list(maxWidth)
+    left_plot <- gridExtra::arrangeGrob(gA, gB, ncol=1, heights = c(.25, .75))
+
+
+    right_plot <- gridExtra::arrangeGrob(
+        ggplot2::ggplot() + ggplot2::theme_minimal(),
+        cntsplot +
+            ggplot2::theme(
+                legend.position="none",
+                strip.text.y = ggplot2::element_blank(),
+                axis.text.y = ggplot2::element_blank(),
+                axis.ticks.y = ggplot2::element_blank(),
+                strip.background = ggplot2::element_blank()
+            ),
+        ncol = 1,
+        heights = c(.25, .75)
+    )
+
+    outplot <- gridExtra::arrangeGrob(
+        left_plot,
+        right_plot,
+        ncol = 2,
+        widths = c(.78, .22)
+    )
+
+    gridExtra::grid.arrange(outplot)
+
+    return(invisible(list(plot = outplot, overall = plot1a, tags = plot1b, counts = cntsplot)))
 }
+
+
+
 
 #' Manual Assessment of a Model
 #'

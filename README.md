@@ -1482,18 +1482,6 @@ confidence band is highly affected by the number of samples per tag).
 
     plot(validated)
 
-    ## Warning in if (self$expand) {: the condition has length > 1 and only the
-    ## first element will be used
-
-    ## Warning in if (self$expand) {: the condition has length > 1 and only the
-    ## first element will be used
-
-    ## Warning in if (self$expand) {: the condition has length > 1 and only the
-    ## first element will be used
-
-    ## Warning in if (self$expand) {: the condition has length > 1 and only the
-    ## first element will be used
-
 ![](inst/figure/unnamed-chunk-41-1.png)
 
 These examples give guidance on how to use the tools in the **termco**

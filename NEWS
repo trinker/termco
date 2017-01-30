@@ -56,6 +56,9 @@ IMPROVEMENTS
   replaces with a dependency on **ggnetwork** for plotting networks as grid
   objects.
 
+* `plot.validate_model` now shows tag counts in the sample to provide a relative
+  importance of the accuracy in making decisions.
+
 CHANGES
 
 
