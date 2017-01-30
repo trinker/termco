@@ -69,194 +69,194 @@ function generate lists of function calls or plots for given search
 terms. The table below describes the functions, category of use, and
 their description:
 
-<table style="width:136%;">
+<table>
 <colgroup>
-<col width="43%" />
-<col width="20%" />
-<col width="72%" />
+<col width="31%" />
+<col width="15%" />
+<col width="53%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">Function</th>
-<th align="left">Use Category</th>
-<th align="left">Description</th>
+<th>Function</th>
+<th>Use Category</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>term_count</code></td>
-<td align="left">count</td>
-<td align="left">Count regex term occurrence; modeling</td>
+<td><code>term_count</code></td>
+<td>count</td>
+<td>Count regex term occurrence; modeling</td>
 </tr>
 <tr class="even">
-<td align="left"><code>token_count</code></td>
-<td align="left">count</td>
-<td align="left">Count fixed token occurrence; modeling</td>
+<td><code>token_count</code></td>
+<td>count</td>
+<td>Count fixed token occurrence; modeling</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>frequent_terms</code>/<code>all_words</code></td>
-<td align="left">count</td>
-<td align="left">Frequent terms</td>
+<td><code>frequent_terms</code>/<code>all_words</code></td>
+<td>count</td>
+<td>Frequent terms</td>
 </tr>
 <tr class="even">
-<td align="left"><code>important_terms</code></td>
-<td align="left">count</td>
-<td align="left">Important terms</td>
+<td><code>important_terms</code></td>
+<td>count</td>
+<td>Important terms</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>hierarchical_coverage_term</code></td>
-<td align="left">count</td>
-<td align="left">Unique coverage of a text vector by terms</td>
+<td><code>hierarchical_coverage_term</code></td>
+<td>count</td>
+<td>Unique coverage of a text vector by terms</td>
 </tr>
 <tr class="even">
-<td align="left"><code>hierarchical_coverage_regex</code></td>
-<td align="left">count</td>
-<td align="left">Unique coverage of a text vector by regex</td>
+<td><code>hierarchical_coverage_regex</code></td>
+<td>count</td>
+<td>Unique coverage of a text vector by regex</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>ngram_collocations</code></td>
-<td align="left">count</td>
-<td align="left">Weighted frequent ngram (2 &amp; 3) collocations</td>
+<td><code>ngram_collocations</code></td>
+<td>count</td>
+<td>Weighted frequent ngram (2 &amp; 3) collocations</td>
 </tr>
 <tr class="even">
-<td align="left"><code>word_count</code></td>
-<td align="left">count</td>
-<td align="left">Count words</td>
+<td><code>word_count</code></td>
+<td>count</td>
+<td>Count words</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>term_before</code>/<code>term_after</code></td>
-<td align="left">count</td>
-<td align="left">Frequency of words before/after a regex term</td>
+<td><code>term_before</code>/<code>term_after</code></td>
+<td>count</td>
+<td>Frequency of words before/after a regex term</td>
 </tr>
 <tr class="even">
-<td align="left"><code>term_first</code></td>
-<td align="left">count</td>
-<td align="left">Frequency of words at the begining of strings</td>
+<td><code>term_first</code></td>
+<td>count</td>
+<td>Frequency of words at the begining of strings</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>colo</code></td>
-<td align="left">search</td>
-<td align="left">Regex output to find term collocations</td>
+<td><code>colo</code></td>
+<td>search</td>
+<td>Regex output to find term collocations</td>
 </tr>
 <tr class="even">
-<td align="left"><code>search_term</code></td>
-<td align="left">search</td>
-<td align="left">Search for regex terms</td>
+<td><code>search_term</code></td>
+<td>search</td>
+<td>Search for regex terms</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>search_term_collocations</code></td>
-<td align="left">search</td>
-<td align="left">Wrapper for <code>search_term</code> + <code>frequent_terms</code></td>
+<td><code>search_term_collocations</code></td>
+<td>search</td>
+<td>Wrapper for <code>search_term</code> + <code>frequent_terms</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>classification_project</code></td>
-<td align="left">modeling</td>
-<td align="left">Make a classification modeling project template</td>
+<td><code>classification_project</code></td>
+<td>modeling</td>
+<td>Make a classification modeling project template</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>as_dtm</code>/<code>as_tdm</code></td>
-<td align="left">modeling</td>
-<td align="left">Coerce <code>term_count</code> object into <code>tm::DocumentTermMatrix</code>/<code>tm::TermDocumentMatrix</code></td>
+<td><code>as_dtm</code>/<code>as_tdm</code></td>
+<td>modeling</td>
+<td>Coerce <code>term_count</code> object into <code>tm::DocumentTermMatrix</code>/<code>tm::TermDocumentMatrix</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>split_data</code></td>
-<td align="left">modeling</td>
-<td align="left">Split data into <code>train</code> &amp; <code>test</code> sets</td>
+<td><code>split_data</code></td>
+<td>modeling</td>
+<td>Split data into <code>train</code> &amp; <code>test</code> sets</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>evaluate</code></td>
-<td align="left">modeling</td>
-<td align="left">Check accuracy of model against human coder</td>
+<td><code>evaluate</code></td>
+<td>modeling</td>
+<td>Check accuracy of model against human coder</td>
 </tr>
 <tr class="even">
-<td align="left"><code>classify</code></td>
-<td align="left">modeling</td>
-<td align="left">Assign n tags to text from a model</td>
+<td><code>classify</code></td>
+<td>modeling</td>
+<td>Assign n tags to text from a model</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>get_text</code></td>
-<td align="left">modeling</td>
-<td align="left">Get the original text for model tags</td>
+<td><code>get_text</code></td>
+<td>modeling</td>
+<td>Get the original text for model tags</td>
 </tr>
 <tr class="even">
-<td align="left"><code>coverage</code></td>
-<td align="left">modeling</td>
-<td align="left">Coverage for <code>term_count</code> or <code>search_term</code> object</td>
+<td><code>coverage</code></td>
+<td>modeling</td>
+<td>Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>uncovered</code>/<code>get_uncovered</code></td>
-<td align="left">modeling</td>
-<td align="left">Get the uncovered text from a model</td>
+<td><code>uncovered</code>/<code>get_uncovered</code></td>
+<td>modeling</td>
+<td>Get the uncovered text from a model</td>
 </tr>
 <tr class="even">
-<td align="left"><code>tag_co_occurrence</code></td>
-<td align="left">modeling</td>
-<td align="left">Explor co-occurrence of tags from a model</td>
+<td><code>tag_co_occurrence</code></td>
+<td>modeling</td>
+<td>Explor co-occurrence of tags from a model</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>validate_model</code>/<code>assign_validation_task</code></td>
-<td align="left">modeling</td>
-<td align="left">Human validation of a <code>term_count</code> model</td>
+<td><code>validate_model</code>/<code>assign_validation_task</code></td>
+<td>modeling</td>
+<td>Human validation of a <code>term_count</code> model</td>
 </tr>
 <tr class="even">
-<td align="left"><code>as_count</code></td>
-<td align="left">convert</td>
-<td align="left">Strip pretty printing from <code>term_count</code> object</td>
+<td><code>as_count</code></td>
+<td>convert</td>
+<td>Strip pretty printing from <code>term_count</code> object</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>as_terms</code></td>
-<td align="left">convert</td>
-<td align="left">Convert a count matrix to list of term vectors</td>
+<td><code>as_terms</code></td>
+<td>convert</td>
+<td>Convert a count matrix to list of term vectors</td>
 </tr>
 <tr class="even">
-<td align="left"><code>as_term_list</code></td>
-<td align="left">convert</td>
-<td align="left">Convert a vector of terms into a named term list</td>
+<td><code>as_term_list</code></td>
+<td>convert</td>
+<td>Convert a vector of terms into a named term list</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>weight</code></td>
-<td align="left">convert</td>
-<td align="left">Weight a <code>term_count</code> object proportion/percent</td>
+<td><code>weight</code></td>
+<td>convert</td>
+<td>Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
 <tr class="even">
-<td align="left"><code>plot_ca</code></td>
-<td align="left">plot</td>
-<td align="left">Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
+<td><code>plot_ca</code></td>
+<td>plot</td>
+<td>Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>plot_counts</code></td>
-<td align="left">plot</td>
-<td align="left">Horizontal bar plot of group counts</td>
+<td><code>plot_counts</code></td>
+<td>plot</td>
+<td>Horizontal bar plot of group counts</td>
 </tr>
 <tr class="even">
-<td align="left"><code>plot_freq</code></td>
-<td align="left">plot</td>
-<td align="left">Vertical bar plot of frequencies of counts</td>
+<td><code>plot_freq</code></td>
+<td>plot</td>
+<td>Vertical bar plot of frequencies of counts</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>plot_cum_percent</code></td>
-<td align="left">plot</td>
-<td align="left">Plot <code>frequent_terms</code> object as cumulative percent</td>
+<td><code>plot_cum_percent</code></td>
+<td>plot</td>
+<td>Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
 <tr class="even">
-<td align="left"><code>probe_list</code></td>
-<td align="left">probe</td>
-<td align="left">Generate list of <code>search_term</code> function calls</td>
+<td><code>probe_list</code></td>
+<td>probe</td>
+<td>Generate list of <code>search_term</code> function calls</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>probe_colo_list</code></td>
-<td align="left">probe</td>
-<td align="left">Generate list of <code>search_term_collocations</code> function calls</td>
+<td><code>probe_colo_list</code></td>
+<td>probe</td>
+<td>Generate list of <code>search_term_collocations</code> function calls</td>
 </tr>
 <tr class="even">
-<td align="left"><code>probe_colo_plot_list</code></td>
-<td align="left">probe</td>
-<td align="left">Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
+<td><code>probe_colo_plot_list</code></td>
+<td>probe</td>
+<td>Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>probe_colo_plot</code></td>
-<td align="left">probe</td>
-<td align="left">Plot <code>probe_colo_plot_list</code> directly</td>
+<td><code>probe_colo_plot</code></td>
+<td>probe</td>
+<td>Plot <code>probe_colo_plot_list</code> directly</td>
 </tr>
 </tbody>
 </table>

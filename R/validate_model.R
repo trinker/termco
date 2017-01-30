@@ -212,7 +212,8 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
             legend.position="none",
             strip.text.y = ggplot2::element_text(angle = 0),
             axis.ticks.x = ggplot2::element_blank(),
-            axis.text.x = ggplot2::element_blank()
+            axis.text.x = ggplot2::element_blank(),
+            plot.margin = grid::unit(c(1,1, 0, .5), "lines")
         ) +
         ggplot2::xlab(NULL)
 
@@ -251,11 +252,11 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
         ggplot2::theme(
             legend.position="none",
             strip.text.y = ggplot2::element_text(angle = 0),
-            plot.margin = grid::unit(c(1,1, .62, .5), "lines")
+            plot.margin = grid::unit(c(1,1, .65, .5), "lines")
         )
 
-    gA <- ggplot2::ggplotGrob(plot1a + theme(strip.text.y = ggplot2::element_blank(), strip.background = ggplot2::element_blank()))
-    gB <- ggplot2::ggplotGrob(plot1b + theme(strip.text.y = ggplot2::element_blank(), strip.background = ggplot2::element_blank()))
+    gA <- ggplot2::ggplotGrob(plot1a + ggplot2::theme(strip.text.y = ggplot2::element_blank(), strip.background = ggplot2::element_blank()))
+    gB <- ggplot2::ggplotGrob(plot1b + ggplot2::theme(strip.text.y = ggplot2::element_blank(), strip.background = ggplot2::element_blank()))
     gC <- ggplot2::ggplotGrob(cntsplot +
             ggplot2::theme(
                 legend.position="none",
