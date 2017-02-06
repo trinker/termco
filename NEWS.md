@@ -61,6 +61,9 @@ termco 0.5.0 -
 
 **CHANGES**
 
+* `as_dtm` & `as_tdm` moved to the **gofastr** package where they can be used by
+  other packages and their classed objects.  **termco** re-exports the two
+  functions.
 
 
 termco 0.4.0 - 0.4.3
