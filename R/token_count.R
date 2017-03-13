@@ -102,6 +102,8 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     list_list <- FALSE
     if (is.list(token.list[[1]]) && length(token.list) > 1 && all(sapply(token.list, is.list))) list_list <- TRUE
 
+    token.listsaved <- token.list
+
     ## swap out spaces as necessary
     subwrds <- grep(".\\s+.", unlist(token.list), value=TRUE)
     if (length(subwrds > 0)){
@@ -278,9 +280,12 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     attributes(out)[["model"]] <- amodel
     attributes(out)[["pretty"]] <- pretty
 
+    count <- new.env(hash=FALSE)
+    count[["count"]] <- out
+
     attributes(out)[["weight"]] <- "count"
-    attributes(out)[["counts"]] <- out
-    attributes(out)[["tokens"]] <- token.list
+    attributes(out)[["counts"]] <- count
+    attributes(out)[["tokens"]] <- token.listsaved
 
     if(isTRUE(list_list)) attributes(out)[["hierarchical_terms"]] <- lapply(token.list, names)
 
@@ -417,7 +422,7 @@ validate_token_count <- function(x, warn = FALSE){
     nms2 <- unlist(list(attributes(x)[["token.vars"]], "n.tokens"))
     nms <- unlist(list(attributes(x)[["group.vars"]], nms2))
     check <- all(nms %in% colnames(x)) && all(sapply(x[, nms2], is.numeric))
-    check2 <- all(sapply(c("group.vars", "term.vars", "weight", "pretty"), function(y){
+    check2 <- all(sapply(c("group.vars", "token.vars", "weight", "pretty"), function(y){
         !is.null(attributes(x)[[y]])
     }))
     check3 <- !any(colnames(x) %in% c(nms2, nms, "n.tokens"))

@@ -20,6 +20,10 @@
 #' collapse_tags(markers, mapping)
 collapse_tags <- function(x, mapping, ...){
 
+
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+
+
     validate_term_count(x, TRUE)
     validate_mapping(mapping, x)
 
@@ -37,7 +41,7 @@ collapse_tags <- function(x, mapping, ...){
     if(any(names(mapping) == "NULL")) {
         removes <- unlist(mapping[names(mapping) == "NULL"], use.names=FALSE)
         x <- x[colnames(x)[!colnames(x) %in% removes]]
-        y[["term.vars"]] <- excluder(y[["term.vars"]], removes)
+        y[[terms]] <- excluder(y[[terms]], removes)
         mapping <- mapping[excluder(names(mapping), "NULL")]
     }
 
@@ -55,12 +59,12 @@ collapse_tags <- function(x, mapping, ...){
         ## change term.vars attribute and remove columns
         removes <- unlist(mapping, use.names=FALSE)
         x <- x[excluder(colnames(x), excluder(removes, names(mapping)))]
-        y[["term.vars"]] <- c(excluder(y[["term.vars"]], removes), names(mapping))
+        y[[terms]] <- c(excluder(y[[terms]], removes), names(mapping))
     }
 
     x <- dplyr::tbl_df(x)
     class(x) <- y[['class']]
-    y <- y[c("group.vars", "term.vars", "weight", "pretty", "counts", "text.var", "model", "regex")]
+    y <- y[c("group.vars", terms, "weight", "pretty", "counts", "text.var", "model", "regex")]
     for (i in seq_along(y)){
         attributes(x)[[names(y)[i]]] <- y[[i]]
     }
