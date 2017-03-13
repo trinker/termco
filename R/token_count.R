@@ -409,6 +409,11 @@ token_lister_check <- function(token.list){
 
 validate_token_count <- function(x, warn = FALSE){
 
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+    nwords <- ifelse(inherits(x, 'token_count'), "n.tokens", "n.words")
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
+
     nms2 <- unlist(list(attributes(x)[["token.vars"]], "n.tokens"))
     nms <- unlist(list(attributes(x)[["group.vars"]], nms2))
     check <- all(nms %in% colnames(x)) && all(sapply(x[, nms2], is.numeric))
