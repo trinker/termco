@@ -259,6 +259,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     }
 
     grpv <- stats::setNames(do.call(rbind.data.frame, strsplit(rownames(dtm), "___")), G)
+    if (isTRUE(grouping.var)) grpv['id'] <- seq_along(grpv[['id']])
     out <- data.table::data.table(grpv, n.tokens, out)
 
     class(out) <- c("token_count", "term_count", "tbl_df", "tbl", "data.frame")
