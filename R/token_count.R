@@ -412,7 +412,7 @@ validate_token_count <- function(x, warn = FALSE){
     nms2 <- unlist(list(attributes(x)[["token.vars"]], "n.tokens"))
     nms <- unlist(list(attributes(x)[["group.vars"]], nms2))
     check <- all(nms %in% colnames(x)) && all(sapply(x[, nms2], is.numeric))
-    check2 <- all(sapply(c("group.vars", "token.vars", "weight", "pretty"), function(y){
+    check2 <- all(sapply(c("group.vars", "term.vars", "weight", "pretty"), function(y){
         !is.null(attributes(x)[[y]])
     }))
     check3 <- !any(colnames(x) %in% c(nms2, nms, "n.tokens"))
