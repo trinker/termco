@@ -36,4 +36,3 @@ Currently the following are available:
 \description{
 Plots a token_count object.
 }
-

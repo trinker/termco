@@ -23,4 +23,3 @@ Convert a count matrix to a named list of term vectors.
 data(markers)
 as_terms(markers)
 }
-

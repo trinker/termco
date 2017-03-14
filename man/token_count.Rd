@@ -111,4 +111,3 @@ token_list <- list(
 (x <- token_count(sam_i_am, grouping.var = TRUE, token.list = token_list))
 attributes(x)[['pre_collapse_coverage']]
 }
-

@@ -72,4 +72,3 @@ https://www.youtube.com/watch?v=OwwdYHWRB5E&index=31&list=PL6397E4B26D00A269
 \keyword{accuracy}
 \keyword{fit}
 \keyword{model}
-

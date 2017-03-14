@@ -11,7 +11,7 @@ Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
 [![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.5.2-orange.svg"><img src="https://img.shields.io/badge/Version-0.5.2-orange.svg" alt="Version"/></a>
 </p>
-<img src="inst/termco_logo/r_termco.png" width="200" alt="textproj Logo">
+<img src="tools/termco_logo/r_termco.png" width="200" alt="textproj Logo">
 
 **termco** is a small suite of functions used to count and find terms
 and substrings in strings. The tools can be used to build an expert
@@ -316,7 +316,7 @@ Build Counts Dataframe
     counts
 
     ## Coverage: 100% 
-    ## # A tibble: 10 x 7
+    ## # A tibble: 10 × 7
     ##       person   time n.words response_cries back_channels   summons
     ##       <fctr> <fctr>   <int>          <chr>         <chr>     <chr>
     ## 1      OBAMA time 1    3599        3(.08%)             0 43(1.19%)
@@ -337,7 +337,7 @@ Printing
     print(counts, pretty = FALSE)
 
     ## Coverage: 100% 
-    ## # A tibble: 10 x 7
+    ## # A tibble: 10 × 7
     ##       person   time n.words response_cries back_channels summons
     ##       <fctr> <fctr>   <int>          <int>         <int>   <int>
     ## 1      OBAMA time 1    3599              3             0      43
@@ -355,7 +355,7 @@ Printing
     print(counts, zero.replace = "_")
 
     ## Coverage: 100% 
-    ## # A tibble: 10 x 7
+    ## # A tibble: 10 × 7
     ##       person   time n.words response_cries back_channels   summons
     ##       <fctr> <fctr>   <int>          <chr>         <chr>     <chr>
     ## 1      OBAMA time 1    3599        3(.08%)             _ 43(1.19%)
@@ -375,15 +375,15 @@ Plotting
 
     plot(counts)
 
-![](inst/figure/unnamed-chunk-6-1.png)
+![](tools/figure/unnamed-chunk-6-1.png)
 
     plot(counts, labels=TRUE)
 
-![](inst/figure/unnamed-chunk-6-2.png)
+![](tools/figure/unnamed-chunk-6-2.png)
 
     plot_ca(counts, FALSE)
 
-![](inst/figure/unnamed-chunk-6-3.png)
+![](tools/figure/unnamed-chunk-6-3.png)
 
 Ngram Collocations
 ------------------
@@ -495,19 +495,19 @@ method.
 
     plot(ngram_collocations(x))
 
-![](inst/figure/unnamed-chunk-8-1.png)
+![](tools/figure/unnamed-chunk-8-1.png)
 
     plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
 
-![](inst/figure/unnamed-chunk-8-2.png)
+![](tools/figure/unnamed-chunk-8-2.png)
 
     plot(ngram_collocations(x, gram.length = 3))
 
-![](inst/figure/unnamed-chunk-8-3.png)
+![](tools/figure/unnamed-chunk-8-3.png)
 
     plot(ngram_collocations(x, order.by = "dice"))
 
-![](inst/figure/unnamed-chunk-8-4.png)
+![](tools/figure/unnamed-chunk-8-4.png)
 
 Converting to Document Term Matrix
 ----------------------------------
@@ -539,7 +539,7 @@ structures using `cbind` & `rbind`.
     plot(mod)
     rect.hclust(mod, k = 5, border = "red")
 
-![](inst/figure/unnamed-chunk-9-1.png)
+![](tools/figure/unnamed-chunk-9-1.png)
 
     (clusters <- cutree(mod, 5))
 
@@ -624,7 +624,7 @@ are additional observations.
     ## split_data:
     ## 
     ## train: n = 2184
-    ## # A tibble: 6 x 5
+    ## # A tibble: 6 × 5
     ##      person    tot   time      role
     ##      <fctr>  <chr> <fctr>    <fctr>
     ## 1   CROWLEY  230.2 time 2 moderator
@@ -637,7 +637,7 @@ are additional observations.
     ## |...
     ## 
     ## test: n = 728
-    ## # A tibble: 6 x 5
+    ## # A tibble: 6 × 5
     ##   person   tot   time      role
     ##   <fctr> <chr> <fctr>    <fctr>
     ## 1 LEHRER   1.1 time 1 moderator
@@ -659,7 +659,7 @@ Here I show splitting by integer.
     ## split_data:
     ## 
     ## train: n = 100
-    ## # A tibble: 6 x 5
+    ## # A tibble: 6 × 5
     ##   person    tot   time      role
     ##   <fctr>  <chr> <fctr>    <fctr>
     ## 1  OBAMA  102.4 time 2 candidate
@@ -672,7 +672,7 @@ Here I show splitting by integer.
     ## |...
     ## 
     ## test: n = 2812
-    ## # A tibble: 6 x 5
+    ## # A tibble: 6 × 5
     ##   person   tot   time      role
     ##   <fctr> <chr> <fctr>    <fctr>
     ## 1 LEHRER   1.1 time 1 moderator
@@ -704,7 +704,7 @@ new important terms. This in turn will reshape, remove, and add names to
 the "named list of regular expressions". This recursive process is
 captured in the model below.
 
-<img src="inst/figure/model2.png" width="400" alt="model">
+<img src="tools/figure/model2.png" width="400" alt="model">
 
 ### View Most Used Words
 
@@ -744,7 +744,7 @@ least frequent n terms but can be rearranged alphabetically.
         with(frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](inst/figure/unnamed-chunk-14-1.png)
+![](tools/figure/unnamed-chunk-14-1.png)
 
 A cumulative percent can give a different view of the term usage. The
 `plot_cum_percent` function converts a `frequent_terms` output into a
@@ -755,7 +755,7 @@ give insight into the frequently occurring ngrams.
         with(frequent_terms(dialogue, 40)) %>%
         plot_cum_percent()
 
-![](inst/figure/unnamed-chunk-15-1.png)
+![](tools/figure/unnamed-chunk-15-1.png)
 
 It may also be helpful to view the unique contribution of terms on the
 coverage excluding all elements from the match vector that were
@@ -807,7 +807,7 @@ unique coverage of terms.
         with(hierarchical_coverage_term(dialogue, terms)) %>%
         plot(use.terms = TRUE)
 
-![](inst/figure/unnamed-chunk-16-1.png)
+![](tools/figure/unnamed-chunk-16-1.png)
 
 ### View Most Used Words in Context
 
@@ -934,7 +934,7 @@ of observation which gives the researcher the observation level counts.
     model
 
     ## Coverage: 13.02% 
-    ## # A tibble: 2,912 x 6
+    ## # A tibble: 2,912 × 6
     ##       id n.words response_cries back_channels summons justification
     ##    <int>   <int>          <int>         <int>   <int>         <int>
     ## 1      1      10              0             0       0             0
@@ -988,7 +988,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](inst/figure/unnamed-chunk-24-1.png)
+![](tools/figure/unnamed-chunk-24-1.png)
 
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
@@ -999,7 +999,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-25-1.png)
+![](tools/figure/unnamed-chunk-25-1.png)
 
 Improving the Model
 -------------------
@@ -1312,7 +1312,7 @@ power, whereas the other tags have the potential to be redundant.
     tag_co_occurrence(model) %>%
         plot()
 
-![](inst/figure/impr_disc-1.png)
+![](tools/figure/impr_disc-1.png)
 
 Categorizing/Tagging
 --------------------
@@ -1339,13 +1339,13 @@ may be returned) as well as a `table` and plot of the counts. Use
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            129             16            228
+    ##              6            122             16            235
 
     classify(model) %>%
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](inst/figure/unnamed-chunk-36-1.png)
+![](tools/figure/unnamed-chunk-36-1.png)
 
 Evaluation: Accuracy
 --------------------
@@ -1417,11 +1417,11 @@ Below we create fake "known" tags to test `evaluate` with real data
     ## ------------------------------------------------ 
     ##            tag precision recall F_score accuracy
     ##  back_channels     1.000  1.000   1.000    1.000
-    ##  justification      .904  1.000    .950     .996
+    ##  justification      .919  1.000    .958     .997
     ##  No_Code_Given      .896  1.000    .945     .909
     ##   random noise      .000   .000    .000     .897
     ## response_cries      .812  1.000    .897     .999
-    ##        summons      .909  1.000    .953     .993
+    ##        summons      .902  1.000    .948     .992
     ## 
     ## -------------------- 
     ## Summary Measures
@@ -1431,7 +1431,7 @@ Below we create fake "known" tags to test `evaluate` with real data
     ## Macro-Averaged  
     ##   Accuracy:     .966
     ##   F-score:      .791
-    ##   Precision:    .754
+    ##   Precision:    .755
     ##   Recall:       .833
     ## 
     ## Micro-Averaged  
@@ -1482,7 +1482,7 @@ confidence band is highly affected by the number of samples per tag).
 
     plot(validated)
 
-![](inst/figure/unnamed-chunk-41-1.png)
+![](tools/figure/unnamed-chunk-41-1.png)
 
 These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification

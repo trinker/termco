@@ -19,4 +19,3 @@ value.}
 \description{
 Prints a frequent_terms object.
 }
-

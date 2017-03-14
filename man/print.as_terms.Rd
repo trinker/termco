@@ -14,4 +14,3 @@
 \description{
 Prints an as_terms object.
 }
-

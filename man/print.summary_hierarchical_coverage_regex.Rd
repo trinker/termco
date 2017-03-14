@@ -16,4 +16,3 @@
 \description{
 Prints a summary_hierarchical_coverage_regex object
 }
-

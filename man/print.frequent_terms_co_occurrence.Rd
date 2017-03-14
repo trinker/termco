@@ -14,4 +14,3 @@
 \description{
 Prints a frequent_terms_co_occurrence object
 }
-

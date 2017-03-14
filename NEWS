@@ -42,6 +42,9 @@ NEW FEATURES
 * `as_term_list` added.  This is a convenience function to convert a vector of
   terms into a named list.
 
+* `combine_counts` added to enable combining `term_count` and `token_count`
+  objects.
+
 MINOR FEATURES
 
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`

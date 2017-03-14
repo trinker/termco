@@ -2,11 +2,10 @@
 % Please edit documentation in R/termco-package.R
 \docType{package}
 \name{termco}
-\alias{package-termco}
 \alias{termco}
+\alias{package-termco}
 \alias{termco-package}
 \title{Counts of Terms and Substrings}
 \description{
 A small suite of functions used to count terms and substrings in strings.
 }
-

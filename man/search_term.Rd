@@ -42,4 +42,3 @@ search_term(sam_i_am, "\\\\bsam")
 search_term(sam_i_am, c('green', "\\\\bsam"))
 }
 \keyword{search}
-

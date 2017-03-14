@@ -38,4 +38,3 @@ presidential_debates_2012 \%>\%
     with(term_count(dialogue, person, bigrams))
 }
 }
-

@@ -46,4 +46,3 @@ probe_list(terms, "txt", copy2clip = TRUE)
 Other probe functions: \code{\link{probe_colo_list}},
   \code{\link{probe_colo_plot_list}}
 }
-

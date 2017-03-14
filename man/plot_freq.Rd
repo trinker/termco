@@ -65,4 +65,3 @@ presidential_debates_2012 \%>\%
     plot_counts() +
         ggplot2::xlab("Tags")
 }
-

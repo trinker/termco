@@ -39,4 +39,3 @@ unnest_term_list(y)
 }
 \keyword{term.list}
 \keyword{unnest}
-

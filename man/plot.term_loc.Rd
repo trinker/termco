@@ -23,4 +23,3 @@ cloud or if \code{FALSE} the more frequent words are in the center of the cloud.
 \description{
 Plots a term_loc object.
 }
-

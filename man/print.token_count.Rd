@@ -29,4 +29,3 @@ combining count and weighted information into a single display.
 \description{
 Prints a token_count object.
 }
-

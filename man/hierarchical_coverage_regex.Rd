@@ -56,4 +56,3 @@ hierarchical_coverage_regex(sam_i_am, unlist(regs, use.names = FALSE), ignore.ca
 Other hierarchical_coverage functions: \code{\link{hierarchical_coverage_term}}
 }
 \keyword{coverage}
-

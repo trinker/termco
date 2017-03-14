@@ -14,4 +14,3 @@
 \description{
 Summary of an hierarchical_coverage_regex object
 }
-

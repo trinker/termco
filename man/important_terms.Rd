@@ -56,4 +56,3 @@ plot(important_terms(x, n = 100), as.cloud = TRUE)
 }
 }
 \keyword{important}
-

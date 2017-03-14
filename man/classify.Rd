@@ -73,4 +73,3 @@ presidential_debates_2012 \%>\%
 }
 \keyword{classify}
 \keyword{predict}
-

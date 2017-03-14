@@ -71,4 +71,3 @@ presidential_debates_2012 \%>\%
     as_terms() \%>\%
     plot_counts(percent=FALSE, item.name = "Tags")
 }
-

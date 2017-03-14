@@ -127,4 +127,3 @@ plot(tag_co_occurrence(markers), node.weight = 5, min.edge.cutoff = .08)
 \author{
 Steve T. Simpson and Tyler Rinker <tyler.rinker@gmail.com>.
 }
-

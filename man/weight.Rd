@@ -37,4 +37,3 @@ weight(markers, "percent") \%>\%
 weight(markers, 'proportion')
 }
 \keyword{weight}
-

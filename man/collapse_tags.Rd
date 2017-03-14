@@ -31,4 +31,3 @@ mapping <- list(
 data(markers); markers
 collapse_tags(markers, mapping)
 }
-

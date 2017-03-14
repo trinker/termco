@@ -63,4 +63,3 @@ plot(top_colo_exclude)
 Steve T. Simpson and Tyler Rinker <tyler.rinker@gmail.com>.
 }
 \keyword{collocation}
-

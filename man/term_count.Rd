@@ -132,4 +132,3 @@ attributes(x2)[['pre_collapse_coverage']]
 }
 \keyword{substring}
 \keyword{term}
-

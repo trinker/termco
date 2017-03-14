@@ -39,4 +39,3 @@ search_term(sam_i_am, colo("^i\\\\b", "like", not="not"))
 }
 \keyword{collocate}
 \keyword{cooccur}
-

@@ -16,4 +16,3 @@
 \description{
 Prints a split_data object
 }
-

@@ -45,11 +45,10 @@ plot(out)
 plot(out2, use.terms = TRUE)
 plot(out2, use.terms = TRUE, mark.one = TRUE)
 }
-\author{
-Steve T. Simpson and Tyler Rinker <tyler.rinker@gmail.com>.
-}
 \seealso{
 Other hierarchical_coverage functions: \code{\link{hierarchical_coverage_regex}}
 }
+\author{
+Steve T. Simpson and Tyler Rinker <tyler.rinker@gmail.com>.
+}
 \keyword{coverage}
-

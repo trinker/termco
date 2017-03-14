@@ -23,4 +23,3 @@ Summary of an validate_model object
 \references{
 \url{http://onlinestatbook.com/2/estimation/proportion_ci.html}
 }
-

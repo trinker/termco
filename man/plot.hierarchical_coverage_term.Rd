@@ -25,4 +25,3 @@ gain.}
 \description{
 Plots a hierarchical_coverage_term object
 }
-

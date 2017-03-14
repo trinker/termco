@@ -41,4 +41,3 @@ plot_ca(markers)
 }
 \keyword{ca}
 \keyword{correspondence}
-

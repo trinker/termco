@@ -64,4 +64,3 @@ Invisibly returns the network and dotplot/bar plot as a list.
 \description{
 Plots a tag_co_occurrence object
 }
-

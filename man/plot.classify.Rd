@@ -16,4 +16,3 @@
 \description{
 Plots a plot.classify object
 }
-

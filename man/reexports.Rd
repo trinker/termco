@@ -2,10 +2,12 @@
 % Please edit documentation in R/gofastr_reexports.R
 \docType{import}
 \name{reexports}
-\alias{as_dtm}
-\alias{as_tdm}
 \alias{reexports}
+\alias{as_dtm}
+\alias{reexports}
+\alias{as_tdm}
 \title{Objects exported from other packages}
+\keyword{internal}
 \description{
 These objects are imported from other packages. Follow the links
 below to see their documentation.
@@ -13,5 +15,4 @@ below to see their documentation.
 \describe{
   \item{gofastr}{\code{\link[gofastr]{as_dtm}}, \code{\link[gofastr]{as_tdm}}}
 }}
-\keyword{internal}
 

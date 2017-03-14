@@ -42,4 +42,3 @@ out
 \keyword{count}
 \keyword{pretty}
 \keyword{printing}
-

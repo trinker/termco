@@ -24,4 +24,3 @@ the 2012 presidential debates.
 }
 }
 \keyword{datasets}
-

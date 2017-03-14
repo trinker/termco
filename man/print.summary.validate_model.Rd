@@ -16,4 +16,3 @@
 \description{
 Prints a summary.validate_model object
 }
-

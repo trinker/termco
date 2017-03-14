@@ -36,4 +36,3 @@ Currently the following are available:
 \description{
 Plots a term_count object.
 }
-

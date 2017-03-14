@@ -24,4 +24,3 @@ combined plot.
 \description{
 Plots a ngram_collocations object.
 }
-

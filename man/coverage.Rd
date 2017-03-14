@@ -56,4 +56,3 @@ presidential_debates_2012[coverage(markers2)$not, "dialogue"] \%>\%
    c()
 }
 \keyword{coverage}
-

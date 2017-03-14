@@ -21,4 +21,3 @@
 \description{
 Plots a validate_model object
 }
-

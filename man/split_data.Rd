@@ -38,4 +38,3 @@ split_data(LETTERS)
 split_data(LETTERS, .4)
 split_data(LETTERS, 10)
 }
-

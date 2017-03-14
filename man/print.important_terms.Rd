@@ -19,4 +19,3 @@ value.}
 \description{
 Prints an important_terms object
 }
-

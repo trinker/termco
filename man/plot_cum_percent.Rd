@@ -19,4 +19,3 @@ Plot a cumulative percentage of terms for frequent terms.
 \examples{
 plot_cum_percent(frequent_terms(presidential_debates_2012[["dialogue"]]))
 }
-

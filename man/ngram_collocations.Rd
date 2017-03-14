@@ -65,4 +65,3 @@ plot(ngram_collocations(x, gram.length = 3))
 \keyword{frequency}
 \keyword{term}
 \keyword{word}
-

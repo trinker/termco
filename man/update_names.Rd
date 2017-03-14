@@ -39,4 +39,3 @@ update_names(markers, old = c('person'), new = c('people'))
 update_names(markers, old = c('person', 'back_channels', 'summons'), new = c('people', 'bcs', 's'))
 attributes(update_names(markers, old = c('back_channels', 'summons'), new = c('bcs', 's')))
 }
-

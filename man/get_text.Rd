@@ -38,4 +38,3 @@ get_text(model, 'summons')
 get_text(model, 'response_cries')
 get_text(model, c('summons', 'response_cries'))
 }
-

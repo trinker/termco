@@ -12,12 +12,12 @@ Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, ggnetwork,
         gofastr, graphics, grDevices, grid, gridExtra, igraph, methods,
         quanteda, slam, SnowballC, stats, stringi, textshape, tidyr,
         tm, utils, wordcloud
-Suggests: intergraph, knitr, rmarkdown, qdapRegex, rgl, testthat
-Date: 2017-02-07
+Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
+Date: 2017-03-14
 License: MIT + file LICENSE
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 ByteCompile: true
 BugReports: https://github.com/trinker/termco/issues?state=open
 URL: https://github.com/trinker/termco
