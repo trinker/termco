@@ -102,6 +102,17 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     list_list <- FALSE
     if (is.list(token.list[[1]]) && length(token.list) > 1 && all(sapply(token.list, is.list))) list_list <- TRUE
 
+    if (!list_list) {
+        lens <- unlist(lapply(token.list, length))
+        token.list <- lapply(token.list, unique)
+        lens2 <- unlist(lapply(token.list, length))
+    } else {
+        lens <- unlist(lapply(unlist(token.list, recursive = FALSE), length))
+        token.list <- lapply(token.list, function(x) lapply(x, unique))
+        lens2 <- unlist(lapply(unlist(token.list, recursive = FALSE), length))
+    }
+
+    if (sum(lens) != sum(lens2)) warning("Duplicate tokens found within a named vector of `token.list`.  Dropping duplicates.")
     token.listsaved <- token.list
 
     ## swap out spaces as necessary
