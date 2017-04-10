@@ -11,7 +11,8 @@ Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
 [![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.5.2-orange.svg"><img src="https://img.shields.io/badge/Version-0.5.2-orange.svg" alt="Version"/></a>
 </p>
-<img src="tools/termco_logo/r_termco.png" width="200" alt="textproj Logo">
+
+![](tools/termco_logo/r_termco.png)
 
 **termco** is a small suite of functions used to count and find terms
 and substrings in strings. The tools can be used to build an expert
@@ -1339,7 +1340,7 @@ may be returned) as well as a `table` and plot of the counts. Use
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            122             16            235
+    ##              6            129             16            228
 
     classify(model) %>%
         unlist() %>%
@@ -1417,11 +1418,11 @@ Below we create fake "known" tags to test `evaluate` with real data
     ## ------------------------------------------------ 
     ##            tag precision recall F_score accuracy
     ##  back_channels     1.000  1.000   1.000    1.000
-    ##  justification      .919  1.000    .958     .997
+    ##  justification      .904  1.000    .950     .996
     ##  No_Code_Given      .896  1.000    .945     .909
     ##   random noise      .000   .000    .000     .897
     ## response_cries      .812  1.000    .897     .999
-    ##        summons      .902  1.000    .948     .992
+    ##        summons      .909  1.000    .953     .993
     ## 
     ## -------------------- 
     ## Summary Measures
@@ -1431,7 +1432,7 @@ Below we create fake "known" tags to test `evaluate` with real data
     ## Macro-Averaged  
     ##   Accuracy:     .966
     ##   F-score:      .791
-    ##   Precision:    .755
+    ##   Precision:    .754
     ##   Recall:       .833
     ## 
     ## Micro-Averaged  
