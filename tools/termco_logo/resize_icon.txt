@@ -1,2 +1,2 @@
 cd C:\Users\Tyler\GitHub\termco\tools\termco_logo
-ffmpeg -i r_termcoa.png -vf scale=200:-1 r_termco.png
+ffmpeg -i r_termcoa.png -vf scale=100:-1 r_termco.png
