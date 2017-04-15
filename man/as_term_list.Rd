@@ -2,12 +2,15 @@
 % Please edit documentation in R/as_term_list.R
 \name{as_term_list}
 \alias{as_term_list}
-\title{Convert Vector to Named List}
+\title{Coerce to Named List}
 \usage{
-as_term_list(x, ...)
+as_term_list(x, add.boundary = FALSE, ...)
 }
 \arguments{
-\item{x}{A vector of strings.}
+\item{x}{A vector of strings or a \pkg{quanteda} \code{dictionary}.}
+
+\item{add.boundary}{logical.  If \code{TRUE} a word boundary is place at the
+beginning and end of the strings.}
 
 \item{\ldots}{ignored.}
 }
@@ -15,8 +18,8 @@ as_term_list(x, ...)
 Returns a named list.
 }
 \description{
-Convenience function to convert a vector of terms into a named list.  Names
-are the same as the terms.
+Convenience function to convert a data forms of terms into a named list.  For
+vectors, names are the same as the terms.
 }
 \examples{
 as_term_list(state.name)
@@ -36,5 +39,14 @@ bigrams <- ngram_collocations(x, n=10) \%>\%
 
 presidential_debates_2012 \%>\%
     with(term_count(dialogue, person, bigrams))
+
+## dictionary from quanteda
+require(quanteda)
+mfdict <- dictionary(
+    file = "http://ow.ly/VMRkL",
+    format = "LIWC"
+)
+
+as_term_list(mfdict, TRUE)
 }
 }

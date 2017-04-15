@@ -1,14 +1,18 @@
 language: r
+r:
+  - release
+  - devel
 sudo: false
 cache: packages
 r_build_args: "--resave-data=best"
+r_check_args: "--as-cran
 env:
    global:
      - DISPLAY=:99.0
 
 r_github_packages:
   - jimhester/covr
-  - briatte/ggnetwork
+  - trinker/ggnetwork
   - trinker/gofastr
 
 before_install:

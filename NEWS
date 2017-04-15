@@ -40,7 +40,7 @@ NEW FEATURES
   defined counting function that is faster than `term_count` but less flexible.
 
 * `as_term_list` added.  This is a convenience function to convert a vector of
-  terms into a named list.
+  terms or a quanteda `dictionary` into a named list.
 
 * `combine_counts` added to enable combining `term_count` and `token_count`
   objects.
