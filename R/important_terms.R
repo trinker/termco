@@ -44,7 +44,7 @@ important_terms <- function (text.var, n = 20, stopwords = tm::stopwords("en"),
 
     if (isTRUE(stem)){
         dtm <- gofastr::q_dtm_stem(text.var)
-        stopwords <- gofastr:::stem(stopwords)
+        stopwords <- SnowballC::wordStem(stopwords, language = language)
     } else {
         dtm <- gofastr::q_dtm(text.var)
     }
