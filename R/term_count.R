@@ -295,26 +295,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
 }
 
 
-na.replace <- function(v, value=0) { v[is.na(v)] <- value; v }
-mymerge <-  function(x, y) merge(x, y, all=TRUE)
 
-
-term_lister_check <- function(term.list, G){
-    if(any(G %in% names(term.list))) stop("`grouping` names cannot be used as `term.list` names")
-
-    nms <- names(term.list)
-    names(term.list)[sapply(nms, identical, "")] <- make.names(seq_len(length(nms[sapply(nms,
-        identical, "")])))
-
-    if (!is.list(term.list)) {
-        warning("Expecting a named list for `term.list`; coercing to list.")
-        term.list <- as.list(term.list)
-        if (is.null(names(term.list))) term.list <- stats::setNames(term.list, term.list)
-    } else {
-        term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
-    }
-    term.list
-}
 
 na.replace <- function(v, value=0) { v[is.na(v)] <- value; v }
 mymerge <-  function(x, y) merge(x, y, all=TRUE)
