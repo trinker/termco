@@ -178,7 +178,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     DF[G] <- grouping
 
     ## create DTM
-    dtm <- make_dtm(text.var, paste2(DF[G], sep = "___"), removePunct = !keep.punctuation, ...)
+    dtm <- make_dtm(text.var, paste2(DF[G], sep = "___"), remove_punct = !keep.punctuation, ...)
 
     nms <- colnames(dtm)
     n.tokens <- slam::row_sums(dtm)
