@@ -21,7 +21,7 @@
 #' @param \ldots Other arguments passed to \code{\link[quanteda]{collocations}}.
 #' @return Retuns a data.frame of terms and frequencies.
 #' @importFrom tm stopwords
-#' @importFrom data.table := .SD
+#' @importFrom data.table := .SD .N
 #' @keywords term word frequency
 #' @seealso \code{\link[quanteda]{collocations}}
 #' @export
@@ -41,9 +41,11 @@
 #' plot(ngram_collocations(x, order.by = "dice"))
 #' plot(ngram_collocations(x, gram.length = 3))
 #' }
-ngram_collocations <- function(text.var, n = 20, gram.length = 2,
+ngram_collocations <- function(text.var, n = 20, gram.length = 2:3,
     stopwords = tm::stopwords("en"), min.char = 4,
     max.char = Inf, order.by = "frequency", stem = FALSE, language = "porter", ...) {
+
+    wc <- collocation <- id <- terms <- len <- low <- high <- sw <- keep <- NULL
 
     ## initial checks for: order.by column
     orders <- c("frequency", "G2", "X2", "pmi", "dice")
@@ -52,7 +54,7 @@ ngram_collocations <- function(text.var, n = 20, gram.length = 2,
     }
 
     ## initial checks for: order.by column
-    stopifnot(length(gram.length)==1)
+    stopifnot(length(gram.length) %in% 1:2)
 
     ## stemming
     if (isTRUE(stem)) {
@@ -66,40 +68,24 @@ ngram_collocations <- function(text.var, n = 20, gram.length = 2,
     }
 
     ## use quanteda to calculate collocations
-    y <- quanteda::collocations(text.var, size=gram.length, n=200000, method = "all", ...)
-    y[["keeps"]] <- rowSums(!is.na(y)) > 0
-    y <- y[which(keeps), ][, keeps := NULL]
+    #y <- quanteda::collocations(text.var, size=gram.length, n=200000, method = "all", ...)
+    y <- termco_collocations(text.var, size=gram.length, order.by = order.by, ...)
 
-    ## change names to be consistent w/ ngram_collocations
-    names(y) <- gsub("^count$", "frequency", gsub("(^word)(\\d)", "term\\2", names(y)))
+    # y[["keeps"]] <- rowSums(!is.na(y)) > 0
+    # y <- y[which(keeps), ][, keeps := NULL]
+    #
+    # ## change names to be consistent w/ ngram_collocations
+    # names(y) <- gsub("^count$", "frequency", gsub("(^word)(\\d)", "term\\2", names(y)))
 
-    ## drop empty columns
-    keeps <- !sapply(y, function(x) all(x == ""))
-    keeps <- names(keeps)[keeps]
-    y <- y[, .SD, .SDcols=keeps]
+    # ## drop empty columns
+    # keeps <- !sapply(y, function(x) all(x == ""))
+    # keeps <- names(keeps)[keeps]
+    # y <- y[, .SD, .SDcols=keeps]
 
-    ## filter out that below min and above max nchars
-    termcols <- grepl("^term\\d+$", colnames(y))
-    y[["keeps"]] <- rowSums(sapply(y[, .SD, .SDcols=termcols], function(x){
-        (nchar(x) > min.char - 1) & (nchar(x) < max.char + 1)
-    })) == sum(termcols)
-    y <- y[which(keeps), ][, keeps := NULL]
-
-    ## stopword removal
-    if (!is.null(stopwords)){
-        y[["keeps"]] <- rowSums(sapply(y[, .SD, .SDcols=termcols], function(x){
-            !x %in% stopwords
-        })) == sum(termcols)
-        y <- y[which(keeps), ][, keeps := NULL]
-    }
 
     ## grabbing n rows
     if (n > nrow(y)) n <- nrow(y)
     y <- y[seq_len(n), ]
-
-    ## ordering by frequency or collocation method
-    express <- parse(text=paste0("order(-", order.by, ")"))
-    y <- y[eval(express)]
 
     class(y) <- c('ngram_collocations', class(y))
     attributes(y)[["gram.length"]] <- gram.length
@@ -123,13 +109,14 @@ ngram_collocations <- function(text.var, n = 20, gram.length = 2,
 plot.ngram_collocations <- function(x, drop.redundant.yaxis.text = TRUE,
     plot = TRUE, ...){
 
-    Grams <- Method <- Scaled <- Measure <- NULL
-    termcols <- colnames(x)[seq_len(attr(x, "gram.length"))]
+    collocation <- Grams <- Method <- Scaled <- Measure <- NULL
+
 
     data.table::setDT(x)
-    x[, Grams := Reduce(function(...) paste(..., sep = "-"), .SD[, mget(termcols)])]
+    # x[, Grams := Reduce(function(...) paste(..., sep = "-"), .SD[, mget(termcols)])]
+    x[, Grams := gsub(' ', '-', collocation, fixed = TRUE)][, collocation := NULL]
     x[["Grams"]] <- factor(x[["Grams"]], levels=rev(x[["Grams"]]))
-    x[, eval(parse(text=paste0("c(", paste(paste0("\"", termcols, "\""), collapse=", "), ")"))) := NULL]
+    # x[, eval(parse(text=paste0("c(", paste(paste0("\"", termcols, "\""), collapse=", "), ")"))) := NULL]
 
     plot1 <- ggplot2::ggplot(x, ggplot2::aes_string(x='Grams', weight='frequency')) +
         ggplot2::geom_bar() +
@@ -182,5 +169,60 @@ plot.ngram_collocations <- function(x, drop.redundant.yaxis.text = TRUE,
     if (isTRUE(plot)) gridExtra::grid.arrange(plotout)
     return(invisible(list(bar = plot1, heat = heat_plot)))
 }
+
+
+## have to filter out any that were less than n in length
+termco_collocations <- function(x, size = 2:3, order.by = 'frequency',
+    stopwords = tm::stopwords("en"), min.char = 4, max.char = Inf, ...){
+
+    terms <- wc <- collocation <- id <- terms <- len <- low <- high <- sw <- keep <- NULL
+
+    tokens <- quanteda::tokens(tolower(x), remove_punct = TRUE, remove_symbols = TRUE)
+
+    ngrams <- lapply(c('lr', 'chi2', 'pmi', 'dice'), function(x){
+        quanteda::textstat_collocations(tokens, method = x, max_size = max(size),
+            min_count = 2)
+    })
+
+    out <- Reduce(function(x, y) dplyr::left_join(x, y, by=c('collocation', 'count')), ngrams)
+
+    out <- data.table::data.table(out)
+
+    if (order.by == 'frequency') order.by <- 'count'
+
+    expr <- parse(text = paste0('order(-', order.by, ')'))
+
+    out <- out[, wc := stringi::stri_count_words(collocation)][
+        wc >= min(size) & wc <= max(size),][
+        eval(expr), ][,
+        wc := NULL][, id := 1:.N][]
+
+    sw <- data.table::setkey(data.table::data.table(terms = stopwords, sw = TRUE), "terms")
+
+    cols <- out[,c('collocation', 'id'), with = FALSE]
+    cols <- cols[,
+        terms := stringi::stri_split_fixed(collocation, ' ')][,
+        id := 1:.N][,
+        collocation := NULL][,
+        list(terms = unlist(terms)), by = 'id'][,
+        len := nchar(terms)][,
+        low := len < min.char][,
+        high := len > max.char][]
+
+    data.table::setkey(cols, 'terms')
+
+    keeps <- sw[cols][, sw := ifelse(is.na(sw), FALSE, sw)][,
+        list(sw = sum(sw), low = sum(low), high = sum(high)), by = 'id'][,
+        keep := sw ==0 & low ==0 & high == 0,, by = 'id'][,
+        .SD[all(keep)], by = id][, 'id', with = FALSE]
+
+    data.table::setkey(keeps, 'id')
+    data.table::setkey(out, 'id')
+
+    out <- out[keeps, nomatch=0][, id := NULL][]
+    data.table::setnames(out, "count","frequency")
+    out
+}
+
 
 

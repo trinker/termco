@@ -29,7 +29,8 @@ knitr::opts_chunk$set(fig.path = "tools/figure/")
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master) 
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)`r verbadge`
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)
+
 
 
 ![](tools/termco_logo/r_termco.png)
@@ -492,7 +493,7 @@ The network plot on the left shows the strength of relationships between tags, w
 
 ```{r, impr_disc, fig.width=8}
 tag_co_occurrence(model) %>%
-    plot()
+    plot(min.edge.cutoff = .01)
 ````
 
 

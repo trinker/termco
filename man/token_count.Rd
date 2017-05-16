@@ -69,7 +69,7 @@ token_count(sam_i_am, grouping.var = NULL, token.list = token_list)
 
 x <- presidential_debates_2012[["dialogue"]]
 
-bigrams <- apply(ngram_collocations(x)[, 1:2], 1, paste, collapse = " ")
+bigrams <- ngram_collocations(x, gram.length = 2)$collocation
 bigram_model <- token_count(x, TRUE, token.list = as_term_list(bigrams))
 as_dtm(bigram_model)
 

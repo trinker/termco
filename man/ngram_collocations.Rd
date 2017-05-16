@@ -4,7 +4,7 @@
 \alias{ngram_collocations}
 \title{Ngram Collocations}
 \usage{
-ngram_collocations(text.var, n = 20, gram.length = 2,
+ngram_collocations(text.var, n = 20, gram.length = 2:3,
   stopwords = tm::stopwords("en"), min.char = 4, max.char = Inf,
   order.by = "frequency", stem = FALSE, language = "porter", ...)
 }

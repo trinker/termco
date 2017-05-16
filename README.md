@@ -1,4 +1,4 @@
-termco   [![Follow](https://img.shields.io/twitter/follow/tylerrinker.svg?style=social)](https://twitter.com/intent/follow?screen_name=tylerrinker)
+termco   
 ============
 
 
@@ -9,8 +9,7 @@ developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repos
 Status](https://travis-ci.org/trinker/termco.svg?branch=master)](https://travis-ci.org/trinker/termco)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](https://coveralls.io/r/trinker/termco?branch=master)
-[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)<a href="https://img.shields.io/badge/Version-0.5.2-orange.svg"><img src="https://img.shields.io/badge/Version-0.5.2-orange.svg" alt="Version"/></a>
-</p>
+[![DOI](https://zenodo.org/badge/5398/trinker/termco.svg)](https://zenodo.org/badge/latestdoi/5398/trinker/termco)
 
 ![](tools/termco_logo/r_termco.png)
 
@@ -376,15 +375,15 @@ Plotting
 
     plot(counts)
 
-![](tools/figure/unnamed-chunk-6-1.png)
+![](tools/figure/unnamed-chunk-7-1.png)
 
     plot(counts, labels=TRUE)
 
-![](tools/figure/unnamed-chunk-6-2.png)
+![](tools/figure/unnamed-chunk-7-2.png)
 
     plot_ca(counts, FALSE)
 
-![](tools/figure/unnamed-chunk-6-3.png)
+![](tools/figure/unnamed-chunk-7-3.png)
 
 Ngram Collocations
 ------------------
@@ -401,114 +400,114 @@ method.
 
     ngram_collocations(x)
 
-    ##        term1      term2 frequency        G2        X2      pmi      dice
-    ##  1:     make       sure       127 1274.7419 19255.047 5.025291 0.6827957
-    ##  2: governor     romney       105 1258.8293 28675.983 5.610959 0.8366534
-    ##  3:     four      years        63  667.3310 15045.063 5.478879 0.6057692
-    ##  4:   mister  president        61  629.2543 11462.157 5.240109 0.4692308
-    ##  5:   united     states        31  421.4984 23579.173 6.634730 0.7560976
-    ##  6:   middle      class        30  370.9423 15036.048 6.218395 0.5714286
-    ##  7:     last       four        27  251.0508  5034.434 5.235084 0.3506494
-    ##  8:   middle       east        26  340.8068 14772.750 6.343559 0.5360825
-    ##  9:   health       care        26  320.4936 14947.477 6.355548 0.6046512
-    ## 10: american     people        26  195.2853  2139.654 4.427656 0.1933086
-    ## 11:    small businesses        22  264.6317 12204.609 6.320147 0.5500000
-    ## 12:   making       sure        19  152.4348  2049.194 4.694159 0.1890547
-    ## 13:     dodd      frank        15  266.9402 40386.000 7.898188 1.0000000
-    ## 14:  federal government        15  150.9879  4156.282 5.629045 0.3000000
-    ## 15: governor   romney's        13  148.3276  3711.727 5.657479 0.1688312
-    ## 16:    small   business        13  145.1962  5929.481 6.125411 0.3768116
-    ## 17:   middle     income        13  137.7277  4353.608 5.817465 0.2795699
-    ## 18:  private     sector        11  163.8559 17698.799 7.383733 0.6285714
-    ## 19:     wall     street         9  162.8587 36346.500 8.303653 0.9473684
-    ## 20:     food     stamps         9  158.9293 33041.454 8.208343 0.9000000
+    ##            collocation frequency        G2          X2       pmi      dice
+    ##  1:          make sure       127 1271.0126   18973.589  5.010625 0.6827957
+    ##  2:    governor romney       105 1178.5814   22616.632  5.374568 0.7342657
+    ##  3:         four years        63  660.7728   14501.009  5.442233 0.6000000
+    ##  4:   mister president        61  629.7792   11474.923  5.241191 0.4747082
+    ##  5:      united states        31  422.7861   23741.541  6.641570 0.7654321
+    ##  6:       middle class        30  370.0621   14816.826  6.203729 0.5714286
+    ##  7:          last four        27  250.7039    5000.537  5.228369 0.3529412
+    ##  8:    last four years        27  971.5841 1724704.275 11.062062 0.2084942
+    ##  9:        middle east        26  340.0439   14557.426  6.328892 0.5360825
+    ## 10:        health care        26  319.7309   14729.556  6.340881 0.6046512
+    ## 11:    american people        26  195.0577    2128.716  4.422605 0.1947566
+    ## 12:   small businesses        22  260.7927   11438.391  6.255470 0.5365854
+    ## 13:        making sure        19  151.8800    2018.957  4.679492 0.1890547
+    ## 14:     million people        17  119.0044    1155.814  4.241919 0.1338583
+    ## 15:         dodd frank        15  266.5001   39798.000  7.883522 1.0000000
+    ## 16: federal government        15  151.0503    4156.951  5.629194 0.3030303
+    ## 17:       young people        15  123.5549    1643.548  4.708807 0.1287554
+    ## 18:     small business        13  144.8151    5842.920  6.110745 0.3768116
+    ## 19:  governor romney's        13  141.9289    2927.581  5.421088 0.1375661
+    ## 20:      middle income        13  137.3467    4289.989  5.802799 0.2795699
 
     ngram_collocations(x, gram.length = 3)
 
-    ##        term1    term2  term3 frequency        G2          X2       pmi
-    ##  1:     last     four  years        27  944.1660  1119.16819  5.857686
-    ##  2: governor   romney   says         8  885.7894   308.55635  3.777901
-    ##  3: governor   romney   said         6  843.1408   120.97011  2.755612
-    ##  4:     also     make   sure         3 1264.8641   425.84142  5.491442
-    ##  5:     will     make   sure         3 1257.6380   285.37920  5.143135
-    ##  6: governor   romney  talks         3  837.3864   206.96838  5.004811
-    ##  7: governor   romney talked         2  834.6748 41352.74182 10.628829
-    ##  8:     make     sure  folks         1 1237.4903  7478.53105  8.911870
-    ##  9:     make     sure  small         1 1237.2435  1181.20508  6.969434
-    ## 10:     make     sure   take         1 1236.5061    36.53827  3.198426
-    ## 11:  suspect governor romney         1  962.9573  4610.24137  7.718389
-    ## 12:   advice governor romney         1  961.9173 85075.62066 11.349375
-    ## 13:  nothing governor romney         1  961.2443 23537.61734  9.368373
-    ## 14:    heard governor romney         1  960.7454 34127.98803 10.433084
-    ## 15:     hear governor romney         1  960.3492   926.94116  6.521061
-    ## 16:    think governor romney         1  958.6054  5625.50950  8.604957
-    ## 17:  support governor romney         1  958.3397   559.13519  5.944697
-    ## 18:    thank governor romney         1  958.0053  1749.47325  6.900209
-    ## 19:  believe governor romney         1  956.6248  4367.39446  8.342593
-    ## 20:   romney governor romney         1  955.8070   815.59627  4.046093
-    ##             dice
-    ##  1: 0.0018814675
-    ##  2: 0.0010863661
-    ##  3: 0.0005719188
-    ##  4: 0.0019065777
-    ##  5: 0.0017793594
-    ##  6: 0.0017421603
-    ##  7: 0.0022935780
-    ##  8: 0.0021299255
-    ##  9: 0.0015197568
-    ## 10: 0.0014903130
-    ## 11: 0.0040241449
-    ## 12: 0.0023668639
-    ## 13: 0.0045871560
-    ## 14: 0.0023584906
-    ## 15: 0.0015515904
-    ## 16: 0.0022935780
-    ## 17: 0.0019900498
-    ## 18: 0.0021810251
-    ## 19: 0.0022857143
-    ## 20: 0.0009398496
+    ##                 collocation frequency        G2         X2       pmi
+    ##  1:         last four years        27  971.5841 1724704.28 11.062062
+    ##  2:   thousand nine hundred        11  397.1371 3072410.33 12.539329
+    ##  3:    twenty three million        11  259.6493 2513947.30 12.339475
+    ##  4:   middle class families        10  449.7899 3048521.22 12.626088
+    ##  5:    governor romney says         8 1158.2886  192222.97  9.991399
+    ##  6:   thousand five hundred         8  347.5014  694552.92 11.366460
+    ##  7:    governor romney said         6 1124.7911   39138.23  8.149088
+    ##  8:         next four years         6  693.2538  175953.18 10.218342
+    ##  9:  middle income families         6  317.3088 1360460.91 12.328836
+    ## 10:    three million people         6  219.8922  119729.34  9.893721
+    ## 11:       four years closer         5  522.4227  875348.03 12.061195
+    ## 12:    dollar five trillion         5  313.6099  397529.29 11.267278
+    ## 13:    dollar seven hundred         5  158.7751  493914.84 11.499557
+    ## 14: hundred sixteen billion         5  138.6161 7274433.62 14.190439
+    ## 15:   seven hundred sixteen         5  135.3639 2932291.59 13.281838
+    ## 16:         five point plan         5  113.9890  567955.03 11.640329
+    ## 17:       five million jobs         5  112.5139  145903.55 10.280819
+    ## 18:    dollar four thousand         4  192.7733   64472.06  9.663346
+    ## 19:    american people safe         4  192.0857  325883.97 11.305044
+    ## 20: three million americans         4  150.8102  417336.21 11.553169
+    ##           dice
+    ##  1: 0.20849421
+    ##  2: 0.17741935
+    ##  3: 0.18032787
+    ##  4: 0.17857143
+    ##  5: 0.05387205
+    ##  6: 0.10596026
+    ##  7: 0.02933985
+    ##  8: 0.05217391
+    ##  9: 0.11214953
+    ## 10: 0.04067797
+    ## 11: 0.06711409
+    ## 12: 0.07246377
+    ## 13: 0.07352941
+    ## 14: 0.14925373
+    ## 15: 0.11904762
+    ## 16: 0.08064516
+    ## 17: 0.04854369
+    ## 18: 0.03755869
+    ## 19: 0.03375527
+    ## 20: 0.06896552
 
     ngram_collocations(x, order.by = "dice")
 
-    ##        term1      term2 frequency        G2        X2      pmi      dice
-    ##  1:     dodd      frank        15  266.9402 40386.000 7.898188 1.0000000
-    ##  2:     wall     street         9  162.8587 36346.500 8.303653 0.9473684
-    ##  3:     food     stamps         9  158.9293 33041.454 8.208343 0.9000000
-    ##  4: governor     romney       105 1258.8293 28675.983 5.610959 0.8366534
-    ##  5:   united     states        31  421.4984 23579.173 6.634730 0.7560976
-    ##  6:     make       sure       127 1274.7419 19255.047 5.025291 0.6827957
-    ##  7:  private     sector        11  163.8559 17698.799 7.383733 0.6285714
-    ##  8:     four      years        63  667.3310 15045.063 5.478879 0.6057692
-    ##  9:   health       care        26  320.4936 14947.477 6.355548 0.6046512
-    ## 10:   middle      class        30  370.9423 15036.048 6.218395 0.5714286
-    ## 11:    small businesses        22  264.6317 12204.609 6.320147 0.5500000
-    ## 12:   middle       east        26  340.8068 14772.750 6.343559 0.5360825
-    ## 13:   mister  president        61  629.2543 11462.157 5.240109 0.4692308
-    ## 14:    small   business        13  145.1962  5929.481 6.125411 0.3768116
-    ## 15:     last       four        27  251.0508  5034.434 5.235084 0.3506494
-    ## 16:  federal government        15  150.9879  4156.282 5.629045 0.3000000
-    ## 17:   middle     income        13  137.7277  4353.608 5.817465 0.2795699
-    ## 18: american     people        26  195.2853  2139.654 4.427656 0.1933086
-    ## 19:   making       sure        19  152.4348  2049.194 4.694159 0.1890547
-    ## 20: governor   romney's        13  148.3276  3711.727 5.657479 0.1688312
+    ##                 collocation frequency        G2       X2      pmi      dice
+    ##  1:              dodd frank        15 266.50007 39798.00 7.883522 1.0000000
+    ##  2:         standard bearer         4  81.64188 39798.00 9.205278 1.0000000
+    ##  3:            apology tour         3  62.95758 39798.00 9.492960 1.0000000
+    ##  4:   intellectual property         3  62.95758 39798.00 9.492960 1.0000000
+    ##  5:            joint chiefs         3  62.95758 39798.00 9.492960 1.0000000
+    ##  6:           onest century         3  62.95758 39798.00 9.492960 1.0000000
+    ##  7: unintended consequences         2  43.59364 39798.00 9.898425 1.0000000
+    ##  8:      appleton wisconsin         2  43.59364 39798.00 9.898425 1.0000000
+    ##  9:         abraham lincoln         2  43.59364 39798.00 9.898425 1.0000000
+    ## 10:      permanent resident         2  43.59364 39798.00 9.898425 1.0000000
+    ## 11:              boca raton         2  43.59364 39798.00 9.898425 1.0000000
+    ## 12:           raton florida         2  43.59364 39798.00 9.898425 1.0000000
+    ## 13:          prime minister         2  43.59364 39798.00 9.898425 1.0000000
+    ## 14:         haqqani network         2  43.59364 39798.00 9.898425 1.0000000
+    ## 15:             wall street         9 162.59463 35817.30 8.288987 0.9473684
+    ## 16:      planned parenthood         5  94.41404 33164.17 8.799812 0.9090909
+    ## 17:             food stamps         9 158.66522 32560.36 8.193677 0.9000000
+    ## 18:        self deportation         4  76.63786 31837.60 8.982134 0.8888889
+    ## 19:        cleveland clinic         3  58.45891 29847.75 9.205278 0.8571429
+    ## 20:    religious minorities         3  58.45891 29847.75 9.205278 0.8571429
 
 ### Collocation Plotting
 
     plot(ngram_collocations(x))
 
-![](tools/figure/unnamed-chunk-8-1.png)
+![](tools/figure/unnamed-chunk-9-1.png)
 
     plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
 
-![](tools/figure/unnamed-chunk-8-2.png)
+![](tools/figure/unnamed-chunk-9-2.png)
 
     plot(ngram_collocations(x, gram.length = 3))
 
-![](tools/figure/unnamed-chunk-8-3.png)
+![](tools/figure/unnamed-chunk-9-3.png)
 
     plot(ngram_collocations(x, order.by = "dice"))
 
-![](tools/figure/unnamed-chunk-8-4.png)
+![](tools/figure/unnamed-chunk-9-4.png)
 
 Converting to Document Term Matrix
 ----------------------------------
@@ -540,16 +539,14 @@ structures using `cbind` & `rbind`.
     plot(mod)
     rect.hclust(mod, k = 5, border = "red")
 
-![](tools/figure/unnamed-chunk-9-1.png)
+![](tools/figure/unnamed-chunk-10-1.png)
 
     (clusters <- cutree(mod, 5))
 
-    ##     OBAMA.time 1     OBAMA.time 2     OBAMA.time 3    ROMNEY.time 1 
-    ##                1                1                1                2 
-    ##    ROMNEY.time 2    ROMNEY.time 3   CROWLEY.time 2    LEHRER.time 1 
-    ##                2                2                3                4 
-    ##  QUESTION.time 2 SCHIEFFER.time 3 
-    ##                5                3
+    ##     OBAMA.time 1     OBAMA.time 2     OBAMA.time 3    ROMNEY.time 1    ROMNEY.time 2    ROMNEY.time 3   CROWLEY.time 2 
+    ##                1                1                1                2                2                2                3 
+    ##    LEHRER.time 1  QUESTION.time 2 SCHIEFFER.time 3 
+    ##                4                5                3
 
 Building an Expert Rules, Regex Classifier Model
 ================================================
@@ -745,7 +742,7 @@ least frequent n terms but can be rearranged alphabetically.
         with(frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](tools/figure/unnamed-chunk-14-1.png)
+![](tools/figure/unnamed-chunk-15-1.png)
 
 A cumulative percent can give a different view of the term usage. The
 `plot_cum_percent` function converts a `frequent_terms` output into a
@@ -756,7 +753,7 @@ give insight into the frequently occurring ngrams.
         with(frequent_terms(dialogue, 40)) %>%
         plot_cum_percent()
 
-![](tools/figure/unnamed-chunk-15-1.png)
+![](tools/figure/unnamed-chunk-16-1.png)
 
 It may also be helpful to view the unique contribution of terms on the
 coverage excluding all elements from the match vector that were
@@ -808,7 +805,7 @@ unique coverage of terms.
         with(hierarchical_coverage_term(dialogue, terms)) %>%
         plot(use.terms = TRUE)
 
-![](tools/figure/unnamed-chunk-16-1.png)
+![](tools/figure/unnamed-chunk-17-1.png)
 
 ### View Most Used Words in Context
 
@@ -989,7 +986,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](tools/figure/unnamed-chunk-24-1.png)
+![](tools/figure/unnamed-chunk-25-1.png)
 
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
@@ -1000,7 +997,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](tools/figure/unnamed-chunk-25-1.png)
+![](tools/figure/unnamed-chunk-26-1.png)
 
 Improving the Model
 -------------------
@@ -1311,7 +1308,7 @@ and shorter bars represent the tags that provide the best discriminatory
 power, whereas the other tags have the potential to be redundant.
 
     tag_co_occurrence(model) %>%
-        plot()
+        plot(min.edge.cutoff = .01)
 
 ![](tools/figure/impr_disc-1.png)
 
@@ -1331,8 +1328,7 @@ may be returned) as well as a `table` and plot of the counts. Use
     classify(model) %>%
         head()
 
-    ## [1] NA               "response_cries" NA               NA              
-    ## [5] "response_cries" NA
+    ## [1] NA               "response_cries" NA               NA               "response_cries" NA
 
     classify(model) %>%
         unlist() %>%
@@ -1340,13 +1336,13 @@ may be returned) as well as a `table` and plot of the counts. Use
 
     ## .
     ##  back_channels  justification response_cries        summons 
-    ##              6            129             16            228
+    ##              6            121             16            236
 
     classify(model) %>%
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](tools/figure/unnamed-chunk-36-1.png)
+![](tools/figure/unnamed-chunk-37-1.png)
 
 Evaluation: Accuracy
 --------------------
@@ -1418,11 +1414,11 @@ Below we create fake "known" tags to test `evaluate` with real data
     ## ------------------------------------------------ 
     ##            tag precision recall F_score accuracy
     ##  back_channels     1.000  1.000   1.000    1.000
-    ##  justification      .904  1.000    .950     .996
+    ##  justification      .917  1.000    .957     .997
     ##  No_Code_Given      .896  1.000    .945     .909
     ##   random noise      .000   .000    .000     .897
     ## response_cries      .812  1.000    .897     .999
-    ##        summons      .909  1.000    .953     .993
+    ##        summons      .903  1.000    .949     .992
     ## 
     ## -------------------- 
     ## Summary Measures
@@ -1432,7 +1428,7 @@ Below we create fake "known" tags to test `evaluate` with real data
     ## Macro-Averaged  
     ##   Accuracy:     .966
     ##   F-score:      .791
-    ##   Precision:    .754
+    ##   Precision:    .755
     ##   Recall:       .833
     ## 
     ## Micro-Averaged  
@@ -1483,7 +1479,7 @@ confidence band is highly affected by the number of samples per tag).
 
     plot(validated)
 
-![](tools/figure/unnamed-chunk-41-1.png)
+![](tools/figure/unnamed-chunk-42-1.png)
 
 These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification
