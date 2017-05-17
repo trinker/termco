@@ -375,15 +375,15 @@ Plotting
 
     plot(counts)
 
-![](tools/figure/unnamed-chunk-7-1.png)
+![](tools/figure/unnamed-chunk-6-1.png)
 
     plot(counts, labels=TRUE)
 
-![](tools/figure/unnamed-chunk-7-2.png)
+![](tools/figure/unnamed-chunk-6-2.png)
 
     plot_ca(counts, FALSE)
 
-![](tools/figure/unnamed-chunk-7-3.png)
+![](tools/figure/unnamed-chunk-6-3.png)
 
 Ngram Collocations
 ------------------
@@ -469,45 +469,66 @@ method.
 
     ngram_collocations(x, order.by = "dice")
 
-    ##                 collocation frequency        G2       X2      pmi      dice
-    ##  1:              dodd frank        15 266.50007 39798.00 7.883522 1.0000000
-    ##  2:         standard bearer         4  81.64188 39798.00 9.205278 1.0000000
-    ##  3:            apology tour         3  62.95758 39798.00 9.492960 1.0000000
-    ##  4:   intellectual property         3  62.95758 39798.00 9.492960 1.0000000
-    ##  5:            joint chiefs         3  62.95758 39798.00 9.492960 1.0000000
-    ##  6:           onest century         3  62.95758 39798.00 9.492960 1.0000000
-    ##  7: unintended consequences         2  43.59364 39798.00 9.898425 1.0000000
-    ##  8:      appleton wisconsin         2  43.59364 39798.00 9.898425 1.0000000
-    ##  9:         abraham lincoln         2  43.59364 39798.00 9.898425 1.0000000
-    ## 10:      permanent resident         2  43.59364 39798.00 9.898425 1.0000000
-    ## 11:              boca raton         2  43.59364 39798.00 9.898425 1.0000000
-    ## 12:           raton florida         2  43.59364 39798.00 9.898425 1.0000000
-    ## 13:          prime minister         2  43.59364 39798.00 9.898425 1.0000000
-    ## 14:         haqqani network         2  43.59364 39798.00 9.898425 1.0000000
-    ## 15:             wall street         9 162.59463 35817.30 8.288987 0.9473684
-    ## 16:      planned parenthood         5  94.41404 33164.17 8.799812 0.9090909
-    ## 17:             food stamps         9 158.66522 32560.36 8.193677 0.9000000
-    ## 18:        self deportation         4  76.63786 31837.60 8.982134 0.8888889
-    ## 19:        cleveland clinic         3  58.45891 29847.75 9.205278 0.8571429
-    ## 20:    religious minorities         3  58.45891 29847.75 9.205278 0.8571429
+    ##                 collocation frequency        G2       X2      pmi
+    ##  1:              dodd frank        15 266.50007 39798.00 7.883522
+    ##  2:         standard bearer         4  81.64188 39798.00 9.205278
+    ##  3:            apology tour         3  62.95758 39798.00 9.492960
+    ##  4:   intellectual property         3  62.95758 39798.00 9.492960
+    ##  5:            joint chiefs         3  62.95758 39798.00 9.492960
+    ##  6:           onest century         3  62.95758 39798.00 9.492960
+    ##  7: unintended consequences         2  43.59364 39798.00 9.898425
+    ##  8:      appleton wisconsin         2  43.59364 39798.00 9.898425
+    ##  9:         abraham lincoln         2  43.59364 39798.00 9.898425
+    ## 10:      permanent resident         2  43.59364 39798.00 9.898425
+    ## 11:              boca raton         2  43.59364 39798.00 9.898425
+    ## 12:           raton florida         2  43.59364 39798.00 9.898425
+    ## 13:          prime minister         2  43.59364 39798.00 9.898425
+    ## 14:         haqqani network         2  43.59364 39798.00 9.898425
+    ## 15:             wall street         9 162.59463 35817.30 8.288987
+    ## 16:      planned parenthood         5  94.41404 33164.17 8.799812
+    ## 17:             food stamps         9 158.66522 32560.36 8.193677
+    ## 18:        self deportation         4  76.63786 31837.60 8.982134
+    ## 19:        cleveland clinic         3  58.45891 29847.75 9.205278
+    ## 20:    religious minorities         3  58.45891 29847.75 9.205278
+    ##          dice
+    ##  1: 1.0000000
+    ##  2: 1.0000000
+    ##  3: 1.0000000
+    ##  4: 1.0000000
+    ##  5: 1.0000000
+    ##  6: 1.0000000
+    ##  7: 1.0000000
+    ##  8: 1.0000000
+    ##  9: 1.0000000
+    ## 10: 1.0000000
+    ## 11: 1.0000000
+    ## 12: 1.0000000
+    ## 13: 1.0000000
+    ## 14: 1.0000000
+    ## 15: 0.9473684
+    ## 16: 0.9090909
+    ## 17: 0.9000000
+    ## 18: 0.8888889
+    ## 19: 0.8571429
+    ## 20: 0.8571429
 
 ### Collocation Plotting
 
     plot(ngram_collocations(x))
 
-![](tools/figure/unnamed-chunk-9-1.png)
+![](tools/figure/unnamed-chunk-8-1.png)
 
     plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
 
-![](tools/figure/unnamed-chunk-9-2.png)
+![](tools/figure/unnamed-chunk-8-2.png)
 
     plot(ngram_collocations(x, gram.length = 3))
 
-![](tools/figure/unnamed-chunk-9-3.png)
+![](tools/figure/unnamed-chunk-8-3.png)
 
     plot(ngram_collocations(x, order.by = "dice"))
 
-![](tools/figure/unnamed-chunk-9-4.png)
+![](tools/figure/unnamed-chunk-8-4.png)
 
 Converting to Document Term Matrix
 ----------------------------------
@@ -539,14 +560,16 @@ structures using `cbind` & `rbind`.
     plot(mod)
     rect.hclust(mod, k = 5, border = "red")
 
-![](tools/figure/unnamed-chunk-10-1.png)
+![](tools/figure/unnamed-chunk-9-1.png)
 
     (clusters <- cutree(mod, 5))
 
-    ##     OBAMA.time 1     OBAMA.time 2     OBAMA.time 3    ROMNEY.time 1    ROMNEY.time 2    ROMNEY.time 3   CROWLEY.time 2 
-    ##                1                1                1                2                2                2                3 
-    ##    LEHRER.time 1  QUESTION.time 2 SCHIEFFER.time 3 
-    ##                4                5                3
+    ##     OBAMA.time 1     OBAMA.time 2     OBAMA.time 3    ROMNEY.time 1 
+    ##                1                1                1                2 
+    ##    ROMNEY.time 2    ROMNEY.time 3   CROWLEY.time 2    LEHRER.time 1 
+    ##                2                2                3                4 
+    ##  QUESTION.time 2 SCHIEFFER.time 3 
+    ##                5                3
 
 Building an Expert Rules, Regex Classifier Model
 ================================================
@@ -742,7 +765,7 @@ least frequent n terms but can be rearranged alphabetically.
         with(frequent_terms(dialogue, 40)) %>%
         plot()
 
-![](tools/figure/unnamed-chunk-15-1.png)
+![](tools/figure/unnamed-chunk-14-1.png)
 
 A cumulative percent can give a different view of the term usage. The
 `plot_cum_percent` function converts a `frequent_terms` output into a
@@ -753,7 +776,7 @@ give insight into the frequently occurring ngrams.
         with(frequent_terms(dialogue, 40)) %>%
         plot_cum_percent()
 
-![](tools/figure/unnamed-chunk-16-1.png)
+![](tools/figure/unnamed-chunk-15-1.png)
 
 It may also be helpful to view the unique contribution of terms on the
 coverage excluding all elements from the match vector that were
@@ -805,7 +828,7 @@ unique coverage of terms.
         with(hierarchical_coverage_term(dialogue, terms)) %>%
         plot(use.terms = TRUE)
 
-![](tools/figure/unnamed-chunk-17-1.png)
+![](tools/figure/unnamed-chunk-16-1.png)
 
 ### View Most Used Words in Context
 
@@ -986,7 +1009,7 @@ discrimination.
         as_terms() %>%
         plot_freq(size=3) + xlab("Number of Tags")
 
-![](tools/figure/unnamed-chunk-25-1.png)
+![](tools/figure/unnamed-chunk-24-1.png)
 
 We may also want to see the distribution of the tags as well. The
 combination of `as_terms` + `plot_counts` gives the distribution of the
@@ -997,7 +1020,7 @@ category.
         as_terms() %>%
         plot_counts() + xlab("Tags")
 
-![](tools/figure/unnamed-chunk-26-1.png)
+![](tools/figure/unnamed-chunk-25-1.png)
 
 Improving the Model
 -------------------
@@ -1328,7 +1351,8 @@ may be returned) as well as a `table` and plot of the counts. Use
     classify(model) %>%
         head()
 
-    ## [1] NA               "response_cries" NA               NA               "response_cries" NA
+    ## [1] NA               "response_cries" NA               NA              
+    ## [5] "response_cries" NA
 
     classify(model) %>%
         unlist() %>%
@@ -1342,7 +1366,7 @@ may be returned) as well as a `table` and plot of the counts. Use
         unlist() %>%
         plot_counts() + xlab("Tags")
 
-![](tools/figure/unnamed-chunk-37-1.png)
+![](tools/figure/unnamed-chunk-36-1.png)
 
 Evaluation: Accuracy
 --------------------
@@ -1479,7 +1503,7 @@ confidence band is highly affected by the number of samples per tag).
 
     plot(validated)
 
-![](tools/figure/unnamed-chunk-42-1.png)
+![](tools/figure/unnamed-chunk-41-1.png)
 
 These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification

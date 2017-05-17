@@ -67,13 +67,13 @@ token_list <- list(
 token_count(sam_i_am, grouping.var = TRUE, token.list = token_list)
 token_count(sam_i_am, grouping.var = NULL, token.list = token_list)
 
+\dontrun{
 x <- presidential_debates_2012[["dialogue"]]
 
 bigrams <- ngram_collocations(x, gram.length = 2)$collocation
 bigram_model <- token_count(x, TRUE, token.list = as_term_list(bigrams))
 as_dtm(bigram_model)
 
-\dontrun{
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(tidyverse, lexicon, textshape)
 

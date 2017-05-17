@@ -195,7 +195,8 @@ termco_collocations <- function(x, size = 2:3, order.by = 'frequency',
     out <- out[, wc := stringi::stri_count_words(collocation)][
         wc >= min(size) & wc <= max(size),][
         eval(expr), ][,
-        wc := NULL][, id := 1:.N][]
+        wc := NULL][, id := 1:.N,][,
+        collocation := as.character(collocation)][]
 
     sw <- data.table::setkey(data.table::data.table(terms = stopwords, sw = TRUE), "terms")
 

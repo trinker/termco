@@ -48,13 +48,13 @@
 #' token_count(sam_i_am, grouping.var = TRUE, token.list = token_list)
 #' token_count(sam_i_am, grouping.var = NULL, token.list = token_list)
 #'
+#' \dontrun{
 #' x <- presidential_debates_2012[["dialogue"]]
 #'
 #' bigrams <- ngram_collocations(x, gram.length = 2)$collocation
 #' bigram_model <- token_count(x, TRUE, token.list = as_term_list(bigrams))
 #' as_dtm(bigram_model)
 #'
-#' \dontrun{
 #' if (!require("pacman")) install.packages("pacman")
 #' pacman::p_load(tidyverse, lexicon, textshape)
 #'
@@ -178,7 +178,11 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     DF[G] <- grouping
 
     ## create DTM
-    dtm <- make_dtm(text.var, paste2(DF[G], sep = "___"), remove_punct = !keep.punctuation, ...)
+#    dtm <- make_dtm(text.var, paste2(DF[G], sep = "___"), remove_punct = !keep.punctuation, ...)
+# this is a temporary hack because qunteda appears to not allow values to be passed by reference
+# Remove and go back to old version above when fixed
+# https://github.com/kbenoit/quanteda/issues/721
+    dtm <- eval(parse(text = paste0('make_dtm(text.var, paste2(DF[G], sep = "___"), remove_punct = ', !keep.punctuation, ', ...)')))
 
     nms <- colnames(dtm)
     n.tokens <- slam::row_sums(dtm)
