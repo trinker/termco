@@ -45,6 +45,9 @@ termco 0.5.0 -
 * `combine_counts` added to enable combining `term_count` and `token_count`
   objects.
 
+* `match_word` added to match words to regular expressions.  Roughly equivalent
+  *qdap**'s `term_match`.
+
 **MINOR FEATURES**
 
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`

@@ -178,11 +178,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     DF[G] <- grouping
 
     ## create DTM
-#    dtm <- make_dtm(text.var, paste2(DF[G], sep = "___"), remove_punct = !keep.punctuation, ...)
-# this is a temporary hack because qunteda appears to not allow values to be passed by reference
-# Remove and go back to old version above when fixed
-# https://github.com/kbenoit/quanteda/issues/721
-    dtm <- eval(parse(text = paste0('make_dtm(text.var, paste2(DF[G], sep = "___"), remove_punct = ', !keep.punctuation, ', ...)')))
+    dtm <- make_dtm(text.var, paste2(DF[G], sep = "___"), remove_punct = !keep.punctuation, ...)
 
     nms <- colnames(dtm)
     n.tokens <- slam::row_sums(dtm)
