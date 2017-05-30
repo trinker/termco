@@ -144,116 +144,121 @@ their description:
 <td>Search for regex terms</td>
 </tr>
 <tr class="odd">
+<td>&quot; <code>match_word</code></td>
+<td>searh</td>
+<td>Extract words from a text matching a regular expression</td>
+</tr>
+<tr class="even">
 <td><code>search_term_collocations</code></td>
 <td>search</td>
 <td>Wrapper for <code>search_term</code> + <code>frequent_terms</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>classification_project</code></td>
 <td>modeling</td>
 <td>Make a classification modeling project template</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>as_dtm</code>/<code>as_tdm</code></td>
 <td>modeling</td>
 <td>Coerce <code>term_count</code> object into <code>tm::DocumentTermMatrix</code>/<code>tm::TermDocumentMatrix</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>split_data</code></td>
 <td>modeling</td>
 <td>Split data into <code>train</code> &amp; <code>test</code> sets</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>evaluate</code></td>
 <td>modeling</td>
 <td>Check accuracy of model against human coder</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>classify</code></td>
 <td>modeling</td>
 <td>Assign n tags to text from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>get_text</code></td>
 <td>modeling</td>
 <td>Get the original text for model tags</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>coverage</code></td>
 <td>modeling</td>
 <td>Coverage for <code>term_count</code> or <code>search_term</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>uncovered</code>/<code>get_uncovered</code></td>
 <td>modeling</td>
 <td>Get the uncovered text from a model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>tag_co_occurrence</code></td>
 <td>modeling</td>
 <td>Explor co-occurrence of tags from a model</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>validate_model</code>/<code>assign_validation_task</code></td>
 <td>modeling</td>
 <td>Human validation of a <code>term_count</code> model</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>as_count</code></td>
 <td>convert</td>
 <td>Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>as_terms</code></td>
 <td>convert</td>
 <td>Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>as_term_list</code></td>
 <td>convert</td>
 <td>Convert a vector of terms into a named term list</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>weight</code></td>
 <td>convert</td>
 <td>Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>plot_ca</code></td>
 <td>plot</td>
 <td>Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>plot_counts</code></td>
 <td>plot</td>
 <td>Horizontal bar plot of group counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>plot_freq</code></td>
 <td>plot</td>
 <td>Vertical bar plot of frequencies of counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>plot_cum_percent</code></td>
 <td>plot</td>
 <td>Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>probe_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>probe_colo_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term_collocations</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>probe_colo_plot_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>probe_colo_plot</code></td>
 <td>probe</td>
 <td>Plot <code>probe_colo_plot_list</code> directly</td>
@@ -400,133 +405,178 @@ method.
 
     ngram_collocations(x)
 
-    ##            collocation frequency        G2          X2       pmi      dice
-    ##  1:          make sure       127 1271.0126   18973.589  5.010625 0.6827957
-    ##  2:    governor romney       105 1178.5814   22616.632  5.374568 0.7342657
-    ##  3:         four years        63  660.7728   14501.009  5.442233 0.6000000
-    ##  4:   mister president        61  629.7792   11474.923  5.241191 0.4747082
-    ##  5:      united states        31  422.7861   23741.541  6.641570 0.7654321
-    ##  6:       middle class        30  370.0621   14816.826  6.203729 0.5714286
-    ##  7:          last four        27  250.7039    5000.537  5.228369 0.3529412
-    ##  8:    last four years        27  971.5841 1724704.275 11.062062 0.2084942
-    ##  9:        middle east        26  340.0439   14557.426  6.328892 0.5360825
-    ## 10:        health care        26  319.7309   14729.556  6.340881 0.6046512
-    ## 11:    american people        26  195.0577    2128.716  4.422605 0.1947566
-    ## 12:   small businesses        22  260.7927   11438.391  6.255470 0.5365854
-    ## 13:        making sure        19  151.8800    2018.957  4.679492 0.1890547
-    ## 14:     million people        17  119.0044    1155.814  4.241919 0.1338583
-    ## 15:         dodd frank        15  266.5001   39798.000  7.883522 1.0000000
-    ## 16: federal government        15  151.0503    4156.951  5.629194 0.3030303
-    ## 17:       young people        15  123.5549    1643.548  4.708807 0.1287554
-    ## 18:     small business        13  144.8151    5842.920  6.110745 0.3768116
-    ## 19:  governor romney's        13  141.9289    2927.581  5.421088 0.1375661
-    ## 20:      middle income        13  137.3467    4289.989  5.802799 0.2795699
+    ##            collocation length.x frequency        G2 length.y          X2
+    ##  1:          make sure        2       127 1271.0126        2   18973.589
+    ##  2:    governor romney        2       105 1178.5814        2   22616.632
+    ##  3:         four years        2        63  660.7728        2   14501.009
+    ##  4:   mister president        2        61  629.7792        2   11474.923
+    ##  5:      united states        2        31  422.7861        2   23741.541
+    ##  6:       middle class        2        30  370.0621        2   14816.826
+    ##  7:    last four years        3        27  971.5841        3 1724704.275
+    ##  8:          last four        2        27  250.7039        2    5000.537
+    ##  9:        middle east        2        26  340.0439        2   14557.426
+    ## 10:        health care        2        26  319.7309        2   14729.556
+    ## 11:    american people        2        26  195.0577        2    2128.716
+    ## 12:   small businesses        2        22  260.7927        2   11438.391
+    ## 13:        making sure        2        19  151.8800        2    2018.957
+    ## 14:     million people        2        17  119.0044        2    1155.814
+    ## 15:         dodd frank        2        15  266.5001        2   39798.000
+    ## 16: federal government        2        15  151.0503        2    4156.951
+    ## 17:       young people        2        15  123.5549        2    1643.548
+    ## 18:     small business        2        13  144.8151        2    5842.920
+    ## 19:  governor romney's        2        13  141.9289        2    2927.581
+    ## 20:      middle income        2        13  137.3467        2    4289.989
+    ##     length.x.x       pmi length.y.y      dice
+    ##  1:          2  5.010625          2 0.6827957
+    ##  2:          2  5.374568          2 0.7342657
+    ##  3:          2  5.442233          2 0.6000000
+    ##  4:          2  5.241191          2 0.4747082
+    ##  5:          2  6.641570          2 0.7654321
+    ##  6:          2  6.203729          2 0.5714286
+    ##  7:          3 11.062062          3 0.2084942
+    ##  8:          2  5.228369          2 0.3529412
+    ##  9:          2  6.328892          2 0.5360825
+    ## 10:          2  6.340881          2 0.6046512
+    ## 11:          2  4.422605          2 0.1947566
+    ## 12:          2  6.255470          2 0.5365854
+    ## 13:          2  4.679492          2 0.1890547
+    ## 14:          2  4.241919          2 0.1338583
+    ## 15:          2  7.883522          2 1.0000000
+    ## 16:          2  5.629194          2 0.3030303
+    ## 17:          2  4.708807          2 0.1287554
+    ## 18:          2  6.110745          2 0.3768116
+    ## 19:          2  5.421088          2 0.1375661
+    ## 20:          2  5.802799          2 0.2795699
 
     ngram_collocations(x, gram.length = 3)
 
-    ##                 collocation frequency        G2         X2       pmi
-    ##  1:         last four years        27  971.5841 1724704.28 11.062062
-    ##  2:   thousand nine hundred        11  397.1371 3072410.33 12.539329
-    ##  3:    twenty three million        11  259.6493 2513947.30 12.339475
-    ##  4:   middle class families        10  449.7899 3048521.22 12.626088
-    ##  5:    governor romney says         8 1158.2886  192222.97  9.991399
-    ##  6:   thousand five hundred         8  347.5014  694552.92 11.366460
-    ##  7:    governor romney said         6 1124.7911   39138.23  8.149088
-    ##  8:         next four years         6  693.2538  175953.18 10.218342
-    ##  9:  middle income families         6  317.3088 1360460.91 12.328836
-    ## 10:    three million people         6  219.8922  119729.34  9.893721
-    ## 11:       four years closer         5  522.4227  875348.03 12.061195
-    ## 12:    dollar five trillion         5  313.6099  397529.29 11.267278
-    ## 13:    dollar seven hundred         5  158.7751  493914.84 11.499557
-    ## 14: hundred sixteen billion         5  138.6161 7274433.62 14.190439
-    ## 15:   seven hundred sixteen         5  135.3639 2932291.59 13.281838
-    ## 16:         five point plan         5  113.9890  567955.03 11.640329
-    ## 17:       five million jobs         5  112.5139  145903.55 10.280819
-    ## 18:    dollar four thousand         4  192.7733   64472.06  9.663346
-    ## 19:    american people safe         4  192.0857  325883.97 11.305044
-    ## 20: three million americans         4  150.8102  417336.21 11.553169
-    ##           dice
-    ##  1: 0.20849421
-    ##  2: 0.17741935
-    ##  3: 0.18032787
-    ##  4: 0.17857143
-    ##  5: 0.05387205
-    ##  6: 0.10596026
-    ##  7: 0.02933985
-    ##  8: 0.05217391
-    ##  9: 0.11214953
-    ## 10: 0.04067797
-    ## 11: 0.06711409
-    ## 12: 0.07246377
-    ## 13: 0.07352941
-    ## 14: 0.14925373
-    ## 15: 0.11904762
-    ## 16: 0.08064516
-    ## 17: 0.04854369
-    ## 18: 0.03755869
-    ## 19: 0.03375527
-    ## 20: 0.06896552
+    ##                 collocation length.x frequency        G2 length.y
+    ##  1:         last four years        3        27  971.5841        3
+    ##  2:   thousand nine hundred        3        11  397.1371        3
+    ##  3:    twenty three million        3        11  259.6493        3
+    ##  4:   middle class families        3        10  449.7899        3
+    ##  5:    governor romney says        3         8 1158.2886        3
+    ##  6:   thousand five hundred        3         8  347.5014        3
+    ##  7:    governor romney said        3         6 1124.7911        3
+    ##  8:         next four years        3         6  693.2538        3
+    ##  9:  middle income families        3         6  317.3088        3
+    ## 10:    three million people        3         6  219.8922        3
+    ## 11:       four years closer        3         5  522.4227        3
+    ## 12:    dollar five trillion        3         5  313.6099        3
+    ## 13:    dollar seven hundred        3         5  158.7751        3
+    ## 14: hundred sixteen billion        3         5  138.6161        3
+    ## 15:   seven hundred sixteen        3         5  135.3639        3
+    ## 16:         five point plan        3         5  113.9890        3
+    ## 17:       five million jobs        3         5  112.5139        3
+    ## 18:    dollar four thousand        3         4  192.7733        3
+    ## 19:    american people safe        3         4  192.0857        3
+    ## 20: three million americans        3         4  150.8102        3
+    ##             X2 length.x.x       pmi length.y.y       dice
+    ##  1: 1724704.28          3 11.062062          3 0.20849421
+    ##  2: 3072410.33          3 12.539329          3 0.17741935
+    ##  3: 2513947.30          3 12.339475          3 0.18032787
+    ##  4: 3048521.22          3 12.626088          3 0.17857143
+    ##  5:  192222.97          3  9.991399          3 0.05387205
+    ##  6:  694552.92          3 11.366460          3 0.10596026
+    ##  7:   39138.23          3  8.149088          3 0.02933985
+    ##  8:  175953.18          3 10.218342          3 0.05217391
+    ##  9: 1360460.91          3 12.328836          3 0.11214953
+    ## 10:  119729.34          3  9.893721          3 0.04067797
+    ## 11:  875348.03          3 12.061195          3 0.06711409
+    ## 12:  397529.29          3 11.267278          3 0.07246377
+    ## 13:  493914.84          3 11.499557          3 0.07352941
+    ## 14: 7274433.62          3 14.190439          3 0.14925373
+    ## 15: 2932291.59          3 13.281838          3 0.11904762
+    ## 16:  567955.03          3 11.640329          3 0.08064516
+    ## 17:  145903.55          3 10.280819          3 0.04854369
+    ## 18:   64472.06          3  9.663346          3 0.03755869
+    ## 19:  325883.97          3 11.305044          3 0.03375527
+    ## 20:  417336.21          3 11.553169          3 0.06896552
 
     ngram_collocations(x, order.by = "dice")
 
-    ##                 collocation frequency        G2       X2      pmi
-    ##  1:              dodd frank        15 266.50007 39798.00 7.883522
-    ##  2:         standard bearer         4  81.64188 39798.00 9.205278
-    ##  3:            apology tour         3  62.95758 39798.00 9.492960
-    ##  4:   intellectual property         3  62.95758 39798.00 9.492960
-    ##  5:            joint chiefs         3  62.95758 39798.00 9.492960
-    ##  6:           onest century         3  62.95758 39798.00 9.492960
-    ##  7: unintended consequences         2  43.59364 39798.00 9.898425
-    ##  8:      appleton wisconsin         2  43.59364 39798.00 9.898425
-    ##  9:         abraham lincoln         2  43.59364 39798.00 9.898425
-    ## 10:      permanent resident         2  43.59364 39798.00 9.898425
-    ## 11:              boca raton         2  43.59364 39798.00 9.898425
-    ## 12:           raton florida         2  43.59364 39798.00 9.898425
-    ## 13:          prime minister         2  43.59364 39798.00 9.898425
-    ## 14:         haqqani network         2  43.59364 39798.00 9.898425
-    ## 15:             wall street         9 162.59463 35817.30 8.288987
-    ## 16:      planned parenthood         5  94.41404 33164.17 8.799812
-    ## 17:             food stamps         9 158.66522 32560.36 8.193677
-    ## 18:        self deportation         4  76.63786 31837.60 8.982134
-    ## 19:        cleveland clinic         3  58.45891 29847.75 9.205278
-    ## 20:    religious minorities         3  58.45891 29847.75 9.205278
-    ##          dice
-    ##  1: 1.0000000
-    ##  2: 1.0000000
-    ##  3: 1.0000000
-    ##  4: 1.0000000
-    ##  5: 1.0000000
-    ##  6: 1.0000000
-    ##  7: 1.0000000
-    ##  8: 1.0000000
-    ##  9: 1.0000000
-    ## 10: 1.0000000
-    ## 11: 1.0000000
-    ## 12: 1.0000000
-    ## 13: 1.0000000
-    ## 14: 1.0000000
-    ## 15: 0.9473684
-    ## 16: 0.9090909
-    ## 17: 0.9000000
-    ## 18: 0.8888889
-    ## 19: 0.8571429
-    ## 20: 0.8571429
+    ##                 collocation length.x frequency        G2 length.y       X2
+    ##  1:              dodd frank        2        15 266.50007        2 39798.00
+    ##  2:         standard bearer        2         4  81.64188        2 39798.00
+    ##  3:            apology tour        2         3  62.95758        2 39798.00
+    ##  4:   intellectual property        2         3  62.95758        2 39798.00
+    ##  5:            joint chiefs        2         3  62.95758        2 39798.00
+    ##  6:           onest century        2         3  62.95758        2 39798.00
+    ##  7: unintended consequences        2         2  43.59364        2 39798.00
+    ##  8:      appleton wisconsin        2         2  43.59364        2 39798.00
+    ##  9:         abraham lincoln        2         2  43.59364        2 39798.00
+    ## 10:      permanent resident        2         2  43.59364        2 39798.00
+    ## 11:              boca raton        2         2  43.59364        2 39798.00
+    ## 12:           raton florida        2         2  43.59364        2 39798.00
+    ## 13:          prime minister        2         2  43.59364        2 39798.00
+    ## 14:         haqqani network        2         2  43.59364        2 39798.00
+    ## 15:             wall street        2         9 162.59463        2 35817.30
+    ## 16:      planned parenthood        2         5  94.41404        2 33164.17
+    ## 17:             food stamps        2         9 158.66522        2 32560.36
+    ## 18:        self deportation        2         4  76.63786        2 31837.60
+    ## 19:        cleveland clinic        2         3  58.45891        2 29847.75
+    ## 20:    religious minorities        2         3  58.45891        2 29847.75
+    ##     length.x.x      pmi length.y.y      dice
+    ##  1:          2 7.883522          2 1.0000000
+    ##  2:          2 9.205278          2 1.0000000
+    ##  3:          2 9.492960          2 1.0000000
+    ##  4:          2 9.492960          2 1.0000000
+    ##  5:          2 9.492960          2 1.0000000
+    ##  6:          2 9.492960          2 1.0000000
+    ##  7:          2 9.898425          2 1.0000000
+    ##  8:          2 9.898425          2 1.0000000
+    ##  9:          2 9.898425          2 1.0000000
+    ## 10:          2 9.898425          2 1.0000000
+    ## 11:          2 9.898425          2 1.0000000
+    ## 12:          2 9.898425          2 1.0000000
+    ## 13:          2 9.898425          2 1.0000000
+    ## 14:          2 9.898425          2 1.0000000
+    ## 15:          2 8.288987          2 0.9473684
+    ## 16:          2 8.799812          2 0.9090909
+    ## 17:          2 8.193677          2 0.9000000
+    ## 18:          2 8.982134          2 0.8888889
+    ## 19:          2 9.205278          2 0.8571429
+    ## 20:          2 9.205278          2 0.8571429
 
 ### Collocation Plotting
 
     plot(ngram_collocations(x))
 
+    ## Warning in melt.data.table(x, id = c("Grams"), variable.name = "Method", :
+    ## 'measure.vars' [length.x, frequency, G2, length.y, ...] are not all of the
+    ## same type. By order of hierarchy, the molten data value column will be of
+    ## type 'double'. All measure variables not of type 'double' will be coerced
+    ## to. Check DETAILS in ?melt.data.table for more on coercion.
+
 ![](tools/figure/unnamed-chunk-8-1.png)
 
     plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
+
+    ## Warning in melt.data.table(x, id = c("Grams"), variable.name = "Method", :
+    ## 'measure.vars' [length.x, frequency, G2, length.y, ...] are not all of the
+    ## same type. By order of hierarchy, the molten data value column will be of
+    ## type 'double'. All measure variables not of type 'double' will be coerced
+    ## to. Check DETAILS in ?melt.data.table for more on coercion.
 
 ![](tools/figure/unnamed-chunk-8-2.png)
 
     plot(ngram_collocations(x, gram.length = 3))
 
+    ## Warning in melt.data.table(x, id = c("Grams"), variable.name = "Method", :
+    ## 'measure.vars' [length.x, frequency, G2, length.y, ...] are not all of the
+    ## same type. By order of hierarchy, the molten data value column will be of
+    ## type 'double'. All measure variables not of type 'double' will be coerced
+    ## to. Check DETAILS in ?melt.data.table for more on coercion.
+
 ![](tools/figure/unnamed-chunk-8-3.png)
 
     plot(ngram_collocations(x, order.by = "dice"))
+
+    ## Warning in melt.data.table(x, id = c("Grams"), variable.name = "Method", :
+    ## 'measure.vars' [length.x, frequency, G2, length.y, ...] are not all of the
+    ## same type. By order of hierarchy, the molten data value column will be of
+    ## type 'double'. All measure variables not of type 'double' will be coerced
+    ## to. Check DETAILS in ?melt.data.table for more on coercion.
 
 ![](tools/figure/unnamed-chunk-8-4.png)
 
