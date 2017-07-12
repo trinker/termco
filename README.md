@@ -144,7 +144,7 @@ their description:
 <td>Search for regex terms</td>
 </tr>
 <tr class="odd">
-<td>&quot; <code>match_word</code></td>
+<td><code>match_word</code></td>
 <td>searh</td>
 <td>Extract words from a text matching a regular expression</td>
 </tr>
