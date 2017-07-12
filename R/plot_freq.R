@@ -70,7 +70,7 @@ plot_freq <- function(x, direct.label = TRUE, size = 4,
             Prop = Counts/sum(y),
             y = Prop + label.diff,
             Prop_Labs = paste0(
-                prettyNum(Counts),
+                pn(Counts),
                 "(",
                 paste0(digit_format(100*Prop, digits = digits), "%"), ")")
          )

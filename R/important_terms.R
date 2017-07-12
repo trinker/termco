@@ -40,6 +40,8 @@ important_terms <- function (text.var, n = 20, stopwords = tm::stopwords("en"),
     stem = FALSE, language = "porter", strip = TRUE, strip.regex = "[^A-Za-z' ]",
     ...) {
 
+    if (is.data.frame(text.var)) stop("`text.var` is a `data.frame`; please pass a vector")
+
     if (isTRUE(strip)) text.var <- gsub(strip.regex, " ", text.var)
 
     if (isTRUE(stem)){
