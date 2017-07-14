@@ -84,7 +84,8 @@ validate_model <- function(x, n = 20, width = 50, tags = 1, ...){
 
     attributes(out)[["text.var"]] <- text
     attributes(out)[["indices"]] <- items[[2]]
-    attributes(out)[['tag.counts']] <- textshape::tidy_table(table(unlist(as_terms(x))), 'tag', 'n')
+    attributes(out)[['tag.counts']] <- textshape::tidy_table(table(unlist(as_terms(x))), 'tag', 'n.tagged')
+    attributes(out)[['classified.counts']] <- tidy_vector(lengths(potentials), 'tag', 'n.classified')
     out
 }
 
@@ -99,25 +100,34 @@ validate_model <- function(x, n = 20, width = 50, tags = 1, ...){
 #' @param \ldots ignored.
 #' @references \url{http://onlinestatbook.com/2/estimation/proportion_ci.html}
 #' @method summary validate_model
+#' @importFrom data.table .N
 #' @export
 summary.validate_model <- function(object, adjust.discrete = FALSE, ordered = TRUE, ...){
 
     tag <- accuracy <- NULL
 
     dat <- data.table::setDT(data.table::copy(object))
+
     out <- textshape::tidy_list(invisible(lapply(split(dat[[2]], dat[[1]]),
         proportion_confidence, adjust.discrete = adjust.discrete)), 'tag')
 
-    out <- out[attributes(object)[['tag.counts']], on = 'tag']
-    data.table::setcolorder(out, c("tag", "accuracy", "n", "sampled", "se", "lower", "upper"))
+
+    out <- out[attributes(object)[['tag.counts']], on = 'tag'][
+        attributes(object)[['classified.counts']], on = 'tag']
+
+    data.table::setcolorder(out, c("tag", "accuracy", "n.tagged",
+        "n.classified", "sampled", "se", "lower", "upper"))
 
     if (isTRUE(ordered)) out <- out[order(-accuracy, na.last=TRUE)]
     out <- out[, 'tag' := factor(tag, levels = tag)][]
 
     class(out) <- c('summary.validate_model', class(out))
     ovrall <- proportion_confidence(dat[["correct"]], adjust.discrete = adjust.discrete)
-    ovrall[['n']] <- sum(attributes(object)[['tag.counts']][['n']], na.rm = TRUE)
-    attributes(out)[["overall"]] <- data.table::setcolorder(ovrall, c("accuracy", "n", "sampled", "se", "lower", "upper"))
+
+    ovrall[['n.tagged']] <- sum(attributes(object)[['tag.counts']][['n.tagged']], na.rm = TRUE)
+    ovrall[['n.classified']] <- sum(attributes(object)[['classified.counts']][['n.classified']], na.rm = TRUE)
+    attributes(out)[["overall"]] <- data.table::setcolorder(ovrall, c("accuracy",
+        "n.tagged", "n.classified", "sampled", "se", "lower", "upper"))
     out
 }
 
@@ -238,15 +248,17 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
             plot.margin = grid::unit(c(1,1, .5, .5), "lines")
         )
 
-     maxy <-c(0, ceiling(max(dat2[dat2[['overall']] == 'Tags', ][['n']],
+     maxy <-c(0, ceiling(max(dat2[dat2[['overall']] == 'Tags', ][['n.classified']],
             na.rm = TRUE))*1.05)
 
      cntsplot <- ggplot2::ggplot(dat2[dat2[['overall']] == 'Tags', ],
             ggplot2::aes_string(y = 'tag')) +
-        ggplot2::geom_segment(size = 1, color= 'grey60', ggplot2::aes_string(x = 0, xend = 'n', yend = 'tag')) +
-        ggplot2::geom_point(stat = 'identity', ggplot2::aes_string( x = 'n'), size = 3, color = 'orange') +
+        ggplot2::geom_segment(size = 1, color= 'grey60',
+            ggplot2::aes_string(x = 0, xend = 'n.classified', yend = 'tag')) +
+        ggplot2::geom_point(stat = 'identity', ggplot2::aes_string( x = 'n.classified'),
+            size = 3, color = 'orange') +
         ggplot2::facet_grid(overall~., scales='free', space='free') +
-        ggplot2::labs(y = NULL, x = "Count", title="Tag Counts") +
+        ggplot2::labs(y = NULL, x = "Count", title="N Classified Tags") +
         ggplot2::scale_x_continuous(limits = maxy, expand = c(0, 0)) +
         ggplot2::theme_bw() +
         ggplot2::theme(
@@ -255,8 +267,20 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
             plot.margin = grid::unit(c(1,1, .65, .5), "lines")
         )
 
-    gA <- ggplot2::ggplotGrob(plot1a + ggplot2::theme(strip.text.y = ggplot2::element_blank(), strip.background = ggplot2::element_blank()))
-    gB <- ggplot2::ggplotGrob(plot1b + ggplot2::theme(strip.text.y = ggplot2::element_blank(), strip.background = ggplot2::element_blank()))
+    gA <- ggplot2::ggplotGrob(
+        plot1a +
+            ggplot2::theme(
+                strip.text.y = ggplot2::element_blank(),
+                strip.background = ggplot2::element_blank()
+            )
+        )
+    gB <- ggplot2::ggplotGrob(
+        plot1b +
+            ggplot2::theme(
+                strip.text.y = ggplot2::element_blank(),
+                strip.background = ggplot2::element_blank()
+            )
+        )
     gC <- ggplot2::ggplotGrob(cntsplot +
             ggplot2::theme(
                 legend.position="none",
