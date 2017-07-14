@@ -13,7 +13,8 @@
 #' @param \ldots Other arguments passed to \code{\link[termco]{classify}}.
 #' @return \code{validate_model} - Returns a \code{data.frame} of the class
 #' \code{'validate_model'}.  Note that the pretty print is a tag summarized
-#' version of the model accuracy standard error, and confidence intervals.
+#' version of the model accuracy standard error, and confidence intervals from
+#' \code{summary.validate_model}.
 #' @keywords validate
 #' @note This function assigns tags using the \code{\link[termco]{classify}}
 #' function.  One element may recieve multiple tags.
