@@ -25,6 +25,7 @@ Returns a \code{combine_counts} object.
 Combine \code{term_count} and \code{token_count} objects.
 }
 \examples{
+\dontrun{
 token_list <- list(
     list(
         person = c('sam', 'i')
@@ -91,4 +92,5 @@ e <- sam_i_am \%>\%
 
 
 combine_counts(e, d)
+}
 }

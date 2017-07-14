@@ -23,6 +23,11 @@ termco 0.5.0 -
 
 BUG FIXES
 
+* `ngram_collocations` did not properly merge the **quanteda** outputs resulting
+  in the `length` column being replicated multiple times.  Additionally, length
+  was integer whereas the other ngram measures are numeric resulting in a
+  **data.table** warning in `melt`.  Both of these issues have been addressed.
+
 NEW FEATURES
 
 * `get_text` added to extract the original text associated with particular tags.
@@ -71,6 +76,9 @@ CHANGES
   other packages and their classed objects.  **termco** re-exports the two
   functions.
 
+* `summary.validate_model` used to return `n` which was the number of tags from
+  the `termco` object.  It now gives n.tags and n.classified to be more explicit
+  about counts of potential tags and tags actually assigned by `classify`.
 
 termco 0.4.0 - 0.4.3
 ----------------------------------------------------------------

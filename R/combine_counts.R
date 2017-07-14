@@ -12,6 +12,7 @@
 #' @return Returns a \code{combine_counts} object.
 #' @export
 #' @examples
+#' \dontrun{
 #' token_list <- list(
 #'     list(
 #'         person = c('sam', 'i')
@@ -78,6 +79,7 @@
 #'
 #'
 #' combine_counts(e, d)
+#' }
 combine_counts <- function(x, y, mapping = NULL, ...){
 
     ## check that nrows of x and y are same

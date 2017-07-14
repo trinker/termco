@@ -291,6 +291,7 @@ You are welcome to:
 - send a pull request on: <https://github.com/trinker/termco/>    
 - compose a friendly e-mail to: <tyler.rinker@gmail.com>    
 
+
 Examples
 ========
 
@@ -321,18 +322,18 @@ Build Counts Dataframe
     counts
 
     ## Coverage: 100% 
-    ## # A tibble: 10 × 7
+    ## # A tibble: 10 x 7
     ##       person   time n.words response_cries back_channels   summons
     ##       <fctr> <fctr>   <int>          <chr>         <chr>     <chr>
-    ## 1      OBAMA time 1    3599        3(.08%)             0 43(1.19%)
-    ## 2      OBAMA time 2    7477        2(.03%)             0  42(.56%)
-    ## 3      OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
-    ## 4     ROMNEY time 1    4085              0             0  27(.66%)
-    ## 5     ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
-    ## 6     ROMNEY time 3    8303        5(.06%)             0 84(1.01%)
-    ## 7    CROWLEY time 2    1672        2(.12%)             0   4(.24%)
-    ## 8     LEHRER time 1     765        3(.39%)       3(.39%)         0
-    ## 9   QUESTION time 2     583        2(.34%)             0         0
+    ##  1     OBAMA time 1    3599        3(.08%)             0 43(1.19%)
+    ##  2     OBAMA time 2    7477        2(.03%)             0  42(.56%)
+    ##  3     OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
+    ##  4    ROMNEY time 1    4085              0             0  27(.66%)
+    ##  5    ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
+    ##  6    ROMNEY time 3    8303        5(.06%)             0 84(1.01%)
+    ##  7   CROWLEY time 2    1672        2(.12%)             0   4(.24%)
+    ##  8    LEHRER time 1     765        3(.39%)       3(.39%)         0
+    ##  9  QUESTION time 2     583        2(.34%)             0         0
     ## 10 SCHIEFFER time 3    1445              0             0   2(.14%)
     ## # ... with 1 more variables: justification <chr>
 
@@ -342,36 +343,36 @@ Printing
     print(counts, pretty = FALSE)
 
     ## Coverage: 100% 
-    ## # A tibble: 10 × 7
+    ## # A tibble: 10 x 7
     ##       person   time n.words response_cries back_channels summons
     ##       <fctr> <fctr>   <int>          <int>         <int>   <int>
-    ## 1      OBAMA time 1    3599              3             0      43
-    ## 2      OBAMA time 2    7477              2             0      42
-    ## 3      OBAMA time 3    7243              1             1      58
-    ## 4     ROMNEY time 1    4085              0             0      27
-    ## 5     ROMNEY time 2    7536              1             3      49
-    ## 6     ROMNEY time 3    8303              5             0      84
-    ## 7    CROWLEY time 2    1672              2             0       4
-    ## 8     LEHRER time 1     765              3             3       0
-    ## 9   QUESTION time 2     583              2             0       0
+    ##  1     OBAMA time 1    3599              3             0      43
+    ##  2     OBAMA time 2    7477              2             0      42
+    ##  3     OBAMA time 3    7243              1             1      58
+    ##  4    ROMNEY time 1    4085              0             0      27
+    ##  5    ROMNEY time 2    7536              1             3      49
+    ##  6    ROMNEY time 3    8303              5             0      84
+    ##  7   CROWLEY time 2    1672              2             0       4
+    ##  8    LEHRER time 1     765              3             3       0
+    ##  9  QUESTION time 2     583              2             0       0
     ## 10 SCHIEFFER time 3    1445              0             0       2
     ## # ... with 1 more variables: justification <int>
 
     print(counts, zero.replace = "_")
 
     ## Coverage: 100% 
-    ## # A tibble: 10 × 7
+    ## # A tibble: 10 x 7
     ##       person   time n.words response_cries back_channels   summons
     ##       <fctr> <fctr>   <int>          <chr>         <chr>     <chr>
-    ## 1      OBAMA time 1    3599        3(.08%)             _ 43(1.19%)
-    ## 2      OBAMA time 2    7477        2(.03%)             _  42(.56%)
-    ## 3      OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
-    ## 4     ROMNEY time 1    4085              _             _  27(.66%)
-    ## 5     ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
-    ## 6     ROMNEY time 3    8303        5(.06%)             _ 84(1.01%)
-    ## 7    CROWLEY time 2    1672        2(.12%)             _   4(.24%)
-    ## 8     LEHRER time 1     765        3(.39%)       3(.39%)         _
-    ## 9   QUESTION time 2     583        2(.34%)             _         _
+    ##  1     OBAMA time 1    3599        3(.08%)             _ 43(1.19%)
+    ##  2     OBAMA time 2    7477        2(.03%)             _  42(.56%)
+    ##  3     OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
+    ##  4    ROMNEY time 1    4085              _             _  27(.66%)
+    ##  5    ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
+    ##  6    ROMNEY time 3    8303        5(.06%)             _ 84(1.01%)
+    ##  7   CROWLEY time 2    1672        2(.12%)             _   4(.24%)
+    ##  8    LEHRER time 1     765        3(.39%)       3(.39%)         _
+    ##  9  QUESTION time 2     583        2(.34%)             _         _
     ## 10 SCHIEFFER time 3    1445              _             _   2(.14%)
     ## # ... with 1 more variables: justification <chr>
 
@@ -405,178 +406,154 @@ method.
 
     ngram_collocations(x)
 
-    ##            collocation length.x frequency        G2 length.y          X2
-    ##  1:          make sure        2       127 1271.0126        2   18973.589
-    ##  2:    governor romney        2       105 1178.5814        2   22616.632
-    ##  3:         four years        2        63  660.7728        2   14501.009
-    ##  4:   mister president        2        61  629.7792        2   11474.923
-    ##  5:      united states        2        31  422.7861        2   23741.541
-    ##  6:       middle class        2        30  370.0621        2   14816.826
-    ##  7:    last four years        3        27  971.5841        3 1724704.275
-    ##  8:          last four        2        27  250.7039        2    5000.537
-    ##  9:        middle east        2        26  340.0439        2   14557.426
-    ## 10:        health care        2        26  319.7309        2   14729.556
-    ## 11:    american people        2        26  195.0577        2    2128.716
-    ## 12:   small businesses        2        22  260.7927        2   11438.391
-    ## 13:        making sure        2        19  151.8800        2    2018.957
-    ## 14:     million people        2        17  119.0044        2    1155.814
-    ## 15:         dodd frank        2        15  266.5001        2   39798.000
-    ## 16: federal government        2        15  151.0503        2    4156.951
-    ## 17:       young people        2        15  123.5549        2    1643.548
-    ## 18:     small business        2        13  144.8151        2    5842.920
-    ## 19:  governor romney's        2        13  141.9289        2    2927.581
-    ## 20:      middle income        2        13  137.3467        2    4289.989
-    ##     length.x.x       pmi length.y.y      dice
-    ##  1:          2  5.010625          2 0.6827957
-    ##  2:          2  5.374568          2 0.7342657
-    ##  3:          2  5.442233          2 0.6000000
-    ##  4:          2  5.241191          2 0.4747082
-    ##  5:          2  6.641570          2 0.7654321
-    ##  6:          2  6.203729          2 0.5714286
-    ##  7:          3 11.062062          3 0.2084942
-    ##  8:          2  5.228369          2 0.3529412
-    ##  9:          2  6.328892          2 0.5360825
-    ## 10:          2  6.340881          2 0.6046512
-    ## 11:          2  4.422605          2 0.1947566
-    ## 12:          2  6.255470          2 0.5365854
-    ## 13:          2  4.679492          2 0.1890547
-    ## 14:          2  4.241919          2 0.1338583
-    ## 15:          2  7.883522          2 1.0000000
-    ## 16:          2  5.629194          2 0.3030303
-    ## 17:          2  4.708807          2 0.1287554
-    ## 18:          2  6.110745          2 0.3768116
-    ## 19:          2  5.421088          2 0.1375661
-    ## 20:          2  5.802799          2 0.2795699
+    ##            collocation length frequency        G2          X2       pmi
+    ##  1:          make sure      2       127 1271.0126   18973.589  5.010625
+    ##  2:    governor romney      2       105 1178.5814   22616.632  5.374568
+    ##  3:         four years      2        63  660.7728   14501.009  5.442233
+    ##  4:   mister president      2        61  629.7792   11474.923  5.241191
+    ##  5:      united states      2        31  422.7861   23741.541  6.641570
+    ##  6:       middle class      2        30  370.0621   14816.826  6.203729
+    ##  7:    last four years      3        27  971.5841 1724704.275 11.062062
+    ##  8:          last four      2        27  250.7039    5000.537  5.228369
+    ##  9:        middle east      2        26  340.0439   14557.426  6.328892
+    ## 10:        health care      2        26  319.7309   14729.556  6.340881
+    ## 11:    american people      2        26  195.0577    2128.716  4.422605
+    ## 12:   small businesses      2        22  260.7927   11438.391  6.255470
+    ## 13:        making sure      2        19  151.8800    2018.957  4.679492
+    ## 14:     million people      2        17  119.0044    1155.814  4.241919
+    ## 15:         dodd frank      2        15  266.5001   39798.000  7.883522
+    ## 16: federal government      2        15  151.0503    4156.951  5.629194
+    ## 17:       young people      2        15  123.5549    1643.548  4.708807
+    ## 18:     small business      2        13  144.8151    5842.920  6.110745
+    ## 19:  governor romney's      2        13  141.9289    2927.581  5.421088
+    ## 20:      middle income      2        13  137.3467    4289.989  5.802799
+    ##          dice
+    ##  1: 0.6827957
+    ##  2: 0.7342657
+    ##  3: 0.6000000
+    ##  4: 0.4747082
+    ##  5: 0.7654321
+    ##  6: 0.5714286
+    ##  7: 0.2084942
+    ##  8: 0.3529412
+    ##  9: 0.5360825
+    ## 10: 0.6046512
+    ## 11: 0.1947566
+    ## 12: 0.5365854
+    ## 13: 0.1890547
+    ## 14: 0.1338583
+    ## 15: 1.0000000
+    ## 16: 0.3030303
+    ## 17: 0.1287554
+    ## 18: 0.3768116
+    ## 19: 0.1375661
+    ## 20: 0.2795699
 
     ngram_collocations(x, gram.length = 3)
 
-    ##                 collocation length.x frequency        G2 length.y
-    ##  1:         last four years        3        27  971.5841        3
-    ##  2:   thousand nine hundred        3        11  397.1371        3
-    ##  3:    twenty three million        3        11  259.6493        3
-    ##  4:   middle class families        3        10  449.7899        3
-    ##  5:    governor romney says        3         8 1158.2886        3
-    ##  6:   thousand five hundred        3         8  347.5014        3
-    ##  7:    governor romney said        3         6 1124.7911        3
-    ##  8:         next four years        3         6  693.2538        3
-    ##  9:  middle income families        3         6  317.3088        3
-    ## 10:    three million people        3         6  219.8922        3
-    ## 11:       four years closer        3         5  522.4227        3
-    ## 12:    dollar five trillion        3         5  313.6099        3
-    ## 13:    dollar seven hundred        3         5  158.7751        3
-    ## 14: hundred sixteen billion        3         5  138.6161        3
-    ## 15:   seven hundred sixteen        3         5  135.3639        3
-    ## 16:         five point plan        3         5  113.9890        3
-    ## 17:       five million jobs        3         5  112.5139        3
-    ## 18:    dollar four thousand        3         4  192.7733        3
-    ## 19:    american people safe        3         4  192.0857        3
-    ## 20: three million americans        3         4  150.8102        3
-    ##             X2 length.x.x       pmi length.y.y       dice
-    ##  1: 1724704.28          3 11.062062          3 0.20849421
-    ##  2: 3072410.33          3 12.539329          3 0.17741935
-    ##  3: 2513947.30          3 12.339475          3 0.18032787
-    ##  4: 3048521.22          3 12.626088          3 0.17857143
-    ##  5:  192222.97          3  9.991399          3 0.05387205
-    ##  6:  694552.92          3 11.366460          3 0.10596026
-    ##  7:   39138.23          3  8.149088          3 0.02933985
-    ##  8:  175953.18          3 10.218342          3 0.05217391
-    ##  9: 1360460.91          3 12.328836          3 0.11214953
-    ## 10:  119729.34          3  9.893721          3 0.04067797
-    ## 11:  875348.03          3 12.061195          3 0.06711409
-    ## 12:  397529.29          3 11.267278          3 0.07246377
-    ## 13:  493914.84          3 11.499557          3 0.07352941
-    ## 14: 7274433.62          3 14.190439          3 0.14925373
-    ## 15: 2932291.59          3 13.281838          3 0.11904762
-    ## 16:  567955.03          3 11.640329          3 0.08064516
-    ## 17:  145903.55          3 10.280819          3 0.04854369
-    ## 18:   64472.06          3  9.663346          3 0.03755869
-    ## 19:  325883.97          3 11.305044          3 0.03375527
-    ## 20:  417336.21          3 11.553169          3 0.06896552
+    ##                 collocation length frequency        G2         X2
+    ##  1:         last four years      3        27  971.5841 1724704.28
+    ##  2:   thousand nine hundred      3        11  397.1371 3072410.33
+    ##  3:    twenty three million      3        11  259.6493 2513947.30
+    ##  4:   middle class families      3        10  449.7899 3048521.22
+    ##  5:    governor romney says      3         8 1158.2886  192222.97
+    ##  6:   thousand five hundred      3         8  347.5014  694552.92
+    ##  7:    governor romney said      3         6 1124.7911   39138.23
+    ##  8:         next four years      3         6  693.2538  175953.18
+    ##  9:  middle income families      3         6  317.3088 1360460.91
+    ## 10:    three million people      3         6  219.8922  119729.34
+    ## 11:       four years closer      3         5  522.4227  875348.03
+    ## 12:    dollar five trillion      3         5  313.6099  397529.29
+    ## 13:    dollar seven hundred      3         5  158.7751  493914.84
+    ## 14: hundred sixteen billion      3         5  138.6161 7274433.62
+    ## 15:   seven hundred sixteen      3         5  135.3639 2932291.59
+    ## 16:         five point plan      3         5  113.9890  567955.03
+    ## 17:       five million jobs      3         5  112.5139  145903.55
+    ## 18:    dollar four thousand      3         4  192.7733   64472.06
+    ## 19:    american people safe      3         4  192.0857  325883.97
+    ## 20: three million americans      3         4  150.8102  417336.21
+    ##           pmi       dice
+    ##  1: 11.062062 0.20849421
+    ##  2: 12.539329 0.17741935
+    ##  3: 12.339475 0.18032787
+    ##  4: 12.626088 0.17857143
+    ##  5:  9.991399 0.05387205
+    ##  6: 11.366460 0.10596026
+    ##  7:  8.149088 0.02933985
+    ##  8: 10.218342 0.05217391
+    ##  9: 12.328836 0.11214953
+    ## 10:  9.893721 0.04067797
+    ## 11: 12.061195 0.06711409
+    ## 12: 11.267278 0.07246377
+    ## 13: 11.499557 0.07352941
+    ## 14: 14.190439 0.14925373
+    ## 15: 13.281838 0.11904762
+    ## 16: 11.640329 0.08064516
+    ## 17: 10.280819 0.04854369
+    ## 18:  9.663346 0.03755869
+    ## 19: 11.305044 0.03375527
+    ## 20: 11.553169 0.06896552
 
     ngram_collocations(x, order.by = "dice")
 
-    ##                 collocation length.x frequency        G2 length.y       X2
-    ##  1:              dodd frank        2        15 266.50007        2 39798.00
-    ##  2:         standard bearer        2         4  81.64188        2 39798.00
-    ##  3:            apology tour        2         3  62.95758        2 39798.00
-    ##  4:   intellectual property        2         3  62.95758        2 39798.00
-    ##  5:            joint chiefs        2         3  62.95758        2 39798.00
-    ##  6:           onest century        2         3  62.95758        2 39798.00
-    ##  7: unintended consequences        2         2  43.59364        2 39798.00
-    ##  8:      appleton wisconsin        2         2  43.59364        2 39798.00
-    ##  9:         abraham lincoln        2         2  43.59364        2 39798.00
-    ## 10:      permanent resident        2         2  43.59364        2 39798.00
-    ## 11:              boca raton        2         2  43.59364        2 39798.00
-    ## 12:           raton florida        2         2  43.59364        2 39798.00
-    ## 13:          prime minister        2         2  43.59364        2 39798.00
-    ## 14:         haqqani network        2         2  43.59364        2 39798.00
-    ## 15:             wall street        2         9 162.59463        2 35817.30
-    ## 16:      planned parenthood        2         5  94.41404        2 33164.17
-    ## 17:             food stamps        2         9 158.66522        2 32560.36
-    ## 18:        self deportation        2         4  76.63786        2 31837.60
-    ## 19:        cleveland clinic        2         3  58.45891        2 29847.75
-    ## 20:    religious minorities        2         3  58.45891        2 29847.75
-    ##     length.x.x      pmi length.y.y      dice
-    ##  1:          2 7.883522          2 1.0000000
-    ##  2:          2 9.205278          2 1.0000000
-    ##  3:          2 9.492960          2 1.0000000
-    ##  4:          2 9.492960          2 1.0000000
-    ##  5:          2 9.492960          2 1.0000000
-    ##  6:          2 9.492960          2 1.0000000
-    ##  7:          2 9.898425          2 1.0000000
-    ##  8:          2 9.898425          2 1.0000000
-    ##  9:          2 9.898425          2 1.0000000
-    ## 10:          2 9.898425          2 1.0000000
-    ## 11:          2 9.898425          2 1.0000000
-    ## 12:          2 9.898425          2 1.0000000
-    ## 13:          2 9.898425          2 1.0000000
-    ## 14:          2 9.898425          2 1.0000000
-    ## 15:          2 8.288987          2 0.9473684
-    ## 16:          2 8.799812          2 0.9090909
-    ## 17:          2 8.193677          2 0.9000000
-    ## 18:          2 8.982134          2 0.8888889
-    ## 19:          2 9.205278          2 0.8571429
-    ## 20:          2 9.205278          2 0.8571429
+    ##                 collocation length frequency        G2       X2      pmi
+    ##  1:              dodd frank      2        15 266.50007 39798.00 7.883522
+    ##  2:         standard bearer      2         4  81.64188 39798.00 9.205278
+    ##  3:            apology tour      2         3  62.95758 39798.00 9.492960
+    ##  4:   intellectual property      2         3  62.95758 39798.00 9.492960
+    ##  5:            joint chiefs      2         3  62.95758 39798.00 9.492960
+    ##  6:           onest century      2         3  62.95758 39798.00 9.492960
+    ##  7: unintended consequences      2         2  43.59364 39798.00 9.898425
+    ##  8:      appleton wisconsin      2         2  43.59364 39798.00 9.898425
+    ##  9:         abraham lincoln      2         2  43.59364 39798.00 9.898425
+    ## 10:      permanent resident      2         2  43.59364 39798.00 9.898425
+    ## 11:              boca raton      2         2  43.59364 39798.00 9.898425
+    ## 12:           raton florida      2         2  43.59364 39798.00 9.898425
+    ## 13:          prime minister      2         2  43.59364 39798.00 9.898425
+    ## 14:         haqqani network      2         2  43.59364 39798.00 9.898425
+    ## 15:             wall street      2         9 162.59463 35817.30 8.288987
+    ## 16:      planned parenthood      2         5  94.41404 33164.17 8.799812
+    ## 17:             food stamps      2         9 158.66522 32560.36 8.193677
+    ## 18:        self deportation      2         4  76.63786 31837.60 8.982134
+    ## 19:        cleveland clinic      2         3  58.45891 29847.75 9.205278
+    ## 20:    religious minorities      2         3  58.45891 29847.75 9.205278
+    ##          dice
+    ##  1: 1.0000000
+    ##  2: 1.0000000
+    ##  3: 1.0000000
+    ##  4: 1.0000000
+    ##  5: 1.0000000
+    ##  6: 1.0000000
+    ##  7: 1.0000000
+    ##  8: 1.0000000
+    ##  9: 1.0000000
+    ## 10: 1.0000000
+    ## 11: 1.0000000
+    ## 12: 1.0000000
+    ## 13: 1.0000000
+    ## 14: 1.0000000
+    ## 15: 0.9473684
+    ## 16: 0.9090909
+    ## 17: 0.9000000
+    ## 18: 0.8888889
+    ## 19: 0.8571429
+    ## 20: 0.8571429
 
 ### Collocation Plotting
 
     plot(ngram_collocations(x))
 
-    ## Warning in melt.data.table(x, id = c("Grams"), variable.name = "Method", :
-    ## 'measure.vars' [length.x, frequency, G2, length.y, ...] are not all of the
-    ## same type. By order of hierarchy, the molten data value column will be of
-    ## type 'double'. All measure variables not of type 'double' will be coerced
-    ## to. Check DETAILS in ?melt.data.table for more on coercion.
-
 ![](tools/figure/unnamed-chunk-8-1.png)
 
     plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
-
-    ## Warning in melt.data.table(x, id = c("Grams"), variable.name = "Method", :
-    ## 'measure.vars' [length.x, frequency, G2, length.y, ...] are not all of the
-    ## same type. By order of hierarchy, the molten data value column will be of
-    ## type 'double'. All measure variables not of type 'double' will be coerced
-    ## to. Check DETAILS in ?melt.data.table for more on coercion.
 
 ![](tools/figure/unnamed-chunk-8-2.png)
 
     plot(ngram_collocations(x, gram.length = 3))
 
-    ## Warning in melt.data.table(x, id = c("Grams"), variable.name = "Method", :
-    ## 'measure.vars' [length.x, frequency, G2, length.y, ...] are not all of the
-    ## same type. By order of hierarchy, the molten data value column will be of
-    ## type 'double'. All measure variables not of type 'double' will be coerced
-    ## to. Check DETAILS in ?melt.data.table for more on coercion.
-
 ![](tools/figure/unnamed-chunk-8-3.png)
 
     plot(ngram_collocations(x, order.by = "dice"))
-
-    ## Warning in melt.data.table(x, id = c("Grams"), variable.name = "Method", :
-    ## 'measure.vars' [length.x, frequency, G2, length.y, ...] are not all of the
-    ## same type. By order of hierarchy, the molten data value column will be of
-    ## type 'double'. All measure variables not of type 'double' will be coerced
-    ## to. Check DETAILS in ?melt.data.table for more on coercion.
 
 ![](tools/figure/unnamed-chunk-8-4.png)
 
@@ -695,7 +672,7 @@ are additional observations.
     ## split_data:
     ## 
     ## train: n = 2184
-    ## # A tibble: 6 × 5
+    ## # A tibble: 6 x 5
     ##      person    tot   time      role
     ##      <fctr>  <chr> <fctr>    <fctr>
     ## 1   CROWLEY  230.2 time 2 moderator
@@ -708,7 +685,7 @@ are additional observations.
     ## |...
     ## 
     ## test: n = 728
-    ## # A tibble: 6 × 5
+    ## # A tibble: 6 x 5
     ##   person   tot   time      role
     ##   <fctr> <chr> <fctr>    <fctr>
     ## 1 LEHRER   1.1 time 1 moderator
@@ -730,7 +707,7 @@ Here I show splitting by integer.
     ## split_data:
     ## 
     ## train: n = 100
-    ## # A tibble: 6 × 5
+    ## # A tibble: 6 x 5
     ##   person    tot   time      role
     ##   <fctr>  <chr> <fctr>    <fctr>
     ## 1  OBAMA  102.4 time 2 candidate
@@ -743,7 +720,7 @@ Here I show splitting by integer.
     ## |...
     ## 
     ## test: n = 2812
-    ## # A tibble: 6 × 5
+    ## # A tibble: 6 x 5
     ##   person   tot   time      role
     ##   <fctr> <chr> <fctr>    <fctr>
     ## 1 LEHRER   1.1 time 1 moderator
@@ -1005,18 +982,18 @@ of observation which gives the researcher the observation level counts.
     model
 
     ## Coverage: 13.02% 
-    ## # A tibble: 2,912 × 6
+    ## # A tibble: 2,912 x 6
     ##       id n.words response_cries back_channels summons justification
     ##    <int>   <int>          <int>         <int>   <int>         <int>
-    ## 1      1      10              0             0       0             0
-    ## 2      2       9              1             0       0             0
-    ## 3      3      14              0             0       0             0
-    ## 4      4      14              0             0       0             0
-    ## 5      5       5              1             0       0             0
-    ## 6      6       5              0             0       0             0
-    ## 7      7      40              0             0       0             0
-    ## 8      8       2              0             0       0             0
-    ## 9      9      20              0             0       2             0
+    ##  1     1      10              0             0       0             0
+    ##  2     2       9              1             0       0             0
+    ##  3     3      14              0             0       0             0
+    ##  4     4      14              0             0       0             0
+    ##  5     5       5              1             0       0             0
+    ##  6     6       5              0             0       0             0
+    ##  7     7      40              0             0       0             0
+    ##  8     8       2              0             0       0             0
+    ##  9     9      20              0             0       2             0
     ## 10    10      13              0             0       1             0
     ## # ... with 2,902 more rows
 
@@ -1538,18 +1515,18 @@ confidence band is highly affected by the number of samples per tag).
     ## -------
     ## Overall:
     ## -------
-    ##    accuracy   n sampled  se lower upper
-    ## 1:    59.6% 484      57 .06 46.9% 72.4%
+    ##    accuracy n.tagged n.classified sampled  se lower upper
+    ## 1:    59.6%      484          322      57 .06 46.9% 72.4%
     ## 
     ## 
     ## ---------------
     ## Individual Tags:
     ## ---------------
-    ##               tag accuracy   n sampled  se lower  upper
-    ## 1:  back_channels    83.3%   7       6 .15 53.5% 100.0%
-    ## 2: response_cries    72.7%  13      11 .13 46.4%  99.0%
-    ## 3:  justification    55.0% 155      20 .11 33.2%  76.8%
-    ## 4:        summons    50.0% 309      20 .11 28.1%  71.9%
+    ##               tag accuracy n.tagged n.classified sampled  se lower  upper
+    ## 1:  back_channels    83.3%        7            4       6 .15 53.5% 100.0%
+    ## 2: response_cries    72.7%       13            7      11 .13 46.4%  99.0%
+    ## 3:  justification    55.0%      155          122      20 .11 33.2%  76.8%
+    ## 4:        summons    50.0%      309          189      20 .11 28.1%  71.9%
 
     plot(validated)
 

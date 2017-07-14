@@ -111,7 +111,6 @@ plot.ngram_collocations <- function(x, drop.redundant.yaxis.text = TRUE,
 
     collocation <- Grams <- Method <- Scaled <- Measure <- NULL
 
-
     data.table::setDT(x)
     # x[, Grams := Reduce(function(...) paste(..., sep = "-"), .SD[, mget(termcols)])]
     x[, Grams := gsub(' ', '-', collocation, fixed = TRUE)][, collocation := NULL]
@@ -132,12 +131,13 @@ plot.ngram_collocations <- function(x, drop.redundant.yaxis.text = TRUE,
             axis.line = ggplot2::element_line(color="grey70")
         )
 
+    x[, 'length' := NULL]
 
-    dat_long <- data.table::melt(x, id = c("Grams"),
+    dat_long <- data.table::melt(x[], id = c("Grams"),
         variable.name = "Method", value.name = "Measure")[,
         Grams := factor(Grams, levels = levels(x[["Grams"]]))][,
         Method := factor(Method, levels = utils::head(colnames(x), -1))][,
-        Scaled := scale(Measure), by = "Method"]
+        Scaled := scale(Measure), by = "Method"][]
 
     heat_plot <- ggplot2::ggplot(dat_long,
         ggplot2::aes_string(y = "Grams", x = "Method", fill="Scaled")) +
@@ -184,7 +184,7 @@ termco_collocations <- function(x, size = 2:3, order.by = 'frequency',
             min_count = 2)
     })
 
-    out <- Reduce(function(x, y) dplyr::left_join(x, y, by=c('collocation', 'count')), ngrams)
+    out <- Reduce(function(x, y) dplyr::left_join(x, y, by=c('collocation', 'count', 'length')), ngrams)
 
     out <- data.table::data.table(out)
 
