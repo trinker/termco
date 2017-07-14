@@ -14,7 +14,10 @@
 #' @return \code{validate_model} - Returns a \code{data.frame} of the class
 #' \code{'validate_model'}.  Note that the pretty print is a tag summarized
 #' version of the model accuracy standard error, and confidence intervals from
-#' \code{summary.validate_model}.
+#' \code{summary.validate_model}.  \code{n.tagged} is the number of potential
+#' tags from the column sums of the \code{termco} object whereas \code{n.classified}
+#' is the number of elements actually classified into that tag group by the
+#' \code{\link[termco]{classify}} function.
 #' @keywords validate
 #' @note This function assigns tags using the \code{\link[termco]{classify}}
 #' function.  One element may recieve multiple tags.
