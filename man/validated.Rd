@@ -4,7 +4,7 @@
 \name{validated}
 \alias{validated}
 \title{A Simulated \code{validate_model} Output}
-\format{A data frame with 65 rows and 2 variables}
+\format{A data frame with 57 rows and 2 variables}
 \usage{
 data(validated)
 }
