@@ -313,10 +313,22 @@ term_lister_check <- function(term.list, G){
         term.list <- as.list(term.list)
         if (is.null(names(term.list))) term.list <- stats::setNames(term.list, term.list)
     } else {
+        ## first drop nulls
+        empties <- unlist(lapply(term.list, is.null))
+        if (sum(empties) > 0){
+            
+            warning(paste0(
+                "\nThe following term names contained no regular expressions and were dropped:\n\n", 
+                paste(paste0(' -', names(empties)[empties]), collapse = '\n'), '\n\n'
+            ))
+            term.list <- term.list[!empties]
+        }
         term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
     }
+
     term.list
-}
+}        
+
 
 #' Prints a term_count Object
 #'
