@@ -167,6 +167,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     list_list <- FALSE
     if (is.list(term.list[[1]]) && length(term.list) > 1 && all(sapply(term.list, is.list))) {
 
+        term.list <- term_lister_check(term.list)
 
         ## make sure for hierarchical terms that each observation is also a group
         if(nrow(DF) != nrow(unique(DF[,G, with=FALSE]))) {
@@ -329,7 +330,24 @@ term_lister_check <- function(term.list, G){
     term.list
 }        
 
+term_lister_empty_hierarchy_check <- function(term.list){
 
+    empties <- unlist(lapply(term.list, function(x) {
+        nn <- unlist(lapply(x, is.null))
+        sum(nn) == length(nn)
+    }))
+   
+    
+    if (any(empties)) {
+        locs <- paste(which(empties), collapse = ", ")
+        warning(sprintf('Empty hierarchy detected in `term.list`; removing level(s): %s', locs))
+        term.list <- term.list[!empties]
+    }
+
+    term.list
+}
+
+                            
 #' Prints a term_count Object
 #'
 #' Prints a term_count object.
