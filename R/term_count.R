@@ -167,7 +167,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     list_list <- FALSE
     if (is.list(term.list[[1]]) && length(term.list) > 1 && all(sapply(term.list, is.list))) {
 
-        term.list <- term_lister_check(term.list, G)
+        term.list <- term_lister_empty_hierarchy_check(term.list)
 
         ## make sure for hierarchical terms that each observation is also a group
         if(nrow(DF) != nrow(unique(DF[,G, with=FALSE]))) {
