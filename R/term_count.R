@@ -167,7 +167,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     list_list <- FALSE
     if (is.list(term.list[[1]]) && length(term.list) > 1 && all(sapply(term.list, is.list))) {
 
-        term.list <- term_lister_check(term.list)
+        term.list <- term_lister_check(term.list, G)
 
         ## make sure for hierarchical terms that each observation is also a group
         if(nrow(DF) != nrow(unique(DF[,G, with=FALSE]))) {
@@ -178,7 +178,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
 
         #out_list <- vector(mode = "list", length = length(term.list))
         #inds  <- vector(mode = "list", length = length(term.list))
-        term.list <- lapply(term.list, term_lister_check, G)
+        term.list <- lapply(term.list, term_lister_check, G = G)
 
         ## Auto create a map for same named term lists and
         ## add ending number to distinguish
@@ -303,6 +303,7 @@ mymerge <-  function(x, y) merge(x, y, all=TRUE)
 
 
 term_lister_check <- function(term.list, G){
+   
     if(any(G %in% names(term.list))) stop("`grouping` names cannot be used as `term.list` names")
 
     nms <- names(term.list)
