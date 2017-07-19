@@ -64,6 +64,7 @@ classify <- function(x, n = 1, ties.method = "probability", seed = NULL, ...) {
         warning("Object is not `term_count`...\n",
             "Object may have been altered.  Check to make sure tags are correct.")
     }
+
     if (n < 2){
         if (ties.method == "probability"){
 
@@ -135,6 +136,9 @@ classify <- function(x, n = 1, ties.method = "probability", seed = NULL, ...) {
                 out
             })
         }
+
+        if (nrow(x) == 1) out <- list(c(out))
+
         class(out) <- unique(c("classify", class(out)))
         out
     }

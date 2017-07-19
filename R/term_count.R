@@ -303,7 +303,7 @@ mymerge <-  function(x, y) merge(x, y, all=TRUE)
 
 
 term_lister_check <- function(term.list, G){
-   
+
     if(any(G %in% names(term.list))) stop("`grouping` names cannot be used as `term.list` names")
 
     nms <- names(term.list)
@@ -318,9 +318,9 @@ term_lister_check <- function(term.list, G){
         ## first drop nulls
         empties <- unlist(lapply(term.list, is.null))
         if (sum(empties) > 0){
-            
+
             warning(paste0(
-                "\nThe following term names contained no regular expressions and were dropped:\n\n", 
+                "\nThe following term names contained no regular expressions and were dropped:\n\n",
                 paste(paste0(' -', names(empties)[empties]), collapse = '\n'), '\n\n'
             ))
             term.list <- term.list[!empties]
@@ -329,7 +329,7 @@ term_lister_check <- function(term.list, G){
     }
 
     term.list
-}        
+}
 
 term_lister_empty_hierarchy_check <- function(term.list){
 
@@ -337,8 +337,8 @@ term_lister_empty_hierarchy_check <- function(term.list){
         nn <- unlist(lapply(x, is.null))
         sum(nn) == length(nn)
     }))
-   
-    
+
+
     if (any(empties)) {
         locs <- paste(which(empties), collapse = ", ")
         warning(sprintf('Empty hierarchy detected in `term.list`; removing level(s): %s', locs))
@@ -348,7 +348,7 @@ term_lister_empty_hierarchy_check <- function(term.list){
     term.list
 }
 
-                            
+
 #' Prints a term_count Object
 #'
 #' Prints a term_count object.

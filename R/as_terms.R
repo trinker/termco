@@ -27,6 +27,8 @@ as_terms <- function(x, names = NULL, ...) {
     }
     nms <- colnames(x)
 	lst <- apply(x, 1, function(y) rep(nms, y))
+
+    if (nrow(x) == 1) lst <- as.list(lst)
     if(!is.list(lst)) lst <- lapply(1:ncol(lst), function(i) lst[, i])
     out <- stats::setNames(lst, nm = names)
 
