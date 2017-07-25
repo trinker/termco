@@ -10,7 +10,7 @@ Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, ggnetwork, gofastr, g
           grDevices, grid, gridExtra, igraph, methods, quanteda, slam, SnowballC, stats,
           stringi, textshape, tidyr, tm, utils, wordcloud
 Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
-Date: 2017-07-18
+Date: 2017-07-25
 License: MIT + file LICENSE
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

@@ -28,6 +28,9 @@ termco 0.5.0 -
   was integer whereas the other ngram measures are numeric resulting in a
   **data.table** warning in `melt`.  Both of these issues have been addressed.
 
+* `colo` did not copy a single term to the clipboard with quotes.  See issue
+  #50.
+
 **NEW FEATURES**
 
 * `get_text` added to extract the original text associated with particular tags.
