@@ -28,8 +28,8 @@ termco 0.5.0 -
   was integer whereas the other ngram measures are numeric resulting in a
   **data.table** warning in `melt`.  Both of these issues have been addressed.
 
-* `colo` did not copy a single term to the clipboard with quotes.  See issue
-  #50.
+* `colo` did not copy a single term to the clipboard with quotes.  See
+  <a href="https://github.com/trinker/termco/issues/50">issue #50</a>.
 
 **NEW FEATURES**
 
@@ -54,7 +54,7 @@ termco 0.5.0 -
   objects.
 
 * `match_word` added to match words to regular expressions.  Roughly equivalent
-  *qdap**'s `term_match`.
+  **qdap**'s `term_match`.
 
 **MINOR FEATURES**
 
