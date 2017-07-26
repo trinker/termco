@@ -61,6 +61,9 @@ termco 0.5.0 -
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`
   plot method.
 
+* `term_count` checks for duplicate categories within tiers for hierarchical
+  term lists.
+
 **IMPROVEMENTS**
 
 * `validate_model` now uses `classify` before validating to assign tags.

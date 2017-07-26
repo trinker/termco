@@ -328,7 +328,7 @@ term_lister_check <- function(term.list, G){
         term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
     }
 
-    term.list
+    dupe_category_check(term.list)
 }
 
 term_lister_empty_hierarchy_check <- function(term.list){
@@ -345,9 +345,39 @@ term_lister_empty_hierarchy_check <- function(term.list){
         term.list <- term.list[!empties]
     }
 
-    term.list
+    dupe_category_check(term.list)
+
 }
 
+dupe_category_check <- function(term.list){
+
+    out <- term.list
+
+    tier <- TRUE
+    mess1 <- "tiers in the hierarchical search have"
+    mess2 <-  ' within the tier'
+
+    ## check if hierarchical
+    if (!is.list(term.list[[1]])) {
+        term.list <- list(term.list)
+        mess1 <- "have"
+        mess2 <- ""
+    }
+
+    dupes <- unlist(lapply(term.list, function(x){
+        m <- names(x)[duplicated(names(x))]
+        if (length(m) == 0) return(NA) else paste(m, collapse = "; ")
+    }))
+
+    if (any(!is.na(dupes))) {
+        dupes2 <- paste0('  -Level ', seq_along(dupes), ': ', dupes)
+        offenders <- paste(dupes2[!is.na(dupes)], collapse = "\n")
+        stop(paste0("The following ", mess1, " duplicate categories", mess2, ":\n\n",
+            offenders, "\n\nCollapse each of these named vectors into a single vector."))
+    }
+
+    out
+}
 
 #' Prints a term_count Object
 #'
