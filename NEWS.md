@@ -78,6 +78,10 @@ termco 0.5.0 -
 * `plot.validate_model` now shows tag counts in the sample to provide a relative
   importance of the accuracy in making decisions.
 
+* Open, unescaped or regexes [(i.e., `|)` unescaped pipe followed by a closing
+  group character] are now caught and warned for `read_term_list` and thus
+  `term_count`.
+
 **CHANGES**
 
 * `as_dtm` & `as_tdm` moved to the **gofastr** package where they can be used by

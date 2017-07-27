@@ -120,9 +120,26 @@ read_term_list <- function(file, indices = NULL, term.list, ...){
                 suppressWarnings(term_lister_check(x, G = obj, collapse = collapse))
             })
 
+            open_or_list <- unlist(lapply(cats, function(y) {
+                open_or <- search_open_or(y)
+                if (all(!open_or)) return(NA)
+                paste(names(y)[open_or], collapse = ', ')
+            }))
+
+            if (any(!is.na(open_or_list))) {
+                offending_open_or_vect <- paste(paste0("Tier ", seq_along(open_or_list), '. ',open_or_list)[!is.na(open_or_list)], collapse = '\n')
+                warning(paste0('Open or statement [(i.e., `|)` unescaped pipe followed by a closing\n  group character] found in the following tiers & categories:\n\n', offending_open_or_vect))
+            }
+
         },
         termco_unnested = {
             cats <- term_lister_check(cats, obj, collapse = collapse)
+            open_or <- unlist(lapply(cats, search_open_or))
+            if (any(open_or)) {
+                offending_open_or <- paste(names(open_or)[open_or], collapse = ', ')
+                warning(paste0('Open or statement [(i.e., `|)` unescaped pipe followed by a closing\n  group character] found in the following categories:\n\n', offending_open_or))
+            }
+
         }
     )
 
@@ -257,6 +274,8 @@ term_list_summary_stats.termco_nested <- function(x, ...){
 }
 
 
+
+
 ## https://www.loggly.com/blog/five-invaluable-techniques-to-improve-regex-performance/
 ## https://docs.bmc.com/docs/display/DISCO90/Writing+efficient+regular+expressions
 
@@ -271,3 +290,12 @@ term_list_summary_stats.termco_nested <- function(x, ...){
 # term_lister_check <- termco:::term_lister_check
 # rm_class <- termco:::rm_class
 
+
+
+
+## x <- "(((it was|what a).*(class|course|labs?\\b|))|((class|course|labs?\\b|).*(it was|what a)))"
+search_open_or <- function(x, ...){
+
+    grepl('(?<!\\\\)\\|\\)', x, perl = TRUE)
+
+}
