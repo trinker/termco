@@ -62,7 +62,7 @@ data(presidential_debates_2012)
 discoure_markers <- list(
     response_cries = c("\\\\boh", "\\\\bah", "\\\\baha", "\\\\bouch", "yuk"),
     back_channels = c("uh[- ]huh", "uhuh", "yeah"),
-    summons = "hey",
+    summons = "\\\\bhey",
     justification = "because"
 )
 

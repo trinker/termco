@@ -2,9 +2,12 @@
 % Please edit documentation in R/read_term_list.R
 \name{read_term_list}
 \alias{read_term_list}
+\alias{source_term_list}
 \title{Read-In Term List}
 \usage{
 read_term_list(file, indices = NULL, term.list, ...)
+
+source_term_list(file, indices = NULL, ...)
 }
 \arguments{
 \item{file}{Path to external term list.}
@@ -21,13 +24,16 @@ external file.}
 Returns a formatted term list.
 }
 \description{
-Read-in a term list from an external file.
+Read-in and format a term list from an external file.  \code{read_term_list}
+collapses the terms within categories by default.  To negate this behavior
+use \code{source_term_list}.
 }
 \examples{
 good_cats <- system.file("termco_docs/categories.R", package = "termco")
 bad_cats <- system.file("termco_docs/mal_categories.R", package = "termco")
 
 read_term_list(good_cats)
+source_term_list(good_cats)
 
 \dontrun{
 ## Throws warnings

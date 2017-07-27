@@ -1,6 +1,8 @@
 #' Read-In Term List
 #'
-#' Read-in a term list from an external file.
+#' Read-in and format a term list from an external file.  \code{read_term_list}
+#' collapses the terms within categories by default.  To negate this behavior
+#' use \code{source_term_list}.
 #'
 #' @param file Path to external term list.
 #' @param indices Indices of the elements to retain (used to take part of a
@@ -9,12 +11,14 @@
 #' external file.
 #' @param \ldots ignored.
 #' @return Returns a formatted term list.
+#' @rdname read_term_list
 #' @export
 #' @examples
 #' good_cats <- system.file("termco_docs/categories.R", package = "termco")
 #' bad_cats <- system.file("termco_docs/mal_categories.R", package = "termco")
 #'
 #' read_term_list(good_cats)
+#' source_term_list(good_cats)
 #'
 #' \dontrun{
 #' ## Throws warnings
@@ -58,6 +62,10 @@ read_term_list <- function(file, indices = NULL, term.list, ...){
 
     obj <- 'unspecified_termco_obj1234'
 
+    dots <- list(...)
+    if (!is.null(dots[['G']])) obj <- dots[['G']]
+    collapse <- is.null(dots[['collapse']]) | isTRUE(dots[['collapse']])
+
     if (missing(term.list)) {
         ## ensure file exists
         stopifnot(file.exists(file))
@@ -65,6 +73,9 @@ read_term_list <- function(file, indices = NULL, term.list, ...){
         ## read in categories file
         cats <- source(file)[[1]]
     } else {
+
+        if (methods::is(term.list, 'term_list')) return(term.list)
+
         cats <- term.list
     }
 
@@ -83,7 +94,7 @@ read_term_list <- function(file, indices = NULL, term.list, ...){
 
             ## grab the warnings for later printing
             first_pass <- lapply(cats, function(x) {
-                tryCatch(term_lister_check(x, G = obj), warning=function(w) w)
+                tryCatch(term_lister_check(x, G = obj, collapse = collapse), warning=function(w) w)
             })
 
             locs <- unlist(lapply(first_pass, inherits, what = 'simpleWarning'))
@@ -106,12 +117,12 @@ read_term_list <- function(file, indices = NULL, term.list, ...){
 
             ## actually run the term list through `term_lister_check`
             cats <- lapply(cats, function(x) {
-                suppressWarnings(term_lister_check(x, G = obj))
+                suppressWarnings(term_lister_check(x, G = obj, collapse = collapse))
             })
 
         },
         termco_unnested = {
-            cats <- term_lister_check(cats, obj)
+            cats <- term_lister_check(cats, obj, collapse = collapse)
         }
     )
 
@@ -120,10 +131,19 @@ read_term_list <- function(file, indices = NULL, term.list, ...){
         cats <- cats[indices]
     }
 
-    class(cats) <- c('term_list', type)
+    if (isTRUE(collapse)) class(cats) <- c('term_list', type)
     return(cats)
 
 }
+
+#' @rdname read_term_list
+#' @export
+source_term_list <- function(file, indices = NULL, ...){
+
+    read_term_list(file = file, collapse = FALSE, indices = indices, ...)
+
+}
+
 
 #' Prints a term_list Object
 #'

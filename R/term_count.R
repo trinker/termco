@@ -46,7 +46,7 @@
 #' discoure_markers <- list(
 #'     response_cries = c("\\boh", "\\bah", "\\baha", "\\bouch", "yuk"),
 #'     back_channels = c("uh[- ]huh", "uhuh", "yeah"),
-#'     summons = "hey",
+#'     summons = "\\bhey",
 #'     justification = "because"
 #' )
 #'
@@ -167,8 +167,6 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     list_list <- FALSE
     if (is.list(term.list[[1]]) && length(term.list) > 1 && all(sapply(term.list, is.list))) {
 
-        term.list <- term_lister_empty_hierarchy_check(term.list)
-
         ## make sure for hierarchical terms that each observation is also a group
         if(nrow(DF) != nrow(unique(DF[,G, with=FALSE]))) {
             stop("In order to run nested `term.list` then `grouping.var` must place every observation in its own group.")
@@ -176,9 +174,8 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
 
         list_list <- TRUE
 
-        #out_list <- vector(mode = "list", length = length(term.list))
-        #inds  <- vector(mode = "list", length = length(term.list))
-        term.list <- lapply(term.list, term_lister_check, G = G)
+        ## term list checking/formatting
+        term.list <- read_term_list(term.list = term.list, G = G)
 
         ## Auto create a map for same named term lists and
         ## add ending number to distinguish
@@ -249,7 +246,9 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
 
 
     } else {
-        term.list <- term_lister_check(term.list, G)
+
+        ## term list checking/formatting
+        term.list <- read_term_list(term.list = term.list, G = G)
 
         counts <- data.table::setDT(DF)[, names(term.list):= lapply(term.list, countfun,
             text.var, ignore.case = ignore.case), ][, text.var:=NULL]
@@ -302,7 +301,7 @@ na.replace <- function(v, value=0) { v[is.na(v)] <- value; v }
 mymerge <-  function(x, y) merge(x, y, all=TRUE)
 
 
-term_lister_check <- function(term.list, G){
+term_lister_check <- function(term.list, G, collapse = TRUE){
 
     if(any(G %in% names(term.list))) stop("`grouping` names cannot be used as `term.list` names")
 
@@ -325,10 +324,14 @@ term_lister_check <- function(term.list, G){
             ))
             term.list <- term.list[!empties]
         }
-        term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
+
+        if (isTRUE(collapse)) {
+            term.list <- lapply(term.list, function(x) paste(paste0("(", x, ")"), collapse = "|"))
+        }
     }
 
     dupe_category_check(term.list)
+
 }
 
 term_lister_empty_hierarchy_check <- function(term.list){
