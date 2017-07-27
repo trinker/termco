@@ -56,6 +56,8 @@ NEW FEATURES
 * `match_word` added to match words to regular expressions.  Roughly equivalent
   **qdap**'s `term_match`.
 
+* `read_term_list` added to aid in the reading in and formating of term list files.
+
 MINOR FEATURES
 
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`

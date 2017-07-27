@@ -8,7 +8,7 @@ Depends: R (>= 3.2.1)
 Imports: ca, clipr, data.table, dplyr (>= 0.4.3), ggplot2, ggnetwork, gofastr, graphics, grDevices, grid, gridExtra, igraph, methods,
                quanteda, slam, SnowballC, stats, stringi, textshape, tidyr, tm, utils, wordcloud
 Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
-Date: 2017-07-26
+Date: 2017-07-27
 License: MIT + file LICENSE
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
