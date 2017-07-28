@@ -193,9 +193,12 @@ print.validate_model <- function(x, digits = 1, ...){
 #' @param \ldots ignored.
 #' @method plot validate_model
 #' @export
+
+
+
 plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
 
-    overall <- tag <- NULL
+    overall <- tag <- Tag.Counts.Type <- NULL
 
     dat1 <- data.table::data.table(attributes(summary(x))[['overall']])[,
         'tag' := 'Model'][]
@@ -252,18 +255,52 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
             plot.margin = grid::unit(c(1,1, .5, .5), "lines")
         )
 
-     maxy <-c(0, ceiling(max(dat2[dat2[['overall']] == 'Tags', ][['n.classified']],
+     maxy <-c(0, ceiling(max(dat2[dat2[['overall']] == 'Tags', ][['n.tagged']],
             na.rm = TRUE))*1.05)
+
+     if (max(maxy) > 5000) {
+         scale_fun <- numform::ff_denom()
+     } else {
+         scale_fun <- function(x) {x}
+     }
+
+     longc <- data.table::melt(data.table::copy(dat2[dat2[['overall']] == 'Tags',
+         c('tag', 'n.tagged', 'n.classified')]), id = 'tag', variable.name = 'Tag.Counts.Type')[,
+            'Tag.Counts.Type' :=  gsub('^n\\.', 'n ', Tag.Counts.Type)][]
+
+
+    legendplot <- ggplot2::ggplot(longc, aes_string(x = 'tag', y = 'value', fill = 'Tag.Counts.Type')) +
+        ggplot2::geom_bar(stat = 'identity') +
+        ggplot2::scale_fill_manual(
+            values = c('blue','grey70'), name = 'Tag Counts Type',
+            guide = ggplot2::guide_legend(reverse=TRUE)
+        )  +
+        ggplot2::theme(
+            legend.title = ggplot2::element_text(size=8),
+            legend.text = ggplot2::element_text(size=7),
+            legend.key.size = grid::unit(.60, "line")
+        )
+
+     legend <- cowplot::get_legend(legendplot)
 
      cntsplot <- ggplot2::ggplot(dat2[dat2[['overall']] == 'Tags', ],
             ggplot2::aes_string(y = 'tag')) +
         ggplot2::geom_segment(size = 1, color= 'grey60',
-            ggplot2::aes_string(x = 0, xend = 'n.classified', yend = 'tag')) +
+            ggplot2::aes_string(x = 0, xend = 'n.tagged', yend = 'tag')) +
+        # ggplot2::geom_point(stat = 'identity', ggplot2::aes_string( x = 'n.tagged'),
+        #     size = 3, color = 'orange') +
+        # ggplot2::geom_point(stat = 'identity', ggplot2::aes_string( x = 'n.classified'),
+        #     size = 3, color = 'blue', shape = '|') +
+        ggstance::geom_barh(stat = 'identity', ggplot2::aes_string( x = 'n.tagged'),
+            fill = 'grey70', width = .4) +
+        # ggstance::geom_barh(stat = 'identity', ggplot2::aes_string( x = 'n.classified'),
+        #     fill = 'blue', width = .2) +
         ggplot2::geom_point(stat = 'identity', ggplot2::aes_string( x = 'n.classified'),
-            size = 3, color = 'orange') +
+            size = 1, color = 'blue') +
         ggplot2::facet_grid(overall~., scales='free', space='free') +
-        ggplot2::labs(y = NULL, x = "Count", title="N Classified Tags") +
-        ggplot2::scale_x_continuous(limits = maxy, expand = c(0, 0)) +
+        ggplot2::labs(y = NULL, x = "Count", title="Tag Counts") +
+        ggplot2::scale_x_continuous(limits = maxy, expand = c(0, 0),
+            label = numform::ff_denom()) +
         ggplot2::theme_bw() +
         ggplot2::theme(
             legend.position="none",
@@ -303,7 +340,7 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
 
 
     right_plot <- gridExtra::arrangeGrob(
-        ggplot2::ggplot() + ggplot2::theme_minimal(),
+        legend, #gridExtra::arrangeGrob(ggplot2::ggplot() + ggplot2::theme_minimal(), legend, ncol = 1, heights = c(.5, .5)),
         gC,
         ncol = 1,
         heights = c(.15, .85)
@@ -320,6 +357,7 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
 
     return(invisible(list(plot = outplot, overall = plot1a, tags = plot1b, counts = cntsplot)))
 }
+
 
 
 

@@ -196,7 +196,7 @@ their description:
 <tr class="odd">
 <td><code>tag_co_occurrence</code></td>
 <td>modeling</td>
-<td>Explor co-occurrence of tags from a model</td>
+<td>Explore co-occurrence of tags from a model</td>
 </tr>
 <tr class="even">
 <td><code>validate_model</code>/<code>assign_validation_task</code></td>
@@ -204,61 +204,66 @@ their description:
 <td>Human validation of a <code>term_count</code> model</td>
 </tr>
 <tr class="odd">
+<td><code>read_term_list</code></td>
+<td>read-in</td>
+<td>Read a term list from an external file</td>
+</tr>
+<tr class="even">
 <td><code>as_count</code></td>
 <td>convert</td>
 <td>Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>as_terms</code></td>
 <td>convert</td>
 <td>Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>as_term_list</code></td>
 <td>convert</td>
 <td>Convert a vector of terms into a named term list</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>weight</code></td>
 <td>convert</td>
 <td>Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>plot_ca</code></td>
 <td>plot</td>
 <td>Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>plot_counts</code></td>
 <td>plot</td>
 <td>Horizontal bar plot of group counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>plot_freq</code></td>
 <td>plot</td>
 <td>Vertical bar plot of frequencies of counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>plot_cum_percent</code></td>
 <td>plot</td>
 <td>Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>probe_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>probe_colo_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term_collocations</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>probe_colo_plot_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>probe_colo_plot</code></td>
 <td>probe</td>
 <td>Plot <code>probe_colo_plot_list</code> directly</td>
@@ -1360,6 +1365,28 @@ power, whereas the other tags have the potential to be redundant.
     tag_co_occurrence(model) %>%
         plot(min.edge.cutoff = .01)
 
+    ## Loading required package: sna
+
+    ## Loading required package: statnet.common
+
+    ## Loading required package: network
+
+    ## network: Classes for Relational Data
+    ## Version 1.13.0 created on 2015-08-31.
+    ## copyright (c) 2005, Carter T. Butts, University of California-Irvine
+    ##                     Mark S. Handcock, University of California -- Los Angeles
+    ##                     David R. Hunter, Penn State University
+    ##                     Martina Morris, University of Washington
+    ##                     Skye Bender-deMoll, University of Washington
+    ##  For citation information, type citation("network").
+    ##  Type help("network-package") to get started.
+
+    ## sna: Tools for Social Network Analysis
+    ## Version 2.4 created on 2016-07-23.
+    ## copyright (c) 2005, Carter T. Butts, University of California-Irvine
+    ##  For citation information, type citation("sna").
+    ##  Type help(package="sna") to get started.
+
 ![](tools/figure/impr_disc-1.png)
 
 Categorizing/Tagging
@@ -1516,19 +1543,25 @@ confidence band is highly affected by the number of samples per tag).
     ## Overall:
     ## -------
     ##    accuracy n.tagged n.classified sampled  se lower upper
-    ## 1:    59.6%      484          322      57 .06 46.9% 72.4%
+    ## 1:    59.6%      484          328      57 .06 46.9% 72.4%
     ## 
     ## 
     ## ---------------
     ## Individual Tags:
     ## ---------------
     ##               tag accuracy n.tagged n.classified sampled  se lower  upper
-    ## 1:  back_channels    83.3%        7            4       6 .15 53.5% 100.0%
-    ## 2: response_cries    72.7%       13            7      11 .13 46.4%  99.0%
+    ## 1:  back_channels    83.3%        7            6       6 .15 53.5% 100.0%
+    ## 2: response_cries    72.7%       13           11      11 .13 46.4%  99.0%
     ## 3:  justification    55.0%      155          122      20 .11 33.2%  76.8%
     ## 4:        summons    50.0%      309          189      20 .11 28.1%  71.9%
 
     plot(validated)
+
+    ## Warning in melt.data.table(data.table::copy(dat2[dat2[["overall"]] ==
+    ## "Tags", : 'measure.vars' [n.tagged, n.classified] are not all of the same
+    ## type. By order of hierarchy, the molten data value column will be of type
+    ## 'double'. All measure variables not of type 'double' will be coerced to.
+    ## Check DETAILS in ?melt.data.table for more on coercion.
 
 ![](tools/figure/unnamed-chunk-41-1.png)
 
