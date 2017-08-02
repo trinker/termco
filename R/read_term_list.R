@@ -299,3 +299,16 @@ search_open_or <- function(x, ...){
     grepl('(?<!\\\\)\\|\\)', x, perl = TRUE)
 
 }
+
+## json write double backslashes
+write_model <- function(term.list, file) {
+    df <- textshape::tidy_list(lapply(term.list, textshape::tidy_list, 'tag', 'regex'), 'iteration')
+
+    file.type <- tolower(gsub('(^.+\\.)([A-Za-z]+$)', '\\2', file))
+    switch(file.type,
+        csv = {utils::write.csv(df, file = file, row.names=FALSE)},
+        txt = {},
+        json = {cat(jsonlite::toJSON(df, pretty=TRUE), file = file)},
+        stop('`file.type` not supported')
+    )
+}

@@ -10,6 +10,9 @@
 #' @param width The width of the text display.
 #' @param tags The number of classifications per row/element to allow.  Ties are
 #' broken probabilistically by default.
+#' @param filter Validate a subset of the original tags.  Useful for when the
+#' user finds a mistake in the classifier and wants to retest only portions of
+#' the model.
 #' @param \ldots Other arguments passed to \code{\link[termco]{classify}}.
 #' @return \code{validate_model} - Returns a \code{data.frame} of the class
 #' \code{'validate_model'}.  Note that the pretty print is a tag summarized
@@ -44,6 +47,11 @@
 #' out
 #' plot(out)
 #'
+#' ## Validate a subset of the model
+#' out2 <- validate_model(x, filter = c('response_cries', 'summons'))
+#' out2
+#' plot(out2)
+#'
 #' ## Assign tasks externally
 #' assign_validation_task(x, checks = 3,
 #'     coders = c('fred', 'jade', 'sally', 'jim', 'shelly'), out='testing')
@@ -51,7 +59,7 @@
 #'     coders = c('fred', 'jade', 'sally', 'jim', 'shelly'), as.list = FALSE,
 #'     out='testing2')
 #' }
-validate_model <- function(x, n = 20, width = 50, tags = 1, ...){
+validate_model <- function(x, n = 20, width = 50, tags = 1, filter = NULL, ...){
 
     terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
     type <- ifelse(inherits(x, 'token_count'), "token", "term")
@@ -76,6 +84,8 @@ validate_model <- function(x, n = 20, width = 50, tags = 1, ...){
     items <- textshape::tidy_list(lapply(potentials, function(x){
         sample(x, ifelse(length(x) <= n, length(x), n))
     }), "tag", "index")
+
+    if (!is.null(filter)) {items <- items[tag %in% filter,]}
 
     results <- Map(tag_assessment, text.var[items[[2]]], items[[1]], seq_along(items[[1]]), length(items[[1]]), width = width)
 
@@ -269,7 +279,7 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
             'Tag.Counts.Type' :=  gsub('^n\\.', 'n ', Tag.Counts.Type)][]
 
 
-    legendplot <- ggplot2::ggplot(longc, aes_string(x = 'tag', y = 'value', fill = 'Tag.Counts.Type')) +
+    legendplot <- ggplot2::ggplot(longc, ggplot2::aes_string(x = 'tag', y = 'value', fill = 'Tag.Counts.Type')) +
         ggplot2::geom_bar(stat = 'identity') +
         ggplot2::scale_fill_manual(
             values = c('blue','grey70'), name = 'Tag Counts Type',
