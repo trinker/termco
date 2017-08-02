@@ -308,7 +308,7 @@ write_model <- function(term.list, file) {
     switch(file.type,
         csv = {utils::write.csv(df, file = file, row.names=FALSE)},
         txt = {},
-        json = {cat(jsonlite::toJSON(df, pretty=TRUE), file = file)},
+        #json = {cat(jsonlite::toJSON(df, pretty=TRUE), file = file)},
         stop('`file.type` not supported')
     )
 }
