@@ -5,7 +5,7 @@
 \alias{assign_validation_task}
 \title{Manual Assessment of a Model}
 \usage{
-validate_model(x, n = 20, width = 50, tags = 1, ...)
+validate_model(x, n = 20, width = 50, tags = 1, filter = NULL, ...)
 
 assign_validation_task(x, n = 20, checks = 1, coders = "coder",
   out = NULL, as.list = TRUE, ...)
@@ -21,6 +21,10 @@ with less than \code{n} will use the full number available.}
 
 \item{tags}{The number of classifications per row/element to allow.  Ties are
 broken probabilistically by default.}
+
+\item{filter}{Validate a subset of the original tags.  Useful for when the
+user finds a mistake in the classifier and wants to retest only portions of
+the model.}
 
 \item{checks}{The number of coders needed per tag assignment.}
 
@@ -83,6 +87,11 @@ discoure_markers <- list(
 out <- validate_model(x)
 out
 plot(out)
+
+## Validate a subset of the model
+out2 <- validate_model(x, filter = c('response_cries', 'summons'))
+out2
+plot(out2)
 
 ## Assign tasks externally
 assign_validation_task(x, checks = 3,

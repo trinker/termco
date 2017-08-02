@@ -85,7 +85,7 @@ validate_model <- function(x, n = 20, width = 50, tags = 1, filter = NULL, ...){
         sample(x, ifelse(length(x) <= n, length(x), n))
     }), "tag", "index")
 
-    if (!is.null(filter)) {items <- items[tag %in% filter,]}
+    if (!is.null(filter)) {items <- items[items %in% filter,]}
 
     results <- Map(tag_assessment, text.var[items[[2]]], items[[1]], seq_along(items[[1]]), length(items[[1]]), width = width)
 
