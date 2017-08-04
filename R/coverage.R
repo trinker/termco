@@ -116,7 +116,7 @@ coverage.term_count <- function(x, ...){
 coverage.hierarchical_term_count <- function(x, ...){
 
     increased <- lapply(attributes(x)[["hierarchical_terms"]], function(z){
-        rowSums(x[, z]) > 0
+        rowSums(x[, z, drop = FALSE]) > 0
     })
 
     n_increased <- unlist(lapply(increased, sum))
