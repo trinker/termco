@@ -27,12 +27,13 @@
 #' }
 colo <- function(..., not=NULL, copy2clip = getOption("termco.copy2clip")) {
     if (is.null(copy2clip)) copy2clip <- FALSE
+
     if (is.null(not)){
-          if (length(substitute(...())) == 1) {
+          if (length(c(...)) == 1) {
               if (isTRUE(copy2clip)) {
-                  clipr::write_clip(paste0("\"", substitute(...())[[1]], "\""))
+                  clipr::write_clip(paste0("\"", c(...)[[1]], "\""))
               }
-              return(substitute(...())[[1]])
+              return(c(...)[[1]])
           }
     	  cooc(..., copy2clip = copy2clip)
     } else {
@@ -43,7 +44,7 @@ colo <- function(..., not=NULL, copy2clip = getOption("termco.copy2clip")) {
 
 cooc <- function(..., copy2clip){
 
-    x <- substitute(...())
+    x <- c(...)
 
     if (length(x) == 2) {
         z <- sprintf("((%s.*%s)|(%s.*%s))", x[1], x[2], x[2], x[1])
@@ -60,7 +61,7 @@ cooc <- function(..., copy2clip){
 
 
 cooc_not <- function(..., not, copy2clip){
-    x <- substitute(...())
+    x <- c(...)
     z <- paste0(sprintf("^(?!.*(%s))", not), paste(sprintf("(?=.*(%s))", x), collapse=""))
     if (copy2clip) {
         z2 <- paste0("\"", z, "\"")

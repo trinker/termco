@@ -19,8 +19,7 @@
 #' @examples
 #' \dontrun{
 #' ## Example 1
-#' regs <- frequent_terms(presidential_debates_2012[["dialogue"]])[[1]]
-#' regs <- setNames(as.list(regs), regs)
+#' regs <- as_term_list(frequent_terms(presidential_debates_2012[["dialogue"]])[[1]])
 #'
 #' model <- with(presidential_debates_2012,
 #'     term_count(dialogue, TRUE, regs)
