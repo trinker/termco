@@ -40,6 +40,7 @@
 #' plot(x, cor=FALSE)
 #' plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")
 #' plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
+#' plot(x, point.size.range = c(.5, 8))
 #' plot(x, bar = TRUE)
 #'
 #' ##===============================================
@@ -92,8 +93,7 @@
 #' )
 #'
 #' ## Example 2
-#' regs2 <- frequent_terms(presidential_debates_2012[["dialogue"]], n=50)[[1]]
-#' regs2 <- setNames(as.list(regs2), regs2)
+#' regs2 <- as_term_list(frequent_terms(presidential_debates_2012[["dialogue"]], n=50)[[1]])
 #'
 #' model2 <- with(presidential_debates_2012,
 #'     term_count(dialogue, TRUE, regs2)
@@ -103,14 +103,14 @@
 #' plot(x2)
 #' plot(x2, bar = FALSE, min.edge.cutoff = .13)
 #' plot(x2, bar = FALSE, min.edge.cutoff = .18, node.color = "#ead453")
-#' plot(x2, node.weight = 3)
-#' plot(x2, edge.weight = 20, node.weight = 5)
+#' plot(x2, node.size.range = c(.1, 15))
+#' plot(x2, edge.width.range = c(.1, 15), node.size.range = c(.1, 15))
 #'
-#' plot(x2, edge.color = "gray80", node.color = "grey50", font.color = "white",
+#' plot(x2, edge.color = "gray99", node.color = "grey75", font.color = "white",
 #'     background.color = "black")
 #'
 #' ## Small Number of Tags Example
-#' plot(tag_co_occurrence(markers), node.weight = 5, min.edge.cutoff = .08)
+#' plot(tag_co_occurrence(markers), node.size.range = 5, min.edge.cutoff = .08)
 #' }
 tag_co_occurrence <- function(x, ...){
 
@@ -165,12 +165,14 @@ tag_co_occurrence <- function(x, ...){
 #' @param x A tag_co_occurrence object.
 #' @param cor logical.  If \code{TRUE} the correlation matrix is used for the
 #' network graph, otherwise the adjacency matrix is used.
-#' @param edge.weight A weight for the edges.
-#' @param node.weight A weight for the nodes.
+#' @param edge.width.range A range of widths to rescale the edges to.
+#' @param node.size.range A range of sizess to rescale the nodes to.
 #' @param edge.color A color for the edges.
 #' @param node.color A color for the nodes.
 #' @param bar.color A color for the bar fill; defaults to \code{node.color}.
 #' @param font.color A color for the node and axis text.
+#' @param point.size.range A range to scale the points to if
+#' \code{bar = FALSE}.
 #' @param bar.font.color A color for the bar/dotplot (mean co-occurrences).
 #' @param background.color The plot background color.
 #' @param bar.font.size A font size for the bar/dotplot (mean co-occurrences).
@@ -193,19 +195,25 @@ tag_co_occurrence <- function(x, ...){
 #' @method plot tag_co_occurrence
 #' @export
 #' @export plot.tag_co_occurrence
-plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=5,
-    edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
+plot.tag_co_occurrence <- function(x, cor = FALSE, edge.width.range = c(.5, 4),
+    node.size.range = c(.5, 10), edge.color = "gray80", node.color = "orange",
+    bar.color = node.color, font.color = "gray55", point.size.range = TRUE,
     bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
     bar.font.size = TRUE, node.font.size = 3, digits = 1, min.edge.cutoff = .15,
     plot.widths = c(.6, .4), bar = FALSE, type = "both", ...){
 
-    ave <- y <- width <- vertex.names <- xend <- yend <- NULL
+    node.size <- name <- ave <- y <- width <- vertex.names <- xend <- yend <- NULL
 
     x[["ave_tag"]] <- x[["ave_tag"]][x[["ave_tag"]][["tag"]] != "<<no tag>>", ]
     x[["ave_tag"]][["tag"]] <- factor(x[["ave_tag"]][["tag"]], levels=rev(x[["ave_tag"]][["tag"]]))
 
     if (isTRUE(bar.font.size)) {
         bar.font.size <- constrain(round((1/length(x[["ave_tag"]][["tag"]])) * 100), 2.5, 9)
+    }
+
+    if (isTRUE(point.size.range)) {
+        point.size.range <- 1.2*constrain(round((1/length(x[["ave_tag"]][["tag"]])) * 100), 2.5, 9)
+        point.size.range <- c(point.size.range/5, point.size.range)
     }
 
     x[["ave_tag"]][["n"]] <- x[["node_size"]][match(x[["ave_tag"]][['tag']], names(x[["node_size"]]))]
@@ -241,6 +249,11 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=
             ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
         }}
 
+    if(!isTRUE(bar)){
+        ave_tags_plot <- ave_tags_plot +
+            ggplot2::scale_size_continuous(range = point.size.range)
+    }
+
     #======================================================================
 
     ## create igraph object
@@ -251,35 +264,32 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=
     }
 
     graph <- igraph::graph.adjacency(mat, weighted=TRUE, mode="lower")
-    igraph::E(graph)$width  <- igraph::E(graph)$weight * edge.weight
+    igraph::E(graph)$width  <- igraph::E(graph)$weight
+    igraph::V(graph)$node.size <- x[["node_size"]]
     net <- igraph::as.undirected(igraph::delete.edges(graph, igraph::E(graph)[weight < min.edge.cutoff]))
-    idat <- try(ggnetwork::ggnetwork(net), TRUE)
 
-    if (inherits(idat, 'try-error')) stop("`min.edge.cutoff`, is set too high for the strength of the connections in the adjacency matrix.")
+    netplot <- ggraph::ggraph(net, layout = 'kk') +
 
-    idat[['weight']][seq_along(x[["node_size"]])] <- node.weight*general_rescale(x[["node_size"]], .5, 5)
-
-    netplot <- ggplot2::ggplot(idat, ggplot2::aes(x = x, y = y,
-            xend = xend, yend = yend)) +
-        ggnetwork::geom_edges(color = edge.color, ggplot2::aes(size = width)) +
-        ggnetwork::geom_nodes(color = node.color, ggplot2::aes(size = weight*node.weight)) +
-        ggnetwork::geom_nodetext(ggplot2::aes(label = vertex.names),
-            size = node.font.size, color = font.color) +
+        ggraph::geom_edge_fan(colour = edge.color, ggplot2::aes(width = width), show.legend = FALSE) +
+        ggraph::geom_node_point(colour = node.color, ggplot2::aes(size = node.size)) +
+        ggraph::geom_node_text(ggplot2::aes(label = name), size = node.font.size, color = font.color) +
+        ggraph::scale_edge_width_continuous(range = edge.width.range) +
+        ggplot2::scale_size_continuous(range = node.size.range) +
         ggplot2::theme_minimal() +
         ggplot2::theme(
             legend.position = 'none',
             panel.grid = ggplot2::element_blank(),
             axis.text = ggplot2::element_blank(),
             axis.title = ggplot2::element_blank()
-        ) +
-        ggplot2::scale_size(range = c(.5, 10))
+        )
+
 
     if (!is.null(background.color)){
         ave_tags_plot <- ave_tags_plot +
-            ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color))
+            ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color, color =NA))
 
         netplot <- netplot +
-            ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color))
+            ggplot2::theme(plot.background = ggplot2::element_rect(fill=background.color, color =NA))
     }
 
     #======================================================================
@@ -295,7 +305,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=
 
 
 
-# plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 8, node.weight=8,
+# plot.tag_co_occurrence <- function(x, cor = FALSE, edge.width.range = 8, node.size.range=8,
 #     edge.color = "gray80", node.color = "orange", bar.color = node.color, font.color = "gray55",
 #     bar.font.color = ifelse(bar, "gray96", bar.color), background.color = NULL,
 #     bar.font.size = TRUE, node.font.size = 1.08, digits = 1, min.edge.cutoff = .15,
@@ -353,7 +363,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=
 #     }
 #
 #     graph <- igraph::graph.adjacency(mat, weighted=TRUE, mode="lower")
-#     igraph::E(graph)$width  <- igraph::E(graph)$weight * edge.weight
+#     igraph::E(graph)$width  <- igraph::E(graph)$weight * edge.width.range
 #     #igraph::V(graph)$node.size <- minmax_scale(x[["node_size"]]) + 1
 #
 #     #Create figure window and layout
@@ -375,7 +385,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=
 #             vertex.label.cex = node.font.size,
 #             edge.color = edge.color,
 #             vertex.frame.color = NA,
-#             vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
+#             vertex.size = node.size.range*(1+minmax_scale(x[["node_size"]])),
 #             vertex.label.color = font.color, ...
 #         )
 #         #return(invisible(graph))
@@ -403,7 +413,7 @@ plot.tag_co_occurrence <- function(x, cor = FALSE, edge.weight = 5, node.weight=
 #             vertex.label.cex = node.font.size,
 #             edge.color = edge.color,
 #             vertex.frame.color = NA,
-#             vertex.size = node.weight*(1+minmax_scale(x[["node_size"]])),
+#             vertex.size = node.size.range*(1+minmax_scale(x[["node_size"]])),
 #             vertex.label.color = font.color, ...
 #         )
 #

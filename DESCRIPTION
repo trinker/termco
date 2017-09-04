@@ -1,16 +1,16 @@
 Package: termco
 Title: Counts of Terms and Substrings
 Version: 0.5.3
-Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")),
-            person("Steven", "Simpson", role = "ctb"))
+Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut",
+          "cre")), person("Steven", "Simpson", role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: A small suite of functions used to count terms and substrings in strings.
 Depends: R (>= 3.2.1)
-Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggnetwork, ggstance, gofastr, graphics,
-            grDevices, grid, gridExtra, igraph, methods, numform, quanteda, slam, SnowballC, stats, stringi,
-            textshape, tidyr, tm, utils, wordcloud
+Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggraph, ggstance,
+          gofastr, graphics, grDevices, grid, gridExtra, igraph, methods, numform, quanteda,
+          slam, SnowballC, stats, stringi, textshape, tidyr, tm, utils, wordcloud
 Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
-Date: 2017-08-01
+Date: 2017-09-04
 License: MIT + file LICENSE
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

@@ -4,13 +4,13 @@
 \alias{plot.tag_co_occurrence}
 \title{Plots a tag_co_occurrence Object}
 \usage{
-\method{plot}{tag_co_occurrence}(x, cor = FALSE, edge.weight = 5,
-  node.weight = 5, edge.color = "gray80", node.color = "orange",
-  bar.color = node.color, font.color = "gray55",
-  bar.font.color = ifelse(bar, "gray96", bar.color),
-  background.color = NULL, bar.font.size = TRUE, node.font.size = 3,
-  digits = 1, min.edge.cutoff = 0.15, plot.widths = c(0.6, 0.4),
-  bar = FALSE, type = "both", ...)
+\method{plot}{tag_co_occurrence}(x, cor = FALSE, edge.width.range = c(0.5,
+  4), node.size.range = c(0.5, 10), edge.color = "gray80",
+  node.color = "orange", bar.color = node.color, font.color = "gray55",
+  point.size.range = TRUE, bar.font.color = ifelse(bar, "gray96",
+  bar.color), background.color = NULL, bar.font.size = TRUE,
+  node.font.size = 3, digits = 1, min.edge.cutoff = 0.15,
+  plot.widths = c(0.6, 0.4), bar = FALSE, type = "both", ...)
 }
 \arguments{
 \item{x}{A tag_co_occurrence object.}
@@ -18,9 +18,9 @@
 \item{cor}{logical.  If \code{TRUE} the correlation matrix is used for the
 network graph, otherwise the adjacency matrix is used.}
 
-\item{edge.weight}{A weight for the edges.}
+\item{edge.width.range}{A range of widths to rescale the edges to.}
 
-\item{node.weight}{A weight for the nodes.}
+\item{node.size.range}{A range of sizess to rescale the nodes to.}
 
 \item{edge.color}{A color for the edges.}
 
@@ -29,6 +29,9 @@ network graph, otherwise the adjacency matrix is used.}
 \item{bar.color}{A color for the bar fill; defaults to \code{node.color}.}
 
 \item{font.color}{A color for the node and axis text.}
+
+\item{point.size.range}{A range to scale the points to if
+\code{bar = FALSE}.}
 
 \item{bar.font.color}{A color for the bar/dotplot (mean co-occurrences).}
 

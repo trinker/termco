@@ -72,7 +72,7 @@ termco 0.5.0 -
 
 * `tag_co_occurrence` used a grid + base plotting approach that required
   restarting the graphics device between plots.  This dependency has been
-  replaces with a dependency on **ggnetwork** for plotting networks as grid
+  replaces with a dependency on **ggraph** for plotting networks as grid
   objects.
 
 * `plot.validate_model` now shows tag counts in the sample to provide a relative
@@ -91,6 +91,8 @@ termco 0.5.0 -
 * `summary.validate_model` used to return `n` which was the number of tags from
   the `termco` object.  It now gives n.tags and n.classified to be more explicit
   about counts of potential tags and tags actually assigned by `classify`.
+
+* `colo` no longer uses non-standard evaluation; terms must be quoted.
 
 termco 0.4.0 - 0.4.3
 ----------------------------------------------------------------

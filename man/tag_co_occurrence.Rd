@@ -29,8 +29,7 @@ power of each regex that corresponds to a tag.
 \examples{
 \dontrun{
 ## Example 1
-regs <- frequent_terms(presidential_debates_2012[["dialogue"]])[[1]]
-regs <- setNames(as.list(regs), regs)
+regs <- as_term_list(frequent_terms(presidential_debates_2012[["dialogue"]])[[1]])
 
 model <- with(presidential_debates_2012,
     term_count(dialogue, TRUE, regs)
@@ -51,6 +50,7 @@ plot(x)
 plot(x, cor=FALSE)
 plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")
 plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
+plot(x, point.size.range = c(.5, 8))
 plot(x, bar = TRUE)
 
 ##===============================================
@@ -103,8 +103,7 @@ qrage::qrage(
 )
 
 ## Example 2
-regs2 <- frequent_terms(presidential_debates_2012[["dialogue"]], n=50)[[1]]
-regs2 <- setNames(as.list(regs2), regs2)
+regs2 <- as_term_list(frequent_terms(presidential_debates_2012[["dialogue"]], n=50)[[1]])
 
 model2 <- with(presidential_debates_2012,
     term_count(dialogue, TRUE, regs2)
@@ -114,14 +113,14 @@ x2 <- tag_co_occurrence(model2)
 plot(x2)
 plot(x2, bar = FALSE, min.edge.cutoff = .13)
 plot(x2, bar = FALSE, min.edge.cutoff = .18, node.color = "#ead453")
-plot(x2, node.weight = 3)
-plot(x2, edge.weight = 20, node.weight = 5)
+plot(x2, node.size.range = c(.1, 15))
+plot(x2, edge.width.range = c(.1, 15), node.size.range = c(.1, 15))
 
-plot(x2, edge.color = "gray80", node.color = "grey50", font.color = "white",
+plot(x2, edge.color = "gray99", node.color = "grey75", font.color = "white",
     background.color = "black")
 
 ## Small Number of Tags Example
-plot(tag_co_occurrence(markers), node.weight = 5, min.edge.cutoff = .08)
+plot(tag_co_occurrence(markers), node.size.range = 5, min.edge.cutoff = .08)
 }
 }
 \author{
