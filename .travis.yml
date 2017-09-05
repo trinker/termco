@@ -12,9 +12,8 @@ env:
 
 r_github_packages:
   - jimhester/covr
-  - trinker/ggnetwork
-  - trinker/gofastr
   - trinker/numform
+  - trinker/gofastr
 
 before_install:
   - sh -e /etc/init.d/xvfb start
