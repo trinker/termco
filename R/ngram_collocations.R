@@ -34,11 +34,11 @@
 #' ngram_collocations(x, stopwords = c(tm::stopwords("en"), "american", "governor"))
 #' ngram_collocations(x, gram.length = 3)
 #' ngram_collocations(x, gram.length = 3, stem = TRUE)
-#' ngram_collocations(x, order.by = "dice")
+#' ngram_collocations(x, order.by = "lambda")
 #'
 #' plot(ngram_collocations(x))
 #' plot(ngram_collocations(x, n = 40))
-#' plot(ngram_collocations(x, order.by = "dice"))
+#' plot(ngram_collocations(x, order.by = "lambda"))
 #' plot(ngram_collocations(x, gram.length = 3))
 #' }
 ngram_collocations <- function(text.var, n = 20, gram.length = 2:3,
@@ -48,7 +48,7 @@ ngram_collocations <- function(text.var, n = 20, gram.length = 2:3,
     wc <- collocation <- id <- terms <- len <- low <- high <- sw <- keep <- NULL
 
     ## initial checks for: order.by column
-    orders <- c("frequency", "G2", "X2", "pmi", "dice")
+    orders <- c("frequency", "lambda", "z")
     if (!order.by %in% orders) {
         stop(sprintf("`order.by` must be one of: %s", paste(paste0("\"", orders, "\""), collapse=", ")))
     }
@@ -69,7 +69,8 @@ ngram_collocations <- function(text.var, n = 20, gram.length = 2:3,
 
     ## use quanteda to calculate collocations
     #y <- quanteda::collocations(text.var, size=gram.length, n=200000, method = "all", ...)
-    y <- termco_collocations(text.var, size=gram.length, order.by = order.by, ...)
+    y <- termco_collocations(text.var, size=gram.length, order.by = order.by,
+        min.char = min.char, max.char = max.char, ...)
 
     # y[["keeps"]] <- rowSums(!is.na(y)) > 0
     # y <- y[which(keeps), ][, keeps := NULL]
@@ -133,6 +134,10 @@ plot.ngram_collocations <- function(x, drop.redundant.yaxis.text = TRUE,
 
     x[, 'length' := NULL]
 
+    ## coerce measures all to double
+    cols <- colnames(x)[!colnames(x) %in% 'Grams']
+    x[ , (cols) := lapply(.SD, as.numeric), .SDcols = cols][]
+
     dat_long <- data.table::melt(x[], id = c("Grams"),
         variable.name = "Method", value.name = "Measure")[,
         Grams := factor(Grams, levels = levels(x[["Grams"]]))][,
@@ -177,11 +182,15 @@ termco_collocations <- function(x, size = 2:3, order.by = 'frequency',
 
     terms <- wc <- collocation <- id <- terms <- len <- low <- high <- sw <- keep <- NULL
 
+    ## stopped tokenizing first because of error in quanteda
     tokens <- quanteda::tokens(tolower(x), remove_punct = TRUE, remove_symbols = TRUE)
 
-    ngrams <- lapply(c('lr', 'chi2', 'pmi', 'dice'), function(x){
-        quanteda::textstat_collocations(tokens, method = x, max_size = max(size),
-            min_count = 2)
+    #meth <- c('lr', 'chi2', 'pmi', 'dice')
+    meth <- 'lambda'
+
+    ngrams <- lapply(meth, function(y){
+        quanteda::textstat_collocations(tokens, method = y, size = size,
+            remove_punct = TRUE, remove_symbols = TRUE)
     })
 
     out <- Reduce(function(x, y) dplyr::left_join(x, y, by=c('collocation', 'count', 'length')), ngrams)
@@ -222,6 +231,11 @@ termco_collocations <- function(x, size = 2:3, order.by = 'frequency',
 
     out <- out[keeps, nomatch=0][, id := NULL][]
     data.table::setnames(out, "count","frequency")
+
+    three <- c('collocation', 'length', 'frequency')
+
+    data.table::setcolorder(out, c(three, colnames(out)[!colnames(out) %in% three]))
+
     out
 }
 

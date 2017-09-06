@@ -51,11 +51,11 @@ ngram_collocations(x, n = 50)
 ngram_collocations(x, stopwords = c(tm::stopwords("en"), "american", "governor"))
 ngram_collocations(x, gram.length = 3)
 ngram_collocations(x, gram.length = 3, stem = TRUE)
-ngram_collocations(x, order.by = "dice")
+ngram_collocations(x, order.by = "lambda")
 
 plot(ngram_collocations(x))
 plot(ngram_collocations(x, n = 40))
-plot(ngram_collocations(x, order.by = "dice"))
+plot(ngram_collocations(x, order.by = "lambda"))
 plot(ngram_collocations(x, gram.length = 3))
 }
 }

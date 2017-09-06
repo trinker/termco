@@ -7,11 +7,11 @@ Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: A small suite of functions used to count terms and substrings in strings.
 Depends: R (>= 3.2.1)
 Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggraph, ggstance,
-          gofastr (>= 0.3.0), graphics, grDevices, grid, gridExtra, igraph, 
-          methods, numform, quanteda, slam, SnowballC, stats, stringi, textshape, 
-          tidyr, tm, utils, wordcloud
+          gofastr (>= 0.3.0), graphics, grDevices, grid, gridExtra, igraph, methods,
+          numform, quanteda (>= 0.99.2), slam, SnowballC, stats, stringi, textshape, tidyr,
+          tm, utils, wordcloud
 Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
-Date: 2017-09-04
+Date: 2017-09-05
 License: MIT + file LICENSE
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

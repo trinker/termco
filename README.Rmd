@@ -157,14 +157,14 @@ plot_ca(counts, FALSE)
 
 ## Ngram Collocations    
 
-**termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda) package to examine important ngram collocations.  **quanteda**'s `collocation` function provides measures of: `"G2"`, `"X2"`, `"pmi"`, and `"dice"` to examine the strength of relationship between ngrams.  **termco** adds stopword removal, min/max character filtering, and stemming to **quanteda**'s `collocation` as well as a generic `plot` method.
+**termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda) package to examine important ngram collocations.  **quanteda**'s `collocation` function provides measures of: `"lambda"`, `"z"`, and `"frequency"` to examine the strength of relationship between ngrams.  **termco** adds stopword removal, min/max character filtering, and stemming to **quanteda**'s `collocation` as well as a generic `plot` method.
 
 ```{r}
 x <- presidential_debates_2012[["dialogue"]]
 
 ngram_collocations(x)
 ngram_collocations(x, gram.length = 3)
-ngram_collocations(x, order.by = "dice")
+ngram_collocations(x, order.by = "lambda")
 ```
 
 
@@ -174,7 +174,7 @@ ngram_collocations(x, order.by = "dice")
 plot(ngram_collocations(x))
 plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
 plot(ngram_collocations(x, gram.length = 3))
-plot(ngram_collocations(x, order.by = "dice"))
+plot(ngram_collocations(x, order.by = "lambda"))
 ```
 
 ## Converting to Document Term Matrix
