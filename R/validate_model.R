@@ -203,9 +203,6 @@ print.validate_model <- function(x, digits = 1, ...){
 #' @param \ldots ignored.
 #' @method plot validate_model
 #' @export
-
-
-
 plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
 
     overall <- tag <- Tag.Counts.Type <- NULL
@@ -274,9 +271,16 @@ plot.validate_model <- function(x, digits = 1, size = .65, height = .3, ...){
          scale_fun <- function(x) {x}
      }
 
-     longc <- data.table::melt(data.table::copy(dat2[dat2[['overall']] == 'Tags',
-         c('tag', 'n.tagged', 'n.classified')]), id = 'tag', variable.name = 'Tag.Counts.Type')[,
-            'Tag.Counts.Type' :=  gsub('^n\\.', 'n ', Tag.Counts.Type)][]
+     copied <- data.table::copy(dat2[dat2[['overall']] == 'Tags',
+         c('tag', 'n.tagged', 'n.classified')])
+
+    ## coerce measures all to double
+    cols <- colnames(copied)[!colnames(copied) %in% 'tag']
+    copied[ , (cols) := lapply(.SD, as.numeric), .SDcols = cols][]
+
+
+    longc <- data.table::melt(copied, id = 'tag', variable.name = 'Tag.Counts.Type')[,
+        'Tag.Counts.Type' :=  gsub('^n\\.', 'n ', Tag.Counts.Type)][]
 
 
     legendplot <- ggplot2::ggplot(longc, ggplot2::aes_string(x = 'tag', y = 'value', fill = 'Tag.Counts.Type')) +

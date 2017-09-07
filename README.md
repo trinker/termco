@@ -1471,11 +1471,7 @@ confidence band is highly affected by the number of samples per tag).
 
     plot(validated)
 
-    ## Warning in melt.data.table(data.table::copy(dat2[dat2[["overall"]] ==
-    ## "Tags", : 'measure.vars' [n.tagged, n.classified] are not all of the same
-    ## type. By order of hierarchy, the molten data value column will be of type
-    ## 'double'. All measure variables not of type 'double' will be coerced to.
-    ## Check DETAILS in ?melt.data.table for more on coercion.
+![](tools/figure/unnamed-chunk-41-1.png)
 
 These examples give guidance on how to use the tools in the **termco**
 package to build an expert rules, regular expression text classification

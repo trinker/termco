@@ -15,6 +15,7 @@ r_github_packages:
   - trinker/numform
   - trinker/gofastr
   - kbenoit/quanteda
+  - thomasp85/ggraph
 
 before_install:
   - sh -e /etc/init.d/xvfb start

@@ -14,7 +14,7 @@ ver <- gsub(regex, "\\2", desc[loc])
 verbadge <- sprintf('<a href="https://img.shields.io/badge/Version-%s-orange.svg"><img src="https://img.shields.io/badge/Version-%s-orange.svg" alt="Version"/></a></p>', ver, ver)
 verbage <- ''
 library(dplyr);library(termco);library(knitr)
-````
+```
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -497,7 +497,7 @@ The network plot on the left shows the strength of relationships between tags, w
 ```{r, impr_disc, fig.width=8}
 tag_co_occurrence(model) %>%
     plot(min.edge.cutoff = .01)
-````
+```
 
 
 ## Categorizing/Tagging
