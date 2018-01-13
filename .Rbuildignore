@@ -24,4 +24,5 @@ vignettes/intro-termco.Rmd
 tools/termco_logo/r_termcoa.png
 tools/termco_logo/r_termco.pptx
 tools/termco_logo/resize_icon.txt
+inst/articles
 
