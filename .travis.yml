@@ -13,10 +13,10 @@ env:
 r_github_packages:
   - jimhester/covr
   - trinker/numform
-  - thomasp85/ggraph
   - trinker/gofastr
   - kbenoit/quanteda
-
+  - thomasp85/tidygraph
+  - thomasp85/ggraph
 
 before_install:
   - sh -e /etc/init.d/xvfb start
