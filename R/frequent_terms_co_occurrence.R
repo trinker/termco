@@ -3,7 +3,7 @@
 #' Generate a \code{\link[termco]{tag_co_occurrence}} object from frquent terms.
 #'
 #' @param x A vector of character strings.
-#' @param bound ligical.  If \code{TRUE} each side of the frequent term is
+#' @param bound logical.  If \code{TRUE} each side of the frequent term is
 #' wrapped with a word boundary before performing thre regex search.  Otherwise,
 #' the search is fuzzy matched.
 #' @param \ldots Other arguments passed to \code{\link[termco]{frequent_terms}}.
