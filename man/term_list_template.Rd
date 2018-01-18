@@ -4,15 +4,19 @@
 \alias{term_list_template}
 \title{Generate a Basic Term List Template}
 \usage{
-term_list_template(categories = NULL, file = NULL, hierarchical = TRUE,
-  copy2clip = getOption("termco.copy2clip"), ...)
+term_list_template(categories = NULL, path = NULL, hierarchical = TRUE,
+  overwrite = FALSE, copy2clip = getOption("termco.copy2clip"), ...)
 }
 \arguments{
 \item{categories}{A vector of categories (names corresponding to the regexes).}
 
-\item{file}{Path to external term list.}
+\item{path}{Path to external term list.}
 
-\item{hierarchical}{logical.  If \code{TRUE} the term list is made to be hierarchical.}
+\item{hierarchical}{logical.  If \code{TRUE} the term list is made to be
+hierarchical.}
+
+\item{overwrite}{logical.  If \code{TRUE} prior files by that name will be
+overwritten, otherwise R will prompt the user before overwritting.}
 
 \item{copy2clip}{logical.  If code{TRUE} uses \code{\link[clipr]{write_clip}}
 to copy the output to the clipboard.  This argument can be set globally by
@@ -21,7 +25,8 @@ setting \code{options(termco.copy2clip = TRUE)}.}
 \item{\ldots}{ignored.}
 }
 \description{
-Generates a basic template for a term list.  Optionally prints to an external file.
+Generates a basic template for a term list.  Optionally prints to an external
+file.
 }
 \examples{
 cats <- c("Summons", "Justification", "Exclamation", "Empty")

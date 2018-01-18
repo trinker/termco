@@ -4,7 +4,7 @@
 #' collapses the terms within categories by default.  To negate this behavior
 #' use \code{source_term_list}.
 #'
-#' @param file Path to external term list.
+#' @param path Path to external term list.
 #' @param indices Indices of the elements to retain (used to take part of a
 #' term list).
 #' @param term.list A term list object that can be passed rather than an
@@ -58,7 +58,7 @@
 #'
 #' read_term_list(term.list = my_term_list)
 #' }
-read_term_list <- function(file, indices = NULL, term.list, ...){
+read_term_list <- function(path, indices = NULL, term.list, ...){
 
     obj <- 'unspecified_termco_obj1234'
 
@@ -67,11 +67,11 @@ read_term_list <- function(file, indices = NULL, term.list, ...){
     collapse <- is.null(dots[['collapse']]) | isTRUE(dots[['collapse']])
 
     if (missing(term.list)) {
-        ## ensure file exists
-        stopifnot(file.exists(file))
+        ## ensure path exists
+        stopifnot(file.exists(path))
 
         ## read in categories file
-        cats <- source(file)[[1]]
+        cats <- source(path)[[1]]
     } else {
 
         if (methods::is(term.list, 'term_list')) return(term.list)
@@ -155,9 +155,9 @@ read_term_list <- function(file, indices = NULL, term.list, ...){
 
 #' @rdname read_term_list
 #' @export
-source_term_list <- function(file, indices = NULL, ...){
+source_term_list <- function(path, indices = NULL, ...){
 
-    read_term_list(file = file, collapse = FALSE, indices = indices, ...)
+    read_term_list(path = path, collapse = FALSE, indices = indices, ...)
 
 }
 
@@ -284,8 +284,8 @@ term_list_summary_stats.termco_nested <- function(x, ...){
 #
 # class(pp)
 #
-# file <- 'comment_categories.R'
-# pp <- read_term_list(file)
+# path <- 'comment_categories.R'
+# pp <- read_term_list(path)
 # term_lister_empty_hierarchy_check <- termco:::term_lister_empty_hierarchy_check
 # term_lister_check <- termco:::term_lister_check
 # rm_class <- termco:::rm_class

@@ -5,12 +5,12 @@
 \alias{source_term_list}
 \title{Read-In Term List}
 \usage{
-read_term_list(file, indices = NULL, term.list, ...)
+read_term_list(path, indices = NULL, term.list, ...)
 
-source_term_list(file, indices = NULL, ...)
+source_term_list(path, indices = NULL, ...)
 }
 \arguments{
-\item{file}{Path to external term list.}
+\item{path}{Path to external term list.}
 
 \item{indices}{Indices of the elements to retain (used to take part of a
 term list).}

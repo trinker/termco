@@ -1,10 +1,14 @@
 #' Generate a Basic Term List Template
 #'
-#' Generates a basic template for a term list.  Optionally prints to an external file.
+#' Generates a basic template for a term list.  Optionally prints to an external
+#' file.
 #'
 #' @param categories A vector of categories (names corresponding to the regexes).
-#' @param file Path to external term list.
-#' @param hierarchical logical.  If \code{TRUE} the term list is made to be hierarchical.
+#' @param path Path to external term list.
+#' @param hierarchical logical.  If \code{TRUE} the term list is made to be
+#' hierarchical.
+#' @param overwrite logical.  If \code{TRUE} prior files by that name will be
+#' overwritten, otherwise R will prompt the user before overwritting.
 #' @param copy2clip logical.  If code{TRUE} uses \code{\link[clipr]{write_clip}}
 #' to copy the output to the clipboard.  This argument can be set globally by
 #' setting \code{options(termco.copy2clip = TRUE)}.
@@ -14,8 +18,19 @@
 #' cats <- c("Summons", "Justification", "Exclamation", "Empty")
 #' term_list_template(cats)
 #' term_list_template(cats, hierarchical = FALSE)
-term_list_template <- function(categories = NULL, file = NULL, hierarchical = TRUE,
-    copy2clip = getOption("termco.copy2clip"), ...) {
+term_list_template <- function(categories = NULL, path = NULL, hierarchical = TRUE,
+    overwrite = FALSE, copy2clip = getOption("termco.copy2clip"), ...) {
+
+    if (!is.null(path) && path == Sys.getenv("R_HOME")) stop("path can not be `R_HOME`")
+    if (!is.null(path) && path.exists(path)) {
+        message(paste0("\"", path, "\" already exists:\nDo you want to overwrite?\n"))
+        ans <- menu(c("Yes", "No"))
+        if (ans == "2") {
+            stop("template write aborted")
+        } else {
+            unlink(path, recursive = TRUE, force = FALSE)
+        }
+    }
 
     if (is.null(copy2clip)) copy2clip <- FALSE
 
@@ -33,8 +48,8 @@ term_list_template <- function(categories = NULL, file = NULL, hierarchical = TR
         x <- sprintf(nonhierarchical_template, categories)
     }
 
-    if (!is.null(file)) {
-        cat(x, '\n', file = file)
+    if (!is.null(path)) {
+        cat(x, '\n', file = path)
     }
 
     if (isTRUE(copy2clip)) {
