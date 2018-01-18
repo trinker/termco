@@ -145,7 +145,7 @@ their description:
 </tr>
 <tr class="odd">
 <td><code>match_word</code></td>
-<td>searh</td>
+<td>search</td>
 <td>Extract words from a text matching a regular expression</td>
 </tr>
 <tr class="even">
@@ -205,65 +205,70 @@ their description:
 </tr>
 <tr class="odd">
 <td><code>read_term_list</code></td>
-<td>read-in</td>
+<td>read/write</td>
 <td>Read a term list from an external file</td>
 </tr>
 <tr class="even">
+<td><code>term_list_template</code></td>
+<td>read/write</td>
+<td>Write a term list template to an external file</td>
+</tr>
+<tr class="odd">
 <td><code>as_count</code></td>
 <td>convert</td>
 <td>Strip pretty printing from <code>term_count</code> object</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>as_terms</code></td>
 <td>convert</td>
 <td>Convert a count matrix to list of term vectors</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>as_term_list</code></td>
 <td>convert</td>
 <td>Convert a vector of terms into a named term list</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>weight</code></td>
 <td>convert</td>
 <td>Weight a <code>term_count</code> object proportion/percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>plot_ca</code></td>
 <td>plot</td>
 <td>Plot <code>term_count</code> object as 3-D correspondence analysis map</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>plot_counts</code></td>
 <td>plot</td>
 <td>Horizontal bar plot of group counts</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>plot_freq</code></td>
 <td>plot</td>
 <td>Vertical bar plot of frequencies of counts</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>plot_cum_percent</code></td>
 <td>plot</td>
 <td>Plot <code>frequent_terms</code> object as cumulative percent</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>probe_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>probe_colo_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term_collocations</code> function calls</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>probe_colo_plot_list</code></td>
 <td>probe</td>
 <td>Generate list of <code>search_term_collocationss</code> + <code>plot</code> function calls</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>probe_colo_plot</code></td>
 <td>probe</td>
 <td>Plot <code>probe_colo_plot_list</code> directly</td>

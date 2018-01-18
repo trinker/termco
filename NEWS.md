@@ -111,6 +111,8 @@ termco 0.4.0 - 0.4.3
 * `update_names` added to allow for safe renaming of a `term_count` object's
   columns while also updating its attributes as well.
 
+* `term_list_template` added for generating and writing term list templates.
+
 **IMPROVEMENTS**
 
 * `classify` picks up a new default `ties.method` type of `"probabilities"`.

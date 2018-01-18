@@ -60,7 +60,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `term_first`                 | count        | Frequency of words at the begining of strings     |
 | `colo`                       | search       | Regex output to find term collocations            |
 | `search_term`                | search       | Search for regex terms                            |
-| `match_word`                 | searh        | Extract words from a text matching a regular expression | 
+| `match_word`                 | search        | Extract words from a text matching a regular expression | 
 | `search_term_collocations`   | search       | Wrapper for `search_term` + `frequent_terms`      |
 | `classification_project`     | modeling     | Make a classification modeling project template   |
 | `as_dtm`/`as_tdm`            | modeling     | Coerce `term_count` object into `tm::DocumentTermMatrix`/`tm::TermDocumentMatrix` |
@@ -72,7 +72,8 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `uncovered`/`get_uncovered`  | modeling     | Get the uncovered text from a model               |
 | `tag_co_occurrence`          | modeling     | Explore co-occurrence of tags from a model        |
 | `validate_model`/`assign_validation_task` | modeling | Human validation of a `term_count` model |
-| `read_term_list`             | read-in      | Read a term list from an external file            |
+| `read_term_list`             | read/write      | Read a term list from an external file            |
+| `term_list_template`         | read/write      | Write a term list template to an external file            |
 | `as_count`                   | convert      | Strip pretty printing from `term_count` object    |
 | `as_terms`                   | convert      | Convert a count matrix to list of term vectors    |
 | `as_term_list`               | convert      | Convert a vector of terms into a named term list  |
