@@ -22,9 +22,9 @@ term_list_template <- function(categories = NULL, path = NULL, hierarchical = TR
     overwrite = FALSE, copy2clip = getOption("termco.copy2clip"), ...) {
 
     if (!is.null(path) && path == Sys.getenv("R_HOME")) stop("path can not be `R_HOME`")
-    if (!is.null(path) && path.exists(path)) {
+    if (!is.null(path) && file.exists(path)) {
         message(paste0("\"", path, "\" already exists:\nDo you want to overwrite?\n"))
-        ans <- menu(c("Yes", "No"))
+        ans <- utils::menu(c("Yes", "No"))
         if (ans == "2") {
             stop("template write aborted")
         } else {
