@@ -21,6 +21,7 @@ r_github_packages:
 
 before_install:
   - sh -e /etc/init.d/xvfb start
+  - sudo apt-get install -y libudunits2-dev libproj-dev libgeos++-dev libgdal-dev libv8-dev
 
 after_success:
   - Rscript -e 'covr::coveralls()'
