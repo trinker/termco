@@ -5,7 +5,7 @@ Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = 
           "cre")), person("Steven", "Simpson", role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
 Description: A small suite of functions used to count terms and substrings in strings.
-Depends: R (>= 3.2.1)
+Depends: R (>= 3.3.0)
 Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggraph, ggstance, gofastr
           (>= 0.3.0), graphics, grDevices, grid, gridExtra, igraph, methods, numform (>=
           0.2.1), quanteda (>= 0.99.2), slam, SnowballC, stats, stringi, textshape, tidyr, tm,
