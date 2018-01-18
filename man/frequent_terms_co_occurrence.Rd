@@ -9,7 +9,7 @@ frequent_terms_co_occurrence(x, bound = TRUE, ...)
 \arguments{
 \item{x}{A vector of character strings.}
 
-\item{bound}{ligical.  If \code{TRUE} each side of the frequent term is
+\item{bound}{logical.  If \code{TRUE} each side of the frequent term is
 wrapped with a word boundary before performing thre regex search.  Otherwise,
 the search is fuzzy matched.}
 

@@ -54,7 +54,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `important_terms`            | count        | Important terms                                   |
 | `hierarchical_coverage_term` | count        | Unique coverage of a text vector by terms         |
 | `hierarchical_coverage_regex`| count        | Unique coverage of a text vector by regex         |
-| `ngram_collocations`         | count        | Weighted frequent ngram (2 & 3) collocations      |
+| `frequent_ngrams`         | count        | Weighted frequent ngram (2 & 3) collocations      |
 | `word_count`                 | count        | Count words                                       |
 | `term_before`/`term_after`   | count        | Frequency of words before/after a regex term      |
 | `term_first`                 | count        | Frequency of words at the begining of strings     |
@@ -162,19 +162,19 @@ plot_ca(counts, FALSE)
 ```{r}
 x <- presidential_debates_2012[["dialogue"]]
 
-ngram_collocations(x)
-ngram_collocations(x, gram.length = 3)
-ngram_collocations(x, order.by = "lambda")
+frequent_ngrams(x)
+frequent_ngrams(x, gram.length = 3)
+frequent_ngrams(x, order.by = "lambda")
 ```
 
 
 ### Collocation Plotting
 
 ```{r, fig.width=10}
-plot(ngram_collocations(x))
-plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
-plot(ngram_collocations(x, gram.length = 3))
-plot(ngram_collocations(x, order.by = "lambda"))
+plot(frequent_ngrams(x))
+plot(frequent_ngrams(x), drop.redundant.yaxis.text = FALSE)
+plot(frequent_ngrams(x, gram.length = 3))
+plot(frequent_ngrams(x, order.by = "lambda"))
 ```
 
 ## Converting to Document Term Matrix
@@ -279,7 +279,7 @@ presidential_debates_2012 %>%
     plot()
 ```
 
-A cumulative percent can give a different view of the term usage.  The `plot_cum_percent` function converts a `frequent_terms` output into a cumulative percent plot.  Additionally, `ngram_collocations` + `plot` can give insight into the frequently occurring ngrams.
+A cumulative percent can give a different view of the term usage.  The `plot_cum_percent` function converts a `frequent_terms` output into a cumulative percent plot.  Additionally, `frequent_ngrams` + `plot` can give insight into the frequently occurring ngrams.
 
 ```{r, fig.width=8, fig.height=6}
 presidential_debates_2012 %>%

@@ -114,7 +114,7 @@ their description:
 <td>Unique coverage of a text vector by regex</td>
 </tr>
 <tr class="odd">
-<td><code>ngram_collocations</code></td>
+<td><code>frequent_ngrams</code></td>
 <td>count</td>
 <td>Weighted frequent ngram (2 &amp; 3) collocations</td>
 </tr>
@@ -327,19 +327,18 @@ Build Counts Dataframe
 
     ## Coverage: 100% 
     ## # A tibble: 10 x 7
-    ##       person   time n.words response_cries back_channels   summons
-    ##       <fctr> <fctr>   <int>          <chr>         <chr>     <chr>
-    ##  1     OBAMA time 1    3599        3(.08%)             0 43(1.19%)
-    ##  2     OBAMA time 2    7477        2(.03%)             0  42(.56%)
-    ##  3     OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
-    ##  4    ROMNEY time 1    4085              0             0  27(.66%)
-    ##  5    ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
-    ##  6    ROMNEY time 3    8303        5(.06%)             0 84(1.01%)
-    ##  7   CROWLEY time 2    1672        2(.12%)             0   4(.24%)
-    ##  8    LEHRER time 1     765        3(.39%)       3(.39%)         0
-    ##  9  QUESTION time 2     583        2(.34%)             0         0
-    ## 10 SCHIEFFER time 3    1445              0             0   2(.14%)
-    ## # ... with 1 more variables: justification <chr>
+    ##    person    time   n.words response_cries back_channels summons   justif~
+    ##    <fctr>    <fctr>   <int> <chr>          <chr>         <chr>     <chr>  
+    ##  1 OBAMA     time 1    3599 3(.08%)        0             43(1.19%) 26(.72~
+    ##  2 OBAMA     time 2    7477 2(.03%)        0             42(.56%)  29(.39~
+    ##  3 OBAMA     time 3    7243 1(.01%)        1(.01%)       58(.80%)  33(.46~
+    ##  4 ROMNEY    time 1    4085 0              0             27(.66%)  8(.20%)
+    ##  5 ROMNEY    time 2    7536 1(.01%)        3(.04%)       49(.65%)  20(.27~
+    ##  6 ROMNEY    time 3    8303 5(.06%)        0             84(1.01%) 19(.23~
+    ##  7 CROWLEY   time 2    1672 2(.12%)        0             4(.24%)   12(.72~
+    ##  8 LEHRER    time 1     765 3(.39%)        3(.39%)       0         0      
+    ##  9 QUESTION  time 2     583 2(.34%)        0             0         2(.34%)
+    ## 10 SCHIEFFER time 3    1445 0              0             2(.14%)   6(.42%)
 
 Printing
 --------
@@ -348,37 +347,35 @@ Printing
 
     ## Coverage: 100% 
     ## # A tibble: 10 x 7
-    ##       person   time n.words response_cries back_channels summons
-    ##       <fctr> <fctr>   <int>          <int>         <int>   <int>
-    ##  1     OBAMA time 1    3599              3             0      43
-    ##  2     OBAMA time 2    7477              2             0      42
-    ##  3     OBAMA time 3    7243              1             1      58
-    ##  4    ROMNEY time 1    4085              0             0      27
-    ##  5    ROMNEY time 2    7536              1             3      49
-    ##  6    ROMNEY time 3    8303              5             0      84
-    ##  7   CROWLEY time 2    1672              2             0       4
-    ##  8    LEHRER time 1     765              3             3       0
-    ##  9  QUESTION time 2     583              2             0       0
-    ## 10 SCHIEFFER time 3    1445              0             0       2
-    ## # ... with 1 more variables: justification <int>
+    ##    person    time   n.words response_cries back_channels summons justific~
+    ##    <fctr>    <fctr>   <int>          <int>         <int>   <int>     <int>
+    ##  1 OBAMA     time 1    3599              3             0      43        26
+    ##  2 OBAMA     time 2    7477              2             0      42        29
+    ##  3 OBAMA     time 3    7243              1             1      58        33
+    ##  4 ROMNEY    time 1    4085              0             0      27         8
+    ##  5 ROMNEY    time 2    7536              1             3      49        20
+    ##  6 ROMNEY    time 3    8303              5             0      84        19
+    ##  7 CROWLEY   time 2    1672              2             0       4        12
+    ##  8 LEHRER    time 1     765              3             3       0         0
+    ##  9 QUESTION  time 2     583              2             0       0         2
+    ## 10 SCHIEFFER time 3    1445              0             0       2         6
 
     print(counts, zero.replace = "_")
 
     ## Coverage: 100% 
     ## # A tibble: 10 x 7
-    ##       person   time n.words response_cries back_channels   summons
-    ##       <fctr> <fctr>   <int>          <chr>         <chr>     <chr>
-    ##  1     OBAMA time 1    3599        3(.08%)             _ 43(1.19%)
-    ##  2     OBAMA time 2    7477        2(.03%)             _  42(.56%)
-    ##  3     OBAMA time 3    7243        1(.01%)       1(.01%)  58(.80%)
-    ##  4    ROMNEY time 1    4085              _             _  27(.66%)
-    ##  5    ROMNEY time 2    7536        1(.01%)       3(.04%)  49(.65%)
-    ##  6    ROMNEY time 3    8303        5(.06%)             _ 84(1.01%)
-    ##  7   CROWLEY time 2    1672        2(.12%)             _   4(.24%)
-    ##  8    LEHRER time 1     765        3(.39%)       3(.39%)         _
-    ##  9  QUESTION time 2     583        2(.34%)             _         _
-    ## 10 SCHIEFFER time 3    1445              _             _   2(.14%)
-    ## # ... with 1 more variables: justification <chr>
+    ##    person    time   n.words response_cries back_channels summons   justif~
+    ##    <fctr>    <fctr>   <int> <chr>          <chr>         <chr>     <chr>  
+    ##  1 OBAMA     time 1    3599 3(.08%)        _             43(1.19%) 26(.72~
+    ##  2 OBAMA     time 2    7477 2(.03%)        _             42(.56%)  29(.39~
+    ##  3 OBAMA     time 3    7243 1(.01%)        1(.01%)       58(.80%)  33(.46~
+    ##  4 ROMNEY    time 1    4085 _              _             27(.66%)  8(.20%)
+    ##  5 ROMNEY    time 2    7536 1(.01%)        3(.04%)       49(.65%)  20(.27~
+    ##  6 ROMNEY    time 3    8303 5(.06%)        _             84(1.01%) 19(.23~
+    ##  7 CROWLEY   time 2    1672 2(.12%)        _             4(.24%)   12(.72~
+    ##  8 LEHRER    time 1     765 3(.39%)        3(.39%)       _         _      
+    ##  9 QUESTION  time 2     583 2(.34%)        _             _         2(.34%)
+    ## 10 SCHIEFFER time 3    1445 _              _             2(.14%)   6(.42%)
 
 Plotting
 --------
@@ -408,7 +405,7 @@ method.
 
     x <- presidential_debates_2012[["dialogue"]]
 
-    ngram_collocations(x)
+    frequent_ngrams(x)
 
     ##            collocation length frequency    lambda         z
     ##  1:          make sure      2       127  7.554897 32.834995
@@ -432,7 +429,7 @@ method.
     ## 19:      middle income      2        13  6.871943 15.504096
     ## 20:  governor romney's      2        13  8.786176  6.091802
 
-    ngram_collocations(x, gram.length = 3)
+    frequent_ngrams(x, gram.length = 3)
 
     ##                 collocation length frequency     lambda           z
     ##  1:         last four years      3        27 -1.5663795 -1.02865393
@@ -456,7 +453,7 @@ method.
     ## 19:   best education system      3         4  0.2615127  0.11938982
     ## 20:        rising take home      3         4 -0.1449834 -0.06723986
 
-    ngram_collocations(x, order.by = "lambda")
+    frequent_ngrams(x, order.by = "lambda")
 
     ##                 collocation length frequency   lambda        z
     ##  1:              dodd frank      2        15 14.71834 7.300509
@@ -476,25 +473,25 @@ method.
     ## 15:          prime minister      2         2 12.89412 6.147013
     ## 16:             food stamps      2         9 12.61946 7.972817
     ## 17:      planned parenthood      2         5 12.58386 7.455987
-    ## 18:            saudi arabia      2         1 12.38332 5.732347
-    ## 19:            nancy pelosi      2         1 12.38332 5.732347
-    ## 20:          mixed messages      2         1 12.38332 5.732347
+    ## 18:        self deportation      2         4 12.38322 7.285615
+    ## 19:        cleveland clinic      2         3 12.13193 7.060603
+    ## 20:             rose garden      2         3 12.13193 7.060603
 
 ### Collocation Plotting
 
-    plot(ngram_collocations(x))
+    plot(frequent_ngrams(x))
 
 ![](tools/figure/unnamed-chunk-8-1.png)
 
-    plot(ngram_collocations(x), drop.redundant.yaxis.text = FALSE)
+    plot(frequent_ngrams(x), drop.redundant.yaxis.text = FALSE)
 
 ![](tools/figure/unnamed-chunk-8-2.png)
 
-    plot(ngram_collocations(x, gram.length = 3))
+    plot(frequent_ngrams(x, gram.length = 3))
 
 ![](tools/figure/unnamed-chunk-8-3.png)
 
-    plot(ngram_collocations(x, order.by = "lambda"))
+    plot(frequent_ngrams(x, order.by = "lambda"))
 
 ![](tools/figure/unnamed-chunk-8-4.png)
 
@@ -614,28 +611,26 @@ are additional observations.
     ## 
     ## train: n = 2184
     ## # A tibble: 6 x 5
-    ##      person    tot   time      role
-    ##      <fctr>  <chr> <fctr>    <fctr>
-    ## 1   CROWLEY  230.2 time 2 moderator
-    ## 2 SCHIEFFER   48.1 time 3 moderator
-    ## 3    ROMNEY  98.15 time 2 candidate
-    ## 4    ROMNEY 173.12 time 2 candidate
-    ## 5     OBAMA  102.6 time 2 candidate
-    ## 6     OBAMA 120.16 time 2 candidate
-    ## # ... with 1 more variables: dialogue <chr>
+    ##   person    tot    time   role      dialogue                              
+    ##   <fctr>    <chr>  <fctr> <fctr>    <chr>                                 
+    ## 1 CROWLEY   230.2  time 2 moderator Governor Romney?                      
+    ## 2 SCHIEFFER 48.1   time 3 moderator you're going to get a chance to respo~
+    ## 3 ROMNEY    98.15  time 2 candidate Let's have a flexible schedule so you~
+    ## 4 ROMNEY    173.12 time 2 candidate But I find more troubling than this, ~
+    ## 5 OBAMA     102.6  time 2 candidate You know a major difference in this c~
+    ## 6 OBAMA     120.16 time 2 candidate Making sure that we are controlling o~
     ## |...
     ## 
     ## test: n = 728
     ## # A tibble: 6 x 5
-    ##   person   tot   time      role
-    ##   <fctr> <chr> <fctr>    <fctr>
-    ## 1 LEHRER   1.1 time 1 moderator
-    ## 2 ROMNEY   2.2 time 1 candidate
-    ## 3 ROMNEY   4.4 time 1 candidate
-    ## 4 ROMNEY   4.5 time 1 candidate
-    ## 5 ROMNEY   4.7 time 1 candidate
-    ## 6 ROMNEY  4.17 time 1 candidate
-    ## # ... with 1 more variables: dialogue <chr>
+    ##   person tot   time   role      dialogue                                  
+    ##   <fctr> <chr> <fctr> <fctr>    <chr>                                     
+    ## 1 LEHRER 1.1   time 1 moderator We'll talk about specifically about healt~
+    ## 2 ROMNEY 2.2   time 1 candidate And the president supports taking dollar ~
+    ## 3 ROMNEY 4.4   time 1 candidate They get to choose and they'll have at le~
+    ## 4 ROMNEY 4.5   time 1 candidate So they don't have to pay additional mone~
+    ## 5 ROMNEY 4.7   time 1 candidate They'll have at least two plans.          
+    ## 6 ROMNEY 4.17  time 1 candidate That's the plan that I've put forward.    
     ## |...
 
 The training set can be accessed via `pres_deb_split$train`; likewise,
@@ -649,28 +644,26 @@ Here I show splitting by integer.
     ## 
     ## train: n = 100
     ## # A tibble: 6 x 5
-    ##   person    tot   time      role
-    ##   <fctr>  <chr> <fctr>    <fctr>
-    ## 1  OBAMA  102.4 time 2 candidate
-    ## 2 ROMNEY 122.26 time 3 candidate
-    ## 3 ROMNEY 166.16 time 3 candidate
-    ## 4 ROMNEY 162.18 time 3 candidate
-    ## 5  OBAMA   20.3 time 2 candidate
-    ## 6 ROMNEY  59.12 time 1 candidate
-    ## # ... with 1 more variables: dialogue <chr>
+    ##   person tot    time   role      dialogue                                 
+    ##   <fctr> <chr>  <fctr> <fctr>    <chr>                                    
+    ## 1 OBAMA  102.4  time 2 candidate Now, there are some other issues that ha~
+    ## 2 ROMNEY 122.26 time 3 candidate I've watched year in and year out as com~
+    ## 3 ROMNEY 166.16 time 3 candidate The president's path will mean continuin~
+    ## 4 ROMNEY 162.18 time 3 candidate Look, I love to I love teachers, and I'm~
+    ## 5 OBAMA  20.3   time 2 candidate We have increased oil production to the ~
+    ## 6 ROMNEY 59.12  time 1 candidate Anybody can have deductions up to that a~
     ## |...
     ## 
     ## test: n = 2812
     ## # A tibble: 6 x 5
-    ##   person   tot   time      role
-    ##   <fctr> <chr> <fctr>    <fctr>
-    ## 1 LEHRER   1.1 time 1 moderator
-    ## 2 LEHRER   1.2 time 1 moderator
-    ## 3 ROMNEY   2.1 time 1 candidate
-    ## 4 ROMNEY   2.2 time 1 candidate
-    ## 5 LEHRER   3.1 time 1 moderator
-    ## 6 ROMNEY   4.1 time 1 candidate
-    ## # ... with 1 more variables: dialogue <chr>
+    ##   person tot   time   role      dialogue                                  
+    ##   <fctr> <chr> <fctr> <fctr>    <chr>                                     
+    ## 1 LEHRER 1.1   time 1 moderator We'll talk about specifically about healt~
+    ## 2 LEHRER 1.2   time 1 moderator But what do you support the voucher syste~
+    ## 3 ROMNEY 2.1   time 1 candidate What I support is no change for current r~
+    ## 4 ROMNEY 2.2   time 1 candidate And the president supports taking dollar ~
+    ## 5 LEHRER 3.1   time 1 moderator And what about the vouchers?              
+    ## 6 ROMNEY 4.1   time 1 candidate So that's that's number one.              
     ## |...
 
 I could have trained on the training set and tested on the testing set
@@ -737,7 +730,7 @@ least frequent n terms but can be rearranged alphabetically.
 
 A cumulative percent can give a different view of the term usage. The
 `plot_cum_percent` function converts a `frequent_terms` output into a
-cumulative percent plot. Additionally, `ngram_collocations` + `plot` can
+cumulative percent plot. Additionally, `frequent_ngrams` + `plot` can
 give insight into the frequently occurring ngrams.
 
     presidential_debates_2012 %>%

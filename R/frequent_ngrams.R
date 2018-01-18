@@ -29,19 +29,19 @@
 #' \dontrun{
 #' x <- presidential_debates_2012[["dialogue"]]
 #'
-#' ngram_collocations(x)
-#' ngram_collocations(x, n = 50)
-#' ngram_collocations(x, stopwords = c(tm::stopwords("en"), "american", "governor"))
-#' ngram_collocations(x, gram.length = 3)
-#' ngram_collocations(x, gram.length = 3, stem = TRUE)
-#' ngram_collocations(x, order.by = "lambda")
+#' frequent_ngrams(x)
+#' frequent_ngrams(x, n = 50)
+#' frequent_ngrams(x, stopwords = c(tm::stopwords("en"), "american", "governor"))
+#' frequent_ngrams(x, gram.length = 3)
+#' frequent_ngrams(x, gram.length = 3, stem = TRUE)
+#' frequent_ngrams(x, order.by = "lambda")
 #'
-#' plot(ngram_collocations(x))
-#' plot(ngram_collocations(x, n = 40))
-#' plot(ngram_collocations(x, order.by = "lambda"))
-#' plot(ngram_collocations(x, gram.length = 3))
+#' plot(frequent_ngrams(x))
+#' plot(frequent_ngrams(x, n = 40))
+#' plot(frequent_ngrams(x, order.by = "lambda"))
+#' plot(frequent_ngrams(x, gram.length = 3))
 #' }
-ngram_collocations <- function(text.var, n = 20, gram.length = 2:3,
+frequent_ngrams <- function(text.var, n = 20, gram.length = 2:3,
     stopwords = tm::stopwords("en"), min.char = 4,
     max.char = Inf, order.by = "frequency", stem = FALSE, language = "porter", ...) {
 
@@ -75,7 +75,7 @@ ngram_collocations <- function(text.var, n = 20, gram.length = 2:3,
     # y[["keeps"]] <- rowSums(!is.na(y)) > 0
     # y <- y[which(keeps), ][, keeps := NULL]
     #
-    # ## change names to be consistent w/ ngram_collocations
+    # ## change names to be consistent w/ frequent_ngrams
     # names(y) <- gsub("^count$", "frequency", gsub("(^word)(\\d)", "term\\2", names(y)))
 
     # ## drop empty columns
@@ -88,26 +88,26 @@ ngram_collocations <- function(text.var, n = 20, gram.length = 2:3,
     if (n > nrow(y)) n <- nrow(y)
     y <- y[seq_len(n), ]
 
-    class(y) <- c('ngram_collocations', class(y))
+    class(y) <- c('frequent_ngrams', class(y))
     attributes(y)[["gram.length"]] <- gram.length
     y
 }
 
 
-#' Plots a ngram_collocations Object
+#' Plots a frequent_ngrams Object
 #'
-#' Plots a ngram_collocations object.
+#' Plots a frequent_ngrams object.
 #'
-#' @param x The \code{ngram_collocations} object.
+#' @param x The \code{frequent_ngrams} object.
 #' @param drop.redundant.yaxis.text logical.  If \code{TRUE} the second y axis text/ticks,
 #' in the heat plot are dropped.
 #' @param plot logical.  If \code{TRUE} the output is plotted.
 #' @param \ldots ignored.
 #' @return Returns a list of the three \pkg{ggplot2} objects that make the
 #' combined plot.
-#' @method plot ngram_collocations
+#' @method plot frequent_ngrams
 #' @export
-plot.ngram_collocations <- function(x, drop.redundant.yaxis.text = TRUE,
+plot.frequent_ngrams <- function(x, drop.redundant.yaxis.text = TRUE,
     plot = TRUE, ...){
 
     collocation <- Grams <- Method <- Scaled <- Measure <- NULL

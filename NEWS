@@ -94,6 +94,9 @@ CHANGES
 
 * `colo` no longer uses non-standard evaluation; terms must be quoted.
 
+* `ngram_collocations` has been renamed to  `frequent_ngrams` for better clarity
+  in what the function does and as a counter part to `frequent_terms`.
+
 termco 0.4.0 - 0.4.3
 ----------------------------------------------------------------
 
