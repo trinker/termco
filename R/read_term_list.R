@@ -58,6 +58,14 @@
 #'
 #' read_term_list(term.list = my_term_list)
 #' }
+#'
+#' ## Writing term list for non-R .json others to use:
+#' \dontrun{
+#' my_term_list %>%
+#'     jsonlite::toJSON(pretty=TRUE) %>%
+#'     stringi::stri_unescape_unicode() %>%
+#'     cat(file = 'testing.json')
+#' }
 read_term_list <- function(path, indices = NULL, term.list, ...){
 
     obj <- 'unspecified_termco_obj1234'

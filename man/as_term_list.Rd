@@ -31,22 +31,30 @@ pacman::p_load(tidyverse)
 
 x <- presidential_debates_2012[["dialogue"]]
 
-bigrams <- ngram_collocations(x, n=10) \%>\%
-    transmute(bigram = paste(term1, term2)) \%>\%
+ngrams <- frequent_ngrams(x, n=10) \%>\%
+    transmute(ngram = collocation) \%>\%
     unlist() \%>\%
     as_term_list()
 
 
 presidential_debates_2012 \%>\%
-    with(term_count(dialogue, person, bigrams))
+    with(term_count(dialogue, person, ngrams))
 
 ## dictionary from quanteda
 require(quanteda)
-mfdict <- dictionary(
-    file = "http://ow.ly/VMRkL",
-    format = "LIWC"
-)
+mfdict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") \%>\%
+    unzip(exdir = (td <- tempdir())) \%>\%
+    `[`(1) \%>\%
+    dictionary(file = .)
 
 as_term_list(mfdict, TRUE)
+}
+
+## Writing term list for non-R .json others to use:
+\dontrun{
+as_term_list(mfdict, TRUE) \%>\%
+    jsonlite::toJSON(pretty=TRUE) \%>\%
+    stringi::stri_unescape_unicode() \%>\%
+    cat(file = 'testing.json')
 }
 }

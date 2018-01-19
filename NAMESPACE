@@ -2,6 +2,7 @@
 
 S3method(as_term_list,character)
 S3method(as_term_list,dictionary)
+S3method(as_term_list,dictionary2)
 S3method(coverage,default)
 S3method(coverage,hierarchical_term_count)
 S3method(coverage,search_term)
