@@ -15,6 +15,7 @@ r_github_packages:
   - trinker/numform
   - trinker/gofastr
   - kbenoit/quanteda
+  - cran/sfa
   - thomasp85/ggforce
   - thomasp85/tidygraph
   - thomasp85/ggraph
