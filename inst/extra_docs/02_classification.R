@@ -26,9 +26,9 @@ train %>%
     with(frequent_terms(dialogue, n = n)) %>%
     plot(as.cloud=TRUE)
 
-# Ngram Colocations
+# Frequent Ngram
 train %>%
-    with(ngram_collocations(dialogue)) %>%
+    with(frequent_ngrams(dialogue)) %>%
     plot()
 
 ## Systematically View Frequent Terms in Context
