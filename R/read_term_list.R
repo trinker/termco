@@ -1,8 +1,8 @@
-#' Read-In Term List
+#' Read-In/Write-Out Term List
 #'
-#' Read-in and format a term list from an external file.  \code{read_term_list}
-#' collapses the terms within categories by default.  To negate this behavior
-#' use \code{source_term_list}.
+#' \code{read_term_list} - Read-in and format a term list from an external file.
+#' \code{read_term_list} collapses the terms within categories by default.  To
+#' negate this behavior use \code{source_term_list}.
 #'
 #' @param path Path to external term list.
 #' @param indices Indices of the elements to retain (used to take part of a
@@ -58,6 +58,41 @@
 #'
 #' read_term_list(term.list = my_term_list)
 #' }
+#'
+#' discoure_markers <- list(
+#'     response_cries = c("\\boh", "\\bah", "\\baha", "\\bouch", "yuk"),
+#'     back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+#'     summons = "hey",
+#'     justification = "because"
+#' )
+#'
+#' ## writing to the console (not that useful)
+#' write_term_list(discoure_markers)
+#'
+#' trpl_list <- list(
+#'     list(
+#'         response_cries = c("\\boh", "\\bah", "\\baha", "\\bouch", "yuk"),
+#'         back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+#'         summons = "hey",
+#'         justification = "because"
+#'     ),
+#'     list(summons ='the'),
+#'     list(summons = 'it', justification = 'ed\\s')
+#' )
+#'
+#' ## writing to the console (not that useful)
+#' write_term_list(trpl_list)
+#'
+#' ## Writing to an external file
+#' temp <- tempdir()
+#'
+#' write_term_list(discoure_markers, path = file.path(temp, 'categories.R'))
+#' read_term_list(path = file.path(temp, 'categories.R'))
+#' source_term_list(path = file.path(temp, 'categories.R'))
+#'
+#' write_term_list(trpl_list, path = file.path(temp, 'categories2.R'))
+#' read_term_list(path = file.path(temp, 'categories2.R'))
+#' source_term_list(path = file.path(temp, 'categories2.R'))
 #'
 #' ## Writing term list for non-R .json others to use:
 #' \dontrun{
@@ -309,14 +344,71 @@ search_open_or <- function(x, ...){
 }
 
 ## json write double backslashes
-write_model <- function(term.list, file) {
+write_model <- function(term.list, path, ...) {
+
     df <- textshape::tidy_list(lapply(term.list, textshape::tidy_list, 'tag', 'regex'), 'iteration')
 
-    file.type <- tolower(gsub('(^.+\\.)([A-Za-z]+$)', '\\2', file))
+    file.type <- tolower(gsub('(^.+\\.)([A-Za-z]+$)', '\\2', path))
+
     switch(file.type,
-        csv = {utils::write.csv(df, file = file, row.names=FALSE)},
-        txt = {},
-        #json = {cat(jsonlite::toJSON(df, pretty=TRUE), file = file)},
+        csv = {utils::write.csv(df, file = path, row.names=FALSE)},
+        #txt = {},
+        json = {cat(
+                stringi::stri_unescape_unicode(
+                    jsonlite::toJSON(
+                        term.list,
+                        pretty=TRUE
+                    )
+                ),
+                file = path
+            )
+        },
         stop('`file.type` not supported')
     )
 }
+
+#' Title
+#'
+#' \code{write_term_list} - Write-out a term list out to a file.
+#'
+#' @rdname read_term_list
+#' @export
+write_term_list <- function(term.list, path = "", ...){
+
+    stopifnot(is.list(term.list))
+    stopifnot(!is.list(term.list[[1]][[1]]))
+
+    if (!is.list(term.list[[1]])) {
+
+        cat(sprintf(list1, paste(unlist(unname(Map(function(x, y){
+            x <- stringi::stri_escape_unicode(x)
+            sprintf(vects1, y, paste(shQuote(x), collapse = ', '))
+        }, term.list, names(term.list)))), collapse = ',\n')), file = path)
+
+    } else {
+
+        cat(sprintf(list1, paste(unlist(lapply(term.list, function(z){
+            a <- unlist(unname(Map(function(x, y){
+
+                x <- stringi::stri_escape_unicode(x)
+                sprintf(vects2, y, paste(shQuote(x), collapse = ', '))
+            }, z, names(z))))
+
+            sprintf(list2, paste(a, collapse = ',\n'))
+        })), collapse = ',\n')), file = path)
+
+    }
+
+}
+
+
+
+list1 <- 'list(\n%s\n)\n'
+vects1 <- '    `%s` = c(%s)'
+
+list2 <- '    list(\n%s\n    )'
+vects2 <- '        `%s` = c(%s)'
+
+
+
+

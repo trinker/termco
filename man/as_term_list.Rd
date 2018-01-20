@@ -47,7 +47,8 @@ mfdict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.
     `[`(1) \%>\%
     dictionary(file = .)
 
-as_term_list(mfdict, TRUE)
+as_term_list(mfdict)
+as_term_list(mfdict, add.boundary = TRUE)
 }
 
 ## Writing term list for non-R .json others to use:

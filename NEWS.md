@@ -56,7 +56,8 @@ termco 0.5.0 -
 * `match_word` added to match words to regular expressions.  Roughly equivalent
   **qdap**'s `term_match`.
 
-* `read_term_list` added to aid in the reading in and formating of term list files.
+* `read_term_list`/`write_term_list` added to aid in the reading in/writing out
+  and formating of term list files.
 
 **MINOR FEATURES**
 

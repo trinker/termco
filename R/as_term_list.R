@@ -35,7 +35,8 @@
 #'     `[`(1) %>%
 #'     dictionary(file = .)
 #'
-#' as_term_list(mfdict, TRUE)
+#' as_term_list(mfdict)
+#' as_term_list(mfdict, add.boundary = TRUE)
 #' }
 #'
 #' ## Writing term list for non-R .json others to use:
@@ -76,6 +77,8 @@ as_term_list.dictionary <- function(x, add.boundary = FALSE, ...){
 #' @method as_term_list dictionary2
 as_term_list.dictionary2 <- function(x, add.boundary = FALSE, ...){
 
+    x <- flatten(as.list(x))
+
     stats::setNames(lapply(names(x), function(y){
         out <- x[[y]]
         if (isTRUE(add.boundary)){
@@ -84,6 +87,20 @@ as_term_list.dictionary2 <- function(x, add.boundary = FALSE, ...){
         gsub("\\*", '[A-Za-z0-9-]*', out)
     }), names(x))
 
+}
+
+flatten <- function(x){
+
+    z <- unlist(lapply(x, function(y) class(y)[1] == "list"))
+
+    out <- c(x[!z], unlist(x[z], recursive=FALSE))
+
+    if (sum(z)){
+        Recall(out)
+    } else {
+        names(out) <- gsub('\\.', '_', names(out))
+        out
+    }
 }
 
 ## http://www.moralfoundations.org/sites/default/files/files/downloads/moral%20foundations%20dictionary.dic

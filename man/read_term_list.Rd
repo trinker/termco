@@ -3,11 +3,14 @@
 \name{read_term_list}
 \alias{read_term_list}
 \alias{source_term_list}
-\title{Read-In Term List}
+\alias{write_term_list}
+\title{Read-In/Write-Out Term List}
 \usage{
 read_term_list(path, indices = NULL, term.list, ...)
 
 source_term_list(path, indices = NULL, ...)
+
+write_term_list(term.list, path = "", ...)
 }
 \arguments{
 \item{path}{Path to external term list.}
@@ -24,9 +27,11 @@ external file.}
 Returns a formatted term list.
 }
 \description{
-Read-in and format a term list from an external file.  \code{read_term_list}
-collapses the terms within categories by default.  To negate this behavior
-use \code{source_term_list}.
+\code{read_term_list} - Read-in and format a term list from an external file.
+\code{read_term_list} collapses the terms within categories by default.  To
+negate this behavior use \code{source_term_list}.
+
+\code{write_term_list} - Write-out a term list out to a file.
 }
 \examples{
 good_cats <- system.file("termco_docs/categories.R", package = "termco")
@@ -73,6 +78,41 @@ my_term_list <- list(
 
 read_term_list(term.list = my_term_list)
 }
+
+discoure_markers <- list(
+    response_cries = c("\\\\boh", "\\\\bah", "\\\\baha", "\\\\bouch", "yuk"),
+    back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+    summons = "hey",
+    justification = "because"
+)
+
+## writing to the console (not that useful)
+write_term_list(discoure_markers)
+
+trpl_list <- list(
+    list(
+        response_cries = c("\\\\boh", "\\\\bah", "\\\\baha", "\\\\bouch", "yuk"),
+        back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+        summons = "hey",
+        justification = "because"
+    ),
+    list(summons ='the'),
+    list(summons = 'it', justification = 'ed\\\\s')
+)
+
+## writing to the console (not that useful)
+write_term_list(trpl_list)
+
+## Writing to an external file
+temp <- tempdir()
+
+write_term_list(discoure_markers, path = file.path(temp, 'categories.R'))
+read_term_list(path = file.path(temp, 'categories.R'))
+source_term_list(path = file.path(temp, 'categories.R'))
+
+write_term_list(trpl_list, path = file.path(temp, 'categories2.R'))
+read_term_list(path = file.path(temp, 'categories2.R'))
+source_term_list(path = file.path(temp, 'categories2.R'))
 
 ## Writing term list for non-R .json others to use:
 \dontrun{
