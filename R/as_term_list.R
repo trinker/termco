@@ -77,7 +77,8 @@ as_term_list.dictionary <- function(x, add.boundary = FALSE, ...){
 #' @method as_term_list dictionary2
 as_term_list.dictionary2 <- function(x, add.boundary = FALSE, ...){
 
-    x <- flatten(as.list(x))
+    x <- quanteda::as.list(x)
+    x <- flatten(x)
 
     stats::setNames(lapply(names(x), function(y){
         out <- x[[y]]
