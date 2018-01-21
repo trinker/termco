@@ -90,7 +90,22 @@ as_term_list.dictionary2 <- function(x, add.boundary = FALSE, ...){
 
 }
 
-flatten <- function(x){
+
+flatten <- function(x , sep = '_', ...){
+
+    x <- fix_names(x)
+    
+    out<- flatten_h(x)
+
+    names(out) <- gsub('\\.', sep, names(out))
+    
+    names(out) <- gsub('unlikelystringtodupe', '.', names(out), fixed = TRUE)
+
+    out
+
+}
+
+flatten_h <- function(x){
 
     z <- unlist(lapply(x, function(y) class(y)[1] == "list"))
 
@@ -99,11 +114,27 @@ flatten <- function(x){
     if (sum(z)){
         Recall(out)
     } else {
-        names(out) <- gsub('\\.', '_', names(out))
         out
     }
 }
 
+fix_names.list <- function(v) {
+  names(v) <- gsub('\\.', 'unlikelystringtodupe', names(v))
+  lapply(v, fix_names)
+}
+
+fix_names.default <- function(v) v
+
+fix_names <- function(v) UseMethod('fix_names')                       
+
+
+                       
+
+
+
+                   
+
+                       
 ## http://www.moralfoundations.org/sites/default/files/files/downloads/moral%20foundations%20dictionary.dic
 
 
