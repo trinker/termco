@@ -12,7 +12,7 @@ env:
 
 r_github_packages:
   - jimhester/covr
-
+  - trinker/textshape
 
 before_install:
   - sh -e /etc/init.d/xvfb start

@@ -13,7 +13,7 @@ Status](https://coveralls.io/repos/trinker/termco/badge.svg?branch=master)](http
 
 ![](tools/termco_logo/r_termco.png)
 
-**termco** is a small suite of functions used to count and find terms
+**termco** is a suite of functions used to count and find terms
 and substrings in strings. The tools can be used to build an expert
 rules, regular expression based text classification model. The package
 wraps the

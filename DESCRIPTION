@@ -4,11 +4,11 @@ Version: 0.5.4
 Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), person("Steven",
              "Simpson", role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
-Description: A small suite of functions used to count terms and substrings in strings.
-Depends: R (>= 3.3.0)
+Description: A suite of functions used to count terms and substrings in strings.  The tools can be used to build an expert rules, regular expression based text classification model.
+Depends: R (>= 3.4.0)
 Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggraph, ggstance, gofastr (>= 0.3.0), graphics,
              grDevices, grid, gridExtra, igraph, jsonlite, methods, numform (>= 0.2.1), quanteda (>= 0.99.2), slam,
-             SnowballC, stats, stringi, textshape, tidyr, tm, utils, wordcloud
+             SnowballC, stats, stringi, textshape (>= 1.5.2), tidyr, tm, utils, wordcloud
 Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
 Date: 2018-01-21
 License: MIT + file LICENSE
