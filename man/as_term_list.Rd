@@ -44,7 +44,7 @@ presidential_debates_2012 \%>\%
 ## dictionary from quanteda
 require(quanteda)
 mfdict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") \%>\%
-    unzip(exdir = (td <- tempdir())) \%>\%
+    unzip(exdir = tempdir()) \%>\%
     `[`(1) \%>\%
     dictionary(file = .)
 
