@@ -6,7 +6,8 @@
 #' @param x A vector of strings or a \pkg{quanteda} \code{dictionary}.
 #' @param add.boundary logical.  If \code{TRUE} a word boundary is place at the
 #' beginning and end of the strings.
-#' @param \ldots ignored.
+#' @param \ldots If \code{as_term_list.dictionary2} other arguments passed to
+#' \code{\link[textshape]{flatten}}), otherwise ignored.
 #' @return Returns a named list.
 #' @export
 #' @examples
@@ -14,7 +15,7 @@
 #'
 #' \dontrun{
 #' if (!require("pacman")) install.packages("pacman")
-#' pacman::p_load(tidyverse)
+#' pacman::p_load(tidyverse, textshape)
 #'
 #'
 #' x <- presidential_debates_2012[["dialogue"]]
@@ -37,6 +38,10 @@
 #'
 #' as_term_list(mfdict)
 #' as_term_list(mfdict, add.boundary = TRUE)
+#' as_term_list(mfdict, sep = ' -> ')
+#'
+#' as_term_list(mfdict) %>%
+#'     tidy_list('category', 'regex')
 #' }
 #'
 #' ## Writing term list for non-R .json others to use:
@@ -78,7 +83,7 @@ as_term_list.dictionary <- function(x, add.boundary = FALSE, ...){
 as_term_list.dictionary2 <- function(x, add.boundary = FALSE, ...){
 
     x <- quanteda::as.list(x)
-    x <- flatten(x)
+    x <- textshape::flatten(x, ...)
 
     stats::setNames(lapply(names(x), function(y){
         out <- x[[y]]
@@ -91,50 +96,11 @@ as_term_list.dictionary2 <- function(x, add.boundary = FALSE, ...){
 }
 
 
-flatten <- function(x , sep = '_', ...){
-
-    x <- fix_names(x)
-    
-    out<- flatten_h(x)
-
-    names(out) <- gsub('\\.', sep, names(out))
-    
-    names(out) <- gsub('unlikelystringtodupe', '.', names(out), fixed = TRUE)
-
-    out
-
-}
-
-flatten_h <- function(x){
-
-    z <- unlist(lapply(x, function(y) class(y)[1] == "list"))
-
-    out <- c(x[!z], unlist(x[z], recursive=FALSE))
-
-    if (sum(z)){
-        Recall(out)
-    } else {
-        out
-    }
-}
-
-fix_names.list <- function(v) {
-  names(v) <- gsub('\\.', 'unlikelystringtodupe', names(v))
-  lapply(v, fix_names)
-}
-
-fix_names.default <- function(v) v
-
-fix_names <- function(v) UseMethod('fix_names')                       
-
-
-                       
 
 
 
-                   
 
-                       
+
 ## http://www.moralfoundations.org/sites/default/files/files/downloads/moral%20foundations%20dictionary.dic
 
 

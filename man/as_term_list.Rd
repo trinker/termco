@@ -12,7 +12,8 @@ as_term_list(x, add.boundary = FALSE, ...)
 \item{add.boundary}{logical.  If \code{TRUE} a word boundary is place at the
 beginning and end of the strings.}
 
-\item{\ldots}{ignored.}
+\item{\ldots}{If \code{as_term_list.dictionary2} other arguments passed to
+\code{\link[textshape]{flatten}}), otherwise ignored.}
 }
 \value{
 Returns a named list.
@@ -26,7 +27,7 @@ as_term_list(state.name)
 
 \dontrun{
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(tidyverse)
+pacman::p_load(tidyverse, textshape)
 
 
 x <- presidential_debates_2012[["dialogue"]]
@@ -49,6 +50,10 @@ mfdict <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.
 
 as_term_list(mfdict)
 as_term_list(mfdict, add.boundary = TRUE)
+as_term_list(mfdict, sep = ' -> ')
+
+as_term_list(mfdict) \%>\%
+    tidy_list('category', 'regex')
 }
 
 ## Writing term list for non-R .json others to use:
