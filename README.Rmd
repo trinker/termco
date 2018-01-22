@@ -63,6 +63,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `match_word`                 | search        | Extract words from a text matching a regular expression | 
 | `search_term_collocations`   | search       | Wrapper for `search_term` + `frequent_terms`      |
 | `classification_project`     | modeling     | Make a classification modeling project template   |
+| `classification_template`    | modeling     | Make a classification analysis script template   |
 | `as_dtm`/`as_tdm`            | modeling     | Coerce `term_count` object into `tm::DocumentTermMatrix`/`tm::TermDocumentMatrix` |
 | `split_data`                 | modeling     | Split data into `train` & `test` sets             |
 | `evaluate`                   | modeling     | Check accuracy of model against human coder       |

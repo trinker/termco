@@ -4,8 +4,9 @@
 \alias{term_list_template}
 \title{Generate a Basic Term List Template}
 \usage{
-term_list_template(categories = NULL, path = NULL, hierarchical = TRUE,
-  overwrite = FALSE, copy2clip = getOption("termco.copy2clip"), ...)
+term_list_template(categories = NULL, path = "categories/categories.R",
+  hierarchical = TRUE, overwrite = FALSE,
+  copy2clip = getOption("termco.copy2clip"), ...)
 }
 \arguments{
 \item{categories}{A vector of categories (names corresponding to the regexes).}
@@ -30,6 +31,6 @@ file.
 }
 \examples{
 cats <- c("Summons", "Justification", "Exclamation", "Empty")
-term_list_template(cats)
-term_list_template(cats, hierarchical = FALSE)
+term_list_template(cats, path = '')
+term_list_template(cats, hierarchical = FALSE, path = '')
 }

@@ -16,10 +16,14 @@
 #' @export
 #' @examples
 #' cats <- c("Summons", "Justification", "Exclamation", "Empty")
-#' term_list_template(cats)
-#' term_list_template(cats, hierarchical = FALSE)
-term_list_template <- function(categories = NULL, path = NULL, hierarchical = TRUE,
-    overwrite = FALSE, copy2clip = getOption("termco.copy2clip"), ...) {
+#' term_list_template(cats, path = '')
+#' term_list_template(cats, hierarchical = FALSE, path = '')
+term_list_template <- function(categories = NULL, path = 'categories/categories.R',
+    hierarchical = TRUE, overwrite = FALSE, copy2clip = getOption("termco.copy2clip"), ...) {
+
+    if (!is.null(path) && path != '' && dirname(path) != '.' && !dir.exists(dirname(path))) {
+        dir.create(dirname(path), recursive = TRUE)
+    }
 
     if (!is.null(path) && path == Sys.getenv("R_HOME")) stop("path can not be `R_HOME`")
     if (!is.null(path) && file.exists(path)) {

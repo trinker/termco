@@ -59,6 +59,10 @@ NEW FEATURES
 * `read_term_list`/`write_term_list` added to aid in the reading in/writing out
   and formating of term list files.
 
+* `classification_template` added to manually add a classification script
+  template.  This template has a suggested **termco** based workflow that may be
+  useful for classification projects.
+
 MINOR FEATURES
 
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`

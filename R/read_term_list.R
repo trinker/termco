@@ -67,7 +67,7 @@
 #' )
 #'
 #' ## writing to the console (not that useful)
-#' write_term_list(discoure_markers)
+#' write_term_list(discoure_markers, path = '')
 #'
 #' trpl_list <- list(
 #'     list(
@@ -81,7 +81,7 @@
 #' )
 #'
 #' ## writing to the console (not that useful)
-#' write_term_list(trpl_list)
+#' write_term_list(trpl_list, path = '')
 #'
 #' ## Writing to an external file
 #' temp <- tempdir()
@@ -101,7 +101,7 @@
 #'     stringi::stri_unescape_unicode() %>%
 #'     cat(file = 'testing.json')
 #' }
-read_term_list <- function(path, indices = NULL, term.list, ...){
+read_term_list <- function(path = 'categories/categories.R', indices = NULL, term.list, ...){
 
     obj <- 'unspecified_termco_obj1234'
 
@@ -198,7 +198,7 @@ read_term_list <- function(path, indices = NULL, term.list, ...){
 
 #' @rdname read_term_list
 #' @export
-source_term_list <- function(path, indices = NULL, ...){
+source_term_list <- function(path = 'categories/categories.R', indices = NULL, ...){
 
     read_term_list(path = path, collapse = FALSE, indices = indices, ...)
 
@@ -344,7 +344,7 @@ search_open_or <- function(x, ...){
 }
 
 ## json write double backslashes
-write_model <- function(term.list, path, ...) {
+write_model <- function(term.list, path = 'categories/model_categories.json', ...) {
 
     df <- textshape::tidy_list(lapply(term.list, textshape::tidy_list, 'tag', 'regex'), 'iteration')
 
@@ -369,14 +369,29 @@ write_model <- function(term.list, path, ...) {
 
 #' Title
 #'
-#' \code{write_term_list} - Write-out a term list out to a file.
+#' \code{write_term_list} - Write-out a term list to a file.
 #'
 #' @rdname read_term_list
 #' @export
-write_term_list <- function(term.list, path = "", ...){
+write_term_list <- function(term.list, path = 'categories/categories.R', ...){
 
     stopifnot(is.list(term.list))
     stopifnot(!is.list(term.list[[1]][[1]]))
+
+    if (!is.null(path) && path != '' && dirname(path) != '.' && !dir.exists(dirname(path))) {
+        dir.create(dirname(path), recursive = TRUE)
+    }
+
+    if (!is.null(path) && path == Sys.getenv("R_HOME")) stop("path can not be `R_HOME`")
+    if (!is.null(path) && file.exists(path)) {
+        message(paste0("\"", path, "\" already exists:\nDo you want to overwrite?\n"))
+        ans <- utils::menu(c("Yes", "No"))
+        if (ans == "2") {
+            stop("template write aborted")
+        } else {
+            unlink(path, recursive = TRUE, force = FALSE)
+        }
+    }
 
     if (!is.list(term.list[[1]])) {
 

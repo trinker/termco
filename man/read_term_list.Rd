@@ -6,11 +6,12 @@
 \alias{write_term_list}
 \title{Read-In/Write-Out Term List}
 \usage{
-read_term_list(path, indices = NULL, term.list, ...)
+read_term_list(path = "categories/categories.R", indices = NULL, term.list,
+  ...)
 
-source_term_list(path, indices = NULL, ...)
+source_term_list(path = "categories/categories.R", indices = NULL, ...)
 
-write_term_list(term.list, path = "", ...)
+write_term_list(term.list, path = "categories/categories.R", ...)
 }
 \arguments{
 \item{path}{Path to external term list.}
@@ -31,7 +32,7 @@ Returns a formatted term list.
 \code{read_term_list} collapses the terms within categories by default.  To
 negate this behavior use \code{source_term_list}.
 
-\code{write_term_list} - Write-out a term list out to a file.
+\code{write_term_list} - Write-out a term list to a file.
 }
 \examples{
 good_cats <- system.file("termco_docs/categories.R", package = "termco")
@@ -87,7 +88,7 @@ discoure_markers <- list(
 )
 
 ## writing to the console (not that useful)
-write_term_list(discoure_markers)
+write_term_list(discoure_markers, path = '')
 
 trpl_list <- list(
     list(
@@ -101,7 +102,7 @@ trpl_list <- list(
 )
 
 ## writing to the console (not that useful)
-write_term_list(trpl_list)
+write_term_list(trpl_list, path = '')
 
 ## Writing to an external file
 temp <- tempdir()

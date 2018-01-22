@@ -8,8 +8,8 @@
 probe_colo_plot_list(terms, data.name,
   copy2clip = getOption("termco.copy2clip"), ldots = "")
 
-probe_colo_plot(terms, data, file = "Rplots.pdf", width = 5.5, height = 7,
-  ...)
+probe_colo_plot(terms, data, file = sprintf("\%scolo_term_plots.pdf",
+  ifelse(dir.exists("plots/"), "plots", "")), width = 5.5, height = 7, ...)
 }
 \arguments{
 \item{terms}{A vector of regex terms to explore (often populated from
@@ -29,7 +29,7 @@ include in the \code{frequent_terms} function of the list of function calls.}
 
 \item{data}{A vector of character strings.}
 
-\item{file}{A  \file{.pdf} file to plot to.}
+\item{file}{A  path for the \file{.pdf} file to plot to.}
 
 \item{width}{The width of the graphics region in inches.}
 

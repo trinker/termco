@@ -68,21 +68,25 @@ probe_colo_plot_list <- function(terms, data.name, copy2clip = getOption("termco
 #' \code{probe_colo_plot} - Make the plots of \code{probe_colo_plot_list}
 #' directly to an external \file{.pdf} file.
 #' @param data A vector of character strings.
-#' @param file A  \file{.pdf} file to plot to.
+#' @param file A  path for the \file{.pdf} file to plot to.
 #' @param width The width of the graphics region in inches.
 #' @param height The height of the graphics region in inches.
 #' @param \ldots Other arguments passed to frequent terms.
 #' @family probe functions
 #' @export
 #' @rdname probe_colo__plot
-probe_colo_plot <- function(terms, data, file = "Rplots.pdf", width = 5.5, height = 7, ...){
+probe_colo_plot <- function(terms, data,
+    file = sprintf('%scolo_term_plots.pdf', ifelse(dir.exists('plots/'), 'plots', '')),
+    width = 5.5, height = 7, ...){
 
     terms <- stringi::stri_escape_unicode(terms)
 
     grDevices::pdf(file=file, width = width, height = height)
+
     for(i in terms){
        print(graphics::plot(search_term_collocations(data, i, ...)) + ggplot2::ggtitle(i))
        Sys.sleep(1)
     }
+
     grDevices::dev.off()
 }
