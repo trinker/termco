@@ -97,7 +97,7 @@
 #' ## dictionary from quanteda
 #' require(quanteda); require(stringi); require(textreadr)
 #'
-#' ## Nadra Pencle and Irina Malaescu (2016) What'’'s in the Words? Development and Validation of a
+#' ## Nadra Pencle and Irina Malaescu (2016) What's in the Words? Development and Validation of a
 #' ##   Multidimensional Dictionary for CSR and Application Using Prospectuses. Journal of Emerging
 #' ##   Technologies in Accounting: Fall 2016, Vol. 13, No. 2, pp. 109-127.
 #'
