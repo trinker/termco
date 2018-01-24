@@ -91,6 +91,35 @@
 #'
 #' (x <- token_count(sam_i_am, grouping.var = TRUE, token.list = token_list))
 #' attributes(x)[['pre_collapse_coverage']]
+#'
+#' ## External Dictionaries
+#' \dontrun{
+#' ## dictionary from quanteda
+#' require(quanteda); require(stringi); require(textreadr)
+#'
+#' ## Nadra Pencle and Irina Mălăescu (2016) What’s in the Words? Development and Validation of a
+#' ##   Multidimensional Dictionary for CSR and Application Using Prospectuses. Journal of Emerging
+#' ##   Technologies in Accounting: Fall 2016, Vol. 13, No. 2, pp. 109-127.
+#'
+#' dict_corporate_social_responsibility <- textreadr::download("https://provalisresearch.com/Download/CSR.zip") %>%
+#'     unzip(exdir = tempdir()) %>%
+#'     `[`(1) %>%
+#'     dictionary(file = .)
+#'
+#' csr <- dict_corporate_social_responsibility %>%
+#'     as_term_list() %>%
+#'     lapply(function(x){
+#'         x %>%
+#'             stringi::stri_replace_all_fixed('_', ' ') %>%
+#'             stringi::stri_replace_all_regex('\\s*\\(.+?\\)', '') %>%
+#'             stringi::stri_replace_all_regex('[^ -~]', '\'')
+#'     })
+#'
+#' presidential_debates_2012 %>%
+#'      with(token_count(dialogue, list(time, person), csr)) %>%
+#'      plot()
+#'
+#' #' }
 token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     keep.punctuation = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
     group.names, ...) {

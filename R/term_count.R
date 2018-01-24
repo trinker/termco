@@ -113,6 +113,26 @@
 #' ## get the pre-collapse hierarchical coverage
 #' attributes(x2)[['pre_collapse_coverage']]
 #' }
+#'
+#' ## External dictionaries
+#' \dontrun{
+#' ## dictionary from quanteda
+#' require(quanteda); require(textreadr)
+#'
+#' ## Laver. M. & Garry, J. (2000). Estimating Policy Positions from Political Texts. American
+#' ##   Journal of Political Science, 44 (3), 619-634.
+#'
+#' dict_laver_garry <- textreadr::download("https://provalisresearch.com/Download/LaverGarry.zip") %>%
+#'     unzip(exdir = tempdir()) %>%
+#'     `[`(1) %>%
+#'     dictionary(file = .)
+#'
+#' lg <- as_term_list(dict_laver_garry)
+#'
+#' presidential_debates_2012 %>%
+#'      with(term_count(dialogue, list(time, person), lg)) %>%
+#'      plot()
+#' }
 term_count <- function(text.var, grouping.var = NULL, term.list,
     ignore.case = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
      group.names, ...){
