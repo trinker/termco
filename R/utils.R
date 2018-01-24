@@ -211,3 +211,21 @@ constrain <- function(x, lower, upper) ifelse(x < lower, lower, ifelse(x > upper
 
     text.var
 }
+
+is_nested_single_tier <- function(x) is.list(x[[1]]) && length(x) == 1
+
+warn_unnest <- function(x, type = 'term', ...){
+    if(is_nested_single_tier(x)) {
+        x <- x[[1]]
+        warning(paste(c(
+            sprintf('The %s list supplied has a hierarchical structure but only has a single tier.', type),
+            'Unlisting one level!'),
+            collapse = '\n'), call. = FALSE)
+    }
+    x
+}
+
+
+
+
+

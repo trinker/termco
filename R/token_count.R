@@ -97,7 +97,7 @@
 #' ## dictionary from quanteda
 #' require(quanteda); require(stringi); require(textreadr)
 #'
-#' ## Nadra Pencle and Irina Mălăescu (2016) What’s in the Words? Development and Validation of a
+#' ## Nadra Pencle and Irina Malaescu (2016) What'’'s in the Words? Development and Validation of a
 #' ##   Multidimensional Dictionary for CSR and Application Using Prospectuses. Journal of Emerging
 #' ##   Technologies in Accounting: Fall 2016, Vol. 13, No. 2, pp. 109-127.
 #'
@@ -119,7 +119,7 @@
 #'      with(token_count(dialogue, list(time, person), csr)) %>%
 #'      plot()
 #'
-#' #' }
+#' }
 token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     keep.punctuation = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
     group.names, ...) {
@@ -128,6 +128,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     auto_map <- FALSE
 
     ## check for hierarchical terms
+    token.list <- warn_unnest(token.list, type = 'token')
     list_list <- FALSE
     if (is.list(token.list[[1]]) && length(token.list) > 1 && all(sapply(token.list, is.list))) list_list <- TRUE
 

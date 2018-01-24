@@ -191,6 +191,8 @@ read_term_list <- function(path = 'categories/categories.R', indices = NULL, ter
         cats <- cats[indices]
     }
 
+    cats <- warn_unnest(cats)
+
     if (isTRUE(collapse)) class(cats) <- c('term_list', type)
     return(cats)
 
