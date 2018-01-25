@@ -5,7 +5,10 @@
 #'
 #' @param x A vector of strings or a \pkg{quanteda} \code{dictionary}.
 #' @param add.boundary logical.  If \code{TRUE} a word boundary is place at the
-#' beginning and end of the strings.
+#' beginning and end of the strings.  Note this is ignored by
+#' \code{as_term_list.list}.
+#' @param collapse logical.  If \code{TRUE} vectors of regexes are collapsed with
+#' a regex OR (|) symbol and wrapped in parenthesis.
 #' @param \ldots If \code{as_term_list.dictionary2} other arguments passed to
 #' \code{\link[textshape]{flatten}}), otherwise ignored.
 #' @return Returns a named list.
@@ -51,24 +54,28 @@
 #'     stringi::stri_unescape_unicode() %>%
 #'     cat(file = 'testing.json')
 #' }
-as_term_list <- function(x, add.boundary = FALSE, ...){
+as_term_list <- function(x, add.boundary = FALSE, collapse = FALSE, ...){
     UseMethod('as_term_list')
 }
 
 #' @export
 #' @method as_term_list character
-as_term_list.character <- function(x, add.boundary = FALSE, ...){
+as_term_list.character <- function(x, add.boundary = FALSE, collapse = FALSE, ...){
+
     if (isTRUE(add.boundary)){
         x <- paste0('\\b', x, '\\b')
     }
-    stats::setNames(as.list(x), gsub('\\s+', '_', x))
+    out <- stats::setNames(as.list(x), gsub('\\s+', '_', x))
+
+    read_term_list(term.list = out, collapse = FALSE, ...)
+
 }
 
 #' @export
 #' @method as_term_list dictionary
-as_term_list.dictionary <- function(x, add.boundary = FALSE, ...){
+as_term_list.dictionary <- function(x, add.boundary = FALSE, collapse = FALSE, ...){
 
-    stats::setNames(lapply(names(x), function(y){
+    out <- stats::setNames(lapply(names(x), function(y){
         out <- x[[y]]
         if (isTRUE(add.boundary)){
             out <- gsub("^|(?<!\\*)$", "\\\\b", out, perl = TRUE)
@@ -76,16 +83,17 @@ as_term_list.dictionary <- function(x, add.boundary = FALSE, ...){
         gsub("\\*", '[A-Za-z0-9-]*', out)
     }), names(x))
 
+    read_term_list(term.list = out, collapse = FALSE, ...)
 }
 
 #' @export
 #' @method as_term_list dictionary2
-as_term_list.dictionary2 <- function(x, add.boundary = FALSE, ...){
+as_term_list.dictionary2 <- function(x, add.boundary = FALSE, collapse = FALSE, ...){
 
     x <- quanteda::as.list(x)
     x <- textshape::flatten(x, ...)
 
-    stats::setNames(lapply(names(x), function(y){
+    out <- stats::setNames(lapply(names(x), function(y){
         out <- x[[y]]
         if (isTRUE(add.boundary)){
             out <- gsub("^|(?<!\\*)$", "\\\\b", out, perl = TRUE)
@@ -93,10 +101,16 @@ as_term_list.dictionary2 <- function(x, add.boundary = FALSE, ...){
         gsub("\\*", '[A-Za-z0-9-]*', out)
     }), names(x))
 
+    read_term_list(term.list = out, collapse = FALSE, ...)
 }
 
+#' @export
+#' @method as_term_list list
+as_term_list.list <- function(x, add.boundary = FALSE, collapse = FALSE, ...){
 
+     read_term_list(term.list = x, collapse = collapse, ...)
 
+}
 
 
 
