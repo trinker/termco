@@ -193,7 +193,11 @@ read_term_list <- function(path = 'categories/categories.R', indices = NULL, ter
 
     cats <- warn_unnest(cats)
 
-    if (isTRUE(collapse)) class(cats) <- c('term_list', type)
+    if (isTRUE(collapse)) {
+        class(cats) <- c('term_list', type)
+    } else {
+        class(cats) <- type
+    }
     return(cats)
 
 }
@@ -219,6 +223,8 @@ print.term_list <- function(x, ...){
     x <- rm_class(x, 'term_list')
     print(x)
 }
+
+
 
 #' Prints a termco_unnested Object
 #'

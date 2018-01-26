@@ -63,6 +63,9 @@ NEW FEATURES
   template.  This template has a suggested **termco** based workflow that may be
   useful for classification projects.
 
+* `test_regex` added to test an atomic vector, list, or term list of regexes for
+  validity.
+
 MINOR FEATURES
 
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`

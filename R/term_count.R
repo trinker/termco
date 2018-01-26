@@ -195,7 +195,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         list_list <- TRUE
 
         ## term list checking/formatting
-        term.list <- read_term_list(term.list = term.list, G = G)
+        term.list <- test_regex(read_term_list(term.list = term.list, G = G))
 
         ## Auto create a map for same named term lists and
         ## add ending number to distinguish
@@ -268,7 +268,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     } else {
 
         ## term list checking/formatting
-        term.list <- read_term_list(term.list = term.list, G = G)
+        term.list <- test_regex(read_term_list(term.list = term.list, G = G))
 
         counts <- data.table::setDT(DF)[, names(term.list):= lapply(term.list, countfun,
             text.var, ignore.case = ignore.case), ][, text.var:=NULL]

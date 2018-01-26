@@ -4,13 +4,17 @@
 \alias{as_term_list}
 \title{Coerce to Named List}
 \usage{
-as_term_list(x, add.boundary = FALSE, ...)
+as_term_list(x, add.boundary = FALSE, collapse = FALSE, ...)
 }
 \arguments{
 \item{x}{A vector of strings or a \pkg{quanteda} \code{dictionary}.}
 
 \item{add.boundary}{logical.  If \code{TRUE} a word boundary is place at the
-beginning and end of the strings.}
+beginning and end of the strings.  Note this is ignored by
+\code{as_term_list.list}.}
+
+\item{collapse}{logical.  If \code{TRUE} vectors of regexes are collapsed with
+a regex OR (|) symbol and wrapped in parenthesis.}
 
 \item{\ldots}{If \code{as_term_list.dictionary2} other arguments passed to
 \code{\link[textshape]{flatten}}), otherwise ignored.}

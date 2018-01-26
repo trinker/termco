@@ -101,7 +101,8 @@
 #' ##   Multidimensional Dictionary for CSR and Application Using Prospectuses. Journal of Emerging
 #' ##   Technologies in Accounting: Fall 2016, Vol. 13, No. 2, pp. 109-127.
 #'
-#' dict_corporate_social_responsibility <- textreadr::download("https://provalisresearch.com/Download/CSR.zip") %>%
+#' dict_corporate_social_responsibility <- "https://provalisresearch.com/Download/CSR.zip" %>%
+#'     textreadr::download() %>%
 #'     unzip(exdir = tempdir()) %>%
 #'     `[`(1) %>%
 #'     dictionary(file = .)
@@ -112,7 +113,7 @@
 #'         x %>%
 #'             stringi::stri_replace_all_fixed('_', ' ') %>%
 #'             stringi::stri_replace_all_regex('\\s*\\(.+?\\)', '') %>%
-#'             stringi::stri_replace_all_regex('[^ -~]', '\'')
+#'             stringi::stri_replace_all_regex('[^ -~]', "'")
 #'     })
 #'
 #' presidential_debates_2012 %>%

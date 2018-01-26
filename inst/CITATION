@@ -4,13 +4,12 @@ citHeader("To cite termco in publications, please use:")
 citEntry(entry = "manual",
     title = "{termco}: Tools to count terms and substrings in strings",
     author = "Tyler W. Rinker",
-    organization = "University at Buffalo/SUNY",
     address = "Buffalo, New York",
-    note = "version 0.5.3",
-    year = "2017",
+    note = "version 0.5.5",
+    year = "2018",
     url = "http://github.com/trinker/termco",
-    textVersion  = paste("Rinker, T. W. (2017).",
+    textVersion  = paste("Rinker, T. W. (2018).",
         "termco: Tools to count terms and substrings in strings",
-        "version 0.5.3. University at Buffalo. Buffalo, New York.",
+        "version 0.5.5. Buffalo, New York.",
         "http://github.com/trinker/termco")
 )

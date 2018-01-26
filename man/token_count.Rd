@@ -56,3 +56,88 @@ regex based, allowing for fuzzy matching.  This function only searches for
 lower cased tokens (words, number sequences, or punctuation).  This counting
 function is faster but less flexible.
 }
+\examples{
+token_list <- list(
+    person = c('sam', 'i'),
+    place = c('here', 'house'),
+    thing = c('boat', 'fox', 'rain', 'mouse', 'box', 'eggs', 'ham'),
+    no_like = c('not like')
+)
+
+token_count(sam_i_am, grouping.var = TRUE, token.list = token_list)
+token_count(sam_i_am, grouping.var = NULL, token.list = token_list)
+
+\dontrun{
+x <- presidential_debates_2012[["dialogue"]]
+
+bigrams <- frequent_ngrams(x, gram.length = 2)$collocation
+bigram_model <- token_count(x, TRUE, token.list = as_term_list(bigrams))
+as_dtm(bigram_model)
+
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, lexicon, textshape)
+
+token_list <- lexicon::nrc_emotions \%>\%
+    textshape::column_to_rownames() \%>\%
+    t() \%>\%
+    textshape::as_list()
+
+presidential_debates_2012 \%>\%
+     with(token_count(dialogue, TRUE, token_list))
+
+presidential_debates_2012 \%>\%
+     with(token_count(dialogue, list(person, time), token_list))
+
+presidential_debates_2012 \%>\%
+     with(token_count(dialogue, list(person, time), token_list)) \%>\%
+     plot()
+}
+
+## hierarchical tokens
+token_list <- list(
+    list(
+        person = c('sam', 'i')
+    ),
+    list(
+        place = c('here', 'house'),
+        thing = c('boat', 'fox', 'rain', 'mouse', 'box', 'eggs', 'ham')
+    ),
+    list(
+        no_like = c('not like'),
+        thing = c('train', 'goat')
+    )
+)
+
+(x <- token_count(sam_i_am, grouping.var = TRUE, token.list = token_list))
+attributes(x)[['pre_collapse_coverage']]
+
+## External Dictionaries
+\dontrun{
+## dictionary from quanteda
+require(quanteda); require(stringi); require(textreadr)
+
+## Nadra Pencle and Irina Malaescu (2016) What's in the Words? Development and Validation of a
+##   Multidimensional Dictionary for CSR and Application Using Prospectuses. Journal of Emerging
+##   Technologies in Accounting: Fall 2016, Vol. 13, No. 2, pp. 109-127.
+
+dict_corporate_social_responsibility <- "https://provalisresearch.com/Download/CSR.zip" \%>\%
+    textreadr::download() \%>\%
+    unzip(exdir = tempdir()) \%>\%
+    `[`(1) \%>\%
+    dictionary(file = .)
+
+csr <- dict_corporate_social_responsibility \%>\%
+    as_term_list() \%>\%
+    lapply(function(x){
+        x \%>\%
+            stringi::stri_replace_all_fixed('_', ' ') \%>\%
+            stringi::stri_replace_all_regex('\\\\s*\\\\(.+?\\\\)', '') \%>\%
+            stringi::stri_replace_all_regex('[^ -~]', "'")
+    })
+
+presidential_debates_2012 \%>\%
+     with(token_count(dialogue, list(time, person), csr)) \%>\%
+     plot()
+
+}
+}
