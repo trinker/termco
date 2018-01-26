@@ -108,6 +108,7 @@ read_term_list <- function(path = 'categories/categories.R', indices = NULL, ter
     dots <- list(...)
     if (!is.null(dots[['G']])) obj <- dots[['G']]
     collapse <- is.null(dots[['collapse']]) | isTRUE(dots[['collapse']])
+    test.regex <- is.null(dots[['test_regex']]) | isTRUE(dots[['test_regex']])
 
     if (missing(term.list)) {
         ## ensure path exists
@@ -198,6 +199,11 @@ read_term_list <- function(path = 'categories/categories.R', indices = NULL, ter
     } else {
         class(cats) <- type
     }
+
+    if (isTRUE(test.regex)) {
+        unused <- test_regex(cats)
+    }
+
     return(cats)
 
 }

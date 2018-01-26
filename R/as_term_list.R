@@ -9,6 +9,8 @@
 #' \code{as_term_list.list}.
 #' @param collapse logical.  If \code{TRUE} vectors of regexes are collapsed with
 #' a regex OR (|) symbol and wrapped in parenthesis.
+#' @param test.regex logical.  If \code{TRUE} the regular expressions created will
+#' be tested for validity in \pkg{stringi}.
 #' @param \ldots If \code{as_term_list.dictionary2} other arguments passed to
 #' \code{\link[textshape]{flatten}}), otherwise ignored.
 #' @return Returns a named list.
@@ -54,26 +56,26 @@
 #'     stringi::stri_unescape_unicode() %>%
 #'     cat(file = 'testing.json')
 #' }
-as_term_list <- function(x, add.boundary = FALSE, collapse = FALSE, ...){
+as_term_list <- function(x, add.boundary = FALSE, collapse = FALSE, test.regex = test.regex, ...){
     UseMethod('as_term_list')
 }
 
 #' @export
 #' @method as_term_list character
-as_term_list.character <- function(x, add.boundary = FALSE, collapse = FALSE, ...){
+as_term_list.character <- function(x, add.boundary = FALSE, collapse = FALSE, test.regex = TRUE, ...){
 
     if (isTRUE(add.boundary)){
         x <- paste0('\\b', x, '\\b')
     }
     out <- stats::setNames(as.list(x), gsub('\\s+', '_', x))
 
-    read_term_list(term.list = out, collapse = FALSE, ...)
+    read_term_list(term.list = out, collapse = FALSE, test.regex = test.regex, ...)
 
 }
 
 #' @export
 #' @method as_term_list dictionary
-as_term_list.dictionary <- function(x, add.boundary = FALSE, collapse = FALSE, ...){
+as_term_list.dictionary <- function(x, add.boundary = FALSE, collapse = FALSE, test.regex = TRUE, ...){
 
     out <- stats::setNames(lapply(names(x), function(y){
         out <- x[[y]]
@@ -83,12 +85,12 @@ as_term_list.dictionary <- function(x, add.boundary = FALSE, collapse = FALSE, .
         gsub("\\*", '[A-Za-z0-9-]*', out)
     }), names(x))
 
-    read_term_list(term.list = out, collapse = FALSE, ...)
+    read_term_list(term.list = out, collapse = FALSE, test.regex = test.regex, ...)
 }
 
 #' @export
 #' @method as_term_list dictionary2
-as_term_list.dictionary2 <- function(x, add.boundary = FALSE, collapse = FALSE, ...){
+as_term_list.dictionary2 <- function(x, add.boundary = FALSE, collapse = FALSE, test.regex = TRUE, ...){
 
     x <- quanteda::as.list(x)
     x <- textshape::flatten(x, ...)
@@ -101,14 +103,14 @@ as_term_list.dictionary2 <- function(x, add.boundary = FALSE, collapse = FALSE, 
         gsub("\\*", '[A-Za-z0-9-]*', out)
     }), names(x))
 
-    read_term_list(term.list = out, collapse = FALSE, ...)
+    read_term_list(term.list = out, collapse = FALSE, test.regex = test.regex, ...)
 }
 
 #' @export
 #' @method as_term_list list
-as_term_list.list <- function(x, add.boundary = FALSE, collapse = FALSE, ...){
+as_term_list.list <- function(x, add.boundary = FALSE, collapse = FALSE, test.regex = TRUE, ...){
 
-     read_term_list(term.list = x, collapse = collapse, ...)
+     read_term_list(term.list = x, collapse = collapse, test.regex = test.regex, ...)
 
 }
 

@@ -4,7 +4,8 @@
 \alias{as_term_list}
 \title{Coerce to Named List}
 \usage{
-as_term_list(x, add.boundary = FALSE, collapse = FALSE, ...)
+as_term_list(x, add.boundary = FALSE, collapse = FALSE,
+  test.regex = test.regex, ...)
 }
 \arguments{
 \item{x}{A vector of strings or a \pkg{quanteda} \code{dictionary}.}
@@ -15,6 +16,9 @@ beginning and end of the strings.  Note this is ignored by
 
 \item{collapse}{logical.  If \code{TRUE} vectors of regexes are collapsed with
 a regex OR (|) symbol and wrapped in parenthesis.}
+
+\item{test.regex}{logical.  If \code{TRUE} the regular expressions created will
+be tested for validity in \pkg{stringi}.}
 
 \item{\ldots}{If \code{as_term_list.dictionary2} other arguments passed to
 \code{\link[textshape]{flatten}}), otherwise ignored.}
