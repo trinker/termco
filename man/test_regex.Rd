@@ -42,7 +42,9 @@ discoure_markers <- list(
 
 trmlst_unnested <- read_term_list(term.list = discoure_markers, collapse = FALSE)
 test_regex(trmlst_unnested) ## works
-trmlst_unnested[[1]][1] <- 'bad('
+trmlst_unnested[[1]][1] <- 'bad1('
+trmlst_unnested[[1]][3] <- 'bad2('
+trmlst_unnested[[3]][1] <- 'bad3('
 test_regex(trmlst_unnested) ## warning
 
 trpl_list <- list(
@@ -58,8 +60,10 @@ trpl_list <- list(
 
 trmlst_nested <- read_term_list(term.list = trpl_list, collapse = FALSE)
 test_regex(trmlst_nested) ## works
-trmlst_nested[[1]][[1]][1] <- 'bad('
-trmlst_nested[[3]][[1]][1] <- 'bad('
+trmlst_nested[[1]][[1]][1] <- 'bad1('
+trmlst_nested[[1]][[1]][3] <- 'bad2('
+trmlst_nested[[1]][[3]][1] <- 'bad3('
+trmlst_nested[[3]][[1]][1] <- 'bad4('
 test_regex(trmlst_nested) ## warning
 
 }

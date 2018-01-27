@@ -56,7 +56,7 @@
 #'     stringi::stri_unescape_unicode() %>%
 #'     cat(file = 'testing.json')
 #' }
-as_term_list <- function(x, add.boundary = FALSE, collapse = FALSE, test.regex = test.regex, ...){
+as_term_list <- function(x, add.boundary = FALSE, collapse = FALSE, test.regex = TRUE, ...){
     UseMethod('as_term_list')
 }
 

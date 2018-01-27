@@ -57,7 +57,7 @@ termco 0.5.0 -
   **qdap**'s `term_match`.
 
 * `read_term_list`/`write_term_list` added to aid in the reading in/writing out
-  and formating of term list files.
+  and formatting of term list files.
 
 * `classification_template` added to manually add a classification script
   template.  This template has a suggested **termco** based workflow that may be
@@ -66,6 +66,9 @@ termco 0.5.0 -
 * `test_regex` added to test an atomic vector, list, or term list of regexes for
   validity.
 
+* `mutate_termco` added to apply a normalizing function to all the term columns
+  of a `termco` object without stripping the attributes and class.
+
 **MINOR FEATURES**
 
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`
@@ -73,6 +76,8 @@ termco 0.5.0 -
 
 * `term_count` checks for duplicate categories within tiers for hierarchical
   term lists.
+
+* `read_term_list` checks for valid regex.
 
 **IMPROVEMENTS**
 

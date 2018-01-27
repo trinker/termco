@@ -30,7 +30,9 @@
 #'
 #' trmlst_unnested <- read_term_list(term.list = discoure_markers, collapse = FALSE)
 #' test_regex(trmlst_unnested) ## works
-#' trmlst_unnested[[1]][1] <- 'bad('
+#' trmlst_unnested[[1]][1] <- 'bad1('
+#' trmlst_unnested[[1]][3] <- 'bad2('
+#' trmlst_unnested[[3]][1] <- 'bad3('
 #' test_regex(trmlst_unnested) ## warning
 #'
 #' trpl_list <- list(
@@ -46,8 +48,10 @@
 #'
 #' trmlst_nested <- read_term_list(term.list = trpl_list, collapse = FALSE)
 #' test_regex(trmlst_nested) ## works
-#' trmlst_nested[[1]][[1]][1] <- 'bad('
-#' trmlst_nested[[3]][[1]][1] <- 'bad('
+#' trmlst_nested[[1]][[1]][1] <- 'bad1('
+#' trmlst_nested[[1]][[1]][3] <- 'bad2('
+#' trmlst_nested[[1]][[3]][1] <- 'bad3('
+#' trmlst_nested[[3]][[1]][1] <- 'bad4('
 #' test_regex(trmlst_nested) ## warning
 #'
 #' }
@@ -58,14 +62,22 @@ test_regex <- function(regex, stringi = TRUE, ...){
 #' @export
 #' @method test_regex character
 test_regex.character <- function(regex, stringi = TRUE, ...){
+
     out <- unlist(lapply(regex, is_valid_regex, stringi = stringi))
+
     if (sum(!out) > 0) {
+
         warning(
-            sprintf('The following elements were invalid regex(es):\n    %s', paste(which(out), collapse = ', ')),
+            sprintf(
+                'The following elements were invalid regex(es):\n\n%s',
+                paste(sprintf('    %s. "%s:"', which(!out), regex[!out]), collapse = '\n')
+            ),
             call. = FALSE
         )
     }
+
     regex
+
 }
 
 #' @export
@@ -89,7 +101,7 @@ test_regex.termco_nested <- function(regex, stringi = TRUE, ...){
 #' @export
 #' @method test_regex list
 test_regex.list <- function(regex, stringi = TRUE, ...){
-    regex <- as_term_list(regex, collapse = FALSE)
+    regex <- as_term_list(regex, collapse = FALSE, test.regex = FALSE)
     test_term_list_regex_h(regex, stringi = stringi, ...)
 }
 
@@ -115,13 +127,32 @@ test_term_list_regex_h <- function(cats, stringi = TRUE, ...){
         tiers <- sapply(outs, function(x) sum(!unlist(x)) > 0)
         if (sum(tiers) == 0) return(cats)
 
-        tags <- unlist(lapply(outs[tiers], function(x){
+        tags <- lapply(outs[tiers], function(x){
 
-            paste(sprintf('(%s) %s', seq_along(names(x)[!unlist(x)]), names(x)[!unlist(x)]), collapse = '; ')
+            sprintf('    %s. %s', which(!unlist(x)), names(x)[!unlist(x)])
 
+        })
+
+        regs <- lapply(cats[tiers], function(y) lapply(y, function(z) {
+            locs <- !unlist(lapply(z, is_valid_regex, stringi = stringi))
+            m <- z[locs]
+            if (length(m) == 0) return(NULL)
+            paste(sprintf('        (%s) "%s"', which(locs), m), collapse = '\n')
         }))
-        message <- paste(sprintf('Tier %s has invalid regex(es) within the following categories: \n    %s', which(tiers), tags), collapse = '\n\n')
-        warning(message, call. = FALSE)
+
+        tagregs <- unlist(Map(function(x, y){
+            paste(paste(x, unname(unlist(y)), sep = '\n'), collapse = '\n\n')
+        }, tags, regs))
+
+        mess <- paste(
+            sprintf(
+                'Tier %s has invalid regex(es) within the following categories: \n\n%s',
+                which(tiers),
+                tagregs
+            ),
+            collapse = '\n\n'
+        )
+        warning(mess, call. = FALSE)
 
         return(cats)
 
@@ -138,10 +169,25 @@ test_term_list_regex_h <- function(cats, stringi = TRUE, ...){
             nms <- paste('Unamed Vector', seq_along(outs))
         }
 
-        tags <- paste(sprintf('(%s) %s', seq_along(nms[!unlist(vects)]), nms[!unlist(vects)]), collapse = '\n    ')
+        tags <- sprintf('    %s. %s\n', which(!unlist(vects)), nms[!unlist(vects)])
 
-        message <- sprintf('Invalid regex(es) within the following categories: \n\n    %s', tags)
-        warning(message, call. = FALSE)
+
+        regs <- lapply(cats[!vects], function(z) {
+            locs <- !unlist(lapply(z, is_valid_regex, stringi = stringi))
+            m <- z[locs]
+            if (length(m) == 0) return(NULL)
+            paste(sprintf('        (%s) "%s"', which(locs), m), collapse = '\n')
+        })
+
+        tagregs <- unname(unlist(Map(function(x, y){
+
+            paste(paste(x, unname(unlist(y)), sep = '\n'), collapse = '\n\n')
+        }, tags, regs)))
+
+
+        mess <- sprintf('Invalid regex(es) within the following categories: \n\n%s', paste(tagregs, collapse = '\n\n'))
+
+        warning(mess, call. = FALSE)
 
         return(cats)
 
