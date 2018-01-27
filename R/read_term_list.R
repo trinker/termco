@@ -10,6 +10,10 @@
 #' @param term.list A term list object that can be passed rather than an
 #' external file.
 #' @param \ldots ignored.
+#' @note Note that for \code{token_count} lists the default is to collapse the
+#' elements of vectors into a single regex.  This is undesired behavior when
+#' dealing with fixed tokens.  To avoid this behavior use the argument
+#' \code{collapse = FALSE}.
 #' @return Returns a formatted term list.
 #' @rdname read_term_list
 #' @export

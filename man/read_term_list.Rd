@@ -34,6 +34,12 @@ negate this behavior use \code{source_term_list}.
 
 \code{write_term_list} - Write-out a term list to a file.
 }
+\note{
+Note that for \code{token_count} lists the default is to collapse the
+elements of vectors into a single regex.  This is undesired behavior when
+dealing with fixed tokens.  To avoid this behavior use the argument
+\code{collapse = FALSE}.
+}
 \examples{
 good_cats <- system.file("termco_docs/categories.R", package = "termco")
 bad_cats <- system.file("termco_docs/mal_categories.R", package = "termco")
