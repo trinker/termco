@@ -22,8 +22,7 @@
 #' out <- presidential_debates_2012 %>%
 #'      with(term_count(dialogue, TRUE, term_list))
 #'
-#' out %>%
-#'     mutate_termco()
+#' out
 #'
 #' ## default one-hot encoding
 #' out %>%
@@ -53,7 +52,6 @@
 #'
 #' }
 mutate_termco <- function(x, fun = function(x) as.integer(x > 0)){
-
 
     terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
     type <- ifelse(inherits(x, 'token_count'), "token", "term")

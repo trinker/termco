@@ -33,6 +33,9 @@ BUG FIXES
 
 NEW FEATURES
 
+* `plot_upset` added to enable exploration of overlapping instersections between
+  `term_count` categories: http://caleydo.org/tools/upset.
+
 * `get_text` added to extract the original text associated with particular tags.
 
 * `frequent_terms_co_occurrence` added to view the co-occurrence between frequent

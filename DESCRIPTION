@@ -1,17 +1,17 @@
 Package: termco
 Title: Counts of Terms and Substrings
 Version: 0.5.5
-Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), person("Steven", "Simpson",
-              role = "ctb"))
+Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), person("Steven",
+             "Simpson", role = "ctb"))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
-Description: A suite of functions used to count terms and substrings in strings.  The tools can be used to build an expert rules,
-              regular expression based text classification model.
+Description: A suite of functions used to count terms and substrings in strings.  The tools can be used to build an
+             expert rules, regular expression based text classification model.
 Depends: R (>= 3.4.0)
-Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggraph, ggstance, gofastr (>= 0.3.0), graphics, grDevices,
-              grid, gridExtra, igraph, jsonlite, methods, numform (>= 0.2.1), quanteda (>= 0.99.2), slam, SnowballC, stats,
-              stringi, textclean, textshape (>= 1.5.2), tidyr, tm, utils, wordcloud
+Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggraph, ggstance, gofastr (>= 0.3.0), graphics,
+             grDevices, grid, gridExtra, igraph, jsonlite, methods, numform (>= 0.2.1), quanteda (>= 0.99.2), slam,
+             SnowballC, stats, stringi, textclean, textshape (>= 1.5.2), tidyr, tm, UpSetR, utils, wordcloud
 Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
-Date: 2018-01-26
+Date: 2018-01-27
 License: MIT + file LICENSE
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

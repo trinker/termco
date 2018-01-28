@@ -1315,6 +1315,19 @@ power, whereas the other tags have the potential to be redundant.
 
 ![](tools/figure/impr_disc-1.png)
 
+Another way to view the overlapping complexity and relationships between
+tags is to use an [Upset plot](http://caleydo.org/tools/upset/). The
+`plot_upset` function wraps `UpSetR::upset` and is made to handle
+`term_count` objects directly. Upset plots are complex and require study
+of the method in order to interpret the results
+(<http://caleydo.org/tools/upset>). The time invested in learning this
+plot type can be very fruitful in utilizing a technique that scales to
+the types of data sets that **termco** outputs.
+
+    plot_upset(model) 
+
+![](tools/figure/impr_disc2-1.png)
+
 Categorizing/Tagging
 --------------------
 

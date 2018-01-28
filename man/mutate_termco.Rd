@@ -34,8 +34,7 @@ term_list <- list(
 out <- presidential_debates_2012 \%>\%
      with(term_count(dialogue, TRUE, term_list))
 
-out \%>\%
-    mutate_termco()
+out
 
 ## default one-hot encoding
 out \%>\%
