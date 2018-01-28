@@ -40,6 +40,7 @@ The default is 20.
 }
 \examples{
 require(dplyr)
+require(UpSetR)
 
 term_list <- list(
     `if` = c('if'),

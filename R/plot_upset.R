@@ -31,6 +31,7 @@
 #' @seealso \code{\link[UpSetR]{upset}}
 #' @examples
 #' require(dplyr)
+#' require(UpSetR)
 #'
 #' term_list <- list(
 #'     `if` = c('if'),
