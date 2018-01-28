@@ -69,7 +69,7 @@ termco 0.5.0 -
 * `test_regex` added to test an atomic vector, list, or term list of regexes for
   validity.
 
-* `mutate_termco` added to apply a normalizing function to all the term columns
+* `mutate_term_count` added to apply a normalizing function to all the term columns
   of a `termco` object without stripping the attributes and class.
 
 **MINOR FEATURES**

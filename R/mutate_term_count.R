@@ -26,11 +26,11 @@
 #'
 #' ## default one-hot encoding
 #' out %>%
-#'     mutate_termco()
+#'     mutate_term_count()
 #'
 #' ## min-max scaling
 #' out %>%
-#'     mutate_termco(function(x) (x - min(x)) / ((max(x) - min(x))))
+#'     mutate_term_count(function(x) (x - min(x)) / ((max(x) - min(x))))
 #'
 #' ## token counts
 #' token_list <- list(
@@ -44,14 +44,14 @@
 #'
 #' ## default one-hot encoding
 #' out2 %>%
-#'     mutate_termco()
+#'     mutate_term_count()
 #'
 #' ## min-max scaling
 #' out2 %>%
-#'     mutate_termco(function(x) (x - min(x)) / ((max(x) - min(x))))
+#'     mutate_term_count(function(x) (x - min(x)) / ((max(x) - min(x))))
 #'
 #' }
-mutate_termco <- function(x, fun = function(x) as.integer(x > 0)){
+mutate_term_count <- function(x, fun = function(x) as.integer(x > 0)){
 
     terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
     type <- ifelse(inherits(x, 'token_count'), "token", "term")

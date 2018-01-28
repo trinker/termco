@@ -1,12 +1,14 @@
 #' Plot \code{term_count} Object as Upset Plot
 #'
+#' Enables exploration of overlapping term categories which is useful for tasks
+#' such as improving discrimination (see also \code{\link[termco]{tag_co_occurrence}}).
 #' The upset plot is designed to allow for exploration of overlapping sets where
 #' Euler/Venn plots fail to scale.  This function wraps the
 #' \code{\link[UpSetR]{upset}} to allow for exploration of the degree to which
 #' categories from a \code{term_count} object overlap.  This may help to collapse
-#' codes or to see how constructs are combined within the same text.  The method
-#' is complex and requires careful study and interpretations but the time
-#' invested can pay dividends in scalable insights.
+#' codes or to see how constructs are combined within the same text.  The upset
+#' plot method is complex and requires careful study in order to lead to meaningful
+#' interpretations but the time invested can pay dividends in scalable insights.
 #'
 #' @param x A \code{term_count} object.
 #' @param text_funs Additional list of named functions (names will be used for
@@ -21,14 +23,22 @@
 #'  R package for the visualization of intersecting sets and their properties
 #'  doi:10.1093/bioinformatics/btx364 \cr\cr
 #'  \url{http://caleydo.org/tools/upset}
-#' @note Use \code{?UpSetR::upset} for a full list of the parameters that can be
-#' passed to \code{termco::plot_upset}.  For example, \code{sets} enables more/less
-#' terms to be viewed, \code{order.by} specifies how the intersections between
-#' categories is arranged (default is number of tags), and \code{nintersects}
-#' hones in on how many intersects (top bar plot) can be viewed at one time.
-#' The default is 20.
+#' @note Because \code{\link[UpSetR]{upset}} has many arguments
+#' \pkg{termco} has opted to use \ldots to pass the arguments to \code{plot_upset}
+#' as it makes \code{plot_upset} easier to maintain as \code{\link[UpSetR]{upset}}
+#' makes changes to its API.  This means the  \code{plot_upset} isn't that useful
+#' for understanding how the function operates. Use \code{?UpSetR::upset} for a
+#' full list of the parameters that can be passed to \code{termco::plot_upset}.
+#' For example, \code{sets} enables more/less terms to be viewed, \code{order.by}
+#' specifies how the intersections between categories is arranged (default is
+#' number of tags), and \code{nintersects} hones in on how many intersects (top
+#' bar plot) can be viewed at one time. The default is 25.  \code{mb.ratio}
+#' controls the spacing given to the top and lower pane (2 element numeric vector).
+#' By default \code{plot_upset} attempts to auto scale this based on the number
+#' of tags being displayed.
 #' @export
 #' @seealso \code{\link[UpSetR]{upset}}
+#' \code{\link[termco]{tag_co_occurrence}}
 #' @examples
 #' require(dplyr)
 #' require(UpSetR)
@@ -44,6 +54,15 @@
 #'      with(term_count(dialogue, TRUE, term_list))
 #'
 #' plot_upset(out)
+#' plot_upset(out, order.by = c("freq", "degree"))
+#' plot_upset(out, order.by = "degree")
+#' plot_upset(out, order.by = "degree", decreasing = FALSE)
+#'
+#' ## Adjust top pane/lower pane spacing
+#' plot_upset(out, mb.ratio = c(0.45, 0.55))
+#' \dontrun{
+#' plot_upset(out, mb.ratio = c(0.85, 0.15))
+#' }
 #'
 #' plot_upset(out,
 #'     queries = list(
@@ -114,7 +133,6 @@
 #'     query.legend = "bottom"
 #' )
 #'
-#'
 #' \dontrun{
 #' ## More examples of computing your own text var measures
 #' plot_upset(
@@ -167,6 +185,26 @@
 #' )
 #'
 #' }
+#'
+#' ## Demonstration of the auto scaling of the plot region
+#' regs2 <- as_term_list(frequent_terms(presidential_debates_2012[["dialogue"]])[[1]])
+#'
+#' model2 <- with(presidential_debates_2012,
+#'     term_count(dialogue, TRUE, regs2)
+#' )
+#'
+#' plot_upset(model2)
+#'
+#' regs3 <- as_term_list(frequent_terms(presidential_debates_2012[["dialogue"]], 60)[[1]])
+#'
+#' model3 <- with(presidential_debates_2012,
+#'     term_count(dialogue, TRUE, regs3)
+#' )
+#'
+#' \dontrun{
+#' plot_upset(model3)
+#' plot_upset(model3, order.by = c("freq", "degree"), nintersects = 80)
+#' }
 plot_upset <- function(x, text_funs = NULL, ...){
 
     type <- ifelse(inherits(x, 'token_count'), "token", "term")
@@ -181,8 +219,9 @@ plot_upset <- function(x, text_funs = NULL, ...){
 
 
     ## Coerce to one hot encoding
-    z <- y <- mutate_termco(x)
+    y <- mutate_term_count(x)
 
+    nuni <- rowSums(term_cols(y))
     nord <- names(sort(colSums(term_cols(y)), TRUE))
     y <- as.data.frame(y, stringsAsFactors = FALSE, check.names = FALSE)
 
@@ -213,13 +252,27 @@ plot_upset <- function(x, text_funs = NULL, ...){
     if (is.null(dots$sets)) dots$sets <- rev(nord)
     if (is.null(dots$keep.order)) dots$keep.order <- TRUE
     if (is.null(dots$order.by)) dots$order.by <- "freq"
-    if (is.null(dots$nintersects)) dots$nintersects <- 20
+    if (is.null(dots$nintersects)) dots$nintersects <- 25
 
+    if (is.null(dots$mb.ratio)) {
+        slen <- length(dots$sets)
+        sloc <- which(ratios_key[['n.tags']] %in% slen)
+        if (length(sloc) == 1){
+            dots$mb.ratio <- unname(unlist(ratios_key[sloc, 2:3]))
+        }
+    }
 
     y[['n.tags']] <- rowSums(term_cols(x))
-    y[['n.tags.unique']] <- rowSums(term_cols(z))
+    y[['n.tags.unique']] <- nuni
 
     epsp <- UpSetR::upset
     do.call("epsp", c(list(y), dots))
 
 }
+
+
+ratios_key <- dplyr::data_frame(
+    n.tags = 3:80,
+    x1 = seq(from = .7, to =  .05, length.out = length(n.tags)),
+    x2 = 1 - x1
+)

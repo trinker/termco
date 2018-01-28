@@ -71,7 +71,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `get_text`                   | modeling     | Get the original text for model tags              |
 | `coverage`                   | modeling     | Coverage for `term_count` or `search_term` object |
 | `uncovered`/`get_uncovered`  | modeling     | Get the uncovered text from a model               |
-| `mutate_termco`              | modeling     | Apply normalizing function to term count columns  |
+| `mutate_term_count`              | modeling     | Apply normalizing function to term count columns  |
 | `tag_co_occurrence`          | modeling     | Explore co-occurrence of tags from a model        |
 | `validate_model`/`assign_validation_task` | modeling | Human validation of a `term_count` model |
 | `read_term_list`             | read/write   | Read a term list from an external file            |
@@ -503,7 +503,7 @@ tag_co_occurrence(model) %>%
     plot(min.edge.cutoff = .01)
 ```
 
-Another way to view the overlapping complexity and relationships between tags is to use an [Upset plot](http://caleydo.org/tools/upset/).  The `plot_upset` function wraps `UpSetR::upset` and is made to handle `term_count` objects directly.  Upset plots are complex and require study of the method in order to interpret the results (http://caleydo.org/tools/upset).  The time invested in learning this plot type can be very fruitful in utilizing a technique that scales to the types of data sets that **termco** outputs.
+Another way to view the overlapping complexity and relationships between tags is to use an [Upset plot](http://caleydo.org/tools/upset/).  The `plot_upset` function wraps `UpSetR::upset` and is made to handle `term_count` objects directly.  Upset plots are complex and require study of the method in order to interpret the results (http://caleydo.org/tools/upset).  The time invested in learning this plot type can be very fruitful in utilizing a technique that scales to the types of data sets that **termco** outputs.  This tool can be useful in order to understand overlap and thus improve discrimination.  
 
 ```{r, impr_disc2, fig.width=8}
 plot_upset(model) 
