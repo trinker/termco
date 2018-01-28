@@ -194,6 +194,7 @@ plot_upset(
 
 }
 
+\dontrun{
 ## Demonstration of the auto scaling of the plot region
 regs2 <- as_term_list(frequent_terms(presidential_debates_2012[["dialogue"]])[[1]])
 
@@ -209,7 +210,6 @@ model3 <- with(presidential_debates_2012,
     term_count(dialogue, TRUE, regs3)
 )
 
-\dontrun{
 plot_upset(model3)
 plot_upset(model3, order.by = c("freq", "degree"), nintersects = 80)
 }
