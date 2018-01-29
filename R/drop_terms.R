@@ -42,7 +42,7 @@
 #' drop_terms_regex(trpl_list, '[ln]s')
 drop_terms <- function(x, drop.terms, fixed = FALSE, ...){
 
-    if (isTRUE(regex)){
+    if (!isTRUE(fixed)){
         drop_terms_regex(x, drop.terms, ...)
     } else {
         drop_terms_fixed(x, drop.terms, ...)
