@@ -54,15 +54,15 @@
 #'      with(term_count(dialogue, TRUE, term_list))
 #'
 #' plot_upset(out)
+#'
+#' \dontrun{
 #' plot_upset(out, order.by = c("freq", "degree"))
 #' plot_upset(out, order.by = "degree")
 #' plot_upset(out, order.by = "degree", decreasing = FALSE)
 #'
 #' ## Adjust top pane/lower pane spacing
 #' plot_upset(out, mb.ratio = c(0.45, 0.55))
-#' \dontrun{
 #' plot_upset(out, mb.ratio = c(0.85, 0.15))
-#' }
 #'
 #' plot_upset(out,
 #'     queries = list(
@@ -133,7 +133,6 @@
 #'     query.legend = "bottom"
 #' )
 #'
-#' \dontrun{
 #' ## More examples of computing your own text var measures
 #' plot_upset(
 #'     out,
@@ -184,9 +183,6 @@
 #'     boxplot.summary = c("sentiment")
 #' )
 #'
-#' }
-#'
-#' \dontrun{
 #' ## Demonstration of the auto scaling of the plot region
 #' regs2 <- as_term_list(frequent_terms(presidential_debates_2012[["dialogue"]])[[1]])
 #'
