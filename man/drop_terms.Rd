@@ -2,24 +2,39 @@
 % Please edit documentation in R/drop_terms.R
 \name{drop_terms}
 \alias{drop_terms}
+\alias{drop_terms_regex}
+\alias{drop_terms_fixed}
 \title{Drop Terms from a Term List}
 \usage{
-drop_terms(x, drop.terms, ...)
+drop_terms(x, drop.terms, fixed = FALSE, ...)
+
+drop_terms_regex(x, drop.terms, ...)
+
+drop_terms_fixed(x, drop.terms, ...)
 }
 \arguments{
 \item{x}{A term list.}
 
-\item{drop.terms}{A vector of terms to drop.}
+\item{drop.terms}{A vector of terms to drop or a regex.}
 
-\item{\ldots}{ignored.}
+\item{fixed}{logical.  If \code{FALSE} then \code{drop.terms} may be a regex.}
+
+\item{\ldots}{If \code{fixed = FALSE} then other terms passed to
+\code{search_term_which}, otherwise, ignored.}
 }
 \value{
 Returns a term list
 }
 \description{
-Usage allows the user to explore/iterate on a term list and drop terms prior
-prior to \code{term_count} use without manually editing an external term list
-file.
+\code{drop_terms} Usage allows the user to explore/iterate on a term list and
+drop terms prior prior to \code{term_count} use without manually editing an
+external term list file.
+
+\code{drop_terms_regex} Contol \code{fixed} parameter with function name, in
+ this case, \code{drop.terms} is matched via regex.
+
+\code{drop_terms_fixed} Contol \code{fixed} parameter with function name, in
+ this case, \code{drop.terms} is matched via exactly.
 }
 \examples{
 ## Single level term list
@@ -31,6 +46,7 @@ discoure_markers <- list(
 )
 drop_terms(discoure_markers, 'response_cries')
 drop_terms(discoure_markers, c('summons', 'response_cries'))
+drop_terms_regex(discoure_markers, 'on')
 
 ## Hierarchical term list
 trpl_list <- list(
@@ -47,4 +63,5 @@ trpl_list <- list(
 drop_terms(trpl_list, 'response_cries')
 drop_terms(trpl_list, c('summons', 'response_cries'))
 drop_terms(trpl_list, c('summons', 'response_cries', 'justification'))
+drop_terms_regex(trpl_list, '[ln]s')
 }

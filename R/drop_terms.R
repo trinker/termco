@@ -1,13 +1,16 @@
 #' Drop Terms from a Term List
 #'
-#' Usage allows the user to explore/iterate on a term list and drop terms prior
-#' prior to \code{term_count} use without manually editing an external term list
-#' file.
+#' \code{drop_terms} Usage allows the user to explore/iterate on a term list and
+#' drop terms prior prior to \code{term_count} use without manually editing an
+#' external term list file.
 #'
 #' @param x A term list.
-#' @param drop.terms A vector of terms to drop.
-#' @param \ldots ignored.
+#' @param drop.terms A vector of terms to drop or a regex.
+#' @param fixed logical.  If \code{FALSE} then \code{drop.terms} may be a regex.
+#' @param \ldots If \code{fixed = FALSE} then other terms passed to
+#' \code{search_term_which}, otherwise, ignored.
 #' @return Returns a term list
+#' @rdname drop_terms
 #' @export
 #' @examples
 #' ## Single level term list
@@ -19,6 +22,7 @@
 #' )
 #' drop_terms(discoure_markers, 'response_cries')
 #' drop_terms(discoure_markers, c('summons', 'response_cries'))
+#' drop_terms_regex(discoure_markers, 'on')
 #'
 #' ## Hierarchical term list
 #' trpl_list <- list(
@@ -35,7 +39,71 @@
 #' drop_terms(trpl_list, 'response_cries')
 #' drop_terms(trpl_list, c('summons', 'response_cries'))
 #' drop_terms(trpl_list, c('summons', 'response_cries', 'justification'))
-drop_terms <- function(x, drop.terms, ...){
+#' drop_terms_regex(trpl_list, '[ln]s')
+drop_terms <- function(x, drop.terms, fixed = FALSE, ...){
+
+    if (isTRUE(regex)){
+        drop_terms_regex(x, drop.terms, ...)
+    } else {
+        drop_terms_fixed(x, drop.terms, ...)
+    }
+}
+
+#' Drop Terms from a Term List
+#'
+#' \code{drop_terms_regex} Contol \code{fixed} parameter with function name, in
+#'  this case, \code{drop.terms} is matched via regex.
+#' @rdname drop_terms
+#' @export
+drop_terms_regex <- function(x, drop.terms, ...){
+
+    ## determine if hierarchical
+    type <- ifelse(
+        is.list(x[[1]]) && length(x) > 1 && all(sapply(x, is.list)),
+        'termco_nested',
+        'termco_unnested'
+    )
+
+    term_list <- switch(type,
+
+        termco_unnested = {
+            cls <- class(x)
+            x <- x[!search_term_which(names(x), term = drop.terms, ...)]
+            class(x) <- unique(c(cls, class(x)))
+            x
+        },
+
+        termco_nested = {
+            cls <- class(x)
+            x <- lapply(x, function(z) {
+                y <- z[!search_term_which(names(z), term = drop.terms, ...)]
+                if (length(y) == 0) return(NULL)
+                y
+            })
+            x <- x[!sapply(x, is.null)]
+            if (length(x) == 1) {
+                x <- x[[1]]
+            } else {
+                class(x) <- unique(c(cls, class(x)))
+                x
+            }
+        },
+
+        stop('Doesn\'t appear to be a term list')
+
+    )
+
+    term_list
+
+}
+
+#' Drop Terms from a Term List
+#'
+#' \code{drop_terms_fixed} Contol \code{fixed} parameter with function name, in
+#'  this case, \code{drop.terms} is matched via exactly.
+#' @rdname drop_terms
+#' @export
+drop_terms_fixed <- function(x, drop.terms, ...){
 
     ## determine if hierarchical
     type <- ifelse(
