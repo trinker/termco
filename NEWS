@@ -66,6 +66,10 @@ NEW FEATURES
 * `test_regex` added to test an atomic vector, list, or term list of regexes for
   validity.
 
+* `drop_terms` added to allow the user to explore/iterate on a term list and
+  drop terms prior prior to \code{term_count} use without manually editing an
+  external term list file.
+
 MINOR FEATURES
 
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`
