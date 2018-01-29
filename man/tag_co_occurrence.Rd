@@ -24,7 +24,8 @@ Explore tag co-occurrence.  The resulting list comes with a plot method that
 allows the user to use a network graph to view the connections between
 tags as well as the average number of other tags that co-occur with each of
 the regex tags.  This can provide information regarding the discriminatory
-power of each regex that corresponds to a tag.
+power of each regex that corresponds to a tag.  The \code{\link[termco]{plot_upset}}
+function can also be used for this sort of exploration.
 }
 \examples{
 \dontrun{
@@ -52,6 +53,11 @@ plot(x, min.edge.cutoff = .1, node.color = "#1CDB4F")
 plot(x, min.edge.cutoff = .2, node.color = "gold", digits = 3)
 plot(x, point.size.range = c(.5, 8))
 plot(x, bar = TRUE)
+
+## Compare to `plot_upset`
+\dontrun{
+plot_upset(model)
+}
 
 ##===============================================
 ## Interactive chord diagram and network graph of
@@ -122,6 +128,9 @@ plot(x2, edge.color = "gray99", node.color = "grey75", font.color = "white",
 ## Small Number of Tags Example
 plot(tag_co_occurrence(markers), node.size.range = 5, min.edge.cutoff = .08)
 }
+}
+\seealso{
+\code{\link[termco]{plot_upset}}
 }
 \author{
 Steve T. Simpson and Tyler Rinker <tyler.rinker@gmail.com>.

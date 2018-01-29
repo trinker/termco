@@ -33,6 +33,9 @@ BUG FIXES
 
 NEW FEATURES
 
+* `plot_upset` added to enable exploration of overlapping instersections between
+  `term_count` categories: http://caleydo.org/tools/upset.
+
 * `get_text` added to extract the original text associated with particular tags.
 
 * `frequent_terms_co_occurrence` added to view the co-occurrence between frequent
@@ -57,7 +60,7 @@ NEW FEATURES
   **qdap**'s `term_match`.
 
 * `read_term_list`/`write_term_list` added to aid in the reading in/writing out
-  and formating of term list files.
+  and formatting of term list files.
 
 * `classification_template` added to manually add a classification script
   template.  This template has a suggested **termco** based workflow that may be
@@ -65,6 +68,9 @@ NEW FEATURES
 
 * `test_regex` added to test an atomic vector, list, or term list of regexes for
   validity.
+
+* `mutate_term_count` added to apply a normalizing function to all the term columns
+  of a `termco` object without stripping the attributes and class.
 
 * `drop_terms` added to allow the user to explore/iterate on a term list and
   drop terms prior prior to \code{term_count} use without manually editing an
@@ -77,6 +83,8 @@ MINOR FEATURES
 
 * `term_count` checks for duplicate categories within tiers for hierarchical
   term lists.
+
+* `read_term_list` checks for valid regex.
 
 IMPROVEMENTS
 

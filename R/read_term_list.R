@@ -10,6 +10,10 @@
 #' @param term.list A term list object that can be passed rather than an
 #' external file.
 #' @param \ldots ignored.
+#' @note Note that for \code{token_count} lists the default is to collapse the
+#' elements of vectors into a single regex.  This is undesired behavior when
+#' dealing with fixed tokens.  To avoid this behavior use the argument
+#' \code{collapse = FALSE}.
 #' @return Returns a formatted term list.
 #' @rdname read_term_list
 #' @export
@@ -108,7 +112,7 @@ read_term_list <- function(path = 'categories/categories.R', indices = NULL, ter
     dots <- list(...)
     if (!is.null(dots[['G']])) obj <- dots[['G']]
     collapse <- is.null(dots[['collapse']]) | isTRUE(dots[['collapse']])
-    test.regex <- is.null(dots[['test_regex']]) | isTRUE(dots[['test_regex']])
+    test.regex <- is.null(dots[['test.regex']]) | isTRUE(dots[['test.regex']])
 
     if (missing(term.list)) {
         ## ensure path exists
