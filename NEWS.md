@@ -76,6 +76,9 @@ termco 0.5.0 -
   drop terms prior prior to \code{term_count} use without manually editing an
   external term list file.
 
+* `tidy_counts` added to converts a wide matrix of counts to tidy form (tags are
+  stretched long-wise with corresponding counts of tags).
+
 **MINOR FEATURES**
 
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`

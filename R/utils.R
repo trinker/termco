@@ -226,6 +226,17 @@ warn_unnest <- function(x, type = 'term', ...){
 }
 
 
-
-
+## assess if object has metatags attribute  and if so that a column is named `tag`
+check_meta_tags <- function(x, ...){
+    if (is.null(attributes(x)[['metatags']]) | !isTRUE(attributes(x)[['metatags']])) return(FALSE)
+    if (!'tag' %in% colnames(attributes(x)[['metatags']]) ) {
+        type <- ifelse(is.null(attributes(x)[['tokens']]), 'term', 'token')
+        warning(paste0(
+            sprintf('`%s_count` object has a `metatags` attribute with no `tags` column.)', type),
+            'The `metatags` attribute will not be used'
+        ), .call = FALSE)
+        return(FALSE)
+    }
+    return(TRUE)
+}
 
