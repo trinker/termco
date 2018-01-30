@@ -50,7 +50,7 @@
 #' token2 <- presidential_debates_2012 %>%
 #'      with(token_count(dialogue, list(person, time), token_list))
 #'
-#'  tidy_counts(token2)
+#' tidy_counts(token2)
 tidy_counts <- function(x, ...){
 
     i <- n <- element_id <- term <- NULL
@@ -74,9 +74,15 @@ tidy_counts <- function(x, ...){
         x_grp[['element_id']] <- seq_len(nrow(x_grp))
     }
 
+    z <- dplyr::bind_cols(
+        dplyr::data_frame(element_id = seq_len(nrow(x))),
+        term_cols(x)
+    )
+
+
     y <- dplyr::arrange(stats::setNames(
         dplyr::select(
-            textshape::tidy_dtm(as_dtm(term_cols(x))),
+            textshape::tidy_dtm(gofastr::as_dtm(z, 'element_id')),
             i, term, n),
         c('element_id', 'tag', 'n.tag')
     ), element_id)

@@ -62,6 +62,6 @@ tidy_counts(token1)
 token2 <- presidential_debates_2012 \%>\%
      with(token_count(dialogue, list(person, time), token_list))
 
- tidy_counts(token2)
+tidy_counts(token2)
 }
 \keyword{tidy}
