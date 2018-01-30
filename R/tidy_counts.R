@@ -139,7 +139,8 @@ tidy_counts <- function(x, ...){
     }
 
     attributes(out)[['is_token']] <- is_token
-
+    attributes(out)[["text.var"]] <- attributes(x)[["text.var"]]
+    attributes(out)[["group.vars"]] <- attributes(x)[["group.vars"]]
     out
 
 }
