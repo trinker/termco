@@ -240,3 +240,60 @@ check_meta_tags <- function(x, ...){
     return(TRUE)
 }
 
+
+get_tags <- function(x, ...){
+
+    terms <- ifelse(inherits(x, "token_count"), "token.vars",
+        "term.vars")
+    type <- ifelse(inherits(x, "token_count"), "token", "term")
+    y <- validate_term_count(x, FALSE)
+    if (!isTRUE(y))
+        stop(paste0("`x` does not appear to be a valid `", type,
+            "_count` object.  Was the object altered after creation?"))
+    unlist(attributes(x)[[terms]])
+
+}
+tags2meta <- function(tags, meta.sep = '__', meta.names = c('meta'), ...){
+
+    if (!any(grepl(meta.sep[1], tags))) return(NULL)
+
+    tgs <- as.list(tags)
+
+    for (i in seq_along(sep)){
+        for (j in seq_along(tgs)) {
+            tgs[[j]] <- unlist(strsplit(tgs[[j]], split = meta.sep[i], fixed = TRUE))
+        }
+    }
+
+
+    lens <- lengths(tgs)
+
+    if (sd(lens) != 0) {
+        # warning(paste0(
+        #     'It appears you\'re trying to use tag separators to denote metatags...\n',
+        #      'However the following element(s) did not contain one, and only one, of the first separator:\n\n',
+        #     paste(paste0('    - ', tags[!lens %in%  as.numeric(names(which.max(table(lens))))]), collapse = '\n')
+        # ), call. = FALSE)
+        return(NULL)
+    }
+
+    if (length(meta.names) != (lens[1]-1)){
+        warning('Length of `meta.names` not equal to number of metatag breaks.  Adding names.')
+        nms <- rep(NA, lens[1]-1 )
+        nms[seq_along(meta.names)] <- meta.names
+        nms[is.na(nms)] <- paste0('meta_', which(is.na(nms)))
+        meta.names <- nms
+    }
+
+    out <- data.frame(
+        tags = tags,
+        stats::setNames(data.frame(do.call(rbind, tgs)[,-c(lens[1])], stringsAsFactors = FALSE), meta.names),
+        stringsAsFactors = FALSE
+    )
+
+    out <- dplyr::tbl_df(out)
+
+    class(out) <- c('metatags', class(out))
+
+    out
+}
