@@ -59,7 +59,7 @@ classify <- function(x, n = 1, ties.method = "probability", seed = NULL, ...) {
 
     val <- validate_term_count(x)
     if (isTRUE(val)) {
-        x <- term_cols(x)
+        x <- tag_cols(x)
     } else {
         warning("Object is not `term_count`...\n",
             "Object may have been altered.  Check to make sure tags are correct.")

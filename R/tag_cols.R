@@ -1,17 +1,17 @@
-#' Get Term/Group Columns
+#' Get Tag/Group Columns
 #'
-#' Convenience functions to grab just the term or grouping variable columns from
+#' Convenience functions to grab just the tag or grouping variable columns from
 #' a \code{term_count} object.
 #'
 #' @param x A \code{term_count} object.
 #' @param \ldots ignored.
 #' @return Returns a \code{tibble} frame of just terms or grouping variables.
 #' @export
-#' @rdname term_cols
+#' @rdname tag_cols
 #' @examples
-#' term_cols(markers)
+#' tag_cols(markers)
 #' group_cols(markers)
-term_cols <- function(x, ...){
+tag_cols <- function(x, ...){
 
     terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
     type <- ifelse(inherits(x, 'token_count'), "token", "term")
@@ -23,7 +23,7 @@ term_cols <- function(x, ...){
 }
 
 #' @export
-#' @rdname term_cols
+#' @rdname tag_cols
 group_cols <- function(x, ...){
 
     type <- ifelse(inherits(x, 'token_count'), "token", "term")
@@ -33,8 +33,5 @@ group_cols <- function(x, ...){
     x[unlist(attributes(x)[['group.vars']])]
 
 }
-
-
-
 
 

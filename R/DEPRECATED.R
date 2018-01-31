@@ -245,3 +245,18 @@ termco_collocations <- function(x, size = 2:3, order.by = 'frequency',
 
 
 
+
+#' @export
+#' @rdname tag_cols
+term_cols <- function(x, ...){
+
+     warning("Deprecated, use termco::tag_cols() instead.", call. = FALSE)
+
+    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
+    y <- validate_term_count(x, FALSE)
+    if (!isTRUE(y)) stop(paste0('`x` does not appear to be a valid `', type, '_count` object.  Was the object altered after creation?'))
+    x[unlist(attributes(x)[[terms]])]
+
+}

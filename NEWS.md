@@ -120,6 +120,13 @@ termco 0.5.0 -
 * `ngram_collocations` has been renamed to  `frequent_ngrams` for better clarity
   in what the function does and as a counter part to `frequent_terms`.
 
+* `update_names` renamed to `rename_tags` to be consistent with naming
+  conventions.
+
+* `term_cols` renamed to `tag_cols` to be consistent with naming
+  conventions.
+
+
 termco 0.4.0 - 0.4.3
 ----------------------------------------------------------------
 

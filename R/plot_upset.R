@@ -217,8 +217,8 @@ plot_upset <- function(x, text_funs = NULL, ...){
     ## Coerce to one hot encoding
     y <- mutate_term_count(x)
 
-    nuni <- rowSums(term_cols(y))
-    nord <- names(sort(colSums(term_cols(y)), TRUE))
+    nuni <- rowSums(tag_cols(y))
+    nord <- names(sort(colSums(tag_cols(y)), TRUE))
     y <- as.data.frame(y, stringsAsFactors = FALSE, check.names = FALSE)
 
     if (!is.null(text_funs)) {
@@ -258,7 +258,7 @@ plot_upset <- function(x, text_funs = NULL, ...){
         }
     }
 
-    y[['n.tags']] <- rowSums(term_cols(x))
+    y[['n.tags']] <- rowSums(tag_cols(x))
     y[['n.tags.unique']] <- nuni
 
     epsp <- UpSetR::upset

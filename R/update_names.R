@@ -1,6 +1,6 @@
 #' Rename a term_count Object's Term Columns
 #'
-#' Safely rename a \code{term_count} object's term columns and attributes.
+#' Safely rename a \code{term_count} object's tag columns and attributes.
 #'
 #' @param x A \code{term_count} object.
 #' @param old A vector of the current names.
@@ -22,11 +22,11 @@
 #' ))
 #'
 #'
-#' update_names(markers, old = c('back_channels', 'summons'), new = c('bcs', 's'))
-#' update_names(markers, old = c('person'), new = c('people'))
-#' update_names(markers, old = c('person', 'back_channels', 'summons'), new = c('people', 'bcs', 's'))
-#' attributes(update_names(markers, old = c('back_channels', 'summons'), new = c('bcs', 's')))
-update_names <- function(x, old, new){
+#' rename_tags(markers, old = c('back_channels', 'summons'), new = c('bcs', 's'))
+#' rename_tags(markers, old = c('person'), new = c('people'))
+#' rename_tags(markers, old = c('person', 'back_channels', 'summons'), new = c('people', 'bcs', 's'))
+#' attributes(rename_tags(markers, old = c('back_channels', 'summons'), new = c('bcs', 's')))
+rename_tags <- function(x, old, new){
 
     y <- validate_term_count(x, FALSE)
     if (!isTRUE(y)) stop("`x` does not appear to be a valid `term_count` object.  Was the object altered after creation?")

@@ -99,8 +99,8 @@ combine_counts <- function(x, y, mapping = NULL, ...){
     att_y <- attributes(y)
 
     ## term columns
-    x_terms <- colnames(term_cols(x))
-    y_terms <- colnames(term_cols(y))
+    x_terms <- colnames(tag_cols(x))
+    y_terms <- colnames(tag_cols(y))
 
     ## group columns
     x_groups <- colnames(group_cols(x))
@@ -197,7 +197,7 @@ combine_counts <- function(x, y, mapping = NULL, ...){
 print.combine_counts <- function(x, ...) {
 
     class(x) <- class(x)[!class(x) %in% c("term_count", "combine_counts")]
-    coverage <- sum(cov <- rowSums(term_cols(x)) != 0)/length(cov)
+    coverage <- sum(cov <- rowSums(tag_cols(x)) != 0)/length(cov)
     cat(sprintf("Coverage: %s%%", 100 * round(coverage, 4)), "\n")
     print(x)
 

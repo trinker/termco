@@ -76,7 +76,7 @@ tidy_counts <- function(x, ...){
 
     z <- dplyr::bind_cols(
         dplyr::data_frame(element_id = seq_len(nrow(x))),
-        term_cols(x)
+        tag_cols(x)
     )
 
 

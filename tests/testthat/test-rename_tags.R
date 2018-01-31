@@ -1,6 +1,6 @@
-context("Checking update_names")
+context("Checking rename_tags")
 
-test_that("update_names updates column and attribute names",{
+test_that("rename_tags updates column and attribute names",{
 
     data(presidential_debates_2012)
 
@@ -18,7 +18,7 @@ test_that("update_names updates column and attribute names",{
     new <- c('people', 'bcs', 's')
     old <-  c('person', 'back_channels', 'summons')
 
-    x <- update_names(markers, old = old, new = new)
+    x <- rename_tags(markers, old = old, new = new)
 
     expect_true(all(new %in% colnames(x)))
     expect_true(!any(old %in% colnames(x)))

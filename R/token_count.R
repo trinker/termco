@@ -329,6 +329,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     attributes(out)[["weight"]] <- "count"
     attributes(out)[["counts"]] <- count
     attributes(out)[["tokens"]] <- token.listsaved
+    attributes(out)[["metatags"]] <- NULL
 
     if(isTRUE(list_list)) attributes(out)[["hierarchical_terms"]] <- lapply(token.list, names)
 

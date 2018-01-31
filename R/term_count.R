@@ -303,6 +303,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     attributes(out)[["text.var"]] <- text
     attributes(out)[["model"]] <- amodel
     attributes(out)[["regex"]] <- regex
+    attributes(out)[["metatags"]] <- NULL
 
     if(isTRUE(list_list)) attributes(out)[["hierarchical_terms"]] <- lapply(term.list, names)
 
