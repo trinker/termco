@@ -7,6 +7,7 @@
 #' @param x A term list.
 #' @param drop.terms A vector of terms to drop or a regex.
 #' @param fixed logical.  If \code{FALSE} then \code{drop.terms} may be a regex.
+#' @param negate logical.  If \code{TRUE} then the \code{drop.terms} will be kept.
 #' @param \ldots If \code{fixed = FALSE} then other terms passed to
 #' \code{search_term_which}, otherwise, ignored.
 #' @return Returns a term list
@@ -40,7 +41,8 @@
 #' drop_terms(trpl_list, c('summons', 'response_cries'))
 #' drop_terms(trpl_list, c('summons', 'response_cries', 'justification'))
 #' drop_terms_regex(trpl_list, '[ln]s')
-drop_terms <- function(x, drop.terms, fixed = FALSE, ...){
+#' keep_terms_regex(trpl_list, '[ln]s')
+drop_terms <- function(x, drop.terms, fixed = TRUE, negate = FALSE, ...){
 
     if (!isTRUE(fixed)){
         drop_terms_regex(x, drop.terms, ...)
@@ -55,7 +57,7 @@ drop_terms <- function(x, drop.terms, fixed = FALSE, ...){
 #'  this case, \code{drop.terms} is matched via regex.
 #' @rdname drop_terms
 #' @export
-drop_terms_regex <- function(x, drop.terms, ...){
+drop_terms_regex <- function(x, drop.terms, negate = FALSE, ...){
 
     ## determine if hierarchical
     type <- ifelse(
@@ -68,7 +70,11 @@ drop_terms_regex <- function(x, drop.terms, ...){
 
         termco_unnested = {
             cls <- class(x)
-            x <- x[!search_term_which(names(x), term = drop.terms, ...)]
+            drops <- search_term_which(names(x), term = drop.terms, ...)
+            if (!isTRUE(negate)){
+                drops <- !drops
+            }
+            x <- x[drops]
             class(x) <- unique(c(cls, class(x)))
             x
         },
@@ -76,7 +82,11 @@ drop_terms_regex <- function(x, drop.terms, ...){
         termco_nested = {
             cls <- class(x)
             x <- lapply(x, function(z) {
-                y <- z[!search_term_which(names(z), term = drop.terms, ...)]
+                drops <- search_term_which(names(z), term = drop.terms, ...)
+                if (!isTRUE(negate)){
+                    drops <- !drops
+                }
+                y <- z[drops]
                 if (length(y) == 0) return(NULL)
                 y
             })
@@ -103,7 +113,7 @@ drop_terms_regex <- function(x, drop.terms, ...){
 #'  this case, \code{drop.terms} is matched via exactly.
 #' @rdname drop_terms
 #' @export
-drop_terms_fixed <- function(x, drop.terms, ...){
+drop_terms_fixed <- function(x, drop.terms, negate = FALSE, ...){
 
     ## determine if hierarchical
     type <- ifelse(
@@ -116,7 +126,11 @@ drop_terms_fixed <- function(x, drop.terms, ...){
 
         termco_unnested = {
             cls <- class(x)
-            x <- x[!names(x) %in% drop.terms]
+            drops <- names(x) %in% drop.terms
+            if (!isTRUE(negate)){
+                drops <- !drops
+            }
+            x <- x[drops]
             class(x) <- unique(c(cls, class(x)))
             x
         },
@@ -124,7 +138,12 @@ drop_terms_fixed <- function(x, drop.terms, ...){
         termco_nested = {
             cls <- class(x)
             x <- lapply(x, function(z) {
-                y <- z[!names(z) %in% drop.terms]
+                drops <- names(z) %in% drop.terms
+                if (!isTRUE(negate)){
+                    drops <- !drops
+                }
+
+                y <- z[drops]
                 if (length(y) == 0) return(NULL)
                 y
             })
@@ -144,3 +163,36 @@ drop_terms_fixed <- function(x, drop.terms, ...){
     term_list
 
 }
+
+
+#' Drop Terms from a Term List
+#'
+#' \code{keep_terms_regex} Negated version of \code{drop_terms_regex}.
+#' @rdname drop_terms
+#' @export
+keep_terms_regex <- function(x, drop.terms, negate = TRUE, ...){
+    drop_terms_regex(x = x, drop.terms = drop.terms, negate = negate, ...)
+}
+
+
+#' Drop Terms from a Term List
+#'
+#' \code{keep_terms_fixed} Negated version of \code{drop_terms_fixed}.
+#' @rdname drop_terms
+#' @export
+keep_terms_fixed <- function(x, drop.terms, negate = TRUE, ...){
+    drop_terms_regex(x = x, drop.terms = drop.terms, negate = negate, ...)
+}
+
+
+#' Drop Terms from a Term List
+#'
+#' \code{keep_terms} Negated version of \code{drop_terms}.
+#' @rdname drop_terms
+#' @export
+keep_terms <- function(x, drop.terms, fixed = TRUE, negate = TRUE, ...){
+    drop_terms(x = x, drop.terms = drop.terms, fixed = fixed, negate = negate, ...)
+}
+
+
+

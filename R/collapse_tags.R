@@ -64,7 +64,7 @@ collapse_tags <- function(x, mapping, ...){
 
     x <- dplyr::tbl_df(x)
     class(x) <- y[['class']]
-    y <- y[c("group.vars", terms, "weight", "pretty", "counts", "text.var", "model", "regex")]
+    y <- y[c("group.vars", terms, "weight", "pretty", "counts", "text.var", "model", "regex", "metatags")]
     for (i in seq_along(y)){
         attributes(x)[[names(y)[i]]] <- y[[i]]
     }

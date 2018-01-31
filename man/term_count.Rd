@@ -5,7 +5,8 @@
 \title{Search For and Count Terms}
 \usage{
 term_count(text.var, grouping.var = NULL, term.list, ignore.case = TRUE,
-  pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE), group.names, ...)
+  pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE), group.names,
+  meta.sep = "__", meta.names = c("meta"), ...)
 }
 \arguments{
 \item{text.var}{The text string variable.}
@@ -33,6 +34,14 @@ printing can be turned off globally by setting
 
 \item{group.names}{A vector of names that corresponds to group.  Generally
 for internal use.}
+
+\item{meta.sep}{A character separator (or character vector of separators) to
+break up the term list names (tags) into that will generate an merge table
+attribute on the output that has the supplied tags and meta + sub tags as
+dictated by the separator breaks.}
+
+\item{meta.names}{A vector of names corresponding to the meta tags generated
+by \code{meta.sep}.}
 
 \item{\ldots}{ignored.}
 }

@@ -31,6 +31,12 @@
 #' \code{options(termco_pretty = FALSE)}.
 #' @param group.names A vector of names that corresponds to group.  Generally
 #' for internal use.
+#' @param meta.sep A character separator (or character vector of separators) to
+#' break up the term list names (tags) into that will generate an merge table
+#' attribute on the output that has the supplied tags and meta + sub tags as
+#' dictated by the separator breaks.
+#' @param meta.names A vector of names corresponding to the meta tags generated
+#' by \code{meta.sep}.
 #' @param \ldots Other arguments passed to \code{\link[gofastr]{q_dtm}}.
 #' @return Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
 #' grouping variable.  Has all of the same features as a \code{term_count}
@@ -123,7 +129,7 @@
 #' }
 token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     keep.punctuation = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
-    group.names, ...) {
+    group.names, meta.sep = '__', meta.names = c('meta'), ...) {
 
     amodel <- FALSE
     auto_map <- FALSE
@@ -209,7 +215,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     DF[G] <- grouping
 
     ## create DTM
-    dtm <- make_dtm(text.var, paste2(DF[G], sep = "___"), remove_punct = !keep.punctuation, ...)
+    dtm <- make_dtm(text.var, paste2(DF[G], sep = "termcosepperiodsepsepseptermco"), remove_punct = !keep.punctuation, ...)
 
     nms <- colnames(dtm)
     n.tokens <- slam::row_sums(dtm)
@@ -242,8 +248,8 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
                     replacements <- i
                     map[i] <- NULL
                 } else {
-                    replacements <- paste(i, seq_len(sum(token.nms == i)), sep = "__")
-                    map[[i]] <- paste(i, seq_len(sum(token.nms == i)), sep = "__")
+                    replacements <- paste(i, seq_len(sum(token.nms == i)), sep = "termcosepsepsepseptermco")
+                    map[[i]] <- paste(i, seq_len(sum(token.nms == i)), sep = "termcosepsepsepseptermco")
                 }
                 token.nms[token.nms == i] <- replacements
             }
@@ -300,7 +306,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
 
     }
 
-    grpv <- stats::setNames(do.call(rbind.data.frame, strsplit(rownames(dtm), "___")), G)
+    grpv <- stats::setNames(do.call(rbind.data.frame, strsplit(rownames(dtm), "termcosepperiodsepsepseptermco")), G)
     if (isTRUE(grouping.var)) grpv['id'] <- seq_along(grpv[['id']])
     out <- data.table::data.table(grpv, n.tokens, out)
 
@@ -329,7 +335,7 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
     attributes(out)[["weight"]] <- "count"
     attributes(out)[["counts"]] <- count
     attributes(out)[["tokens"]] <- token.listsaved
-    attributes(out)[["metatags"]] <- NULL
+
 
     if(isTRUE(list_list)) attributes(out)[["hierarchical_terms"]] <- lapply(token.list, names)
 
@@ -337,6 +343,10 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
         message("Collapsing duplicate `token.list` columns.")
         out <- collapse_tags(out, map, ...)
     }
+
+    attributes(out)[["token.vars"]] <- unique(gsub('termcosepsepsepseptermco\\d+$', '', attributes(out)[["token.vars"]]))
+    attributes(out)[["metatags"]] <- tags2meta(attributes(out)[["token.vars"]],
+        meta.sep = meta.sep, meta.names = meta.names)
 
     out
 }

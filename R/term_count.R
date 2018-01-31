@@ -23,6 +23,12 @@
 #' \code{options(termco_pretty = FALSE)}.
 #' @param group.names A vector of names that corresponds to group.  Generally
 #' for internal use.
+#' @param meta.sep A character separator (or character vector of separators) to
+#' break up the term list names (tags) into that will generate an merge table
+#' attribute on the output that has the supplied tags and meta + sub tags as
+#' dictated by the separator breaks.
+#' @param meta.names A vector of names corresponding to the meta tags generated
+#' by \code{meta.sep}.
 #' @param \ldots ignored.
 #' @return Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
 #' grouping variable.
@@ -135,7 +141,7 @@
 #' }
 term_count <- function(text.var, grouping.var = NULL, term.list,
     ignore.case = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
-     group.names, ...){
+    group.names, meta.sep = '__', meta.names = c('meta'), ...){
 
     amodel <- FALSE
     auto_map <- FALSE
@@ -214,8 +220,8 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
                     replacements <- i
                     map[i] <- NULL
                 } else {
-                    replacements <- paste(i, seq_len(sum(term.nms == i)), sep = "__")
-                    map[[i]] <- paste(i, seq_len(sum(term.nms == i)), sep = "__")
+                    replacements <- paste(i, seq_len(sum(term.nms == i)), sep = "termcosepsepsepseptermco")
+                    map[[i]] <- paste(i, seq_len(sum(term.nms == i)), sep = "termcosepsepsepseptermco")
                 }
                 term.nms[term.nms == i] <- replacements
             }
@@ -297,13 +303,13 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         attributes(out)[["term.vars"]] <- names(term.list)
     }
 
+
     attributes(out)[["weight"]] <- "count"
     attributes(out)[["pretty"]] <- pretty
     attributes(out)[["counts"]] <- count
     attributes(out)[["text.var"]] <- text
     attributes(out)[["model"]] <- amodel
     attributes(out)[["regex"]] <- regex
-    attributes(out)[["metatags"]] <- NULL
 
     if(isTRUE(list_list)) attributes(out)[["hierarchical_terms"]] <- lapply(term.list, names)
 
@@ -311,6 +317,10 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
         message("Collapsing duplicate `term.list` columns.")
         out <- collapse_tags(out, map, ...)
     }
+
+    attributes(out)[["term.vars"]] <- unique(gsub('termcosepsepsepseptermco\\d+$', '', attributes(out)[["term.vars"]]))
+    attributes(out)[["metatags"]] <- tags2meta(attributes(out)[["term.vars"]],
+        meta.sep = meta.sep, meta.names = meta.names)
 
     out
 }

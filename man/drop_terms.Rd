@@ -4,13 +4,22 @@
 \alias{drop_terms}
 \alias{drop_terms_regex}
 \alias{drop_terms_fixed}
+\alias{keep_terms_regex}
+\alias{keep_terms_fixed}
+\alias{keep_terms}
 \title{Drop Terms from a Term List}
 \usage{
-drop_terms(x, drop.terms, fixed = FALSE, ...)
+drop_terms(x, drop.terms, fixed = TRUE, negate = FALSE, ...)
 
-drop_terms_regex(x, drop.terms, ...)
+drop_terms_regex(x, drop.terms, negate = FALSE, ...)
 
-drop_terms_fixed(x, drop.terms, ...)
+drop_terms_fixed(x, drop.terms, negate = FALSE, ...)
+
+keep_terms_regex(x, drop.terms, negate = TRUE, ...)
+
+keep_terms_fixed(x, drop.terms, negate = TRUE, ...)
+
+keep_terms(x, drop.terms, fixed = TRUE, negate = TRUE, ...)
 }
 \arguments{
 \item{x}{A term list.}
@@ -18,6 +27,8 @@ drop_terms_fixed(x, drop.terms, ...)
 \item{drop.terms}{A vector of terms to drop or a regex.}
 
 \item{fixed}{logical.  If \code{FALSE} then \code{drop.terms} may be a regex.}
+
+\item{negate}{logical.  If \code{TRUE} then the \code{drop.terms} will be kept.}
 
 \item{\ldots}{If \code{fixed = FALSE} then other terms passed to
 \code{search_term_which}, otherwise, ignored.}
@@ -35,6 +46,12 @@ external term list file.
 
 \code{drop_terms_fixed} Contol \code{fixed} parameter with function name, in
  this case, \code{drop.terms} is matched via exactly.
+
+\code{keep_terms_regex} Negated version of \code{drop_terms_regex}.
+
+\code{keep_terms_fixed} Negated version of \code{drop_terms_fixed}.
+
+\code{keep_terms} Negated version of \code{drop_terms}.
 }
 \examples{
 ## Single level term list
@@ -64,4 +81,5 @@ drop_terms(trpl_list, 'response_cries')
 drop_terms(trpl_list, c('summons', 'response_cries'))
 drop_terms(trpl_list, c('summons', 'response_cries', 'justification'))
 drop_terms_regex(trpl_list, '[ln]s')
+keep_terms_regex(trpl_list, '[ln]s')
 }

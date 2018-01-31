@@ -259,7 +259,7 @@ tags2meta <- function(tags, meta.sep = '__', meta.names = c('meta'), ...){
 
     tgs <- as.list(tags)
 
-    for (i in seq_along(sep)){
+    for (i in seq_along(meta.sep)){
         for (j in seq_along(tgs)) {
             tgs[[j]] <- unlist(strsplit(tgs[[j]], split = meta.sep[i], fixed = TRUE))
         }
@@ -268,17 +268,18 @@ tags2meta <- function(tags, meta.sep = '__', meta.names = c('meta'), ...){
 
     lens <- lengths(tgs)
 
-    if (sd(lens) != 0) {
-        # warning(paste0(
-        #     'It appears you\'re trying to use tag separators to denote metatags...\n',
-        #      'However the following element(s) did not contain one, and only one, of the first separator:\n\n',
-        #     paste(paste0('    - ', tags[!lens %in%  as.numeric(names(which.max(table(lens))))]), collapse = '\n')
-        # ), call. = FALSE)
+    if (stats::sd(lens) != 0) {
+        warning(paste0(
+            'It appears you\'re trying to use tag separators to denote metatags...\n',
+             'However the following element(s) did not contain exactly the same number of of separators as the others:\n\n',
+            paste(paste0('    - ', tags[!lens %in%  as.numeric(names(which.max(table(lens))))]), collapse = '\n'),
+            '\n\n`attributes(x)[["metatags"]]` will be `NULL`.'
+        ), call. = FALSE)
         return(NULL)
     }
 
     if (length(meta.names) != (lens[1]-1)){
-        warning('Length of `meta.names` not equal to number of metatag breaks.  Adding names.')
+        #warning('Length of `meta.names` not equal to number of metatag breaks.  Adding names.')
         nms <- rep(NA, lens[1]-1 )
         nms[seq_along(meta.names)] <- meta.names
         nms[is.na(nms)] <- paste0('meta_', which(is.na(nms)))
@@ -287,7 +288,7 @@ tags2meta <- function(tags, meta.sep = '__', meta.names = c('meta'), ...){
 
     out <- data.frame(
         tags = tags,
-        stats::setNames(data.frame(do.call(rbind, tgs)[,-c(lens[1])], stringsAsFactors = FALSE), meta.names),
+        stats::setNames(data.frame(do.call(rbind, tgs), stringsAsFactors = FALSE), c(meta.names, 'sub_tag')),
         stringsAsFactors = FALSE
     )
 
