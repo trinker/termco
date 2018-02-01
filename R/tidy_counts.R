@@ -74,15 +74,17 @@ tidy_counts <- function(x, ...){
         x_grp[['element_id']] <- seq_len(nrow(x_grp))
     }
 
-    z <- dplyr::bind_cols(
-        dplyr::data_frame(element_id = seq_len(nrow(x))),
-        tag_cols(x)
-    )
+    # z <- tag_cols(x)
+    #
+    # dplyr::bind_cols(
+    #     dplyr::data_frame(element_id = seq_len(nrow(x))),
+    #     tag_cols(x)
+    # )
 
 
     y <- dplyr::arrange(stats::setNames(
         dplyr::select(
-            textshape::tidy_dtm(gofastr::as_dtm(z, 'element_id')),
+            textshape::tidy_dtm(gofastr::as_dtm(tag_cols(x))),
             i, term, n),
         c('element_id', 'tag', 'n.tag')
     ), element_id)
