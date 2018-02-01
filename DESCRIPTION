@@ -11,7 +11,7 @@ Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggraph, ggst
              grDevices, grid, gridExtra, igraph, jsonlite, methods, numform (>= 0.2.1), quanteda (>= 0.99.2), slam,
              SnowballC, stats, stringi, textclean, textshape (>= 1.5.2), tidyr, tm, UpSetR, utils, wordcloud
 Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
-Date: 2018-01-31
+Date: 2018-02-01
 License: MIT + file LICENSE
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)

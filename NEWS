@@ -79,6 +79,10 @@ NEW FEATURES
 * `tidy_counts` added to converts a wide matrix of counts to tidy form (tags are
   stretched long-wise with corresponding counts of tags).
 
+* `set_meta_tags` added for setting the `metatags` attribute on a
+  `term_count/`token_count` object.  This can also be controlled by separators
+  in the term/token list passed to `term_count/`token_count`.
+
 MINOR FEATURES
 
 * `important_terms` picks up a plot method corresponding to the `frequent_terms`
