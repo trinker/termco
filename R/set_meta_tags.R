@@ -45,7 +45,7 @@
 #' tag_df <- tidy_list(list(
 #'     noun = c('person', 'place', 'thing'),
 #'     odd_ones = c('other', 'no_like')
-#' ), 'meta', 'tags')[, 2:1]
+#' ), 'meta', 'tag')[, 2:1]
 #'
 #' x2 <- set_meta_tags(x, tag_list)
 #' attributes(x2)[['metatags']]
@@ -84,14 +84,14 @@ check_set_tags <- function(x, tags, ...){
     validate_term_count(x)
     stopifnot(ncol(tags) > 1)
     cls <- colnames(tags)
-    tags <- dplyr::tbl_df(tags)[c('tags', cls[!cls %in% 'tags'])]
+    tags <- dplyr::tbl_df(tags)[c('tag', cls[!cls %in% 'tag'])]
     #tags[] <- lapply(tags, as.character)
 
     type <- ifelse('token_count' %in% class(x), 'token', 'term')
 
-    if (!'tags' %in% colnames(tags)) {
+    if (!'tag' %in% colnames(tags)) {
         stop(sprintf(
-            '`tags` must contain a column named `tags` corresponding to the tag columns in the %s_count object.', type
+            '`tags` must contain a column named `tag` corresponding to the tag columns in the %s_count object.', type
         ), call. = FALSE)
     }
 
@@ -101,7 +101,7 @@ check_set_tags <- function(x, tags, ...){
         trms <- attributes(x)[['term.vars']]
     }
 
-    mtchs <- trms %in% tags[['tags']]
+    mtchs <- trms %in% tags[['tag']]
 
     if (!all(mtchs)) {
         stop(sprintf(
@@ -111,7 +111,7 @@ check_set_tags <- function(x, tags, ...){
         ), call. = FALSE)
     }
 
-    tags <- tags[stats::na.omit(match(tags[['tags']], trms)), ]
+    tags <- tags[stats::na.omit(match(tags[['tag']], trms)), ]
 
     attributes(x)[['metatags']] <- tags
 
@@ -120,7 +120,7 @@ check_set_tags <- function(x, tags, ...){
 
 
 termlist2termdf <- function(x, ...){
-    textshape::tidy_list(x, 'meta', 'tags')[, 2:1]
+    textshape::tidy_list(x, 'meta', 'tag')[, 2:1]
 }
 
 

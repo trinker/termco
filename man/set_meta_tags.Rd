@@ -63,7 +63,7 @@ library(textshape)
 tag_df <- tidy_list(list(
     noun = c('person', 'place', 'thing'),
     odd_ones = c('other', 'no_like')
-), 'meta', 'tags')[, 2:1]
+), 'meta', 'tag')[, 2:1]
 
 x2 <- set_meta_tags(x, tag_list)
 attributes(x2)[['metatags']]

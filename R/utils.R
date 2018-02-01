@@ -232,7 +232,7 @@ check_meta_tags <- function(x, ...){
     if (!'tag' %in% colnames(attributes(x)[['metatags']]) ) {
         type <- ifelse(is.null(attributes(x)[['tokens']]), 'term', 'token')
         warning(paste0(
-            sprintf('`%s_count` object has a `metatags` attribute with no `tags` column.)', type),
+            sprintf('`%s_count` object has a `metatags` attribute with no `tag` column.)', type),
             'The `metatags` attribute will not be used'
         ), .call = FALSE)
         return(FALSE)
@@ -253,6 +253,7 @@ get_tags <- function(x, ...){
     unlist(attributes(x)[[terms]])
 
 }
+
 tags2meta <- function(tags, meta.sep = '__', meta.names = c('meta'), ...){
 
     if (!any(grepl(meta.sep[1], tags))) return(NULL)
