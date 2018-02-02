@@ -188,9 +188,8 @@ termco_collocations <- function(x, size = 2:3, order.by = 'frequency',
     #meth <- c('lr', 'chi2', 'pmi', 'dice')
     meth <- 'lambda'
 
-    ngrams <- lapply(meth, function(y){
-        quanteda::textstat_collocations(tokens, method = y, size = size,
-            remove_punct = TRUE, remove_symbols = TRUE)
+    ngrams <- lapply(meth, function(y) {
+        quanteda::textstat_collocations(tokens, method = y, size = size)
     })
 
     out <- Reduce(function(x, y) dplyr::left_join(x, y, by=c('collocation', 'count', 'length')), ngrams)
