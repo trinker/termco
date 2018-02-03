@@ -69,8 +69,9 @@ NEW FEATURES
 * `test_regex` added to test an atomic vector, list, or term list of regexes for
   validity.
 
-* `mutate_term_count` added to apply a normalizing function to all the term columns
-  of a `termco` object without stripping the attributes and class.
+* `mutate_counts` added to apply a normalizing function to all the term columns
+  of a `term_count`/`token_count` object without stripping the attributes and 
+  class.
 
 * `drop_terms` added to allow the user to explore/iterate on a term list and
   drop terms prior prior to \code{term_count} use without manually editing an

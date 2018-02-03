@@ -57,10 +57,6 @@ set_meta_tags <- function(x, tags, ...){
     UseMethod('set_meta_tags', tags)
 }
 
-`set_meta_tags<-` <- function(x, tags){
-
-    set_meta_tags(x, tags)
-}
 
 #' @export
 #' @rdname set_meta_tags

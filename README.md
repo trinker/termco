@@ -198,7 +198,7 @@ their description:
 <td>Get the uncovered text from a model</td>
 </tr>
 <tr class="even">
-<td><code>mutate_term_count</code></td>
+<td><code>mutate_counts</code></td>
 <td>modeling</td>
 <td>Apply normalizing function to term count columns</td>
 </tr>
@@ -315,6 +315,7 @@ You are welcome to:
 - send a pull request on: <https://github.com/trinker/termco/>    
 - compose a friendly e-mail to: <tyler.rinker@gmail.com>    
 
+
 Examples
 ========
 
@@ -426,75 +427,117 @@ method.
 
     frequent_ngrams(x)
 
-    ##            collocation length frequency    lambda         z
-    ##  1:          make sure      2       127  7.554897 32.834995
-    ##  2:    governor romney      2       105  9.271292 20.461487
-    ##  3:         four years      2        63  7.338151 28.204976
-    ##  4:   mister president      2        61  7.834853 19.748190
-    ##  5:      united states      2        31  9.795398 17.356448
-    ##  6:       middle class      2        30  8.777654 16.614018
-    ##  7:          last four      2        27  6.115321 21.912251
-    ##  8:    last four years      3        27 -1.566379 -1.028654
-    ##  9:        health care      2        26  8.227977 20.429621
-    ## 10:    american people      2        26  5.120440 19.048883
-    ## 11:        middle east      2        26 10.742379  7.485044
-    ## 12:   small businesses      2        22  7.762762 20.244536
-    ## 13:        making sure      2        19  5.356647 17.260131
-    ## 14:     million people      2        17  4.780434 15.493120
-    ## 15: federal government      2        15  6.507298 17.346209
-    ## 16:       young people      2        15  5.624489 14.208840
-    ## 17:         dodd frank      2        15 14.718342  7.300509
-    ## 18:     small business      2        13  7.102122 17.040580
-    ## 19:      middle income      2        13  6.871943 15.504096
-    ## 20:  governor romney's      2        13  8.786176  6.091802
+    ##            collocation length frequency count_nested    lambda         z
+    ##  1:          make sure      2       127          127  7.554897 32.834995
+    ##  2:    governor romney      2       105          104  9.271292 20.461487
+    ##  3:         four years      2        63           63  7.338151 28.204976
+    ##  4:   mister president      2        61           51  7.834853 19.748190
+    ##  5:      united states      2        31           31  9.795398 17.356448
+    ##  6:       middle class      2        30           30  8.777654 16.614018
+    ##  7:          last four      2        27           27  6.115321 21.912251
+    ##  8:    last four years      3        27            0 -1.566379 -1.028654
+    ##  9:        health care      2        26           26  8.227977 20.429621
+    ## 10:    american people      2        26           26  5.120440 19.048883
+    ## 11:        middle east      2        26           26 10.742379  7.485044
+    ## 12:   small businesses      2        22           22  7.762762 20.244536
+    ## 13:        making sure      2        19           19  5.356647 17.260131
+    ## 14:     million people      2        17           17  4.780434 15.493120
+    ## 15: federal government      2        15           15  6.507298 17.346209
+    ## 16:       young people      2        15           15  5.624489 14.208840
+    ## 17:         dodd frank      2        15           15 14.718342  7.300509
+    ## 18:     small business      2        13           13  7.102122 17.040580
+    ## 19:      middle income      2        13           13  6.871943 15.504096
+    ## 20:  governor romney's      2        13           13  8.786176  6.091802
 
     frequent_ngrams(x, gram.length = 3)
 
-    ##                 collocation length frequency     lambda           z
-    ##  1:         last four years      3        27 -1.5663795 -1.02865393
-    ##  2:    twenty three million      3        11  4.1864145  1.68276560
-    ##  3:   thousand nine hundred      3        11 -0.3498540 -0.16798792
-    ##  4:   middle class families      3        10 -4.2845959 -2.63216754
-    ##  5:   thousand five hundred      3         8 -1.1540324 -0.70519267
-    ##  6:    governor romney says      3         8 -4.0173427 -2.26634962
-    ##  7:    three million people      3         6 -0.1340563 -0.08481962
-    ##  8:         next four years      3         6 -0.8781626 -0.42487275
-    ##  9:    governor romney said      3         6 -3.3551066 -2.02007252
-    ## 10:  middle income families      3         6 -3.9239765 -2.43709086
-    ## 11:       five million jobs      3         5  2.1884488  1.22412938
-    ## 12:         five point plan      3         5  2.7135106  1.22017842
-    ## 13:   seven hundred sixteen      3         5  0.4756980  0.21031506
-    ## 14: hundred sixteen billion      3         5  0.4265593  0.16642917
-    ## 15:    dollar seven hundred      3         5 -0.6058730 -0.36134012
-    ## 16:    dollar five trillion      3         5 -0.8280113 -0.39457112
-    ## 17:       four years closer      3         5 -3.0979869 -1.44984909
-    ## 18:     forty seven million      3         4  0.7245824  0.32149800
-    ## 19:   best education system      3         4  0.2615127  0.11938982
-    ## 20:        rising take home      3         4 -0.1449834 -0.06723986
+    ##                 collocation length frequency count_nested     lambda
+    ##  1:         last four years      3        27            0 -1.5663795
+    ##  2:    twenty three million      3        11            0  4.1864145
+    ##  3:   thousand nine hundred      3        11            0 -0.3498540
+    ##  4:   middle class families      3        10            0 -4.2845959
+    ##  5:   thousand five hundred      3         8            0 -1.1540324
+    ##  6:    governor romney says      3         8            0 -4.0173427
+    ##  7:    three million people      3         6            0 -0.1340563
+    ##  8:         next four years      3         6            0 -0.8781626
+    ##  9:    governor romney said      3         6            0 -3.3551066
+    ## 10:  middle income families      3         6            0 -3.9239765
+    ## 11:       five million jobs      3         5            0  2.1884488
+    ## 12:         five point plan      3         5            0  2.7135106
+    ## 13:   seven hundred sixteen      3         5            0  0.4756980
+    ## 14: hundred sixteen billion      3         5            0  0.4265593
+    ## 15:    dollar seven hundred      3         5            0 -0.6058730
+    ## 16:    dollar five trillion      3         5            0 -0.8280113
+    ## 17:       four years closer      3         5            0 -3.0979869
+    ## 18:     forty seven million      3         4            0  0.7245824
+    ## 19:   best education system      3         4            0  0.2615127
+    ## 20:        rising take home      3         4            0 -0.1449834
+    ##               z
+    ##  1: -1.02865393
+    ##  2:  1.68276560
+    ##  3: -0.16798792
+    ##  4: -2.63216754
+    ##  5: -0.70519267
+    ##  6: -2.26634962
+    ##  7: -0.08481962
+    ##  8: -0.42487275
+    ##  9: -2.02007252
+    ## 10: -2.43709086
+    ## 11:  1.22412938
+    ## 12:  1.22017842
+    ## 13:  0.21031506
+    ## 14:  0.16642917
+    ## 15: -0.36134012
+    ## 16: -0.39457112
+    ## 17: -1.44984909
+    ## 18:  0.32149800
+    ## 19:  0.11938982
+    ## 20: -0.06723986
 
     frequent_ngrams(x, order.by = "lambda")
 
-    ##                 collocation length frequency   lambda        z
-    ##  1:              dodd frank      2        15 14.71834 7.300509
-    ##  2:         standard bearer      2         4 13.48186 6.561118
-    ##  3:   intellectual property      2         3 13.23057 6.390952
-    ##  4:            joint chiefs      2         3 13.23057 6.390952
-    ##  5:            apology tour      2         3 13.23057 6.390952
-    ##  6:           onest century      2         3 13.23057 6.390952
-    ##  7:             wall street      2         9 13.13031 7.886454
-    ##  8:              boca raton      2         2 12.89412 6.147013
-    ##  9: unintended consequences      2         2 12.89412 6.147013
-    ## 10:      appleton wisconsin      2         2 12.89412 6.147013
-    ## 11:         abraham lincoln      2         2 12.89412 6.147013
-    ## 12:           raton florida      2         2 12.89412 6.147013
-    ## 13:         haqqani network      2         2 12.89412 6.147013
-    ## 14:      permanent resident      2         2 12.89412 6.147013
-    ## 15:          prime minister      2         2 12.89412 6.147013
-    ## 16:             food stamps      2         9 12.61946 7.972817
-    ## 17:      planned parenthood      2         5 12.58386 7.455987
-    ## 18:        self deportation      2         4 12.38322 7.285615
-    ## 19:        cleveland clinic      2         3 12.13193 7.060603
-    ## 20:             rose garden      2         3 12.13193 7.060603
+    ##                 collocation length frequency count_nested   lambda
+    ##  1:              dodd frank      2        15           15 14.71834
+    ##  2:         standard bearer      2         4            4 13.48186
+    ##  3:           onest century      2         3            3 13.23057
+    ##  4:   intellectual property      2         3            3 13.23057
+    ##  5:            joint chiefs      2         3            3 13.23057
+    ##  6:            apology tour      2         3            3 13.23057
+    ##  7:             wall street      2         9            9 13.13031
+    ##  8:          prime minister      2         2            2 12.89412
+    ##  9:      permanent resident      2         2            2 12.89412
+    ## 10:         abraham lincoln      2         2            2 12.89412
+    ## 11:           raton florida      2         2            2 12.89412
+    ## 12:         haqqani network      2         2            2 12.89412
+    ## 13:              boca raton      2         2            2 12.89412
+    ## 14: unintended consequences      2         2            2 12.89412
+    ## 15:      appleton wisconsin      2         2            2 12.89412
+    ## 16:             food stamps      2         9            9 12.61946
+    ## 17:      planned parenthood      2         5            5 12.58386
+    ## 18:        self deportation      2         4            4 12.38322
+    ## 19:        cleveland clinic      2         3            3 12.13193
+    ## 20:    religious minorities      2         3            3 12.13193
+    ##            z
+    ##  1: 7.300509
+    ##  2: 6.561118
+    ##  3: 6.390952
+    ##  4: 6.390952
+    ##  5: 6.390952
+    ##  6: 6.390952
+    ##  7: 7.886454
+    ##  8: 6.147013
+    ##  9: 6.147013
+    ## 10: 6.147013
+    ## 11: 6.147013
+    ## 12: 6.147013
+    ## 13: 6.147013
+    ## 14: 6.147013
+    ## 15: 6.147013
+    ## 16: 7.972817
+    ## 17: 7.455987
+    ## 18: 7.285615
+    ## 19: 7.060603
+    ## 20: 7.060603
 
 ### Collocation Plotting
 
@@ -729,17 +772,17 @@ least frequent n terms but can be rearranged alphabetically.
     ## 7  want      173      
     ## 8  sure      156      
     ## 9  just      134      
-    ## 10 will      125      
-    ## 11 years     118      
-    ## 12 jobs      116      
-    ## 13 romney    110      
-    ## 14 also      102      
-    ## 15 know       97      
-    ## 16 four       94      
-    ## 17 world      92      
-    ## 18 well       91      
-    ## 19 right      88      
-    ## 20 think      88
+    ## 10 years     118      
+    ## 11 jobs      116      
+    ## 12 romney    110      
+    ## 13 also      102      
+    ## 14 know       97      
+    ## 15 four       94      
+    ## 16 world      92      
+    ## 17 well       91      
+    ## 18 right      88      
+    ## 19 think      88      
+    ## 20 america    87
 
     presidential_debates_2012 %>%
         with(frequent_terms(dialogue, 40)) %>%
@@ -781,28 +824,27 @@ unique coverage of terms.
     ## 7        want 0.0305631868  0.3592033
     ## 8        sure 0.0058379121  0.3650412
     ## 9        just 0.0223214286  0.3873626
-    ## 10       will 0.0212912088  0.4086538
-    ## 11      years 0.0240384615  0.4326923
-    ## 12       jobs 0.0164835165  0.4491758
-    ## 13     romney 0.0003434066  0.4495192
-    ## 14       also 0.0127060440  0.4622253
-    ## 15       know 0.0106456044  0.4728709
-    ## 16       four 0.0051510989  0.4780220
-    ## 17      world 0.0116758242  0.4896978
-    ## 18       well 0.0144230769  0.5041209
-    ## 19      right 0.0157967033  0.5199176
-    ## 20      think 0.0113324176  0.5312500
-    ## 21    america 0.0099587912  0.5412088
-    ## 22     number 0.0109890110  0.5521978
-    ## 23       back 0.0058379121  0.5580357
-    ## 24       need 0.0082417582  0.5662775
-    ## 25      first 0.0065247253  0.5728022
-    ## 26     middle 0.0054945055  0.5782967
-    ## 27   thousand 0.0085851648  0.5868819
-    ## 28       time 0.0082417582  0.5951236
-    ## 29    economy 0.0075549451  0.6026786
-    ## 30 government 0.0082417582  0.6109203
-    ## 31       work 0.0068681319  0.6177885
+    ## 10      years 0.0240384615  0.4114011
+    ## 11       jobs 0.0171703297  0.4285714
+    ## 12     romney 0.0003434066  0.4289148
+    ## 13       also 0.0140796703  0.4429945
+    ## 14       know 0.0113324176  0.4543269
+    ## 15       four 0.0054945055  0.4598214
+    ## 16      world 0.0130494505  0.4728709
+    ## 17       well 0.0147664835  0.4876374
+    ## 18      right 0.0161401099  0.5037775
+    ## 19      think 0.0113324176  0.5151099
+    ## 20    america 0.0113324176  0.5264423
+    ## 21     number 0.0109890110  0.5374313
+    ## 22       back 0.0058379121  0.5432692
+    ## 23       need 0.0089285714  0.5521978
+    ## 24      first 0.0065247253  0.5587225
+    ## 25     middle 0.0061813187  0.5649038
+    ## 26   thousand 0.0085851648  0.5734890
+    ## 27       time 0.0085851648  0.5820742
+    ## 28    economy 0.0078983516  0.5899725
+    ## 29 government 0.0082417582  0.5982143
+    ## 30       work 0.0068681319  0.6050824
 
     presidential_debates_2012 %>%
         with(hierarchical_coverage_term(dialogue, terms)) %>%
@@ -840,7 +882,7 @@ frequent terms in context.
     ## search_term(presidential_debates_2012$dialogue, "want")
     ## search_term(presidential_debates_2012$dialogue, "sure")
     ## search_term(presidential_debates_2012$dialogue, "just")
-    ## search_term(presidential_debates_2012$dialogue, "will")
+    ## search_term(presidential_debates_2012$dialogue, "years")
 
 The next `probe_` function generates a list of
 `search_term_collocations` function calls (`search_term_collocations`
@@ -901,16 +943,16 @@ weight.
         with(important_terms(dialogue, 10))
 
     ##         term    tf_idf
-    ## 1   governor 1.0000000
-    ## 2      right 0.8061417
-    ## 3      going 0.7180599
-    ## 4  president 0.6906233
-    ## 5        get 0.6435831
-    ## 6       want 0.6361092
-    ## 7       said 0.6349331
-    ## 8      thank 0.5509088
-    ## 9        one 0.5338552
-    ## 10      well 0.5163518
+    ## 1      going 1.0000000
+    ## 2       make 0.8570324
+    ## 3     people 0.8482041
+    ## 4   governor 0.8110754
+    ## 5        get 0.7890439
+    ## 6  president 0.7873159
+    ## 7       said 0.7530954
+    ## 8       want 0.7510015
+    ## 9        one 0.6871579
+    ## 10      sure 0.6852854
 
 Building the Model
 ------------------
@@ -1047,17 +1089,17 @@ features of the untagged data.
     ## 7  want      130      
     ## 8  sure      110      
     ## 9  just      107      
-    ## 10 will      103      
-    ## 11 years     101      
-    ## 12 jobs       96      
-    ## 13 romney     95      
-    ## 14 know       82      
-    ## 15 four       81      
-    ## 16 also       78      
-    ## 17 america    77      
-    ## 18 right      76      
-    ## 19 well       74      
-    ## 20 world      72
+    ## 10 years     101      
+    ## 11 jobs       96      
+    ## 12 romney     95      
+    ## 13 know       82      
+    ## 14 four       81      
+    ## 15 also       78      
+    ## 16 america    77      
+    ## 17 right      76      
+    ## 18 well       74      
+    ## 19 world      72      
+    ## 20 think      66
 
 We may see a common term such as the word *right* and want to see what
 other terms collocate with it. Using a regular expression that searches
@@ -1323,10 +1365,7 @@ of the method in order to interpret the results
 (<http://caleydo.org/tools/upset>). The time invested in learning this
 plot type can be very fruitful in utilizing a technique that scales to
 the types of data sets that **termco** outputs. This tool can be useful
-in order to understand overlap and thus improve discrimination. Note
-that `plot.tag_co_occurrence` uses raw counts of the `term_count` matrix
-whereas `plot_upset` uses one-hot representation as generated by the
-default normalization of `mutate_term_count`.
+in order to understand overlap and thus improve discrimination.
 
     plot_upset(model) 
 

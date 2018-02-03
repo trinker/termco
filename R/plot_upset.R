@@ -215,7 +215,7 @@ plot_upset <- function(x, text_funs = NULL, ...){
 
 
     ## Coerce to one hot encoding
-    y <- mutate_term_count(x)
+    y <- mutate_counts(x)
 
     nuni <- rowSums(tag_cols(y))
     nord <- names(sort(colSums(tag_cols(y)), TRUE))

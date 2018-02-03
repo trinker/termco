@@ -56,9 +56,13 @@ important_terms <- function (text.var, n = 20, stopwords = stopwords::stopwords(
     if (!is.null(stopwords) | dots) {
         dtm <- gofastr::remove_stopwords(dtm, stopwords = stopwords, stem = stem, ...)
     }
-
-    dtm <- suppressWarnings(quanteda::dfm_tfidf(dtm))
-
+   
+    nms <- list(seq_len(nrow(dtm)), colnames(dtm))
+    dtm <- Matrix::sparseMatrix(i = dtm$i, j = dtm$j, x = dtm$v, dimnames = nms)
+    dtm <- quanteda::dfm_tfidf(
+        quanteda::as.dfm(dtm)
+    )
+    
     sorted <- sort(minmax_scale(slam::col_sums(dtm)/nrow(dtm)), TRUE)
     out <- data.frame(term = names(sorted), tf_idf = unlist(sorted, use.names=FALSE),
         stringsAsFactors = FALSE, row.names=NULL)
