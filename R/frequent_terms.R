@@ -26,7 +26,7 @@
 #' or frequency.
 #' @param \ldots ignored.
 #' @return Returns a \code{\link[base]{data.frame}} of terms and frequencies.
-#' @importFrom tm stopwords
+#' @importFrom stopwords stopwords
 #' @keywords term word frequency
 #' @rdname frequent_terms
 #' @export
@@ -39,7 +39,7 @@
 #' frequent_terms(x, n = 50)
 #' frequent_terms(x, n = .02)
 #' frequent_terms(x, stem = TRUE)
-#' frequent_terms(x, n = 50, stopwords = c(tm::stopwords("en"), "said", "well"))
+#' frequent_terms(x, n = 50, stopwords = c(stopwords::stopwords("english"), "said", "well"))
 #'
 #' plot(frequent_terms(x))
 #' plot(frequent_terms(x, n = .02))
@@ -57,7 +57,7 @@
 #' ## Cumulative Percent Plot
 #' plot_cum_percent(frequent_terms(presidential_debates_2012[["dialogue"]]))
 #' }
-frequent_terms <- function(text.var, n = 20, stopwords = tm::stopwords("en"), min.freq = NULL,
+frequent_terms <- function(text.var, n = 20, stopwords = stopwords::stopwords("english"), min.freq = NULL,
     min.char = 4, max.char = Inf, stem = FALSE, language = "porter", strip = TRUE,
     strip.regex = "[^a-z' ]", alphabetical = FALSE, ...) {
 

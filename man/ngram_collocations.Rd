@@ -5,8 +5,9 @@
 \title{Ngram Collocations}
 \usage{
 ngram_collocations(text.var, n = 20, gram.length = 2:3,
-  stopwords = tm::stopwords("en"), min.char = 4, max.char = Inf,
-  order.by = "frequency", stem = FALSE, language = "porter", ...)
+  stopwords = stopwords::stopwords("english"), min.char = 4,
+  max.char = Inf, order.by = "frequency", stem = FALSE,
+  language = "porter", ...)
 }
 \arguments{
 \item{text.var}{A vector of character strings.}
@@ -48,7 +49,7 @@ x <- presidential_debates_2012[["dialogue"]]
 
 ngram_collocations(x)
 ngram_collocations(x, n = 50)
-ngram_collocations(x, stopwords = c(tm::stopwords("en"), "american", "governor"))
+ngram_collocations(x, stopwords = c(stopwords::stopwords("english"), "american", "governor"))
 ngram_collocations(x, gram.length = 3)
 ngram_collocations(x, gram.length = 3, stem = TRUE)
 ngram_collocations(x, order.by = "lambda")

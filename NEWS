@@ -111,6 +111,15 @@ IMPROVEMENTS
 
 CHANGES
 
+* The **stopwords** package replaces the **tm** package for providing default
+  stopword lists.  The **stopwords** package is more comprehensive and lighter
+  weight.  This changes allows the removal of the **tm** package as a dependency.
+  Suggested by Ken Benoit issue #69.
+
+* `important_terms` now uses `quanteda::dfm_tfidf` rather than `tm::weightTfIdf`.
+  This means the tf-idf weighting is done is base 10 log rather than base 2 as
+  done with the **tm** package.  Suggested by Ken Benoit issue #69.
+
 * `as_dtm` & `as_tdm` moved to the **gofastr** package where they can be used by
   other packages and their classed objects.  **termco** re-exports the two
   functions.

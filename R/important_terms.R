@@ -36,7 +36,7 @@
 #' plot(important_terms(x, n = 40))
 #' plot(important_terms(x, n = 100), as.cloud = TRUE)
 #' }
-important_terms <- function (text.var, n = 20, stopwords = tm::stopwords("en"),
+important_terms <- function (text.var, n = 20, stopwords = stopwords::stopwords("english"),
     stem = FALSE, language = "porter", strip = TRUE, strip.regex = "[^A-Za-z' ]",
     ...) {
 
@@ -57,7 +57,7 @@ important_terms <- function (text.var, n = 20, stopwords = tm::stopwords("en"),
         dtm <- gofastr::remove_stopwords(dtm, stopwords = stopwords, stem = stem, ...)
     }
 
-    dtm <- suppressWarnings(tm::weightTfIdf(dtm))
+    dtm <- suppressWarnings(quanteda::dfm_tfidf(dtm))
 
     sorted <- sort(minmax_scale(slam::col_sums(dtm)/nrow(dtm)), TRUE)
     out <- data.frame(term = names(sorted), tf_idf = unlist(sorted, use.names=FALSE),

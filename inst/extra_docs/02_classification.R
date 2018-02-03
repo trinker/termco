@@ -101,7 +101,7 @@ untagged %>%
 ## Terms That Collocate with a Frequent Term
 untagged %>%
     search_term("termA") %>%
-    frequent_terms(10, stopwords = tm::stopwords("en"))
+    frequent_terms(10, stopwords = stopwords::stopwords("english"))
 
 untagged %>%
     frequent_terms(5) %>%

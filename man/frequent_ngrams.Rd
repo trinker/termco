@@ -5,8 +5,9 @@
 \title{Ngram Collocations}
 \usage{
 frequent_ngrams(text.var, n = 20, gram.length = 2:3,
-  stopwords = tm::stopwords("en"), min.char = 4, max.char = Inf,
-  order.by = "frequency", stem = FALSE, language = "porter", ...)
+  stopwords = stopwords::stopwords("english"), min.char = 4,
+  max.char = Inf, order.by = "frequency", stem = FALSE,
+  language = "porter", ...)
 }
 \arguments{
 \item{text.var}{A vector of character strings.}
@@ -48,7 +49,7 @@ x <- presidential_debates_2012[["dialogue"]]
 
 frequent_ngrams(x)
 frequent_ngrams(x, n = 50)
-frequent_ngrams(x, stopwords = c(tm::stopwords("en"), "american", "governor"))
+frequent_ngrams(x, stopwords = c(stopwords::stopwords("english"), "american", "governor"))
 frequent_ngrams(x, gram.length = 3)
 frequent_ngrams(x, gram.length = 3, stem = TRUE)
 frequent_ngrams(x, order.by = "lambda")

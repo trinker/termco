@@ -5,10 +5,10 @@
 \alias{all_words}
 \title{N Most Frequent Terms}
 \usage{
-frequent_terms(text.var, n = 20, stopwords = tm::stopwords("en"),
-  min.freq = NULL, min.char = 4, max.char = Inf, stem = FALSE,
-  language = "porter", strip = TRUE, strip.regex = "[^a-z' ]",
-  alphabetical = FALSE, ...)
+frequent_terms(text.var, n = 20,
+  stopwords = stopwords::stopwords("english"), min.freq = NULL,
+  min.char = 4, max.char = Inf, stem = FALSE, language = "porter",
+  strip = TRUE, strip.regex = "[^a-z' ]", alphabetical = FALSE, ...)
 
 all_words(text.var, stopwords = NULL, min.char = 0, ...)
 }
@@ -65,7 +65,7 @@ frequent_terms(x, min.char = 1)
 frequent_terms(x, n = 50)
 frequent_terms(x, n = .02)
 frequent_terms(x, stem = TRUE)
-frequent_terms(x, n = 50, stopwords = c(tm::stopwords("en"), "said", "well"))
+frequent_terms(x, n = 50, stopwords = c(stopwords::stopwords("english"), "said", "well"))
 
 plot(frequent_terms(x))
 plot(frequent_terms(x, n = .02))

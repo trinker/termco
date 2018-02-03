@@ -20,7 +20,7 @@
 #' @param language The stem language to use (see  \code{\link[SnowballC]{wordStem}}).
 #' @param \ldots Other arguments passed to \code{\link[quanteda]{collocations}}.
 #' @return Retuns a data.frame of terms and frequencies.
-#' @importFrom tm stopwords
+#' @importFrom stopwords stopwords
 #' @importFrom data.table := .SD .N
 #' @keywords term word frequency
 #' @seealso \code{\link[quanteda]{collocations}}
@@ -31,7 +31,7 @@
 #'
 #' ngram_collocations(x)
 #' ngram_collocations(x, n = 50)
-#' ngram_collocations(x, stopwords = c(tm::stopwords("en"), "american", "governor"))
+#' ngram_collocations(x, stopwords = c(stopwords::stopwords("english"), "american", "governor"))
 #' ngram_collocations(x, gram.length = 3)
 #' ngram_collocations(x, gram.length = 3, stem = TRUE)
 #' ngram_collocations(x, order.by = "lambda")
@@ -42,7 +42,7 @@
 #' plot(ngram_collocations(x, gram.length = 3))
 #' }
 ngram_collocations <- function(text.var, n = 20, gram.length = 2:3,
-    stopwords = tm::stopwords("en"), min.char = 4,
+    stopwords = stopwords::stopwords("english"), min.char = 4,
     max.char = Inf, order.by = "frequency", stem = FALSE, language = "porter", ...) {
 
      .Deprecated(msg = paste("`ngram_collocations` is deprecated and will be removed in",
@@ -182,7 +182,7 @@ plot.ngram_collocations <- function(x, drop.redundant.yaxis.text = TRUE,
 
 ## have to filter out any that were less than n in length
 termco_collocations <- function(x, size = 2:3, order.by = 'frequency',
-    stopwords = tm::stopwords("en"), min.char = 4, max.char = Inf, ...){
+    stopwords = stopwords::stopwords("english"), min.char = 4, max.char = Inf, ...){
 
     terms <- wc <- collocation <- id <- terms <- len <- low <- high <- sw <- keep <- NULL
 
