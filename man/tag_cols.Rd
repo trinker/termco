@@ -3,14 +3,20 @@
 \name{term_cols}
 \alias{term_cols}
 \alias{tag_cols}
+\alias{tag_names}
 \alias{group_cols}
+\alias{group_names}
 \title{Get Tag/Group Columns}
 \usage{
 term_cols(x, ...)
 
 tag_cols(x, ...)
 
+tag_names(x, ...)
+
 group_cols(x, ...)
+
+group_names(x, ...)
 }
 \arguments{
 \item{x}{A \code{term_count} object.}

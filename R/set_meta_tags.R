@@ -57,6 +57,11 @@ set_meta_tags <- function(x, tags, ...){
     UseMethod('set_meta_tags', tags)
 }
 
+`set_meta_tags<-` <- function(x, tags){
+
+    set_meta_tags(x, tags)
+}
+
 #' @export
 #' @rdname set_meta_tags
 #' @method set_meta_tags data.frame
@@ -65,6 +70,8 @@ set_meta_tags.data.frame <- function(x, tags, ...){
     return(check_set_tags(x, tags, ...) )
 
 }
+
+
 
 #' @export
 #' @rdname set_meta_tags

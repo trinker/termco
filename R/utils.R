@@ -241,18 +241,6 @@ check_meta_tags <- function(x, ...){
 }
 
 
-get_tags <- function(x, ...){
-
-    terms <- ifelse(inherits(x, "token_count"), "token.vars",
-        "term.vars")
-    type <- ifelse(inherits(x, "token_count"), "token", "term")
-    y <- validate_term_count(x, FALSE)
-    if (!isTRUE(y))
-        stop(paste0("`x` does not appear to be a valid `", type,
-            "_count` object.  Was the object altered after creation?"))
-    unlist(attributes(x)[[terms]])
-
-}
 
 tags2meta <- function(tags, meta.sep = '__', meta.names = c('meta'), ...){
 
@@ -288,7 +276,7 @@ tags2meta <- function(tags, meta.sep = '__', meta.names = c('meta'), ...){
     }
 
     out <- data.frame(
-        tags = tags,
+        tag = tags,
         stats::setNames(data.frame(do.call(rbind, tgs), stringsAsFactors = FALSE), c(meta.names, 'sub_tag')),
         stringsAsFactors = FALSE
     )

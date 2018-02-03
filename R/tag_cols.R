@@ -13,12 +13,23 @@
 #' group_cols(markers)
 tag_cols <- function(x, ...){
 
-    terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
-    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+     x[tag_names(x)]
 
+}
+
+#' @export
+#' @rdname tag_cols
+tag_names <- function(x, ...){
+
+    terms <- ifelse(inherits(x, "token_count"), "token.vars",
+        "term.vars")
+    type <- ifelse(inherits(x, "token_count"), "token", "term")
     y <- validate_term_count(x, FALSE)
-    if (!isTRUE(y)) stop(paste0('`x` does not appear to be a valid `', type, '_count` object.  Was the object altered after creation?'))
-    x[unlist(attributes(x)[[terms]])]
+    if (!isTRUE(y)) {
+        stop(paste0("`x` does not appear to be a valid `", type,
+            "_count` object.  Was the object altered after creation?"))
+    }
+    unlist(attributes(x)[[terms]])
 
 }
 
@@ -26,12 +37,23 @@ tag_cols <- function(x, ...){
 #' @rdname tag_cols
 group_cols <- function(x, ...){
 
-    type <- ifelse(inherits(x, 'token_count'), "token", "term")
-
-    y <- validate_term_count(x, FALSE)
-    if (!isTRUE(y)) stop(paste0('`x` does not appear to be a valid `', type, '_count` object.  Was the object altered after creation?'))
-    x[unlist(attributes(x)[['group.vars']])]
+    x[group_names(x)]
 
 }
 
+#' @export
+#' @rdname tag_cols
+group_names <- function(x, ...){
+
+    type <- ifelse(inherits(x, 'token_count'), "token", "term")
+
+    y <- validate_term_count(x, FALSE)
+    if (!isTRUE(y)) {
+        stop(paste0('`x` does not appear to be a valid `', type, 
+            '_count` object.  Was the object altered after creation?'))
+    }
+    
+    unlist(attributes(x)[['group.vars']])
+
+}
 

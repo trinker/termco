@@ -26,10 +26,10 @@ id (\code{element_id}) and thus are nested.
 \examples{
 ## On term counts
 discoure_markers <- list(
-    response_cries = c("\\\\boh", "\\\\bah", "\\\\baha", "\\\\bouch", "yuk"),
-    back_channels = c("uh[- ]huh", "uhuh", "yeah"),
-    summons = "\\\\bhey",
-    justification = "because"
+    AA__response_cries = c("\\\\boh", "\\\\bah", "\\\\baha", "\\\\bouch", "yuk"),
+    AA__back_channels = c("uh[- ]huh", "uhuh", "yeah"),
+    BB__summons = "\\\\bhey",
+    CC__justification = "because"
 )
 
 terms1 <- with(presidential_debates_2012,
