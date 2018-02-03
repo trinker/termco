@@ -30,4 +30,31 @@ mapping <- list(
 
 data(markers); markers
 collapse_tags(markers, mapping)
+
+## Token Counts
+token_list <- list(
+    list(
+        noun__w1.person = c('sam', 'i')
+    ),
+    list(
+        noun__w2.place = c('here', 'house'),
+        noun__w3.thing = c('boat', 'fox', 'rain', 'mouse', 'box', 'eggs', 'ham')
+    ),
+    list(
+        negative__w1.no_like = c('not like'),
+        noun__w3.thing = c('train', 'goat')
+    ),
+    list(
+        other__w1.other = '^.*$'
+    )
+)
+
+
+x <- token_count(sam_i_am, grouping.var = TRUE, token.list = token_list, 
+    meta.sep = c('__', '.')) 
+    
+## drops metatags attribute
+\dontrun{
+collapse_tags(x, list(ccc = c('noun__w1.person', 'noun__w2.place')))
+}
 }

@@ -14,7 +14,7 @@
 #'
 #' term_list <- list(
 #'     `if` = c('if'),
-#'     ans = c('an'),
+#'     ands = c('an'),
 #'     or = c('or'),
 #'     buts = c('but')
 #' )

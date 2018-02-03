@@ -72,6 +72,7 @@ Most of the functions *count*, *search*, *plot* terms, and *covert* between outp
 | `coverage`                   | modeling     | Coverage for `term_count` or `search_term` object |
 | `uncovered`/`get_uncovered`  | modeling     | Get the uncovered text from a model               |
 | `mutate_counts`              | modeling     | Apply normalizing function to term count columns  |
+| `select_counts`              | modeling     | Select columns without stripping count classes    |
 | `tag_co_occurrence`          | modeling     | Explore co-occurrence of tags from a model        |
 | `validate_model`/`assign_validation_task` | modeling | Human validation of a `term_count` model |
 | `read_term_list`             | read/write   | Read a term list from an external file            |

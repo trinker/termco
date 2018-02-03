@@ -83,6 +83,9 @@ termco 0.5.0 -
 * `set_meta_tags` added for setting the `metatags` attribute on a
   `term_count/`token_count` object.  This can also be controlled by separators
   in the term/token list passed to `term_count/`token_count`.
+  
+* `select_counts` added for safely selecting `term_count/`token_count` object
+  columns without stripping attributes.  Works like `?dplyr::select`.
 
 **MINOR FEATURES**
 

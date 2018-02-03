@@ -18,6 +18,33 @@
 #'
 #' data(markers); markers
 #' collapse_tags(markers, mapping)
+#' 
+#' ## Token Counts
+#' token_list <- list(
+#'     list(
+#'         noun__w1.person = c('sam', 'i')
+#'     ),
+#'     list(
+#'         noun__w2.place = c('here', 'house'),
+#'         noun__w3.thing = c('boat', 'fox', 'rain', 'mouse', 'box', 'eggs', 'ham')
+#'     ),
+#'     list(
+#'         negative__w1.no_like = c('not like'),
+#'         noun__w3.thing = c('train', 'goat')
+#'     ),
+#'     list(
+#'         other__w1.other = '^.*$'
+#'     )
+#' )
+#' 
+#'
+#' x <- token_count(sam_i_am, grouping.var = TRUE, token.list = token_list, 
+#'     meta.sep = c('__', '.')) 
+#'     
+#' ## drops metatags attribute
+#' \dontrun{
+#' collapse_tags(x, list(ccc = c('noun__w1.person', 'noun__w2.place')))
+#' }
 collapse_tags <- function(x, mapping, ...){
 
 
@@ -62,17 +89,35 @@ collapse_tags <- function(x, mapping, ...){
         y[[terms]] <- c(excluder(y[[terms]], removes), names(mapping))
     }
 
-    x <- dplyr::tbl_df(x)
+    count <- new.env(hash=FALSE)
+    count[["count"]] <- x <- dplyr::tbl_df(x)  
+    # x <- dplyr::tbl_df(x)
+
+    
     class(x) <- y[['class']]
     y <- y[c("group.vars", terms, "weight", "pretty", "counts", "text.var", "model", "regex", "metatags")]
+
+    
     for (i in seq_along(y)){
         attributes(x)[[names(y)[i]]] <- y[[i]]
     }
 
+    attributes(x)[['counts']] <- count
+    
     if (!is.null(cov)) {
         class(x) <- c("collapsed_hierarchical_term_count", class(x))
         attributes(x)[['pre_collapse_coverage']] <- cov
     }
+    
+    if (!is.null(attributes(x)[["metatags"]])){    
+        warning(paste0(
+            '\'metatags\' attribute has been stripped because mapping is unknown ',
+            'after collapsing tags.\nManually, set updated tags via `set_meta_tags` function.'
+        ), call. = FALSE)    
+    }
+    
+    attributes(x)[["metatags"]] <- NULL    
+    
     x
 }
 
