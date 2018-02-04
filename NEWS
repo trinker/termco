@@ -112,6 +112,11 @@ IMPROVEMENTS
 * Open, unescaped or regexes [(i.e., `|)` unescaped pipe followed by a closing
   group character] are now caught and warned for `read_term_list` and thus
   `term_count`.
+  
+* `metatags` is an official attribute that can be used to group common tags 
+  together.  This is common in qualitative coding where one tags text and then
+  groups these subtags together into coherent metatags.  This is used by
+  `tidy_counts` and can be used by other future features.
 
 CHANGES
 
@@ -142,6 +147,10 @@ CHANGES
 
 * `term_cols` renamed to `tag_cols` to be consistent with naming
   conventions.
+  
+* `token_count` has no print method of it's own any more.  The `print` method
+  for `term_count` was made more generic and works for both since `token_count`
+  inheerits from `term_count`.  This is easier to maintain.
 
 
 termco 0.4.0 - 0.4.3

@@ -352,91 +352,91 @@ token_count <- function(text.var, grouping.var = NULL, token.list, stem = FALSE,
 }
 
 
-#' Prints a token_count Object
-#'
-#' Prints a token_count object.
-#'
-#' @param x The token_count object.
-#' @param digits The number of digits displayed.
-#' @param weight The weight type.  Currently the following are available:
-#' \code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
-#' additional information.
-#' @param zero.replace The value to replace zero count elements with; defaults
-#' to \code{"0"}.
-#' @param pretty logical.  If \code{TRUE} the counts print in a pretty fashion,
-#' combining count and weighted information into a single display.
-#' \code{pretty} printing can be permanently removed with
-#' \code{\link[termco]{as_count}}.
-#' @param \ldots ignored
-#' @method print token_count
-#' @export
-print.token_count <- function(x, digits = 2, weight = "percent",
-    zero.replace = "0", pretty = getOption("termco_pretty"), ...) {
-
-    n.tokens <- count <- NULL
-    if (is.null(pretty)) pretty <- TRUE
-    if (weight == "count") pretty <- FALSE
-
-    print_order <- c(attributes(x)[['group.vars']], 'n.tokens', attributes(x)[['token.vars']])
-
-    val <- validate_token_count(x)
-    if (!isTRUE(val)) {
-
-        termcols <- attributes(x)[["token.vars"]]
-        wrdscol <- any(colnames(x) %in% 'n.tokens')
-
-        if (wrdscol & !is.null(termcols) && any(colnames(x) %in% termcols)) {
-
-            termcols <- colnames(x)[colnames(x) %in% termcols]
-
-        } else {
-
-            return(print(rm_class(x, "token_count")))
-
-        }
-    } else {
-
-        termcols <- attributes(x)[["token.vars"]]
-    }
-
-    coverage <- sum(cov <- rowSums(x[, termcols]) != 0)/length(cov)
-
-    start <- Sys.time()
-    if (is.count(x) & pretty & attributes(x)[["pretty"]]) {
-
-        tall <- tidyr::gather_(x, "term", "count", termcols)
-        tall_weighted <- dplyr::mutate(tall, count = comb(count, n.tokens, digits = digits,
-            zero.replace = zero.replace, weight = weight))
-
-        x <- tidyr::spread_(tall_weighted, "term", "count")
-    }
-    ptime <- difftime(Sys.time(), start)
-
-    class(x) <- class(x)[!class(x) %in% "token_count"]
-    cat(sprintf("Coverage: %s%%", 100 * round(coverage, 4)), "\n")
-
-    print(x[, print_order])
-
-    ask <- getOption("termco_pretty_ask")
-    if(is.null(ask)){
-        ask <- TRUE
-    }
-
-    if(ask && ptime > .61 && interactive()){
-        message(paste0(paste(rep("=", 70), collapse = ""), "\n"),
-                "\nYour `token_count` object is larger and is taking a while to print.\n",
-                "You can reduce this time by using `as_count` or setting:\n\n`options(termco_pretty = FALSE)`\n\n",
-                "Would you like to globally set `options(termco_pretty = FALSE)` now?\n")
-        ans <- utils::menu(c("Yes", "No", "Not Now"))
-        switch(ans,
-               `1` = {options(termco_pretty = FALSE)
-                   options(termco_pretty_ask = FALSE)},
-               `2` = {options(termco_pretty_ask = FALSE)},
-               `3` = {options(termco_pretty_ask = TRUE)}
-        )
-    }
-
-}
+## #' Prints a token_count Object
+## #'
+## #' Prints a token_count object.
+## #'
+## #' @param x The token_count object.
+## #' @param digits The number of digits displayed.
+## #' @param weight The weight type.  Currently the following are available:
+## #' \code{"proportion"}, \code{"percent"}.  See \code{\link[termco]{weight}} for
+## #' additional information.
+## #' @param zero.replace The value to replace zero count elements with; defaults
+## #' to \code{"0"}.
+## #' @param pretty logical.  If \code{TRUE} the counts print in a pretty fashion,
+## #' combining count and weighted information into a single display.
+## #' \code{pretty} printing can be permanently removed with
+## #' \code{\link[termco]{as_count}}.
+## #' @param \ldots ignored
+## #' @method print token_count
+## #' @export
+## print.token_count <- function(x, digits = 2, weight = "percent",
+##     zero.replace = "0", pretty = getOption("termco_pretty"), ...) {
+## 
+##     n.tokens <- count <- NULL
+##     if (is.null(pretty)) pretty <- TRUE
+##     if (weight == "count") pretty <- FALSE
+## 
+##     print_order <- c(attributes(x)[['group.vars']], 'n.tokens', attributes(x)[['token.vars']])
+## 
+##     val <- validate_token_count(x)
+##     if (!isTRUE(val)) {
+## 
+##         termcols <- attributes(x)[["token.vars"]]
+##         wrdscol <- any(colnames(x) %in% 'n.tokens')
+## 
+##         if (wrdscol & !is.null(termcols) && any(colnames(x) %in% termcols)) {
+## 
+##             termcols <- colnames(x)[colnames(x) %in% termcols]
+## 
+##         } else {
+## 
+##             return(print(rm_class(x, "token_count")))
+## 
+##         }
+##     } else {
+## 
+##         termcols <- attributes(x)[["token.vars"]]
+##     }
+## 
+##     coverage <- sum(cov <- rowSums(x[, termcols]) != 0)/length(cov)
+## 
+##     start <- Sys.time()
+##     if (is.count(x) & pretty & attributes(x)[["pretty"]]) {
+## 
+##         tall <- tidyr::gather_(x, "term", "count", termcols)
+##         tall_weighted <- dplyr::mutate(tall, count = comb(count, n.tokens, digits = digits,
+##             zero.replace = zero.replace, weight = weight))
+## 
+##         x <- tidyr::spread_(tall_weighted, "term", "count")
+##     }
+##     ptime <- difftime(Sys.time(), start)
+## 
+##     class(x) <- class(x)[!class(x) %in% "token_count"]
+##     cat(sprintf("Coverage: %s%%", 100 * round(coverage, 4)), "\n")
+## 
+##     print(x[, print_order])
+## 
+##     ask <- getOption("termco_pretty_ask")
+##     if(is.null(ask)){
+##         ask <- TRUE
+##     }
+## 
+##     if(ask && ptime > .61 && interactive()){
+##         message(paste0(paste(rep("=", 70), collapse = ""), "\n"),
+##                 "\nYour `token_count` object is larger and is taking a while to print.\n",
+##                 "You can reduce this time by using `as_count` or setting:\n\n`options(termco_pretty = FALSE)`\n\n",
+##                 "Would you like to globally set `options(termco_pretty = FALSE)` now?\n")
+##         ans <- utils::menu(c("Yes", "No", "Not Now"))
+##         switch(ans,
+##                `1` = {options(termco_pretty = FALSE)
+##                    options(termco_pretty_ask = FALSE)},
+##                `2` = {options(termco_pretty_ask = FALSE)},
+##                `3` = {options(termco_pretty_ask = TRUE)}
+##         )
+##     }
+## 
+## }
 
 
 

@@ -289,18 +289,21 @@ tags2meta <- function(tags, meta.sep = '__', meta.names = c('meta'), ...){
 }
 
 
-term_token_validate <- function(x, ...){
+term_token_validate <- function(x, stop = TRUE, ...){
     
     terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
     type <- ifelse(inherits(x, 'token_count'), "token", "term")
 
-    if (!isTRUE(validate_term_count(x, FALSE))) {
+    is_valid <- isTRUE(validate_term_count(x, FALSE))
+    if (stop && !is_valid) {
         stop(paste0(
             '`x` does not appear to be a valid `',
             type,
             '_count` object.  Was the object altered after creation?'
         ))
     }
+    
+    if (!is_valid) return(NULL)
     
     return(terms)
 }

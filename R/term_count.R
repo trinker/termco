@@ -438,26 +438,32 @@ print.term_count <- function(x, digits = 2, weight = "percent",
     if (is.null(pretty)) pretty <- TRUE
     if (weight == "count") pretty <- FALSE
 
-    print_order <- c(attributes(x)[['group.vars']], 'n.words', attributes(x)[['term.vars']])
+    type <- term_token_validate(x, FALSE)
+    if (!is.null(type)) words_tokens <- ifelse(type == 'term.vars', 'n.words', 'n.tokens')
+        
+       
+    print_order <- c(attributes(x)[['group.vars']], words_tokens, attributes(x)[[type]])
+    col_type <- 'term'
 
-    val <- validate_term_count(x)
-    if (!isTRUE(val)) {
+    if (!is.null(type)) {
 
-        termcols <- attributes(x)[["term.vars"]]
-        wrdscol <- any(colnames(x) %in% 'n.words')
-
+        termcols <- attributes(x)[[type]]
+        wrdscol <- any(colnames(x) %in% words_tokens)
+        class_type <- gsub('\\.vars', '_count', type)
+        col_type <- gsub('\\.vars', '', type)
+       
         if (wrdscol & !is.null(termcols) && any(colnames(x) %in% termcols)) {
 
-            termcols <- colnames(x)[colnames(x) %in% termcols]
+            termcols <- tag_names(x)
 
         } else {
 
-            return(print(rm_class(x, "term_count")))
+            return(print(rm_class(x, class_type)))
 
         }
     } else {
 
-        termcols <- attributes(x)[["term.vars"]]
+        termcols <- attributes(x)[[type]]
     }
 
     coverage <- sum(cov <- rowSums(x[, termcols]) != 0)/length(cov)
@@ -465,15 +471,15 @@ print.term_count <- function(x, digits = 2, weight = "percent",
     start <- Sys.time()
     if (is.count(x) & pretty & attributes(x)[["pretty"]]) {
 
-        tall <- tidyr::gather_(x, "term", "count", termcols)
+        tall <- tidyr::gather_(x, col_type, "count", termcols)
         tall_weighted <- dplyr::mutate(tall, count = comb(count, n.words, digits = digits,
             zero.replace = zero.replace, weight = weight))
 
-        x <- tidyr::spread_(tall_weighted, "term", "count")
+        x <- tidyr::spread_(tall_weighted, col_type, "count")
     }
     ptime <- difftime(Sys.time(), start)
 
-    class(x) <- class(x)[!class(x) %in% "term_count"]
+    class(x) <- class(x)[!class(x) %in% class_type]
     cat(sprintf("Coverage: %s%%", 100 * round(coverage, 4)), "\n")
 
     print(x[, print_order])
@@ -485,7 +491,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
 
     if(ask && ptime > .61 && interactive()){
         message(paste0(paste(rep("=", 70), collapse = ""), "\n"),
-                "\nYour `term_count` object is larger and is taking a while to print.\n",
+                sprintf("\nYour `%s` object is larger and is taking a while to print.\n", class_type),
                 "You can reduce this time by using `as_count` or setting:\n\n`options(termco_pretty = FALSE)`\n\n",
                 "Would you like to globally set `options(termco_pretty = FALSE)` now?\n")
         ans <- utils::menu(c("Yes", "No", "Not Now"))
@@ -498,7 +504,6 @@ print.term_count <- function(x, digits = 2, weight = "percent",
     }
 
 }
-
 
 
 
