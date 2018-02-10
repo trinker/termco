@@ -25,7 +25,7 @@ apostrophes) for inclusion.}
 apostrophes) for inclusion.}
 
 \item{order.by}{The name of the measure column to order by: \code{"frequency"},
-\code{"G2"}, \code{"X2"}, \code{"pmi"}, \code{"dice"}.}
+\code{"lambda"}, \code{"z"}.}
 
 \item{stem}{logical.  If \code{TRUE} the \code{\link[SnowballC]{wordStem}}
 is used with \code{language = "porter"} as the default.  Note that stopwords
@@ -58,6 +58,27 @@ plot(frequent_ngrams(x))
 plot(frequent_ngrams(x, n = 40))
 plot(frequent_ngrams(x, order.by = "lambda"))
 plot(frequent_ngrams(x, gram.length = 3))
+}
+\dontrun{
+## ngram feature extraction
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(termco, dplyr, textshape, magrittr)
+
+ngrams <- presidential_debates_2012 \%$\%
+    frequent_ngrams(dialogue, n=10) \%>\%
+    pull(collocation) \%>\%
+    as_term_list() 
+
+
+ngram_features <- presidential_debates_2012 \%>\%
+    with(term_count(dialogue, person, ngrams)) \%>\%
+    as_dtm() 
+
+ngram_features
+
+## tidied features
+ngram_features \%>\%
+    textshape::tidy_dtm()
 }
 }
 \seealso{
