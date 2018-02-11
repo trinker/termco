@@ -158,6 +158,96 @@ presidential_debates_2012 \%>\%
      with(term_count(dialogue, list(time, person), lg)) \%>\%
      plot()
 }
+
+\dontrun{
+## use with the qdapRegex package for feature extraction
+
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(qdapRegex, termco, dplyr, textshape, magrittr)
+
+x <- c(
+    "@hadley I like #rstats for #ggplot2 work.",
+    "Difference between #magrittr and #pipeR, both implement pipeline operators for #rstats:
+        http://renkun.me/r/2014/07/26/difference-between-magrittr-and-pipeR.html @timelyportfolio",
+    "Slides from great talk: @ramnath_vaidya: Interactive slides from Interactive Visualization
+        presentation #user2014. http://ramnathv.github.io/user2014-rcharts/#1",
+    "fred is fred@foo.com and joe is joe@example.com - but @this is a",
+    "twitter handle for twit@here.com or foo+bar@google.com/fred@foo.fnord",
+    "hello world",
+    "I went to Washington Heights, NY for food! ",
+    "It's in West ven,PA, near Bolly Bolly Bolly, CA!",
+    "I like Movies, PG13",
+    'There is at UCLA', 
+    'And at UB too', 
+    'But UB is not UCLA.', 
+    'It is like RSU',
+    "Dr. Brend is mizz hart's in mrs. Holtz's.",
+    "Where is mr. Bob Jr. and Ms. John Kennedy?",
+    "I want $2.33 at 2:30 p.m. to go to A.n.p.",
+    "She will send it A.S.A.P. (e.g. as soon as you can) said I.",
+    "Hello world.", "In the U. S. A.",
+    "Hello World (V. Raptor, 1986) bye",
+    "Narcissism is not dead (Rinker, 2014)",
+    "The R Core Team (2014) has many members.",
+    paste("Bunn (2005) said, \\"As for elegance, R is refined, tasteful, and",
+        "beautiful. When I grow up, I want to marry R.\\""),
+    "It is wrong to blame ANY tool for our own shortcomings (Baer, 2005).",
+    "Wickham's (in press) Tidy Data should be out soon.",
+    "Rinker's (n.d.) dissertation not so much.",
+    "I always consult xkcd comics for guidance (Foo, 2012; Bar, 2014).",
+    "Uwe Ligges (2007) says, \\"RAM is cheap and thinking hurts\\"",
+    " Mr. Bean bought 2 tickets 2-613-213-4567 or 5555555555 call either one",
+    "43 Butter Rd, Brossard QC K0A 3P0 - 613 213 4567", 
+    "Please contact Mr. Bean (613)2134567",
+    "1.575.555.5555 is his #1 number",  
+    "7164347566",
+    "I like 1234567 dogs",
+    "download file from http://example.com", 
+    "this is the link to my website http://example.com", 
+    "go to http://example.com from more info.",
+    "Another url ftp://www.example.com",
+    "And https://www.example.net",
+    "twitter type: t.co/N1kq0F26tG",
+    "still another one https://t.co/N1kq0F26tG :-)",
+    "I'm getting 3:04 AM just fine, but...",
+    "for 10:47 AM I'm getting 0:47 AM instead.",
+    "no time here",
+    "Some time has 12:04 with no AM/PM after it",
+    "Some time has 12:04 a.m. or the form 1:22 pm",
+    "download file from http://example.com", 
+    "this is the link to my website http://example.com", 
+    "go to http://example.com from more info.",
+    "Another url ftp://www.example.com",
+    "And https://www.example.net",
+    "twitter type: t.co/N1kq0F26tG",
+    "still another one https://t.co/N1kq0F26tG :-)",
+    "are :-)) it 8-D he XD on =-D they :D of :-) is :> for :o) that :-/",
+    "as :-D I xD with :^) a =D to =) the 8D and :3 in =3 you 8) his B^D was"
+)
+
+
+matches <- list(
+    phone = grab('@rm_phone'),
+    hash = grab('@rm_hash'),
+    tag = grab('@rm_tag'),
+    url = grab('@rm_url'),
+    twitter_url = grab('@rm_twitter_url'),
+    email = grab('@rm_email'),
+    title = grab('@rm_title_name'),
+    citation = grab('@rm_citation'),
+    abbreviation = grab('@rm_abbreviation'),
+    time = grab('@rm_time'),
+    emoticon = grab('@rm_emoticon'),
+    state = pastex(state.abb)
+)
+
+set.seed(10)
+txt <- sample(x, 1000, TRUE)
+(tcnt <- term_count(txt, TRUE, matches, ignore.case = FALSE))
+
+as_dtm(tcnt)
+textshape::tidy_dtm(as_dtm(tcnt))
+}
 }
 \keyword{substring}
 \keyword{term}
