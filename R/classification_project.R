@@ -34,16 +34,16 @@ classification_project <- function (path = "new", open = is.global(2)){
     }))
 
     cat(paste(sprintf(categories, Sys.time()), collapse="\n"), "\n",
-        file = file.path(path, "categories/categories.R"))
+        file = file.path(path, "models/categories.R"))
 
     cat(paste(rproj, collapse = "\n"), file = file.path(path, ".Rproj"))
 
     cat(paste(dat_clean, collapse = "\n"), file = file.path(path, "scripts", "01_data_cleaning.R"))
     classification_template(path = 'scripts/02_classification.R', file.ext = 'csv',
-        categories.file = 'categories/categories.R')
+        categories.file = 'models/categories.R')
 
     verify <- all(c(dirs, ".Rproj") %in% dir(path, all.files = TRUE)) &&
-        all(file.exists(file.path(path, c("categories/categories.R",
+        all(file.exists(file.path(path, c("models/categories.R",
             "scripts/01_data_cleaning.R", "scripts/02_classification.R"))))
 
     if(isTRUE(verify)) {

@@ -320,7 +320,6 @@ You are welcome to:
 - send a pull request on: <https://github.com/trinker/termco/>    
 - compose a friendly e-mail to: <tyler.rinker@gmail.com>    
 
-
 Examples
 ========
 
@@ -640,7 +639,7 @@ following:
         |
         |   .Rproj
         |   
-        +---categories
+        +---models
         |       categories.R
         |       
         +---data

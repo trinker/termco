@@ -4,7 +4,7 @@
 \alias{term_list_template}
 \title{Generate a Basic Term List Template}
 \usage{
-term_list_template(categories = NULL, path = "categories/categories.R",
+term_list_template(categories = NULL, path = "models/categories.R",
   hierarchical = TRUE, overwrite = FALSE,
   copy2clip = getOption("termco.copy2clip"), ...)
 }

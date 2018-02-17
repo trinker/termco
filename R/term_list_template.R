@@ -18,7 +18,7 @@
 #' cats <- c("Summons", "Justification", "Exclamation", "Empty")
 #' term_list_template(cats, path = '')
 #' term_list_template(cats, hierarchical = FALSE, path = '')
-term_list_template <- function(categories = NULL, path = 'categories/categories.R',
+term_list_template <- function(categories = NULL, path = 'models/categories.R',
     hierarchical = TRUE, overwrite = FALSE, copy2clip = getOption("termco.copy2clip"), ...) {
 
     if (!is.null(path) && path != '' && dirname(path) != '.' && !dir.exists(dirname(path))) {

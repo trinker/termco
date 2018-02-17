@@ -105,7 +105,7 @@
 #'     stringi::stri_unescape_unicode() %>%
 #'     cat(file = 'testing.json')
 #' }
-read_term_list <- function(path = 'categories/categories.R', indices = NULL, term.list, ...){
+read_term_list <- function(path = 'models/categories.R', indices = NULL, term.list, ...){
 
     obj <- 'unspecified_termco_obj1234'
 
@@ -214,7 +214,7 @@ read_term_list <- function(path = 'categories/categories.R', indices = NULL, ter
 
 #' @rdname read_term_list
 #' @export
-source_term_list <- function(path = 'categories/categories.R', indices = NULL, ...){
+source_term_list <- function(path = 'models/categories.R', indices = NULL, ...){
 
     read_term_list(path = path, collapse = FALSE, indices = indices, ...)
 
@@ -362,7 +362,7 @@ search_open_or <- function(x, ...){
 }
 
 ## json write double backslashes
-write_model <- function(term.list, path = 'categories/model_categories.json', ...) {
+write_model <- function(term.list, path = 'models/categories_json.json', ...) {
 
     df <- textshape::tidy_list(lapply(term.list, textshape::tidy_list, 'tag', 'regex'), 'iteration')
 
@@ -391,7 +391,7 @@ write_model <- function(term.list, path = 'categories/model_categories.json', ..
 #'
 #' @rdname read_term_list
 #' @export
-write_term_list <- function(term.list, path = 'categories/categories.R', ...){
+write_term_list <- function(term.list, path = 'models/categories.R', ...){
 
     stopifnot(is.list(term.list))
     stopifnot(!is.list(term.list[[1]][[1]]))

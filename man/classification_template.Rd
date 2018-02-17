@@ -5,7 +5,7 @@
 \title{Generate a Basic Classification Analysis Template}
 \usage{
 classification_template(path = "scripts/02_classification.R",
-  file.ext = "fst", categories.file = "categories/categories.R",
+  file.ext = "fst", categories.file = "models/categories.R",
   verbose = TRUE, ...)
 }
 \arguments{
@@ -16,8 +16,8 @@ the packages used in the template for reading in data.  Currently,
 '.csv' (\pkg{readr})and '.fst' (\pkg{fst}) are supported.  This can be
 manually changed after the template is created.}
 
-\item{categories.file}{A path to the categories (term list) file.  Defaults
-to \file{'scripts/02_classification.R'}.}
+\item{categories.file}{A path to the categories model (term list) file.  Defaults
+to \file{'models/categories.R'}.}
 
 \item{verbose}{logical.  If \code{TRUE} a message is printed if the template
 inclusion was successful.}

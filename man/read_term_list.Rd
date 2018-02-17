@@ -6,12 +6,11 @@
 \alias{write_term_list}
 \title{Read-In/Write-Out Term List}
 \usage{
-read_term_list(path = "categories/categories.R", indices = NULL, term.list,
-  ...)
+read_term_list(path = "models/categories.R", indices = NULL, term.list, ...)
 
-source_term_list(path = "categories/categories.R", indices = NULL, ...)
+source_term_list(path = "models/categories.R", indices = NULL, ...)
 
-write_term_list(term.list, path = "categories/categories.R", ...)
+write_term_list(term.list, path = "models/categories.R", ...)
 }
 \arguments{
 \item{path}{Path to external term list.}
