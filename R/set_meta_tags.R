@@ -4,7 +4,7 @@
 #' object.
 #'
 #' @param x A \code{term_count}/\code{token_count} object.
-#' @param tags A data.frame with a \code{'tags'} column corresponding to the tag
+#' @param tags A data.frame with a \code{'tag'} column corresponding to the tag
 #' columns in the \code{term_count}/\code{token_count} object.  Can also take a
 #' named list but only allows for tags and meta tags where as the number of tag
 #' levels is unrestricted if passing a data.frame.
