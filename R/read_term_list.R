@@ -122,7 +122,7 @@ read_term_list <- function(path = 'models/categories.R', indices = NULL, term.li
         cats <- source(path)[[1]]
     } else {
 
-        if (methods::is(term.list, 'term_list')) return(term.list)
+        #if (methods::is(term.list, 'term_list')) return(term.list)
 
         cats <- term.list
     }
