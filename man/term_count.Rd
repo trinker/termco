@@ -4,9 +4,9 @@
 \alias{term_count}
 \title{Search For and Count Terms}
 \usage{
-term_count(text.var, grouping.var = NULL, term.list, ignore.case = TRUE,
-  pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE), group.names,
-  meta.sep = "__", meta.names = c("meta"), ...)
+term_count(text.var, grouping.var = NULL, term.list,
+  ignore.case = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE,
+  TRUE), group.names, meta.sep = "__", meta.names = c("meta"), ...)
 }
 \arguments{
 \item{text.var}{The text string variable.}

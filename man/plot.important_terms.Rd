@@ -4,8 +4,8 @@
 \alias{plot.important_terms}
 \title{Plots a important_terms Object}
 \usage{
-\method{plot}{important_terms}(x, n, as.cloud = FALSE, random.order = FALSE,
-  rot.per = 0, ...)
+\method{plot}{important_terms}(x, n, as.cloud = FALSE,
+  random.order = FALSE, rot.per = 0, ...)
 }
 \arguments{
 \item{x}{The \code{important_terms} object.}

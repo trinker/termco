@@ -6,7 +6,8 @@
 \usage{
 important_terms(text.var, n = 20,
   stopwords = stopwords::stopwords("english"), stem = FALSE,
-  language = "porter", strip = TRUE, strip.regex = "[^A-Za-z' ]", ...)
+  language = "porter", strip = TRUE, strip.regex = "[^A-Za-z' ]",
+  ...)
 }
 \arguments{
 \item{text.var}{A vector of character strings.}

@@ -4,10 +4,20 @@
 \alias{print.search_term}
 \title{Prints a search_term Object}
 \usage{
-\method{print}{search_term}(x, ...)
+\method{print}{search_term}(x, n = Inf, width = 80,
+  sep = "\\n\\n\\n===================================\\n", digits = 5,
+  ...)
 }
 \arguments{
 \item{x}{The search_term object.}
+
+\item{n}{The number of elements to print.}
+
+\item{width}{The width of the printing.}
+
+\item{sep}{A string that separates the elements.}
+
+\item{digits}{The number of coverage digits to print.}
 
 \item{\ldots}{ignored}
 }

@@ -51,4 +51,5 @@ Other hierarchical_coverage functions: \code{\link{hierarchical_coverage_regex}}
 \author{
 Steve T. Simpson and Tyler Rinker <tyler.rinker@gmail.com>.
 }
+\concept{hierarchical_coverage functions}
 \keyword{coverage}

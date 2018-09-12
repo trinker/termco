@@ -37,17 +37,42 @@ search_term <- function(text.var, term, exclude = NULL, and = NULL, ignore.case=
 #' Prints a search_term object.
 #'
 #' @param x The search_term object.
+#' @param n The number of elements to print.
+#' @param width The width of the printing.
+#' @param sep A string that separates the elements.
+#' @param digits The number of coverage digits to print.
 #' @param \ldots ignored
 #' @method print search_term
 #' @export
-print.search_term <-
-    function(x,  ...) {
+print.search_term <- function(x, n = Inf, width = 80,
+    sep = '\n\n\n===================================\n', digits = 5, ...){
 
-    class(x) <- class(x)[!class(x) %in% "search_term"]
 
-    print(x)
+    out <- unlist(lapply(x, function(x){strwrap(x, width)}%>% paste(collapse = '\n')))
+
+    out <- paste(paste0('[', seq_along(out), ' of ', length(out), ']'), out, sep ='\n\n')
+    
+    if (n > length(out)) {
+        n <- length(out)
+    } 
+        
+    cat(out[seq_len(n)], sep = sep)
+
+    cv1 <- sprintf('\n\n%s\ncoverage = %s', paste(rep('-', 35), collapse = ''), numform::f_num(attributes(x)[['coverage']], digits))
+    cv2 <- sprintf('%s of %s', numform::f_comma(length(out)), numform::f_comma(round(length(st)/attributes(st)[['coverage']], 0)))
+
+    cat(cv1, cv2, sep = '  >>>  ')
 
 }
+
+# print.search_term <- #retired on 2018-09-12
+#     function(x,  ...) {
+# 
+#     class(x) <- class(x)[!class(x) %in% "search_term"]
+# 
+#     print(x)
+# 
+#     }
 
 #'
 #'

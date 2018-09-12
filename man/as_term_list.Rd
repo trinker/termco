@@ -4,8 +4,8 @@
 \alias{as_term_list}
 \title{Coerce to Named List}
 \usage{
-as_term_list(x, add.boundary = FALSE, collapse = FALSE, test.regex = TRUE,
-  ...)
+as_term_list(x, add.boundary = FALSE, collapse = FALSE,
+  test.regex = TRUE, ...)
 }
 \arguments{
 \item{x}{A vector of strings or a \pkg{quanteda} \code{dictionary}.}

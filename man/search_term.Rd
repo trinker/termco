@@ -33,8 +33,6 @@ regex but not \code{exclude} regex.
 }
 \description{
 \code{search_term} - Find text items that contain a term(s).
-
-\code{search_term_which} - Find index of text items that contain a term(s).
 }
 \examples{
 search_term_which(sam_i_am, "\\\\bsam")

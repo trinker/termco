@@ -4,7 +4,6 @@
 \name{reexports}
 \alias{reexports}
 \alias{as_dtm}
-\alias{reexports}
 \alias{as_tdm}
 \title{Objects exported from other packages}
 \keyword{internal}

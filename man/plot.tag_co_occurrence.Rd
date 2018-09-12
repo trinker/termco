@@ -4,9 +4,10 @@
 \alias{plot.tag_co_occurrence}
 \title{Plots a tag_co_occurrence Object}
 \usage{
-\method{plot}{tag_co_occurrence}(x, cor = FALSE, edge.width.range = c(0.5,
-  4), node.size.range = c(0.5, 10), edge.color = "gray80",
-  node.color = "orange", bar.color = node.color, font.color = "gray55",
+\method{plot}{tag_co_occurrence}(x, cor = FALSE,
+  edge.width.range = c(0.5, 4), node.size.range = c(0.5, 10),
+  edge.color = "gray80", node.color = "orange",
+  bar.color = node.color, font.color = "gray55",
   point.size.range = TRUE, bar.font.color = ifelse(bar, "gray96",
   bar.color), background.color = NULL, bar.font.size = TRUE,
   node.font.size = 3, digits = 1, min.edge.cutoff = 0.15,

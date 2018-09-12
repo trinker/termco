@@ -4,7 +4,8 @@
 \alias{search_term_collocations}
 \title{Search For Collocations}
 \usage{
-search_term_collocations(text.var, term, n = 10, ignore.case = TRUE, ...)
+search_term_collocations(text.var, term, n = 10, ignore.case = TRUE,
+  ...)
 }
 \arguments{
 \item{text.var}{A vector of character strings.}

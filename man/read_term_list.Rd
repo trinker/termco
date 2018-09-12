@@ -6,7 +6,8 @@
 \alias{write_term_list}
 \title{Read-In/Write-Out Term List}
 \usage{
-read_term_list(path = "models/categories.R", indices = NULL, term.list, ...)
+read_term_list(path = "models/categories.R", indices = NULL, term.list,
+  ...)
 
 source_term_list(path = "models/categories.R", indices = NULL, ...)
 
