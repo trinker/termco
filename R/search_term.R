@@ -47,23 +47,41 @@ search_term <- function(text.var, term, exclude = NULL, and = NULL, ignore.case=
 print.search_term <- function(x, n = Inf, width = 80,
     sep = '\n\n\n===================================\n', digits = 5, ...){
 
+    out1 <- unlist(lapply(x, function(x){strwrap(x, width)}%>% paste(collapse = '\n')))
 
-    out <- unlist(lapply(x, function(x){strwrap(x, width)}%>% paste(collapse = '\n')))
+    if (is.null(out1)){
+        element <- '0'
+    } else {
+        element <- seq_along(out1)
+    }
 
-    out <- paste(paste0('[', seq_along(out), ' of ', length(out), ']'), out, sep ='\n\n')
+    out <- paste(paste0('[', element, ' of ', length(out1), ']'), out1, sep ='\n\n')
     
     if (n > length(out)) {
         n <- length(out)
     } 
         
+    if (!is.null(out1)) {
+        numerator <- numform::f_comma(length(out))
+    } else {
+        numerator <- '0'
+    }
+  
+    if (length(x) > 0) {    
+        denominator <- numform::f_comma(round(length(x)/attributes(x)[['coverage']], 0))
+    } else {
+        denominator <- '[Unknown]'
+    }
+    
     cat(out[seq_len(n)], sep = sep)
-
+    
     cv1 <- sprintf('\n\n%s\ncoverage = %s', paste(rep('-', 35), collapse = ''), numform::f_num(attributes(x)[['coverage']], digits))
-    cv2 <- sprintf('%s of %s', numform::f_comma(length(out)), numform::f_comma(round(length(st)/attributes(st)[['coverage']], 0)))
+    cv2 <- sprintf('%s of %s', numerator, denominator)
 
     cat(cv1, cv2, sep = '  >>>  ')
 
 }
+
 
 # print.search_term <- #retired on 2018-09-12
 #     function(x,  ...) {
