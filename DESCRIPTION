@@ -12,7 +12,7 @@ Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggraph, ggst
              slam, SnowballC, stats, stopwords, stringi, textclean, textshape (>= 1.5.2), tidyr, UpSetR, utils,
              wordcloud
 Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
-Date: 2018-09-13
+Date: 2018-09-14
 License: MIT + file LICENSE
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
