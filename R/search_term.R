@@ -37,7 +37,7 @@ search_term <- function(text.var, term, exclude = NULL, and = NULL, ignore.case=
 #' Prints a search_term object.
 #'
 #' @param x The search_term object.
-#' @param n The number of elements to print.
+#' @param n The number of elements to print or a range of indexes (greater than 1).
 #' @param width The width of the printing.
 #' @param sep A string that separates the elements.
 #' @param digits The number of coverage digits to print.
@@ -57,9 +57,18 @@ print.search_term <- function(x, n = Inf, width = 80,
 
     out <- paste(paste0('[', element, ' of ', length(out1), ']'), out1, sep ='\n\n')
     
-    if (n > length(out)) {
-        n <- length(out)
-    } 
+    if (length(n) > 1) {
+        n <- sort(n)
+        n <- n[n > 0]
+        n <- n[n <= length(out)]
+    } else {
+        if (n > length(out)) {
+            n <- length(out)
+        }  
+        n <- seq_len(n)
+    }
+    
+
         
     if (!is.null(out1)) {
         numerator <- numform::f_comma(length(out))
@@ -73,9 +82,13 @@ print.search_term <- function(x, n = Inf, width = 80,
         denominator <- '[Unknown]'
     }
     
-    cat(out[seq_len(n)], sep = sep)
+    cat(out[n], sep = sep)
     
-    cv1 <- sprintf('\n\n%s\ncoverage = %s', paste(rep('-', 35), collapse = ''), numform::f_num(attributes(x)[['coverage']], digits))
+    cv1 <- sprintf(
+        '\n\n%s\ncoverage = %s', 
+        paste(rep('-', 35), collapse = ''), 
+        numform::f_num(attributes(x)[['coverage']], digits)
+    )
     cv2 <- sprintf('%s of %s', numerator, denominator)
 
     cat(cv1, cv2, sep = '  >>>  ')

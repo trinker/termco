@@ -11,7 +11,7 @@
 \arguments{
 \item{x}{The search_term object.}
 
-\item{n}{The number of elements to print.}
+\item{n}{The number of elements to print or a range of indexes (greater than 1).}
 
 \item{width}{The width of the printing.}
 
