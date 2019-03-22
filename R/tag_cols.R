@@ -13,9 +13,19 @@
 #' group_cols(markers)
 tag_cols <- function(x, ...){
 
-     x[tag_names(x)]
+     out <- x[tag_names(x)]
+     class(out) <- class(x)[!grepl('(term|token)_count', class(out))]
+     out
 
 }
+
+# tag_cols <- function(x, ...){
+# 
+#      out <- x[tag_names(x)]
+#      classs(out) <- 
+#      out
+# 
+# }
 
 #' @export
 #' @rdname tag_cols
@@ -37,9 +47,18 @@ tag_names <- function(x, ...){
 #' @rdname tag_cols
 group_cols <- function(x, ...){
 
-    x[group_names(x)]
-
+    out <- x[group_names(x)]
+    class(out) <- class(x)[!grepl('(term|token)_count', class(out))]
+    out
+    
 }
+
+
+# group_cols <- function(x, ...){
+# 
+#     x[group_names(x)]
+# 
+# }
 
 #' @export
 #' @rdname tag_cols
