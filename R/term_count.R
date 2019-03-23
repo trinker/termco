@@ -531,7 +531,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
     type <- term_token_validate(x, FALSE)
     if (!is.null(type)) words_tokens <- ifelse(type == 'term.vars', 'n.words', 'n.tokens')
         
-       
+   
     print_order <- c(attributes(x)[['group.vars']], words_tokens, attributes(x)[[type]])
     col_type <- 'term'
 
@@ -572,7 +572,7 @@ print.term_count <- function(x, digits = 2, weight = "percent",
     class(x) <- class(x)[!class(x) %in% class_type]
     cat(sprintf("Coverage: %s%%", 100 * round(coverage, 4)), "\n")
 
-    print(x[, print_order])
+    print(tibble::as_tibble(x)[, print_order])
 
     ask <- getOption("termco_pretty_ask")
     if(is.null(ask)){

@@ -70,9 +70,9 @@ their description:
 
 <table>
 <colgroup>
-<col width="31%" />
-<col width="15%" />
-<col width="53%" />
+<col style="width: 31%" />
+<col style="width: 14%" />
+<col style="width: 53%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -320,6 +320,7 @@ You are welcome to:
 - send a pull request on: <https://github.com/trinker/termco/>    
 - compose a friendly e-mail to: <tyler.rinker@gmail.com>    
 
+
 Examples
 ========
 
@@ -351,18 +352,18 @@ Build Counts Dataframe
 
     ## Coverage: 100% 
     ## # A tibble: 10 x 7
-    ##    person time  n.words response_cries back_channels summons justification
-    ##    <fct>  <fct>   <int> <chr>          <chr>         <chr>   <chr>        
-    ##  1 OBAMA  time~    3599 3(.08%)        0             43(1.1~ 26(.72%)     
-    ##  2 OBAMA  time~    7477 2(.03%)        0             42(.56~ 29(.39%)     
-    ##  3 OBAMA  time~    7243 1(.01%)        1(.01%)       58(.80~ 33(.46%)     
-    ##  4 ROMNEY time~    4085 0              0             27(.66~ 8(.20%)      
-    ##  5 ROMNEY time~    7536 1(.01%)        3(.04%)       49(.65~ 20(.27%)     
-    ##  6 ROMNEY time~    8303 5(.06%)        0             84(1.0~ 19(.23%)     
-    ##  7 CROWL~ time~    1672 2(.12%)        0             4(.24%) 12(.72%)     
-    ##  8 LEHRER time~     765 3(.39%)        3(.39%)       0       0            
-    ##  9 QUEST~ time~     583 2(.34%)        0             0       2(.34%)      
-    ## 10 SCHIE~ time~    1445 0              0             2(.14%) 6(.42%)
+    ##    person  time  n.words response_cries back_channels summons justification
+    ##    <fct>   <fct>   <int> <chr>          <chr>         <chr>   <chr>        
+    ##  1 OBAMA   time~    3599 3(.08%)        0             43(1.1~ 26(.72%)     
+    ##  2 OBAMA   time~    7477 2(.03%)        0             42(.56~ 29(.39%)     
+    ##  3 OBAMA   time~    7243 1(.01%)        1(.01%)       58(.80~ 33(.46%)     
+    ##  4 ROMNEY  time~    4085 0              0             27(.66~ 8(.20%)      
+    ##  5 ROMNEY  time~    7536 1(.01%)        3(.04%)       49(.65~ 20(.27%)     
+    ##  6 ROMNEY  time~    8303 5(.06%)        0             84(1.0~ 19(.23%)     
+    ##  7 CROWLEY time~    1672 2(.12%)        0             4(.24%) 12(.72%)     
+    ##  8 LEHRER  time~     765 3(.39%)        3(.39%)       0       0            
+    ##  9 QUESTI~ time~     583 2(.34%)        0             0       2(.34%)      
+    ## 10 SCHIEF~ time~    1445 0              0             2(.14%) 6(.42%)
 
 Printing
 --------
@@ -371,35 +372,35 @@ Printing
 
     ## Coverage: 100% 
     ## # A tibble: 10 x 7
-    ##    person time  n.words response_cries back_channels summons justification
-    ##    <fct>  <fct>   <int>          <int>         <int>   <int>         <int>
-    ##  1 OBAMA  time~    3599              3             0      43            26
-    ##  2 OBAMA  time~    7477              2             0      42            29
-    ##  3 OBAMA  time~    7243              1             1      58            33
-    ##  4 ROMNEY time~    4085              0             0      27             8
-    ##  5 ROMNEY time~    7536              1             3      49            20
-    ##  6 ROMNEY time~    8303              5             0      84            19
-    ##  7 CROWL~ time~    1672              2             0       4            12
-    ##  8 LEHRER time~     765              3             3       0             0
-    ##  9 QUEST~ time~     583              2             0       0             2
-    ## 10 SCHIE~ time~    1445              0             0       2             6
+    ##    person  time  n.words response_cries back_channels summons justification
+    ##    <fct>   <fct>   <int>          <int>         <int>   <int>         <int>
+    ##  1 OBAMA   time~    3599              3             0      43            26
+    ##  2 OBAMA   time~    7477              2             0      42            29
+    ##  3 OBAMA   time~    7243              1             1      58            33
+    ##  4 ROMNEY  time~    4085              0             0      27             8
+    ##  5 ROMNEY  time~    7536              1             3      49            20
+    ##  6 ROMNEY  time~    8303              5             0      84            19
+    ##  7 CROWLEY time~    1672              2             0       4            12
+    ##  8 LEHRER  time~     765              3             3       0             0
+    ##  9 QUESTI~ time~     583              2             0       0             2
+    ## 10 SCHIEF~ time~    1445              0             0       2             6
 
     print(counts, zero.replace = "_")
 
     ## Coverage: 100% 
     ## # A tibble: 10 x 7
-    ##    person time  n.words response_cries back_channels summons justification
-    ##    <fct>  <fct>   <int> <chr>          <chr>         <chr>   <chr>        
-    ##  1 OBAMA  time~    3599 3(.08%)        _             43(1.1~ 26(.72%)     
-    ##  2 OBAMA  time~    7477 2(.03%)        _             42(.56~ 29(.39%)     
-    ##  3 OBAMA  time~    7243 1(.01%)        1(.01%)       58(.80~ 33(.46%)     
-    ##  4 ROMNEY time~    4085 _              _             27(.66~ 8(.20%)      
-    ##  5 ROMNEY time~    7536 1(.01%)        3(.04%)       49(.65~ 20(.27%)     
-    ##  6 ROMNEY time~    8303 5(.06%)        _             84(1.0~ 19(.23%)     
-    ##  7 CROWL~ time~    1672 2(.12%)        _             4(.24%) 12(.72%)     
-    ##  8 LEHRER time~     765 3(.39%)        3(.39%)       _       _            
-    ##  9 QUEST~ time~     583 2(.34%)        _             _       2(.34%)      
-    ## 10 SCHIE~ time~    1445 _              _             2(.14%) 6(.42%)
+    ##    person  time  n.words response_cries back_channels summons justification
+    ##    <fct>   <fct>   <int> <chr>          <chr>         <chr>   <chr>        
+    ##  1 OBAMA   time~    3599 3(.08%)        _             43(1.1~ 26(.72%)     
+    ##  2 OBAMA   time~    7477 2(.03%)        _             42(.56~ 29(.39%)     
+    ##  3 OBAMA   time~    7243 1(.01%)        1(.01%)       58(.80~ 33(.46%)     
+    ##  4 ROMNEY  time~    4085 _              _             27(.66~ 8(.20%)      
+    ##  5 ROMNEY  time~    7536 1(.01%)        3(.04%)       49(.65~ 20(.27%)     
+    ##  6 ROMNEY  time~    8303 5(.06%)        _             84(1.0~ 19(.23%)     
+    ##  7 CROWLEY time~    1672 2(.12%)        _             4(.24%) 12(.72%)     
+    ##  8 LEHRER  time~     765 3(.39%)        3(.39%)       _       _            
+    ##  9 QUESTI~ time~     583 2(.34%)        _             _       2(.34%)      
+    ## 10 SCHIEF~ time~    1445 _              _             2(.14%) 6(.42%)
 
 Plotting
 --------
@@ -420,11 +421,11 @@ Ngram Collocations
 ------------------
 
 **termco** wraps the [**quanteda**](https://github.com/kbenoit/quanteda)
-package to examine important ngram collocations. **quanteda**'s
+package to examine important ngram collocations. **quanteda**’s
 `collocation` function provides measures of: `"lambda"`, `"z"`, and
 `"frequency"` to examine the strength of relationship between ngrams.
 **termco** adds stopword removal, min/max character filtering, and
-stemming to **quanteda**'s `collocation` as well as a generic `plot`
+stemming to **quanteda**’s `collocation` as well as a generic `plot`
 method.
 
     x <- presidential_debates_2012[["dialogue"]]
@@ -454,6 +455,9 @@ method.
     ## 20:  governor romney's      2        13           13  8.786176  6.091802
 
     frequent_ngrams(x, gram.length = 3)
+
+    ## Warning in evalq(as.data.frame(list(collocation = c("make sure our", "the
+    ## reason is", : restarting interrupted promise evaluation
 
     ##                 collocation length frequency count_nested     lambda
     ##  1:         last four years      3        27            0 -1.5663795
@@ -503,24 +507,24 @@ method.
     ##                 collocation length frequency count_nested   lambda
     ##  1:              dodd frank      2        15           15 14.71834
     ##  2:         standard bearer      2         4            4 13.48186
-    ##  3:           onest century      2         3            3 13.23057
-    ##  4:   intellectual property      2         3            3 13.23057
-    ##  5:            joint chiefs      2         3            3 13.23057
-    ##  6:            apology tour      2         3            3 13.23057
+    ##  3:   intellectual property      2         3            3 13.23057
+    ##  4:            joint chiefs      2         3            3 13.23057
+    ##  5:            apology tour      2         3            3 13.23057
+    ##  6:           onest century      2         3            3 13.23057
     ##  7:             wall street      2         9            9 13.13031
-    ##  8:          prime minister      2         2            2 12.89412
-    ##  9:      permanent resident      2         2            2 12.89412
-    ## 10:         abraham lincoln      2         2            2 12.89412
-    ## 11:           raton florida      2         2            2 12.89412
+    ##  8:              boca raton      2         2            2 12.89412
+    ##  9:         abraham lincoln      2         2            2 12.89412
+    ## 10:           raton florida      2         2            2 12.89412
+    ## 11: unintended consequences      2         2            2 12.89412
     ## 12:         haqqani network      2         2            2 12.89412
-    ## 13:              boca raton      2         2            2 12.89412
-    ## 14: unintended consequences      2         2            2 12.89412
-    ## 15:      appleton wisconsin      2         2            2 12.89412
+    ## 13:      permanent resident      2         2            2 12.89412
+    ## 14:      appleton wisconsin      2         2            2 12.89412
+    ## 15:          prime minister      2         2            2 12.89412
     ## 16:             food stamps      2         9            9 12.61946
     ## 17:      planned parenthood      2         5            5 12.58386
     ## 18:        self deportation      2         4            4 12.38322
     ## 19:        cleveland clinic      2         3            3 12.13193
-    ## 20:    religious minorities      2         3            3 12.13193
+    ## 20:             rose garden      2         3            3 12.13193
     ##            z
     ##  1: 7.300509
     ##  2: 6.561118
@@ -565,7 +569,7 @@ Converting to Document Term Matrix
 ----------------------------------
 
 Regular expression counts can be useful features in machine learning
-models. The **tm** package's `DocumentTermMatrix` is a popular data
+models. The **tm** package’s `DocumentTermMatrix` is a popular data
 structure for machine learning in **R**. The `as_dtm` and `as_tdm`
 functions are useful for coercing the count `data.table` structure of a
 `term_count` object into a `DocumentTermMatrix`/`TermDocumentMatrix`.
@@ -575,8 +579,8 @@ structures using `cbind` & `rbind`.
     as_dtm(markers)
 
     ## <<DocumentTermMatrix (documents: 10, terms: 4)>>
-    ## Non-/sparse entries: 27/13
-    ## Sparsity           : 32%
+    ## Non-/sparse entries: 21/19
+    ## Sparsity           : 48%
     ## Maximal term length: 14
     ## Weighting          : term frequency (tf)
 
@@ -596,11 +600,11 @@ structures using `cbind` & `rbind`.
     (clusters <- cutree(mod, 5))
 
     ##     OBAMA.time 1     OBAMA.time 2     OBAMA.time 3    ROMNEY.time 1 
-    ##                1                1                1                2 
+    ##                1                1                1                1 
     ##    ROMNEY.time 2    ROMNEY.time 3   CROWLEY.time 2    LEHRER.time 1 
-    ##                2                2                3                4 
+    ##                2                3                3                4 
     ##  QUESTION.time 2 SCHIEFFER.time 3 
-    ##                5                3
+    ##                5                1
 
 Building an Expert Rules, Regex Classifier Model
 ================================================
@@ -631,7 +635,7 @@ classification.
 Note that the user may want to begin with a classification model
 template that contains subdirectories and files for a classification
 project. The `classification_project` generates this template with a
-pre-populated *'classification.R'* script that can guide the user
+pre-populated *‘classification.R’* script that can guide the user
 through the modeling process. The directory tree looks like the
 following:
 
@@ -677,26 +681,26 @@ are additional observations.
     ## 
     ## train: n = 2184
     ## # A tibble: 6 x 5
-    ##   person    tot    time   role      dialogue                              
-    ##   <fct>     <chr>  <fct>  <fct>     <chr>                                 
-    ## 1 CROWLEY   230.2  time 2 moderator Governor Romney?                      
-    ## 2 SCHIEFFER 48.1   time 3 moderator you're going to get a chance to respo~
-    ## 3 ROMNEY    98.15  time 2 candidate Let's have a flexible schedule so you~
-    ## 4 ROMNEY    173.12 time 2 candidate But I find more troubling than this, ~
-    ## 5 OBAMA     102.6  time 2 candidate You know a major difference in this c~
-    ## 6 OBAMA     120.16 time 2 candidate Making sure that we are controlling o~
+    ##   person   tot    time  role    dialogue                                   
+    ##   <fct>    <chr>  <fct> <fct>   <chr>                                      
+    ## 1 CROWLEY  230.2  time~ modera~ Governor Romney?                           
+    ## 2 SCHIEFF~ 48.1   time~ modera~ you're going to get a chance to respond to~
+    ## 3 ROMNEY   98.15  time~ candid~ Let's have a flexible schedule so you can ~
+    ## 4 ROMNEY   173.12 time~ candid~ But I find more troubling than this, that ~
+    ## 5 OBAMA    102.6  time~ candid~ You know a major difference in this campai~
+    ## 6 OBAMA    120.16 time~ candid~ Making sure that we are controlling our ow~
     ## |...
     ## 
     ## test: n = 728
     ## # A tibble: 6 x 5
-    ##   person tot   time   role      dialogue                                  
-    ##   <fct>  <chr> <fct>  <fct>     <chr>                                     
-    ## 1 LEHRER 1.1   time 1 moderator We'll talk about specifically about healt~
-    ## 2 ROMNEY 2.2   time 1 candidate And the president supports taking dollar ~
-    ## 3 ROMNEY 4.4   time 1 candidate They get to choose and they'll have at le~
-    ## 4 ROMNEY 4.5   time 1 candidate So they don't have to pay additional mone~
-    ## 5 ROMNEY 4.7   time 1 candidate They'll have at least two plans.          
-    ## 6 ROMNEY 4.17  time 1 candidate That's the plan that I've put forward.    
+    ##   person tot   time   role    dialogue                                     
+    ##   <fct>  <chr> <fct>  <fct>   <chr>                                        
+    ## 1 LEHRER 1.1   time 1 modera~ We'll talk about specifically about health c~
+    ## 2 ROMNEY 2.2   time 1 candid~ And the president supports taking dollar sev~
+    ## 3 ROMNEY 4.4   time 1 candid~ They get to choose and they'll have at least~
+    ## 4 ROMNEY 4.5   time 1 candid~ So they don't have to pay additional money, ~
+    ## 5 ROMNEY 4.7   time 1 candid~ They'll have at least two plans.             
+    ## 6 ROMNEY 4.17  time 1 candid~ That's the plan that I've put forward.       
     ## |...
 
 The training set can be accessed via `pres_deb_split$train`; likewise,
@@ -710,26 +714,26 @@ Here I show splitting by integer.
     ## 
     ## train: n = 100
     ## # A tibble: 6 x 5
-    ##   person tot    time   role      dialogue                                 
-    ##   <fct>  <chr>  <fct>  <fct>     <chr>                                    
-    ## 1 OBAMA  102.4  time 2 candidate Now, there are some other issues that ha~
-    ## 2 ROMNEY 122.26 time 3 candidate I've watched year in and year out as com~
-    ## 3 ROMNEY 166.16 time 3 candidate The president's path will mean continuin~
-    ## 4 ROMNEY 162.18 time 3 candidate Look, I love to I love teachers, and I'm~
-    ## 5 OBAMA  20.3   time 2 candidate We have increased oil production to the ~
-    ## 6 ROMNEY 59.12  time 1 candidate Anybody can have deductions up to that a~
+    ##   person tot    time   role    dialogue                                    
+    ##   <fct>  <chr>  <fct>  <fct>   <chr>                                       
+    ## 1 OBAMA  102.4  time 2 candid~ Now, there are some other issues that have ~
+    ## 2 ROMNEY 122.26 time 3 candid~ I've watched year in and year out as compan~
+    ## 3 ROMNEY 166.16 time 3 candid~ The president's path will mean continuing d~
+    ## 4 ROMNEY 162.18 time 3 candid~ Look, I love to I love teachers, and I'm ha~
+    ## 5 OBAMA  20.3   time 2 candid~ We have increased oil production to the hig~
+    ## 6 ROMNEY 59.12  time 1 candid~ Anybody can have deductions up to that amou~
     ## |...
     ## 
     ## test: n = 2812
     ## # A tibble: 6 x 5
-    ##   person tot   time   role      dialogue                                  
-    ##   <fct>  <chr> <fct>  <fct>     <chr>                                     
-    ## 1 LEHRER 1.1   time 1 moderator We'll talk about specifically about healt~
-    ## 2 LEHRER 1.2   time 1 moderator But what do you support the voucher syste~
-    ## 3 ROMNEY 2.1   time 1 candidate What I support is no change for current r~
-    ## 4 ROMNEY 2.2   time 1 candidate And the president supports taking dollar ~
-    ## 5 LEHRER 3.1   time 1 moderator And what about the vouchers?              
-    ## 6 ROMNEY 4.1   time 1 candidate So that's that's number one.              
+    ##   person tot   time   role    dialogue                                     
+    ##   <fct>  <chr> <fct>  <fct>   <chr>                                        
+    ## 1 LEHRER 1.1   time 1 modera~ We'll talk about specifically about health c~
+    ## 2 LEHRER 1.2   time 1 modera~ But what do you support the voucher system, ~
+    ## 3 ROMNEY 2.1   time 1 candid~ What I support is no change for current reti~
+    ## 4 ROMNEY 2.2   time 1 candid~ And the president supports taking dollar sev~
+    ## 5 LEHRER 3.1   time 1 modera~ And what about the vouchers?                 
+    ## 6 ROMNEY 4.1   time 1 candid~ So that's that's number one.                 
     ## |...
 
 I could have trained on the training set and tested on the testing set
@@ -745,11 +749,11 @@ information salient terms) in context. The understanding of term use
 helps the researcher to begin to build a mental model of the topics
 being used in a fashion similar to qualitative coding techniques. Broad
 categories will begin to coalesce as word use is elucidated. It forms
-the initial names of the "named list of regular expressions". Of course
+the initial names of the “named list of regular expressions”. Of course
 building the regular expressions in the regex model building step will
 allow the researcher to see new ways in which terms are used as well as
 new important terms. This in turn will reshape, remove, and add names to
-the "named list of regular expressions". This recursive process is
+the “named list of regular expressions”. This recursive process is
 captured in the model below.
 
 <img src="tools/figure/model2.png" width="400" alt="model">
@@ -1021,12 +1025,12 @@ want the model to cover as close to 100% of the data as possible, but
 likely want fewer tags assigned to each element. If the model is tagging
 many tags to each element it is not able to discriminate well. The
 `as_terms` + `plot_freq` function provides a visual representation of
-the model's ability to discriminate. The output is a bar plot showing
+the model’s ability to discriminate. The output is a bar plot showing
 the distribution of the number of tags at the element level. The goal is
 to have a larger density at 1 tag. Note that the plot also gives a view
 of coverage, as the zero bar shows the frequency of elements that could
 not be tagged. Our model has a larger distribution of 1 tag compared to
-the &gt;1 tag distributions, though the coverage is very poor. As the
+the  &gt; 1 tag distributions, though the coverage is very poor. As the
 number of tags increases the ability of the model to discriminate
 typically lessens. There is often a trade off between model coverage and
 discrimination.
@@ -1107,7 +1111,7 @@ features of the untagged data.
 
 We may see a common term such as the word *right* and want to see what
 other terms collocate with it. Using a regular expression that searches
-for multiple terms can improve a model's accuracy and ability to
+for multiple terms can improve a model’s accuracy and ability to
 discriminate. Using `search_term` in combination with `frequent_terms`
 can be a powerful way to see which words tend to collocate. Here I pass
 a regex for *right* (`\\bright`) to `search_term`. This pulls up the
@@ -1173,23 +1177,118 @@ coverage proportion on the uncovered data.
 
     search_term(untagged, colo("\\bright", "(people|course)"))
 
-    ##  [1] "Right now, the CBO says up to twenty million people will lose their insurance as Obamacare goes into effect next year."                                                                                                                                                                                                  
-    ##  [2] "The federal government taking over health care for the entire nation and whisking aside the tenth Amendment, which gives states the rights for these kinds of things, is not the course for America to have a stronger, more vibrant economy."                                                                           
-    ##  [3] "And what we're seeing right now is, in my view, a a trickle down government approach, which has government thinking it can do a better job than free people pursuing their drea Miss And it's not working."                                                                                                              
-    ##  [4] "And the challenges America faces right now look, the reason I'm in this race is there are people that are really hurting today in this country."                                                                                                                                                                         
-    ##  [5] "It's going to help people across the country that are unemployed right now."                                                                                                                                                                                                                                             
-    ##  [6] "That's not the right course for America."                                                                                                                                                                                                                                                                                
-    ##  [7] "The right course for America is to have a true all of the above policy."                                                                                                                                                                                                                                                 
-    ##  [8] "When you've got thousands of people right now in Iowa, right now in Colorado, who are working, creating wind power with good paying manufacturing jobs, and the Republican senator in that in Iowa is all for it, providing tax breaks to help this work and Governor Romney says I'm opposed."                          
-    ##  [9] "When it comes to community colleges, we are setting up programs, including with Nassau Community College, to retrain workers, including young people who may have dropped out of school but now are getting another chance, training them for the jobs that exist right now."                                            
-    ## [10] "That's not the right course for us."                                                                                                                                                                                                                                                                                     
-    ## [11] "The right course for us is to make sure that we go after the the people who are leaders of these various anti American groups and these these jihadists, but also help the Muslim world."                                                                                                                                
-    ## [12] "And so the right course for us, is working through our partners and with our own resources, to identify responsible parties within Syria, organize them, bring them together in a in a form of if not government, a form of of of council that can take the lead in Syria."                                              
-    ## [13] "And it's widely reported that drones are being used in drone strikes, and I support that and entirely, and feel the president was right to up the usage of that technology, and believe that we should continue to use it, to continue to go after the people that represent a threat to this nation and to our friends."
-    ## [14] "People can look it up, you're right."                                                                                                                                                                                                                                                                                    
-    ## [15] "Those are the kinds of choices that the American people face right now."                                                                                                                                                                                                                                                 
-    ## attr(,"coverage")
-    ## [1] 0.005921832
+    ## [1 of 15]
+    ## 
+    ## Right now, the CBO says up to twenty million people will lose their insurance
+    ## as Obamacare goes into effect next year.
+    ## 
+    ## 
+    ## ===================================
+    ## [2 of 15]
+    ## 
+    ## The federal government taking over health care for the entire nation and
+    ## whisking aside the tenth Amendment, which gives states the rights for these
+    ## kinds of things, is not the course for America to have a stronger, more vibrant
+    ## economy.
+    ## 
+    ## 
+    ## ===================================
+    ## [3 of 15]
+    ## 
+    ## And what we're seeing right now is, in my view, a a trickle down government
+    ## approach, which has government thinking it can do a better job than free people
+    ## pursuing their drea Miss And it's not working.
+    ## 
+    ## 
+    ## ===================================
+    ## [4 of 15]
+    ## 
+    ## And the challenges America faces right now look, the reason I'm in this race is
+    ## there are people that are really hurting today in this country.
+    ## 
+    ## 
+    ## ===================================
+    ## [5 of 15]
+    ## 
+    ## It's going to help people across the country that are unemployed right now.
+    ## 
+    ## 
+    ## ===================================
+    ## [6 of 15]
+    ## 
+    ## That's not the right course for America.
+    ## 
+    ## 
+    ## ===================================
+    ## [7 of 15]
+    ## 
+    ## The right course for America is to have a true all of the above policy.
+    ## 
+    ## 
+    ## ===================================
+    ## [8 of 15]
+    ## 
+    ## When you've got thousands of people right now in Iowa, right now in Colorado,
+    ## who are working, creating wind power with good paying manufacturing jobs, and
+    ## the Republican senator in that in Iowa is all for it, providing tax breaks to
+    ## help this work and Governor Romney says I'm opposed.
+    ## 
+    ## 
+    ## ===================================
+    ## [9 of 15]
+    ## 
+    ## When it comes to community colleges, we are setting up programs, including with
+    ## Nassau Community College, to retrain workers, including young people who may
+    ## have dropped out of school but now are getting another chance, training them
+    ## for the jobs that exist right now.
+    ## 
+    ## 
+    ## ===================================
+    ## [10 of 15]
+    ## 
+    ## That's not the right course for us.
+    ## 
+    ## 
+    ## ===================================
+    ## [11 of 15]
+    ## 
+    ## The right course for us is to make sure that we go after the the people who are
+    ## leaders of these various anti American groups and these these jihadists, but
+    ## also help the Muslim world.
+    ## 
+    ## 
+    ## ===================================
+    ## [12 of 15]
+    ## 
+    ## And so the right course for us, is working through our partners and with our
+    ## own resources, to identify responsible parties within Syria, organize them,
+    ## bring them together in a in a form of if not government, a form of of of
+    ## council that can take the lead in Syria.
+    ## 
+    ## 
+    ## ===================================
+    ## [13 of 15]
+    ## 
+    ## And it's widely reported that drones are being used in drone strikes, and I
+    ## support that and entirely, and feel the president was right to up the usage of
+    ## that technology, and believe that we should continue to use it, to continue to
+    ## go after the people that represent a threat to this nation and to our friends.
+    ## 
+    ## 
+    ## ===================================
+    ## [14 of 15]
+    ## 
+    ## People can look it up, you're right.
+    ## 
+    ## 
+    ## ===================================
+    ## [15 of 15]
+    ## 
+    ## Those are the kinds of choices that the American people face right now.
+    ## 
+    ## 
+    ## -----------------------------------
+    ## coverage = .00592  >>>  15 of 2,533
 
 We notice right away that the phrase *right course* appears often. We
 can create a search with just this expression.
@@ -1200,13 +1299,42 @@ model, making it not transferable to new, similar contexts.*
 
     search_term(untagged, "right course")
 
-    ## [1] "That's not the right course for America."                                                                                                                                                                                                                                  
-    ## [2] "The right course for America is to have a true all of the above policy."                                                                                                                                                                                                   
-    ## [3] "That's not the right course for us."                                                                                                                                                                                                                                       
-    ## [4] "The right course for us is to make sure that we go after the the people who are leaders of these various anti American groups and these these jihadists, but also help the Muslim world."                                                                                  
-    ## [5] "And so the right course for us, is working through our partners and with our own resources, to identify responsible parties within Syria, organize them, bring them together in a in a form of if not government, a form of of of council that can take the lead in Syria."
-    ## attr(,"coverage")
-    ## [1] 0.001973944
+    ## [1 of 5]
+    ## 
+    ## That's not the right course for America.
+    ## 
+    ## 
+    ## ===================================
+    ## [2 of 5]
+    ## 
+    ## The right course for America is to have a true all of the above policy.
+    ## 
+    ## 
+    ## ===================================
+    ## [3 of 5]
+    ## 
+    ## That's not the right course for us.
+    ## 
+    ## 
+    ## ===================================
+    ## [4 of 5]
+    ## 
+    ## The right course for us is to make sure that we go after the the people who are
+    ## leaders of these various anti American groups and these these jihadists, but
+    ## also help the Muslim world.
+    ## 
+    ## 
+    ## ===================================
+    ## [5 of 5]
+    ## 
+    ## And so the right course for us, is working through our partners and with our
+    ## own resources, to identify responsible parties within Syria, organize them,
+    ## bring them together in a in a form of if not government, a form of of of
+    ## council that can take the lead in Syria.
+    ## 
+    ## 
+    ## -----------------------------------
+    ## coverage = .00197  >>>  5 of 2,533
 
 Based on the `frequent_terms` output above, the word *jobs* also seems
 important. Again, we use the `search_term` + `frequent_terms` combo to
@@ -1245,69 +1373,309 @@ grouped-or regex as shown below.
     ## Where do `jobs` and `create` collocate?
     search_term(untagged, colo("jobs", "create")) 
 
-    ##  [1] "If I'm president I will create help create twelve million new jobs in this country with rising incomes."                                                                                                                                                                     
-    ##  [2] "I know what it takes to create good jobs again."                                                                                                                                                                                                                             
-    ##  [3] "And what I want to do, is build on the five million jobs that we've created over the last thirty months in the private sector alone."                                                                                                                                        
-    ##  [4] "It's going to help those families, and it's going to create incentives to start growing jobs again in this country."                                                                                                                                                         
-    ##  [5] "We created twenty three million new jobs."                                                                                                                                                                                                                                   
-    ##  [6] "two million new jobs created."                                                                                                                                                                                                                                               
-    ##  [7] "We've created five million jobs, and gone from eight hundred jobs a month being lost, and we are making progress."                                                                                                                                                           
-    ##  [8] "He keeps saying, Look, I've created five million jobs."                                                                                                                                                                                                                      
-    ##  [9] "eight percent, between that period the end of that recession and the equivalent of time to today, Ronald Reagan's recovery created twice as many jobs as this president's recovery."                                                                                         
-    ## [10] "This is the way we're going to create jobs in this country."                                                                                                                                                                                                                 
-    ## [11] "We have to be competitive if we're going to create more jobs here."                                                                                                                                                                                                          
-    ## [12] "We need to create jobs here."                                                                                                                                                                                                                                                
-    ## [13] "And it's estimated that that will create eight hundred thousand new jobs."                                                                                                                                                                                                   
-    ## [14] "That's not the way we're going to create jobs here."                                                                                                                                                                                                                         
-    ## [15] "The way we're going to create jobs here is not just to change our tax code, but also to double our exports."                                                                                                                                                                 
-    ## [16] "That's going to help to create jobs here."                                                                                                                                                                                                                                   
-    ## [17] "Government does not create jobs."                                                                                                                                                                                                                                            
-    ## [18] "Government does not create jobs."                                                                                                                                                                                                                                            
-    ## [19] "Barry, I think a lot of this campaign, maybe over the last four years, has been devoted to this nation that I think government creates jobs, that that somehow is the answer."                                                                                               
-    ## [20] "And when it comes to our economy here at home, I know what it takes to create twelve million new jobs and rising take home pay."                                                                                                                                             
-    ## [21] "And Governor Romney wants to take us back to those policies, a foreign policy that's wrong and reckless, economic policies that won't create jobs, won't reduce our deficit, but will make sure that folks at the very top don't have to play by the same rules that you do."
-    ## attr(,"coverage")
-    ## [1] 0.008290565
+    ## [1 of 21]
+    ## 
+    ## If I'm president I will create help create twelve million new jobs in this
+    ## country with rising incomes.
+    ## 
+    ## 
+    ## ===================================
+    ## [2 of 21]
+    ## 
+    ## I know what it takes to create good jobs again.
+    ## 
+    ## 
+    ## ===================================
+    ## [3 of 21]
+    ## 
+    ## And what I want to do, is build on the five million jobs that we've created
+    ## over the last thirty months in the private sector alone.
+    ## 
+    ## 
+    ## ===================================
+    ## [4 of 21]
+    ## 
+    ## It's going to help those families, and it's going to create incentives to start
+    ## growing jobs again in this country.
+    ## 
+    ## 
+    ## ===================================
+    ## [5 of 21]
+    ## 
+    ## We created twenty three million new jobs.
+    ## 
+    ## 
+    ## ===================================
+    ## [6 of 21]
+    ## 
+    ## two million new jobs created.
+    ## 
+    ## 
+    ## ===================================
+    ## [7 of 21]
+    ## 
+    ## We've created five million jobs, and gone from eight hundred jobs a month being
+    ## lost, and we are making progress.
+    ## 
+    ## 
+    ## ===================================
+    ## [8 of 21]
+    ## 
+    ## He keeps saying, Look, I've created five million jobs.
+    ## 
+    ## 
+    ## ===================================
+    ## [9 of 21]
+    ## 
+    ## eight percent, between that period the end of that recession and the equivalent
+    ## of time to today, Ronald Reagan's recovery created twice as many jobs as this
+    ## president's recovery.
+    ## 
+    ## 
+    ## ===================================
+    ## [10 of 21]
+    ## 
+    ## This is the way we're going to create jobs in this country.
+    ## 
+    ## 
+    ## ===================================
+    ## [11 of 21]
+    ## 
+    ## We have to be competitive if we're going to create more jobs here.
+    ## 
+    ## 
+    ## ===================================
+    ## [12 of 21]
+    ## 
+    ## We need to create jobs here.
+    ## 
+    ## 
+    ## ===================================
+    ## [13 of 21]
+    ## 
+    ## And it's estimated that that will create eight hundred thousand new jobs.
+    ## 
+    ## 
+    ## ===================================
+    ## [14 of 21]
+    ## 
+    ## That's not the way we're going to create jobs here.
+    ## 
+    ## 
+    ## ===================================
+    ## [15 of 21]
+    ## 
+    ## The way we're going to create jobs here is not just to change our tax code, but
+    ## also to double our exports.
+    ## 
+    ## 
+    ## ===================================
+    ## [16 of 21]
+    ## 
+    ## That's going to help to create jobs here.
+    ## 
+    ## 
+    ## ===================================
+    ## [17 of 21]
+    ## 
+    ## Government does not create jobs.
+    ## 
+    ## 
+    ## ===================================
+    ## [18 of 21]
+    ## 
+    ## Government does not create jobs.
+    ## 
+    ## 
+    ## ===================================
+    ## [19 of 21]
+    ## 
+    ## Barry, I think a lot of this campaign, maybe over the last four years, has been
+    ## devoted to this nation that I think government creates jobs, that that somehow
+    ## is the answer.
+    ## 
+    ## 
+    ## ===================================
+    ## [20 of 21]
+    ## 
+    ## And when it comes to our economy here at home, I know what it takes to create
+    ## twelve million new jobs and rising take home pay.
+    ## 
+    ## 
+    ## ===================================
+    ## [21 of 21]
+    ## 
+    ## And Governor Romney wants to take us back to those policies, a foreign policy
+    ## that's wrong and reckless, economic policies that won't create jobs, won't
+    ## reduce our deficit, but will make sure that folks at the very top don't have to
+    ## play by the same rules that you do.
+    ## 
+    ## 
+    ## -----------------------------------
+    ## coverage = .00829  >>>  21 of 2,533
 
     ## Where do `jobs`, `create`,  and the word `not` collocate?
     search_term(untagged, colo("jobs", "create", "(not|'nt)")) 
 
-    ## [1] "That's not the way we're going to create jobs here."                                                        
-    ## [2] "The way we're going to create jobs here is not just to change our tax code, but also to double our exports."
-    ## [3] "Government does not create jobs."                                                                           
-    ## [4] "Government does not create jobs."                                                                           
-    ## attr(,"coverage")
-    ## [1] 0.001579155
+    ## [1 of 4]
+    ## 
+    ## That's not the way we're going to create jobs here.
+    ## 
+    ## 
+    ## ===================================
+    ## [2 of 4]
+    ## 
+    ## The way we're going to create jobs here is not just to change our tax code, but
+    ## also to double our exports.
+    ## 
+    ## 
+    ## ===================================
+    ## [3 of 4]
+    ## 
+    ## Government does not create jobs.
+    ## 
+    ## 
+    ## ===================================
+    ## [4 of 4]
+    ## 
+    ## Government does not create jobs.
+    ## 
+    ## 
+    ## -----------------------------------
+    ## coverage = .00158  >>>  4 of 2,533
 
     ## Where do `jobs` and`create` collocate without a `not` word?
     search_term(untagged, colo("jobs", "create", not = "(not|'nt)")) 
 
-    ##  [1] "If I'm president I will create help create twelve million new jobs in this country with rising incomes."                                                                                                                                                                     
-    ##  [2] "I know what it takes to create good jobs again."                                                                                                                                                                                                                             
-    ##  [3] "And what I want to do, is build on the five million jobs that we've created over the last thirty months in the private sector alone."                                                                                                                                        
-    ##  [4] "It's going to help those families, and it's going to create incentives to start growing jobs again in this country."                                                                                                                                                         
-    ##  [5] "We created twenty three million new jobs."                                                                                                                                                                                                                                   
-    ##  [6] "two million new jobs created."                                                                                                                                                                                                                                               
-    ##  [7] "We've created five million jobs, and gone from eight hundred jobs a month being lost, and we are making progress."                                                                                                                                                           
-    ##  [8] "He keeps saying, Look, I've created five million jobs."                                                                                                                                                                                                                      
-    ##  [9] "eight percent, between that period the end of that recession and the equivalent of time to today, Ronald Reagan's recovery created twice as many jobs as this president's recovery."                                                                                         
-    ## [10] "This is the way we're going to create jobs in this country."                                                                                                                                                                                                                 
-    ## [11] "We have to be competitive if we're going to create more jobs here."                                                                                                                                                                                                          
-    ## [12] "We need to create jobs here."                                                                                                                                                                                                                                                
-    ## [13] "And it's estimated that that will create eight hundred thousand new jobs."                                                                                                                                                                                                   
-    ## [14] "That's going to help to create jobs here."                                                                                                                                                                                                                                   
-    ## [15] "Barry, I think a lot of this campaign, maybe over the last four years, has been devoted to this nation that I think government creates jobs, that that somehow is the answer."                                                                                               
-    ## [16] "And when it comes to our economy here at home, I know what it takes to create twelve million new jobs and rising take home pay."                                                                                                                                             
-    ## [17] "And Governor Romney wants to take us back to those policies, a foreign policy that's wrong and reckless, economic policies that won't create jobs, won't reduce our deficit, but will make sure that folks at the very top don't have to play by the same rules that you do."
-    ## attr(,"coverage")
-    ## [1] 0.006711409
+    ## [1 of 17]
+    ## 
+    ## If I'm president I will create help create twelve million new jobs in this
+    ## country with rising incomes.
+    ## 
+    ## 
+    ## ===================================
+    ## [2 of 17]
+    ## 
+    ## I know what it takes to create good jobs again.
+    ## 
+    ## 
+    ## ===================================
+    ## [3 of 17]
+    ## 
+    ## And what I want to do, is build on the five million jobs that we've created
+    ## over the last thirty months in the private sector alone.
+    ## 
+    ## 
+    ## ===================================
+    ## [4 of 17]
+    ## 
+    ## It's going to help those families, and it's going to create incentives to start
+    ## growing jobs again in this country.
+    ## 
+    ## 
+    ## ===================================
+    ## [5 of 17]
+    ## 
+    ## We created twenty three million new jobs.
+    ## 
+    ## 
+    ## ===================================
+    ## [6 of 17]
+    ## 
+    ## two million new jobs created.
+    ## 
+    ## 
+    ## ===================================
+    ## [7 of 17]
+    ## 
+    ## We've created five million jobs, and gone from eight hundred jobs a month being
+    ## lost, and we are making progress.
+    ## 
+    ## 
+    ## ===================================
+    ## [8 of 17]
+    ## 
+    ## He keeps saying, Look, I've created five million jobs.
+    ## 
+    ## 
+    ## ===================================
+    ## [9 of 17]
+    ## 
+    ## eight percent, between that period the end of that recession and the equivalent
+    ## of time to today, Ronald Reagan's recovery created twice as many jobs as this
+    ## president's recovery.
+    ## 
+    ## 
+    ## ===================================
+    ## [10 of 17]
+    ## 
+    ## This is the way we're going to create jobs in this country.
+    ## 
+    ## 
+    ## ===================================
+    ## [11 of 17]
+    ## 
+    ## We have to be competitive if we're going to create more jobs here.
+    ## 
+    ## 
+    ## ===================================
+    ## [12 of 17]
+    ## 
+    ## We need to create jobs here.
+    ## 
+    ## 
+    ## ===================================
+    ## [13 of 17]
+    ## 
+    ## And it's estimated that that will create eight hundred thousand new jobs.
+    ## 
+    ## 
+    ## ===================================
+    ## [14 of 17]
+    ## 
+    ## That's going to help to create jobs here.
+    ## 
+    ## 
+    ## ===================================
+    ## [15 of 17]
+    ## 
+    ## Barry, I think a lot of this campaign, maybe over the last four years, has been
+    ## devoted to this nation that I think government creates jobs, that that somehow
+    ## is the answer.
+    ## 
+    ## 
+    ## ===================================
+    ## [16 of 17]
+    ## 
+    ## And when it comes to our economy here at home, I know what it takes to create
+    ## twelve million new jobs and rising take home pay.
+    ## 
+    ## 
+    ## ===================================
+    ## [17 of 17]
+    ## 
+    ## And Governor Romney wants to take us back to those policies, a foreign policy
+    ## that's wrong and reckless, economic policies that won't create jobs, won't
+    ## reduce our deficit, but will make sure that folks at the very top don't have to
+    ## play by the same rules that you do.
+    ## 
+    ## 
+    ## -----------------------------------
+    ## coverage = .00671  >>>  17 of 2,533
 
     ## Where do `jobs`, `romney`, and `create` collocate?
     search_term(untagged, colo("jobs", "create", "romney")) 
 
-    ## [1] "And Governor Romney wants to take us back to those policies, a foreign policy that's wrong and reckless, economic policies that won't create jobs, won't reduce our deficit, but will make sure that folks at the very top don't have to play by the same rules that you do."
-    ## attr(,"coverage")
-    ## [1] 0.0003947888
+    ## [1 of 1]
+    ## 
+    ## And Governor Romney wants to take us back to those policies, a foreign policy
+    ## that's wrong and reckless, economic policies that won't create jobs, won't
+    ## reduce our deficit, but will make sure that folks at the very top don't have to
+    ## play by the same rules that you do.
+    ## 
+    ## 
+    ## -----------------------------------
+    ## coverage = .00039  >>>  1 of 2,533
 
 Here is one more example with `colo` for the words *jobs* and
 *overseas*. The user may want to quickly test and then transfer the
@@ -1318,16 +1686,69 @@ flow.
 
     search_term(untagged, colo("jobs", "overseas")) 
 
-    ## [1] "And everything that I've tried to do, and everything that I'm now proposing for the next four years in terms of improving our education system or developing American energy or making sure that we're closing loopholes for companies that are shipping jobs overseas and focusing on small businesses and companies that are creating jobs here in the United States, or closing our deficit in a responsible, balanced way that allows us to invest in our future."
-    ## [2] "You can ship jobs overseas and get tax breaks for it."                                                                                                                                                                                                                                                                                                                                                                                                                
-    ## [3] "The outsourcing of American jobs overseas has taken a toll on our economy."                                                                                                                                                                                                                                                                                                                                                                                           
-    ## [4] "Making sure that we're bringing manufacturing back to our shores so that we're creating jobs here, as we've done with the auto industry, not rewarding companies that are shipping jobs overseas."                                                                                                                                                                                                                                                                    
-    ## [5] "I know Americans had seen jobs being shipped overseas; businesses and workers not getting a level playing field when it came to trade."                                                                                                                                                                                                                                                                                                                               
-    ## [6] "Having a tax code that rewards companies that are shipping jobs overseas instead of companies that are investing here in the United States, that will not make us more competitive."                                                                                                                                                                                                                                                                                  
-    ## [7] "And the one thing that I'm absolutely clear about is that after a decade in which we saw drift, jobs being shipped overseas, nobody championing American workers and American businesses, we've now begun to make some real progress."                                                                                                                                                                                                                                
-    ## [8] "And I've put forward a plan to make sure that we're bringing manufacturing jobs back to our shores by rewarding companies and small businesses that are investing here, not overseas."                                                                                                                                                                                                                                                                                
-    ## attr(,"coverage")
-    ## [1] 0.00315831
+    ## [1 of 8]
+    ## 
+    ## And everything that I've tried to do, and everything that I'm now proposing for
+    ## the next four years in terms of improving our education system or developing
+    ## American energy or making sure that we're closing loopholes for companies that
+    ## are shipping jobs overseas and focusing on small businesses and companies that
+    ## are creating jobs here in the United States, or closing our deficit in a
+    ## responsible, balanced way that allows us to invest in our future.
+    ## 
+    ## 
+    ## ===================================
+    ## [2 of 8]
+    ## 
+    ## You can ship jobs overseas and get tax breaks for it.
+    ## 
+    ## 
+    ## ===================================
+    ## [3 of 8]
+    ## 
+    ## The outsourcing of American jobs overseas has taken a toll on our economy.
+    ## 
+    ## 
+    ## ===================================
+    ## [4 of 8]
+    ## 
+    ## Making sure that we're bringing manufacturing back to our shores so that we're
+    ## creating jobs here, as we've done with the auto industry, not rewarding
+    ## companies that are shipping jobs overseas.
+    ## 
+    ## 
+    ## ===================================
+    ## [5 of 8]
+    ## 
+    ## I know Americans had seen jobs being shipped overseas; businesses and workers
+    ## not getting a level playing field when it came to trade.
+    ## 
+    ## 
+    ## ===================================
+    ## [6 of 8]
+    ## 
+    ## Having a tax code that rewards companies that are shipping jobs overseas
+    ## instead of companies that are investing here in the United States, that will
+    ## not make us more competitive.
+    ## 
+    ## 
+    ## ===================================
+    ## [7 of 8]
+    ## 
+    ## And the one thing that I'm absolutely clear about is that after a decade in
+    ## which we saw drift, jobs being shipped overseas, nobody championing American
+    ## workers and American businesses, we've now begun to make some real progress.
+    ## 
+    ## 
+    ## ===================================
+    ## [8 of 8]
+    ## 
+    ## And I've put forward a plan to make sure that we're bringing manufacturing jobs
+    ## back to our shores by rewarding companies and small businesses that are
+    ## investing here, not overseas.
+    ## 
+    ## 
+    ## -----------------------------------
+    ## coverage = .00316  >>>  8 of 2,533
 
 The researcher uses an iterative process to continue to build the
 regular expression list. The `term_count` function builds the matrix of
@@ -1366,10 +1787,11 @@ tags is to use an [Upset plot](http://caleydo.org/tools/upset/). The
 `plot_upset` function wraps `UpSetR::upset` and is made to handle
 `term_count` objects directly. Upset plots are complex and require study
 of the method in order to interpret the results
-(<http://caleydo.org/tools/upset>). The time invested in learning this
-plot type can be very fruitful in utilizing a technique that scales to
-the types of data sets that **termco** outputs. This tool can be useful
-in order to understand overlap and thus improve discrimination.
+(<a href="http://caleydo.org/tools/upset" class="uri">http://caleydo.org/tools/upset</a>).
+The time invested in learning this plot type can be very fruitful in
+utilizing a technique that scales to the types of data sets that
+**termco** outputs. This tool can be useful in order to understand
+overlap and thus improve discrimination.
 
     plot_upset(model) 
 
@@ -1379,7 +1801,7 @@ Categorizing/Tagging
 --------------------
 
 The `classify` function enables the researcher to apply *n* tags to each
-text element. Depending on the text and the regular expression list's
+text element. Depending on the text and the regular expression list’s
 ability, multiple tags may be applied to a text. The `n` argument allows
 the maximum number of tags to be set though the function does not
 guarantee this many (or any) tags will be assigned.
@@ -1414,12 +1836,12 @@ Evaluation: Accuracy
 ### Pre Coded Data
 
 The `evaluate` function is a more formal method of evaluation than
-`validate_model`. The `evaluate` function yields a test a model's
+`validate_model`. The `evaluate` function yields a test a model’s
 accuracy, precision, and recall using macro and micro averages of the
 confusion matrices for each tag as outlined by [Dan Jurafsky & Chris
 Manning](https://www.youtube.com/watch?v=OwwdYHWRB5E&index=31&list=PL6397E4B26D00A269).
 The function requires a known, human coded sample. In the example below
-I randomly generate "known human coded tagged" vector. Obviously, this
+I randomly generate “known human coded tagged” vector. Obviously, this
 is for demonstration purposes. The model outputs a pretty printing of a
 list. Note that if a larger, known tagging set of data is available the
 user may want to strongly consider machine learning models (see:
@@ -1460,7 +1882,7 @@ scores behave:
     ##   Precision:    .909
     ##   Recall:       .909
 
-Below we create fake "known" tags to test `evaluate` with real data
+Below we create fake “known” tags to test `evaluate` with real data
 (though the comparison is fabricated).
 
     mod1 <- presidential_debates_2012 %>%
@@ -1513,7 +1935,7 @@ accuracy of the tag to the text. The `assign_validation_task` generates
 an external file(s) for n coders for redundancy of code assessments.
 This may be of use in [Mechanical
 Turk](https://www.mturk.com/mturk/welcome) type applications. The
-example below demonstrates `validate_model`'s `print`/`summary` and
+example below demonstrates `validate_model`’s `print`/`summary` and
 `plot` outputs.
 
     validated <- model %>%
