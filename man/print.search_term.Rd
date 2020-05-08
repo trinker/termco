@@ -4,9 +4,14 @@
 \alias{print.search_term}
 \title{Prints a search_term Object}
 \usage{
-\method{print}{search_term}(x, n = Inf, width = 80,
-  sep = "\\n\\n\\n===================================\\n", digits = 5,
-  ...)
+\method{print}{search_term}(
+  x,
+  n = Inf,
+  width = 80,
+  sep = "\\n\\n\\n===================================\\n",
+  digits = 5,
+  ...
+)
 }
 \arguments{
 \item{x}{The search_term object.}

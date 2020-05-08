@@ -4,9 +4,18 @@
 \alias{token_count}
 \title{Count Fixed Tokens}
 \usage{
-token_count(text.var, grouping.var = NULL, token.list, stem = FALSE,
-  keep.punctuation = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE,
-  TRUE), group.names, meta.sep = "__", meta.names = c("meta"), ...)
+token_count(
+  text.var,
+  grouping.var = NULL,
+  token.list,
+  stem = FALSE,
+  keep.punctuation = TRUE,
+  pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
+  group.names,
+  meta.sep = "__",
+  meta.names = c("meta"),
+  ...
+)
 }
 \arguments{
 \item{text.var}{The text string variable.}

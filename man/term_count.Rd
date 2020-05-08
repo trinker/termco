@@ -4,9 +4,17 @@
 \alias{term_count}
 \title{Search For and Count Terms}
 \usage{
-term_count(text.var, grouping.var = NULL, term.list,
-  ignore.case = TRUE, pretty = ifelse(isTRUE(grouping.var), FALSE,
-  TRUE), group.names, meta.sep = "__", meta.names = c("meta"), ...)
+term_count(
+  text.var,
+  grouping.var = NULL,
+  term.list,
+  ignore.case = TRUE,
+  pretty = ifelse(isTRUE(grouping.var), FALSE, TRUE),
+  group.names,
+  meta.sep = "__",
+  meta.names = c("meta"),
+  ...
+)
 }
 \arguments{
 \item{text.var}{The text string variable.}
@@ -189,13 +197,13 @@ x <- c(
     "Hello World (V. Raptor, 1986) bye",
     "Narcissism is not dead (Rinker, 2014)",
     "The R Core Team (2014) has many members.",
-    paste("Bunn (2005) said, \\"As for elegance, R is refined, tasteful, and",
-        "beautiful. When I grow up, I want to marry R.\\""),
+    paste("Bunn (2005) said, \"As for elegance, R is refined, tasteful, and",
+        "beautiful. When I grow up, I want to marry R.\""),
     "It is wrong to blame ANY tool for our own shortcomings (Baer, 2005).",
     "Wickham's (in press) Tidy Data should be out soon.",
     "Rinker's (n.d.) dissertation not so much.",
     "I always consult xkcd comics for guidance (Foo, 2012; Bar, 2014).",
-    "Uwe Ligges (2007) says, \\"RAM is cheap and thinking hurts\\"",
+    "Uwe Ligges (2007) says, \"RAM is cheap and thinking hurts\"",
     " Mr. Bean bought 2 tickets 2-613-213-4567 or 5555555555 call either one",
     "43 Butter Rd, Brossard QC K0A 3P0 - 613 213 4567", 
     "Please contact Mr. Bean (613)2134567",

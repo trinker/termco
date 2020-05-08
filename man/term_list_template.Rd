@@ -4,9 +4,14 @@
 \alias{term_list_template}
 \title{Generate a Basic Term List Template}
 \usage{
-term_list_template(categories = NULL, path = "models/categories.R",
-  hierarchical = TRUE, overwrite = FALSE,
-  copy2clip = getOption("termco.copy2clip"), ...)
+term_list_template(
+  categories = NULL,
+  path = "models/categories.R",
+  hierarchical = TRUE,
+  overwrite = FALSE,
+  copy2clip = getOption("termco.copy2clip"),
+  ...
+)
 }
 \arguments{
 \item{categories}{A vector of categories (names corresponding to the regexes).}

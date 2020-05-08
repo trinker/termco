@@ -7,8 +7,15 @@
 \usage{
 validate_model(x, n = 20, width = 50, tags = 1, filter = NULL, ...)
 
-assign_validation_task(x, n = 20, checks = 1, coders = "coder",
-  out = NULL, as.list = TRUE, ...)
+assign_validation_task(
+  x,
+  n = 20,
+  checks = 1,
+  coders = "coder",
+  out = NULL,
+  as.list = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{A \code{term_count} model object (i.e., \code{grouping.var = TRUE}

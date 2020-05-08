@@ -4,8 +4,12 @@
 \alias{probe_colo_list}
 \title{Generate List of Exploration \code{search_term_collocations} Function Calls}
 \usage{
-probe_colo_list(terms, data.name,
-  copy2clip = getOption("termco.copy2clip"), ldots = "")
+probe_colo_list(
+  terms,
+  data.name,
+  copy2clip = getOption("termco.copy2clip"),
+  ldots = ""
+)
 }
 \arguments{
 \item{terms}{A vector of regex terms to explore (often populated from
@@ -55,7 +59,8 @@ probe_colo_list(terms, "txt", copy2clip = TRUE)
 }
 }
 \seealso{
-Other probe functions: \code{\link{probe_colo_plot_list}},
-  \code{\link{probe_list}}
+Other probe functions: 
+\code{\link{probe_colo_plot_list}()},
+\code{\link{probe_list}()}
 }
 \concept{probe functions}

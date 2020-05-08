@@ -4,8 +4,7 @@
 \alias{summary.validate_model}
 \title{Summary of an validate_model Object}
 \usage{
-\method{summary}{validate_model}(object, adjust.discrete = FALSE,
-  ordered = TRUE, ...)
+\method{summary}{validate_model}(object, adjust.discrete = FALSE, ordered = TRUE, ...)
 }
 \arguments{
 \item{object}{An validate_model object.}

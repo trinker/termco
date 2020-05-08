@@ -4,8 +4,7 @@
 \alias{plot.term_loc}
 \title{Plots a term_loc Object}
 \usage{
-\method{plot}{term_loc}(x, as.cloud = FALSE, random.order = FALSE,
-  rot.per = 0, ...)
+\method{plot}{term_loc}(x, as.cloud = FALSE, random.order = FALSE, rot.per = 0, ...)
 }
 \arguments{
 \item{x}{The \code{term_loc} object.}

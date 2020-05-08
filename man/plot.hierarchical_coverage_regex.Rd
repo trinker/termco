@@ -4,8 +4,7 @@
 \alias{plot.hierarchical_coverage_regex}
 \title{Plots a hierarchical_coverage_regex Object}
 \usage{
-\method{plot}{hierarchical_coverage_regex}(x, use.names = nrow(x) <= 30,
-  mark.one = FALSE, sort = FALSE, ...)
+\method{plot}{hierarchical_coverage_regex}(x, use.names = nrow(x) <= 30, mark.one = FALSE, sort = FALSE, ...)
 }
 \arguments{
 \item{x}{A hierarchical_coverage_regex object.}

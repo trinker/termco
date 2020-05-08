@@ -4,8 +4,14 @@
 \alias{hierarchical_coverage_term}
 \title{Hierarchical Coverage of Terms}
 \usage{
-hierarchical_coverage_term(text.var, terms, bound = TRUE,
-  ignore.case = TRUE, sort = FALSE, ...)
+hierarchical_coverage_term(
+  text.var,
+  terms,
+  bound = TRUE,
+  ignore.case = TRUE,
+  sort = FALSE,
+  ...
+)
 }
 \arguments{
 \item{text.var}{A text vector (vector of strings).}
@@ -46,7 +52,8 @@ plot(out2, use.terms = TRUE)
 plot(out2, use.terms = TRUE, mark.one = TRUE)
 }
 \seealso{
-Other hierarchical_coverage functions: \code{\link{hierarchical_coverage_regex}}
+Other hierarchical_coverage functions: 
+\code{\link{hierarchical_coverage_regex}()}
 }
 \author{
 Steve T. Simpson and Tyler Rinker <tyler.rinker@gmail.com>.

@@ -5,10 +5,20 @@
 \alias{all_words}
 \title{N Most Frequent Terms}
 \usage{
-frequent_terms(text.var, n = 20,
-  stopwords = stopwords::stopwords("english"), min.freq = NULL,
-  min.char = 4, max.char = Inf, stem = FALSE, language = "porter",
-  strip = TRUE, strip.regex = "[^a-z' ]", alphabetical = FALSE, ...)
+frequent_terms(
+  text.var,
+  n = 20,
+  stopwords = stopwords::stopwords("english"),
+  min.freq = NULL,
+  min.char = 4,
+  max.char = Inf,
+  stem = FALSE,
+  language = "porter",
+  strip = TRUE,
+  strip.regex = "[^a-z' ]",
+  alphabetical = FALSE,
+  ...
+)
 
 all_words(text.var, stopwords = NULL, min.char = 0, ...)
 }

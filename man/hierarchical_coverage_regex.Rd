@@ -4,8 +4,14 @@
 \alias{hierarchical_coverage_regex}
 \title{Hierarchical Coverage of Regexes}
 \usage{
-hierarchical_coverage_regex(text.var, term.list, ignore.case = TRUE,
-  sort = FALSE, verbose = TRUE, ...)
+hierarchical_coverage_regex(
+  text.var,
+  term.list,
+  ignore.case = TRUE,
+  sort = FALSE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{text.var}{A text vector (vector of strings).}
@@ -53,7 +59,8 @@ plot(out, mark.one = TRUE)
 hierarchical_coverage_regex(sam_i_am, unlist(regs, use.names = FALSE), ignore.case=FALSE)
 }
 \seealso{
-Other hierarchical_coverage functions: \code{\link{hierarchical_coverage_term}}
+Other hierarchical_coverage functions: 
+\code{\link{hierarchical_coverage_term}()}
 }
 \concept{hierarchical_coverage functions}
 \keyword{coverage}

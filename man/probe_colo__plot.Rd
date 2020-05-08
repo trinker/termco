@@ -5,12 +5,21 @@
 \alias{probe_colo_plot}
 \title{Generate List of Exploration \code{search_term} + \code{frequent_terms} + \code{plot} Function Calls}
 \usage{
-probe_colo_plot_list(terms, data.name,
-  copy2clip = getOption("termco.copy2clip"), ldots = "")
+probe_colo_plot_list(
+  terms,
+  data.name,
+  copy2clip = getOption("termco.copy2clip"),
+  ldots = ""
+)
 
-probe_colo_plot(terms, data, file = sprintf("\%scolo_term_plots.pdf",
-  ifelse(dir.exists("plots/"), "plots", "")), width = 5.5, height = 7,
-  ...)
+probe_colo_plot(
+  terms,
+  data,
+  file = sprintf("\%scolo_term_plots.pdf", ifelse(dir.exists("plots/"), "plots", "")),
+  width = 5.5,
+  height = 7,
+  ...
+)
 }
 \arguments{
 \item{terms}{A vector of regex terms to explore (often populated from
@@ -83,10 +92,12 @@ probe_colo_plot(terms, txt)
 }
 }
 \seealso{
-Other probe functions: \code{\link{probe_colo_list}},
-  \code{\link{probe_list}}
+Other probe functions: 
+\code{\link{probe_colo_list}()},
+\code{\link{probe_list}()}
 
-Other probe functions: \code{\link{probe_colo_list}},
-  \code{\link{probe_list}}
+Other probe functions: 
+\code{\link{probe_colo_list}()},
+\code{\link{probe_list}()}
 }
 \concept{probe functions}

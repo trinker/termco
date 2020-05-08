@@ -15,7 +15,7 @@ Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
 License: MIT + file LICENSE
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 ByteCompile: true
 BugReports: https://github.com/trinker/termco/issues?state=open
 URL: https://github.com/trinker/termco

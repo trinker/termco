@@ -4,9 +4,13 @@
 \alias{classification_template}
 \title{Generate a Basic Classification Analysis Template}
 \usage{
-classification_template(path = "scripts/02_classification.R",
-  file.ext = "fst", categories.file = "models/categories.R",
-  verbose = TRUE, ...)
+classification_template(
+  path = "scripts/02_classification.R",
+  file.ext = "fst",
+  categories.file = "models/categories.R",
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{path}{Path to classification template script.}

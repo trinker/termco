@@ -43,7 +43,8 @@ probe_list(terms, "txt", copy2clip = TRUE)
 }
 }
 \seealso{
-Other probe functions: \code{\link{probe_colo_list}},
-  \code{\link{probe_colo_plot_list}}
+Other probe functions: 
+\code{\link{probe_colo_list}()},
+\code{\link{probe_colo_plot_list}()}
 }
 \concept{probe functions}

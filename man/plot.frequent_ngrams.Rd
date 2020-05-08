@@ -4,8 +4,7 @@
 \alias{plot.frequent_ngrams}
 \title{Plots a frequent_ngrams Object}
 \usage{
-\method{plot}{frequent_ngrams}(x, drop.redundant.yaxis.text = TRUE,
-  plot = TRUE, ...)
+\method{plot}{frequent_ngrams}(x, drop.redundant.yaxis.text = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{x}{The \code{frequent_ngrams} object.}

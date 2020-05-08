@@ -23,7 +23,7 @@ Extract the words from a text that match a regular expression.
 match_word(
     text.var = c(
         'the dog is todo them funny',
-        'I\\'d wait to eat the sandwich.',
+        'I\'d wait to eat the sandwich.',
         'the dog ate the sandwiches'
     ),
     term.list = c('the', 'sandwich', 'do', '^do', '\\\\bdo', 'do$')
@@ -32,7 +32,7 @@ match_word(
 match_word(
     text.var = c(
         'the dog is todo them funny',
-        'I\\'d wait to eat the sandwich.',
+        'I\'d wait to eat the sandwich.',
         'the dog ate the sandwiches'
     ),
     term.list = list(

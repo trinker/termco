@@ -31,7 +31,7 @@ colo <- function(..., not=NULL, copy2clip = getOption("termco.copy2clip")) {
     if (is.null(not)){
           if (length(c(...)) == 1) {
               if (isTRUE(copy2clip)) {
-                  clipr::write_clip(paste0("\"", c(...)[[1]], "\""))
+                  clipr::write_clip(gsub("\\", "\\\\", paste0("\"", c(...)[[1]], "\""), fixed=TRUE))
               }
               return(c(...)[[1]])
           }

@@ -4,8 +4,7 @@
 \alias{plot.frequent_terms}
 \title{Plots a frequent_terms Object}
 \usage{
-\method{plot}{frequent_terms}(x, n, as.cloud = FALSE,
-  random.order = FALSE, rot.per = 0, ...)
+\method{plot}{frequent_terms}(x, n, as.cloud = FALSE, random.order = FALSE, rot.per = 0, ...)
 }
 \arguments{
 \item{x}{The \code{frequent_terms} object.}

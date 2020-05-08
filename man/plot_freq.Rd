@@ -4,8 +4,15 @@
 \alias{plot_freq}
 \title{Vertical Bar Plot of Frequencies of Counts}
 \usage{
-plot_freq(x, direct.label = TRUE, size = 4, label.diff, digits = 1,
-  top.diff.weight = 0.06, ...)
+plot_freq(
+  x,
+  direct.label = TRUE,
+  size = 4,
+  label.diff,
+  digits = 1,
+  top.diff.weight = 0.06,
+  ...
+)
 }
 \arguments{
 \item{x}{A vector or list of elements.}

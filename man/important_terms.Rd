@@ -4,10 +4,16 @@
 \alias{important_terms}
 \title{Top Min-Max Scaled TF-IDF terms}
 \usage{
-important_terms(text.var, n = 20,
-  stopwords = stopwords::stopwords("english"), stem = FALSE,
-  language = "porter", strip = TRUE, strip.regex = "[^A-Za-z' ]",
-  ...)
+important_terms(
+  text.var,
+  n = 20,
+  stopwords = stopwords::stopwords("english"),
+  stem = FALSE,
+  language = "porter",
+  strip = TRUE,
+  strip.regex = "[^A-Za-z' ]",
+  ...
+)
 }
 \arguments{
 \item{text.var}{A vector of character strings.}

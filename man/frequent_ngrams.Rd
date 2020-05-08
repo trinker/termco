@@ -4,10 +4,18 @@
 \alias{frequent_ngrams}
 \title{Ngram Collocations}
 \usage{
-frequent_ngrams(text.var, n = 20, gram.length = 2:3,
-  stopwords = stopwords::stopwords("english"), min.char = 4,
-  max.char = Inf, order.by = "frequency", stem = FALSE,
-  language = "porter", ...)
+frequent_ngrams(
+  text.var,
+  n = 20,
+  gram.length = 2:3,
+  stopwords = stopwords::stopwords("english"),
+  min.char = 4,
+  max.char = Inf,
+  order.by = "frequency",
+  stem = FALSE,
+  language = "porter",
+  ...
+)
 }
 \arguments{
 \item{text.var}{A vector of character strings.}

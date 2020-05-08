@@ -4,8 +4,7 @@
 \alias{plot.hierarchical_coverage_term}
 \title{Plots a hierarchical_coverage_term Object}
 \usage{
-\method{plot}{hierarchical_coverage_term}(x, use.terms = nrow(x) <= 30,
-  mark.one = FALSE, sort = FALSE, ...)
+\method{plot}{hierarchical_coverage_term}(x, use.terms = nrow(x) <= 30, mark.one = FALSE, sort = FALSE, ...)
 }
 \arguments{
 \item{x}{A hierarchical_coverage_term object.}

@@ -178,6 +178,19 @@ read_term_list <- function(path = 'models/categories.R', indices = NULL, term.li
                 offending_open_or_vect <- paste(paste0("Tier ", seq_along(open_or_list), '. ',open_or_list)[!is.na(open_or_list)], collapse = '\n')
                 warning(paste0('Open or statement [(i.e., `|)` unescaped pipe followed by a closing\n  group character] found in the following tiers & categories:\n\n', offending_open_or_vect))
             }
+            
+
+            single_escape_list <- unlist(lapply(cats, function(y) {
+                s_escape <- search_single_escape(y)
+                if (all(!s_escape)) return(NA)
+                paste(names(y)[s_escape], collapse = ', ')
+            }))
+
+            if (any(!is.na(single_escape_list ))) {
+                offending_single_escape <- paste(paste0("Tier ", seq_along(single_escape_list ), '. ', single_escape_list )[!is.na(single_escape_list )], collapse = '\n')
+                warning(paste0('Single slash B  [`\\b` instead of `\\\\b`] found in the following tiers & categories:\n\n', offending_single_escape))
+            }
+            
 
         },
         termco_unnested = {
@@ -360,6 +373,14 @@ search_open_or <- function(x, ...){
     grepl('(?<!\\\\)\\|\\)', x, perl = TRUE)
 
 }
+
+
+search_single_escape  <- function(x, ...){
+
+    grepl('\b', x, perl = TRUE)
+
+}
+
 
 ## json write double backslashes
 write_model <- function(term.list, path = 'models/categories_json.json', ...) {

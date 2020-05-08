@@ -4,8 +4,7 @@
 \alias{plot.ngram_collocations}
 \title{Plots a ngram_collocations Object}
 \usage{
-\method{plot}{ngram_collocations}(x, drop.redundant.yaxis.text = TRUE,
-  plot = TRUE, ...)
+\method{plot}{ngram_collocations}(x, drop.redundant.yaxis.text = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{x}{The \code{ngram_collocations} object.}

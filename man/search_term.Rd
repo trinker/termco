@@ -5,11 +5,22 @@
 \alias{search_term_which}
 \title{Search For Terms}
 \usage{
-search_term(text.var, term, exclude = NULL, and = NULL,
-  ignore.case = TRUE, ...)
+search_term(
+  text.var,
+  term,
+  exclude = NULL,
+  and = NULL,
+  ignore.case = TRUE,
+  ...
+)
 
-search_term_which(text.var, term, exclude = NULL, and = NULL,
-  ignore.case = TRUE)
+search_term_which(
+  text.var,
+  term,
+  exclude = NULL,
+  and = NULL,
+  ignore.case = TRUE
+)
 }
 \arguments{
 \item{text.var}{A vector of character strings.}

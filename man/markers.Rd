@@ -4,7 +4,9 @@
 \name{markers}
 \alias{markers}
 \title{Discourse Marker Search of Presidential Debates}
-\format{A data frame with 10 rows and 7 variables}
+\format{
+A data frame with 10 rows and 7 variables
+}
 \usage{
 data(markers)
 }

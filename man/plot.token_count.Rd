@@ -4,10 +4,18 @@
 \alias{plot.token_count}
 \title{Plots a token_count object}
 \usage{
-\method{plot}{token_count}(x, labels = FALSE, low = "white",
-  high = "red", grid = NA, label.color = "grey70", label.size = 3,
+\method{plot}{token_count}(
+  x,
+  labels = FALSE,
+  low = "white",
+  high = "red",
+  grid = NA,
+  label.color = "grey70",
+  label.size = 3,
   label.digits = if (weight == "count") {     0 } else {     2 },
-  weight = "percent", ...)
+  weight = "percent",
+  ...
+)
 }
 \arguments{
 \item{x}{The token_count object.}

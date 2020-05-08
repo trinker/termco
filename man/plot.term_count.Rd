@@ -4,10 +4,18 @@
 \alias{plot.term_count}
 \title{Plots a term_count object}
 \usage{
-\method{plot}{term_count}(x, labels = FALSE, low = "white",
-  high = "red", grid = NA, label.color = "grey70", label.size = 3,
+\method{plot}{term_count}(
+  x,
+  labels = FALSE,
+  low = "white",
+  high = "red",
+  grid = NA,
+  label.color = "grey70",
+  label.size = 3,
   label.digits = if (weight == "count") {     0 } else {     2 },
-  weight = "percent", ...)
+  weight = "percent",
+  ...
+)
 }
 \arguments{
 \item{x}{The term_count object.}

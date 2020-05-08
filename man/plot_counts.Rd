@@ -4,8 +4,15 @@
 \alias{plot_counts}
 \title{Horizontal Bar Plot of Group Counts}
 \usage{
-plot_counts(x, n = NULL, percent = TRUE, item.name = "Terms",
-  rev = FALSE, drop = TRUE, ...)
+plot_counts(
+  x,
+  n = NULL,
+  percent = TRUE,
+  item.name = "Terms",
+  rev = FALSE,
+  drop = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{A vector or list of elements.}

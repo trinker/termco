@@ -4,8 +4,7 @@
 \alias{plot.validate_model}
 \title{Plots a validate_model Object}
 \usage{
-\method{plot}{validate_model}(x, digits = 1, size = 0.65,
-  height = 0.3, ...)
+\method{plot}{validate_model}(x, digits = 1, size = 0.65, height = 0.3, ...)
 }
 \arguments{
 \item{x}{A validate_model object.}
