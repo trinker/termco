@@ -54,7 +54,7 @@ by \code{meta.sep}.}
 \item{\ldots}{ignored.}
 }
 \value{
-Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
+Returns a tibble object of term counts by
 grouping variable.
 }
 \description{
@@ -64,7 +64,7 @@ categories (themes) of grouped root terms/substrings.
 \note{
 Note that while a \code{\link[termco]{term_count}} object prints as a
 combination of integer counts and weighted (default percent of terms) in
-parenthesis the underlying object is actually a \code{\link[dplyr]{tbl_df}}
+parenthesis the underlying object is actually a tibble
 of integer term/substring counts.  The user can alter a
 \code{\link[termco]{term_count}} object to print as integer permanently using
 the \code{\link[termco]{as_count}} function.  A percent \emph{Coverage} also

@@ -6,7 +6,7 @@
 #' @param weight A weight to use.   Currently the following are available:
 #' \code{"proportion"}, \code{"percent"}.
 #' @param \ldots ignored
-#' @return Returns a weighted \code{\link[dplyr]{tbl_df}} object of term counts
+#' @return Returns a weighted \code{tibble::tibble} object of term counts
 #' by grouping variable.
 #' @keywords weight
 #' @export

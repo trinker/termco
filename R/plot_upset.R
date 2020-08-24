@@ -267,7 +267,7 @@ plot_upset <- function(x, text_funs = NULL, ...){
 }
 
 
-ratios_key <- dplyr::data_frame(
+ratios_key <- tibble::tibble(
     n.tags = 3:80,
     x1 = seq(from = .7, to =  .05, length.out = length(n.tags)),
     x2 = 1 - x1

@@ -281,7 +281,7 @@ tags2meta <- function(tags, meta.sep = '__', meta.names = c('meta'), ...){
         stringsAsFactors = FALSE
     )
 
-    out <- dplyr::tbl_df(out)
+    out <- tibble::tibble(out)
 
     class(out) <- c('metatags', class(out))
 

@@ -86,7 +86,7 @@ plot_counts_percent <- function(x, n = NULL, item.name = "Terms", rev= FALSE, dr
 
     dat <- data.frame(names(y), c(unlist(y)), stringsAsFactors = FALSE, row.names=NULL) %>%
         stats::setNames(c("Terms", "Frequency")) %>%
-        dplyr::tbl_df() %>%
+        tibble::tibble() %>%
         dplyr::mutate(
             Terms = factor(Terms, levels = Terms),
             Prop = Frequency/sum(y)
@@ -97,7 +97,7 @@ plot_counts_percent <- function(x, n = NULL, item.name = "Terms", rev= FALSE, dr
         if(any(!term.vars %in% dat[["Terms"]])){
             Terms <- rev(term.vars[!term.vars %in% dat[["Terms"]]])
             dat <- dplyr::bind_rows(
-                dplyr::data_frame(Terms = Terms, Frequency = rep(0, length(Terms)), Prop = Frequency),
+                tibble::tibble(Terms = Terms, Frequency = rep(0, length(Terms)), Prop = Frequency),
                 dat
             ) %>%
                 dplyr::mutate(Terms = factor(Terms, levels = Terms))
@@ -148,7 +148,7 @@ plot_counts_count <- function(x, n = NULL, item.name = "Terms", rev= FALSE, drop
 
     dat <- data.frame(names(y), c(unlist(y)), stringsAsFactors = FALSE, row.names=NULL) %>%
         stats::setNames(c("Terms", "Frequency")) %>%
-        dplyr::tbl_df() %>%
+        tibble::tibble() %>%
         dplyr::mutate(
             Terms = factor(Terms, levels = Terms)
          )
@@ -158,7 +158,7 @@ plot_counts_count <- function(x, n = NULL, item.name = "Terms", rev= FALSE, drop
         if(any(!term.vars %in% dat[["Terms"]])){
             Terms <- rev(term.vars[!term.vars %in% dat[["Terms"]]])
             dat <- dplyr::bind_rows(
-                dplyr::data_frame(Terms = Terms, Frequency = rep(0, length(Terms))),
+                tibble::tibble(Terms = Terms, Frequency = rep(0, length(Terms))),
                 dat
             ) %>%
                 dplyr::mutate(Terms = factor(Terms, levels = Terms))

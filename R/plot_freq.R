@@ -64,7 +64,7 @@ plot_freq <- function(x, direct.label = TRUE, size = 4,
 
     dat <- data.frame(names(y), c(unlist(y)), stringsAsFactors = FALSE, row.names=NULL) %>%
         stats::setNames(c("Frequency", "Counts")) %>%
-        dplyr::tbl_df() %>%
+        tibble::tibble() %>%
         dplyr::mutate(
             Frequency = factor(Frequency, levels = Frequency),
             Prop = Counts/sum(y),

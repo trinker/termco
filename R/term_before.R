@@ -39,7 +39,7 @@ term_before <- function(text.var, term, ignore.case = TRUE, ...){
     trms <- stats::na.omit(unlist(stringi::stri_extract_all_regex(text.var, regex)))
     if (length(trms) == 0) return(NULL)
     if (ignore.case) trms <- tolower(trms)
-    out <- dplyr::tbl_df(textshape::tidy_table(as.table(sort(table(trms), TRUE)), "term", "frequency"))
+    out <- tibble::tibble(textshape::tidy_table(as.table(sort(table(trms), TRUE)), "term", "frequency"))
     class(out) <- c("term_loc", class(out))
     out
 }
@@ -59,7 +59,7 @@ term_after <- function(text.var, term, ignore.case = TRUE, ...){
     trms <- stats::na.omit(unlist(stringi::stri_extract_all_regex(text.var, regex)))
     if (length(trms) == 0) return(NULL)
     if (ignore.case) trms <- tolower(trms)
-    out <- dplyr::tbl_df(textshape::tidy_table(as.table(sort(table(trms), TRUE)), "term", "frequency"))
+    out <- tibble::tibble(textshape::tidy_table(as.table(sort(table(trms), TRUE)), "term", "frequency"))
     class(out) <- c("term_loc", class(out))
     out
 }
@@ -75,7 +75,7 @@ term_first <- function(text.var, ignore.case = TRUE, ...){
     trms <- stats::na.omit(unlist(stringi::stri_extract_all_regex(text.var, regex)))
     if (length(trms) == 0) return(NULL)
     if (ignore.case) trms <- tolower(trms)
-    out <- dplyr::tbl_df(textshape::tidy_table(as.table(sort(table(trms), TRUE)), "term", "frequency"))
+    out <- tibble::tibble(textshape::tidy_table(as.table(sort(table(trms), TRUE)), "term", "frequency"))
     class(out) <- c("term_loc", class(out))
     out
 }

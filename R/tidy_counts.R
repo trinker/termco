@@ -77,7 +77,7 @@ tidy_counts <- function(x, ...){
     # z <- tag_cols(x)
     #
     # dplyr::bind_cols(
-    #     dplyr::data_frame(element_id = seq_len(nrow(x))),
+    #     tibble::tibble(element_id = seq_len(nrow(x))),
     #     tag_cols(x)
     # )
 
@@ -102,7 +102,7 @@ tidy_counts <- function(x, ...){
     #     colnames(out)[colnames(out) %in% 'id_temp_termco'] <- 'id'
     # }
 
-    out <- dplyr::tbl_df(out)
+    out <- tibble::tibble(out)
 
     out <- dplyr::bind_cols(out[, !colnames(out) %in% c('tag', 'n.tag'), drop =FALSE],
         out[, colnames(out) %in% c('tag', 'n.tag'), drop =FALSE])

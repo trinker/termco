@@ -61,7 +61,7 @@ by \code{meta.sep}.}
 \item{\ldots}{Other arguments passed to \code{\link[gofastr]{q_dtm}}.}
 }
 \value{
-Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
+Returns a tibble object of term counts by
 grouping variable.  Has all of the same features as a \code{term_count}
 object, meaning functions that work on a \code{term_count} object will
 operate on a a \code{token_count} object as well.

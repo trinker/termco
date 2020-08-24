@@ -90,8 +90,8 @@ collapse_tags <- function(x, mapping, ...){
     }
 
     count <- new.env(hash=FALSE)
-    count[["count"]] <- x <- dplyr::tbl_df(x)  
-    # x <- dplyr::tbl_df(x)
+    count[["count"]] <- x <- tibble::tibble(x)  
+    # x <- tibble::tibble(x)
 
     
     class(x) <- y[['class']]

@@ -38,7 +38,7 @@
 #' @param meta.names A vector of names corresponding to the meta tags generated
 #' by \code{meta.sep}.
 #' @param \ldots Other arguments passed to \code{\link[gofastr]{q_dtm}}.
-#' @return Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
+#' @return Returns a tibble object of term counts by
 #' grouping variable.  Has all of the same features as a \code{term_count}
 #' object, meaning functions that work on a \code{term_count} object will
 #' operate on a a \code{token_count} object as well.

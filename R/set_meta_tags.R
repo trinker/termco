@@ -87,7 +87,7 @@ check_set_tags <- function(x, tags, ...){
     validate_term_count(x)
     stopifnot(ncol(tags) > 1)
     cls <- colnames(tags)
-    tags <- dplyr::tbl_df(tags)[c('tag', cls[!cls %in% 'tag'])]
+    tags <- tibble::tibble(tags)[c('tag', cls[!cls %in% 'tag'])]
     #tags[] <- lapply(tags, as.character)
 
     type <- ifelse('token_count' %in% class(x), 'token', 'term')

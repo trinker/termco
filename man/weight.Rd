@@ -21,7 +21,7 @@ weight(x, weight = "percent", ...)
 \item{\ldots}{ignored}
 }
 \value{
-Returns a weighted \code{\link[dplyr]{tbl_df}} object of term counts
+Returns a weighted \code{tibble::tibble} object of term counts
 by grouping variable.
 }
 \description{

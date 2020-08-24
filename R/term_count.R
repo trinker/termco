@@ -30,11 +30,11 @@
 #' @param meta.names A vector of names corresponding to the meta tags generated
 #' by \code{meta.sep}.
 #' @param \ldots ignored.
-#' @return Returns a \code{\link[dplyr]{tbl_df}} object of term counts by
+#' @return Returns a tibble object of term counts by
 #' grouping variable.
 #' @note Note that while a \code{\link[termco]{term_count}} object prints as a
 #' combination of integer counts and weighted (default percent of terms) in
-#' parenthesis the underlying object is actually a \code{\link[dplyr]{tbl_df}}
+#' parenthesis the underlying object is actually a tibble
 #' of integer term/substring counts.  The user can alter a
 #' \code{\link[termco]{term_count}} object to print as integer permanently using
 #' the \code{\link[termco]{as_count}} function.  A percent \emph{Coverage} also
@@ -381,7 +381,7 @@ term_count <- function(text.var, grouping.var = NULL, term.list,
     regex <- new.env(hash=FALSE)
     regex[["term.list"]] <- term.list
 
-    out <- dplyr::tbl_df(out)
+    out <- tibble::tibble(out)
     class(out) <- c("term_count", class(out))
 
     if(isTRUE(list_list)) class(out) <- c("hierarchical_term_count", class(out))
