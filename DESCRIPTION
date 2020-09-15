@@ -1,6 +1,6 @@
 Package: termco
 Title: Counts of Terms and Substrings
-Version: 0.5.9
+Version: 0.5.10
 Authors@R: c( person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")), person("Steven",
              "Simpson", role = "ctb"), person("Ken", "Benoit", role = "ctb") )
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
@@ -14,7 +14,7 @@ Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggraph, ggst
 Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
 License: MIT + file LICENSE
 LazyData: TRUE
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 ByteCompile: true
 BugReports: https://github.com/trinker/termco/issues?state=open
 URL: https://github.com/trinker/termco

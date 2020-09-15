@@ -163,12 +163,12 @@ combine_counts <- function(x, y, mapping = NULL, ...){
     ## recombine the counts, the group cols, and the token/term cols
     if (y_type != x_type) {
 
-        tknsx <- dplyr::select_(x, paste0('n.', ifelse(x_type == 'token', 'tokens', 'words')))
-        tknsy <- dplyr::select_(y, paste0('n.', ifelse(y_type == 'token', 'tokens', 'words')))
+        tknsx <- dplyr::select(x, paste0('n.', ifelse(x_type == 'token', 'tokens', 'words')))
+        tknsy <- dplyr::select(y, paste0('n.', ifelse(y_type == 'token', 'tokens', 'words')))
         out <- dplyr::bind_cols(group_cols(switch(x_type, term = {x}, token = {y})), tknsx, tknsy, cnts)
 
     } else {
-        tkns <- dplyr::select_(x, paste0('n.', ifelse(x_type == 'token', 'tokens', 'words')))
+        tkns <- dplyr::select(x, paste0('n.', ifelse(x_type == 'token', 'tokens', 'words')))
         out <- dplyr::bind_cols(group_cols(x), tkns, cnts)
     }
 

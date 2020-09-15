@@ -61,6 +61,8 @@
 #' }
 validate_model <- function(x, n = 20, width = 50, tags = 1, filter = NULL, ...){
 
+    tag <- NULL
+    
     terms <- ifelse(inherits(x, 'token_count'), "token.vars", "term.vars")
     type <- ifelse(inherits(x, 'token_count'), "token", "term")
 

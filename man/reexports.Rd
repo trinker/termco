@@ -12,6 +12,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{gofastr}{\code{\link[gofastr]{as_dtm}}, \code{\link[gofastr]{as_tdm}}}
+  \item{gofastr}{\code{\link[gofastr]{as_dtm}}, \code{\link[gofastr:as_dtm]{as_tdm}}}
 }}
 
