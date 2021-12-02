@@ -14,7 +14,8 @@ Imports: ca, clipr, cowplot, data.table, dplyr (>= 0.4.3), ggplot2, ggraph, ggst
 Suggests: intergraph, knitr, lexicon, rmarkdown, qdapRegex, rgl, testthat
 License: MIT + file LICENSE
 LazyData: TRUE
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 ByteCompile: true
 BugReports: https://github.com/trinker/termco/issues?state=open
 URL: https://github.com/trinker/termco
+Encoding: UTF-8

@@ -46,7 +46,9 @@ for internal use.}
 \item{meta.sep}{A character separator (or character vector of separators) to
 break up the term list names (tags) into that will generate an merge table
 attribute on the output that has the supplied tags and meta + sub tags as
-dictated by the separator breaks.}
+dictated by the separator breaks. Meta tags called in \code{tidy_counts}.  Note
+that these tags can be set after \code{term_count}'s object is returned using
+the \code{set_meta_tags} function.}
 
 \item{meta.names}{A vector of names corresponding to the meta tags generated
 by \code{meta.sep}.}

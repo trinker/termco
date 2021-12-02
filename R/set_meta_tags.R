@@ -1,7 +1,7 @@
 #' Set Meta Tags Attribute on a \code{term_count}/\code{token_count} Object
 #'
 #' Set the \code{metatags} attribute on a \code{term_count}/\code{token_count}
-#' object.
+#' object.  Meta tags called in \code{tidy_counts}.
 #'
 #' @param x A \code{term_count}/\code{token_count} object.
 #' @param tags A data.frame with a \code{'tag'} column corresponding to the tag

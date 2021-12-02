@@ -28,7 +28,7 @@ Returns a \code{term_count}/\code{token_count} object with the
 }
 \description{
 Set the \code{metatags} attribute on a \code{term_count}/\code{token_count}
-object.
+object.  Meta tags called in \code{tidy_counts}.
 }
 \examples{
 token_list2 <- list(
